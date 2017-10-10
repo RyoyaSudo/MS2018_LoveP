@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour {
     void Start()
     {
         Vector3 offsetV = transform.position - player.transform.position;
+
         radius = offsetV.magnitude;
         offset = new Vector3( 0.0f , 5.0f , -3.0f );
     }

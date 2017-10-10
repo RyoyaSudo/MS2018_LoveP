@@ -7,18 +7,18 @@ public class SpawnPoint : MonoBehaviour {
     //人プレファブアタッチ
     public GameObject humanPrefab;
 
-	//初期化
-	void Start () 
+    //初期化
+    void Start()
     {
-		
-	}
-	
-	// 更新
-	void Update () 
+
+    }
+
+    // 更新
+    void Update()
     {
         //回転
         transform.Rotate(new Vector3(0, 20, 0) * Time.deltaTime);
-	}
+    }
 
     /*****************************************************************************
     * 関数名:HumanSpawn
@@ -33,6 +33,4 @@ public class SpawnPoint : MonoBehaviour {
                                                this.transform.position,             //位置
                                                Quaternion.identity) as GameObject;  //回転
     }
-
-
 }

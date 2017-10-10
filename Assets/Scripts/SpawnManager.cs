@@ -16,20 +16,20 @@ public class SpawnManager : MonoBehaviour {
     //スポーンポイントのゲームオブジェクト保存
     SpawnPoint[] spawnPointObject;
 
-	// 初期化
-	void Start () 
+    // 初期化
+    void Start()
     {
         //スポーンポイント生成
         spawnPointObject = new SpawnPoint[spawnNum];
-        
+
         for (int i = 0; i < spawnNum; i++)
         {
             SpawnPointCreate(i, spawnPoint[i]);
         }
-	}
-	
-	// 更新
-	void Update () 
+    }
+
+    // 更新
+    void Update()
     {
         if (Input.GetKeyDown("0"))
         {
@@ -43,7 +43,7 @@ public class SpawnManager : MonoBehaviour {
         {
             HumanCreate(2);
         }
-	}
+    }
 
     /*****************************************************************************
     * 関数名:SpawnPointCreate
@@ -52,7 +52,7 @@ public class SpawnManager : MonoBehaviour {
     * 戻り値:0
     * 説明:スポーンポイントを生成
     *****************************************************************************/
-    void SpawnPointCreate(int num , Vector3 position)
+    void SpawnPointCreate(int num, Vector3 position)
     {
         //生成
         GameObject SpawnPoint = Instantiate(spawnPointPrefab,                       //ゲームオブジェクト
@@ -63,7 +63,7 @@ public class SpawnManager : MonoBehaviour {
         SpawnPoint.transform.parent = transform;
 
         //表示
-        SpawnPoint.name = "Spown"+ num ;
+        SpawnPoint.name = "Spown" + num;
 
         //生成したブロックを配列に保存
         spawnPointObject[num] = SpawnPoint.GetComponent<SpawnPoint>();
