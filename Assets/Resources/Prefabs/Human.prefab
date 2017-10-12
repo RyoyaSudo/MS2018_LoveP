@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136268167141354494}
   - component: {fileID: 23433282335043974}
   - component: {fileID: 54589140452261234}
+  - component: {fileID: 114706198046989252}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -97,6 +98,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114706198046989252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855864420198856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8e771138c642c438b9551e3106843b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupType: 0
+  stateType: 0
+  pearRideNum: 2
+  smallRideNum: 3
+  bigRideNum: 5
 --- !u!136 &136268167141354494
 CapsuleCollider:
   m_ObjectHideFlags: 1
