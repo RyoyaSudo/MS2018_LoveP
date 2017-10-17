@@ -22,17 +22,18 @@ public class SpawnPoint : MonoBehaviour {
 
     /*****************************************************************************
     * 関数名:HumanSpawn
-    * 引数:なし
+    * 引数：gourpType:人のグループタイプ
     * 戻り値:0
     * 説明:人を生成
     *****************************************************************************/
-    public void HumanSpawn()
+    public void HumanSpawn(Human.GROUPTYPE groupType )
     {
         //生成
         GameObject human = Instantiate(humanPrefab,                                 //ゲームオブジェクト
                                                this.transform.position,             //位置
                                                Quaternion.identity) as GameObject;  //回転
+
+        //グループタイプを設定
+        human.GetComponent<Human>().groupType = groupType;
     }
-
-
 }
