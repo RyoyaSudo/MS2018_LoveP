@@ -58,7 +58,6 @@ public class TimeCtrl : MonoBehaviour {
             Timeleft = 0.0f;
             TimeSet(1);
         }
-        Debug.Log(Timeleft);
 
         TimeConma++;
         ConmaSet(TimeConma);
