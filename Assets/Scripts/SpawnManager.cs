@@ -26,6 +26,7 @@ public class SpawnManager : MonoBehaviour {
         {
             SpawnPointCreate(i, spawnPoint[i]);
         }
+ 
     }
 
     // 更新
@@ -33,15 +34,15 @@ public class SpawnManager : MonoBehaviour {
     {
         if (Input.GetKeyDown("0"))
         {
-            HumanCreate(0);
+            HumanCreate(0,Human.GROUPTYPE.PEAR);
         }
         if (Input.GetKeyDown("1"))
         {
-            HumanCreate(1);
+            HumanCreate(1,Human.GROUPTYPE.SMAlLL);
         }
         if (Input.GetKeyDown("2"))
         {
-            HumanCreate(2);
+            HumanCreate(2,Human.GROUPTYPE.BIG);
         }
     }
 
@@ -72,12 +73,12 @@ public class SpawnManager : MonoBehaviour {
     /*****************************************************************************
     * 関数名:HumanCreate
     * 引数：spawnPointNum:スポーンポイントの番号
+    * 引数：groupType    :人のグループタイプ
     * 戻り値:0
     * 説明:スポーンポイントから人を生成
     *****************************************************************************/
-    void HumanCreate(int spawnPointNum)
+    void HumanCreate(int spawnPointNum , Human.GROUPTYPE groupType )
     {
-        spawnPointObject[spawnPointNum].HumanSpawn();
+        spawnPointObject[spawnPointNum].HumanSpawn(groupType);
     }
-
 }
