@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Human : MonoBehaviour {
+public class Human : MonoBehaviour{
 
     //グループタイプ
    public enum GROUPTYPE
@@ -30,15 +30,15 @@ public class Human : MonoBehaviour {
     public STATETYPE stateType;
 
     //乗車人数
-    public int pearRideNum;
-    public int smallRideNum;
-    public int bigRideNum;
+    //public int pearPassengerNum;
+    //public int smallPassengerNum;
+    //public int bigPassengerNum;
 
     //乗車させる人数
-    int maxRideNum;
+    //int maxPassengerNum;
 
     //現在の乗車人数
-    //int currentRideNum=0;
+    //int currentPassengerNum;
 
 	// 初期化
 	void Start ()
@@ -46,24 +46,24 @@ public class Human : MonoBehaviour {
         //状態を「生成」に
         stateType = STATETYPE.CREATE;
 
-        //乗車させる人数を設定
-        switch (groupType)
-        {
-            //ペア
-            case GROUPTYPE.PEAR:
-                maxRideNum = pearRideNum;
-                break;
+        ////乗車させる人数を設定
+        //switch (groupType)
+        //{
+        //    //ペア
+        //    case GROUPTYPE.PEAR:
+        //        maxPassengerNum = pearPassengerNum;
+        //        break;
 
-            //小グループ
-            case GROUPTYPE.SMAlLL:
-                maxRideNum = smallRideNum;
-                break;
+        //    //小グループ
+        //    case GROUPTYPE.SMAlLL:
+        //        maxPassengerNum = smallPassengerNum;
+        //        break;
 
-            //大グループ
-            case GROUPTYPE.BIG:
-                maxRideNum = bigRideNum;
-                break;
-        }
+        //    //大グループ
+        //    case GROUPTYPE.BIG:
+        //        maxPassengerNum = bigPassengerNum;
+        //        break;
+        //}
     }
 	
 	// 更新
@@ -80,6 +80,7 @@ public class Human : MonoBehaviour {
 
             //待機
             case STATETYPE.READY:
+
                 break;
 
             //回避
@@ -88,7 +89,7 @@ public class Human : MonoBehaviour {
 
             //乗車
             case STATETYPE.RIDE:
-   
+                
                 break;
 
             //下車
@@ -109,5 +110,30 @@ public class Human : MonoBehaviour {
                 Destroy(this.gameObject);
                 break;
         }
+    }
+
+    /*****************************************************************************
+    * 関数名:SetPassengerNum
+    * 引数：passengerNum:乗客人数
+    * 戻り値:0
+    * 説明:乗客人数をセット
+     *****************************************************************************/
+    //public void SetPassengerNum ( int passengerNum )
+    //{
+    //    currentPassengerNum = passengerNum;
+
+    //    //状態を「運搬」に
+    //    stateType = STATETYPE.TRANSPORT;
+    //}
+
+    /*****************************************************************************
+    * 関数名:SetStateType
+    * 引数：type:状態
+    * 戻り値:0
+    * 説明:状態をセット
+     *****************************************************************************/
+    public void SetStateType ( STATETYPE type )
+    {
+        stateType = type;
     }
 }
