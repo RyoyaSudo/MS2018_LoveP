@@ -17,6 +17,8 @@ public class Player : MonoBehaviour {
     int rideGroupNum; //グループ乗車人数
     private GameObject[] passengerObj;
 
+    public GameObject ScoreObj;
+
     public enum State
     {
         PLAYER_STATE_STOP = 0,
@@ -94,6 +96,7 @@ public class Player : MonoBehaviour {
                                 passengerObj[i].transform.parent = null;
                                 passengerObj[i].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
                             }
+                            ScoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore(rideGroupNum);
                             rideCount = 0;
                         }
                     }

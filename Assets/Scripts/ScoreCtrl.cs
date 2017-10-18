@@ -122,4 +122,10 @@ public class ScoreCtrl : MonoBehaviour {
             }
         }
     }
+
+    //スコア加算関数
+    public void AddScore( int add )
+    {
+        totalScore += add;
+    }
 }
