@@ -52,15 +52,10 @@ public class Player : MonoBehaviour {
                     if( rb.velocity.magnitude < 1.0f)//ほぼ停止してるなら
                     {
                         if (other.transform.parent.gameObject.GetComponent<Human>().stateType != Human.STATETYPE.READY) break;
-                        state = State.PLAYER_STATE_TAKE_READY;
+                        //state = State.PLAYER_STATE_TAKE_READY;
+                        state = State.PLAYER_STATE_TAKE;
 
-                        //乗客を子にする
-                        other.transform.parent.gameObject.transform.position = transform.position;
-                        other.transform.parent.transform.parent = transform;
-                        other.transform.parent.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.TRANSPORT);
-                        Debug.Log("Ride");
-
-                        if( rideCount == 0 )//最初の乗客なら
+                        if ( rideCount == 0 )//最初の乗客なら
                         {
                             switch(other.transform.parent.gameObject.GetComponent<Human>().groupType)
                             {
@@ -85,6 +80,12 @@ public class Player : MonoBehaviour {
                             }
                             passengerObj = new GameObject[rideGroupNum];
                         }
+
+                        //乗客を子にする
+                        other.transform.parent.gameObject.transform.position = transform.position;
+                        other.transform.parent.transform.parent = transform;
+                        other.transform.parent.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.TRANSPORT);
+                        Debug.Log("Ride");
                         passengerObj[rideCount] = other.transform.parent.gameObject;
                         rideCount++;
 
@@ -99,8 +100,7 @@ public class Player : MonoBehaviour {
                             ScoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore(rideGroupNum);
                             rideCount = 0;
                         }
-                    }
-                    
+                    }    
                     break;
                 }
         }
