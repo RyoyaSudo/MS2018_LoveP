@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
                     {
                         if (other.transform.parent.gameObject.GetComponent<Human>().stateType != Human.STATETYPE.READY) break;
                         //state = State.PLAYER_STATE_TAKE_READY;
-                        state = State.PLAYER_STATE_TAKE;
+                        //state = State.PLAYER_STATE_TAKE;
 
                         if ( rideCount == 0 )//最初の乗客なら
                         {
