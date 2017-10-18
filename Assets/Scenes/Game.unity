@@ -410,8 +410,13 @@ Prefab:
     - target: {fileID: 54278143271472112, guid: c8236637a20555245af5d2308b653ffb,
         type: 2}
       propertyPath: m_Drag
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: ScoreObj
+      value: 
+      objectReference: {fileID: 1898573688}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8236637a20555245af5d2308b653ffb, type: 2}
   m_IsPrefabParent: 0
@@ -886,6 +891,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 62b66942a91848648a662a65186dfd1a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1898573688 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1015328923925372, guid: cbf1023241cdee945a44b9faea4b9b59,
+    type: 2}
+  m_PrefabInternal: {fileID: 436334482}
 --- !u!1001 &2002572538
 Prefab:
   m_ObjectHideFlags: 0

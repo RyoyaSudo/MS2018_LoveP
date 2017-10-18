@@ -13,7 +13,12 @@ public class Player : MonoBehaviour {
     float pushAddValue;
     float pushForceFriction;
 
-    int rideCount; //乗車人数
+    int rideCount; //現在乗車人数
+    int rideGroupNum; //グループ乗車人数
+    private GameObject[] passengerObj;
+
+    public GameObject ScoreObj;
+
     public enum State
     {
         PLAYER_STATE_STOP = 0,
@@ -46,16 +51,56 @@ public class Player : MonoBehaviour {
                 {
                     if( rb.velocity.magnitude < 1.0f)//ほぼ停止してるなら
                     {
-                        state = State.PLAYER_STATE_TAKE_READY;
+                        if (other.transform.parent.gameObject.GetComponent<Human>().stateType != Human.STATETYPE.READY) break;
+                        //state = State.PLAYER_STATE_TAKE_READY;
+                        //state = State.PLAYER_STATE_TAKE;
 
+                        if ( rideCount == 0 )//最初の乗客なら
+                        {
+                            switch(other.transform.parent.gameObject.GetComponent<Human>().groupType)
+                            {
+                                case Human.GROUPTYPE.PEAR:
+                                    {
+                                        rideGroupNum = 2;
+                                        Debug.Log("PEAR");
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.SMAlLL:
+                                    {
+                                        rideGroupNum = 3;
+                                        Debug.Log("SMALL");
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.BIG:
+                                    {
+                                        rideGroupNum = 5;
+                                        Debug.Log("BIG");
+                                        break;
+                                    }
+                            }
+                            passengerObj = new GameObject[rideGroupNum];
+                        }
+
+                        //乗客を子にする
                         other.transform.parent.gameObject.transform.position = transform.position;
                         other.transform.parent.transform.parent = transform;
-                        rideCount++;
-                        //collision.gameObject.GetComponent<>;
+                        other.transform.parent.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.TRANSPORT);
                         Debug.Log("Ride");
+                        passengerObj[rideCount] = other.transform.parent.gameObject;
+                        rideCount++;
 
-                    }
-                    
+                        //最後の人なら降ろす
+                        if( rideCount >= rideGroupNum)
+                        {
+                            for( int i = 0; i < rideCount; i++ )
+                            {
+                                passengerObj[i].transform.parent = null;
+                                passengerObj[i].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
+                            }
+                            ScoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore(rideGroupNum);
+                            rideCount = 0;
+                        }
+                    }    
                     break;
                 }
         }
