@@ -27,6 +27,8 @@ public class Player : MonoBehaviour {
     public float speedMax;//最高速
     public float turboRatio;//ターボレシオ
 
+    public GameObject[] vehicleModel;
+
     public enum State
     {
         PLAYER_STATE_STOP = 0,
@@ -36,6 +38,15 @@ public class Player : MonoBehaviour {
     }
     State state;
 
+    public enum VehicleType
+    {
+        VEHICLE_TYPE_BIKE = 0,
+        VEHICLE_TYPE_CAR,
+        VEHICLE_TYPE_BUS,
+        VEHICLE_TYPE_AIRPLANE,
+    }
+    VehicleType vehicleType;
+
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
@@ -44,6 +55,9 @@ public class Player : MonoBehaviour {
         pushForceFriction = 0.05f;
         rideCount = 0;
         pushCharge = 0;
+        state = State.PLAYER_STATE_STOP;
+        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
+        vehicleModel[(int)vehicleType].SetActive(true);
     }
 	
 	// Update is called once per frame
