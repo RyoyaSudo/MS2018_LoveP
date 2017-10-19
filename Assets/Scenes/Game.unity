@@ -400,7 +400,7 @@ Prefab:
     - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
         type: 2}
       propertyPath: speed
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 54278143271472112, guid: c8236637a20555245af5d2308b653ffb,
         type: 2}
@@ -410,16 +410,55 @@ Prefab:
     - target: {fileID: 54278143271472112, guid: c8236637a20555245af5d2308b653ffb,
         type: 2}
       propertyPath: m_Drag
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
         type: 2}
       propertyPath: ScoreObj
       value: 
       objectReference: {fileID: 1898573688}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: scoreObj
+      value: 
+      objectReference: {fileID: 1898573688}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: spawnManagerObj
+      value: 
+      objectReference: {fileID: 1032134221}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: turnPower
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: turnPowerPush
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: speedMax
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: turboRatio
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169648265345784, guid: c8236637a20555245af5d2308b653ffb, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8236637a20555245af5d2308b653ffb, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1032134221 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1535518032094462, guid: 62b66942a91848648a662a65186dfd1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860078066}
 --- !u!1 &1291008964 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1400332630285886, guid: 2ae2b587131131d49a2cd6bf95cd0da8,
