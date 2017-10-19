@@ -17,7 +17,17 @@ public class Player : MonoBehaviour {
     int rideGroupNum; //グループ乗車人数
     private GameObject[] passengerObj;
 
-    public GameObject ScoreObj;
+    public GameObject scoreObj;
+    public GameObject spawnManagerObj;
+
+    public float turnPowerPush;//プッシュ時旋回力
+    public float turnPower;//旋回力
+
+    int  pushCharge;//pushチャージ量
+    public float speedMax;//最高速
+    public float turboRatio;//ターボレシオ
+
+    public GameObject[] vehicleModel;
 
     public enum State
     {
@@ -28,6 +38,15 @@ public class Player : MonoBehaviour {
     }
     State state;
 
+    public enum VehicleType
+    {
+        VEHICLE_TYPE_BIKE = 0,
+        VEHICLE_TYPE_CAR,
+        VEHICLE_TYPE_BUS,
+        VEHICLE_TYPE_AIRPLANE,
+    }
+    VehicleType vehicleType;
+
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +54,10 @@ public class Player : MonoBehaviour {
         pushAddValue = 0.10f;
         pushForceFriction = 0.05f;
         rideCount = 0;
+        pushCharge = 0;
+        state = State.PLAYER_STATE_STOP;
+        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
+        vehicleModel[(int)vehicleType].SetActive(true);
     }
 	
 	// Update is called once per frame
@@ -51,6 +74,7 @@ public class Player : MonoBehaviour {
                 {
                     if( rb.velocity.magnitude < 1.0f)//ほぼ停止してるなら
                     {
+                        //乗車待機状態じゃないならbreak;
                         if (other.transform.parent.gameObject.GetComponent<Human>().stateType != Human.STATETYPE.READY) break;
                         //state = State.PLAYER_STATE_TAKE_READY;
                         //state = State.PLAYER_STATE_TAKE;
@@ -78,7 +102,10 @@ public class Player : MonoBehaviour {
                                         break;
                                     }
                             }
+                            //グループの大きさ分確保する
                             passengerObj = new GameObject[rideGroupNum];
+                            //spawnManagerにペアを生成してもらう
+                            //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
                         }
 
                         //乗客を子にする
@@ -97,7 +124,7 @@ public class Player : MonoBehaviour {
                                 passengerObj[i].transform.parent = null;
                                 passengerObj[i].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
                             }
-                            ScoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore(rideGroupNum);
+                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore(rideGroupNum);
                             rideCount = 0;
                         }
                     }    
@@ -110,6 +137,17 @@ public class Player : MonoBehaviour {
     {
         float moveV = Input.GetAxis("Vertical");
         float moveH = Input.GetAxis("Horizontal");
+
+        //プッシュ時と通常時で旋回力を分ける
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
+        {
+            moveH *= turnPowerPush;
+        }
+        else
+        {
+            moveH *= turnPower;//旋回力をかける
+        }
+            
 
         Vector3 direction = new Vector3(moveH, 0.0f, moveV);
 
@@ -126,7 +164,7 @@ public class Player : MonoBehaviour {
         //rb.AddForce(force);
 
         // プッシュ動作
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1") )
         {
             force = new Vector3(0.0f, 0.0f, 0.0f);
             rb.velocity *= 0.975f;//減速
@@ -136,19 +174,31 @@ public class Player : MonoBehaviour {
                 rb.velocity *= 0.0f;
                 state = State.PLAYER_STATE_STOP;
             }
+            pushCharge++;
         }
 
         // プッシュ解放した後のダッシュ
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1"))
         {
-            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+
+            if( pushCharge >= 60 )
+            {
+                rb.AddForce(force * turboRatio, ForceMode.VelocityChange);
+            }
             //force *= ( 30.0f * rb.mass );
-            rb.AddForce(force * 4.0f, ForceMode.VelocityChange);
+            pushCharge = 0;     
         }
 
         // 今回の速度加算
         rb.AddForce(force, ForceMode.Acceleration);
 
+        //最高速を設定
+        if( rb.velocity.magnitude >= speedMax)
+        {
+           // Debug.Log("最高速");
+            rb.velocity = rb.velocity.normalized * speedMax;
+        }
 
         ////停止処理
         //if( rb.velocity.magnitude < 1.0f)

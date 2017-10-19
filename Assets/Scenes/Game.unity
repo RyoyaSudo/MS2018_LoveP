@@ -399,24 +399,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
         type: 2}
-      propertyPath: speed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 54278143271472112, guid: c8236637a20555245af5d2308b653ffb,
-        type: 2}
-      propertyPath: m_CollisionDetection
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 54278143271472112, guid: c8236637a20555245af5d2308b653ffb,
-        type: 2}
-      propertyPath: m_Drag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
-        type: 2}
-      propertyPath: ScoreObj
+      propertyPath: scoreObj
       value: 
       objectReference: {fileID: 1898573688}
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: spawnManagerObj
+      value: 
+      objectReference: {fileID: 1818603789}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8236637a20555245af5d2308b653ffb, type: 2}
   m_IsPrefabParent: 0
@@ -744,6 +734,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1818603789 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1648512796981284, guid: 05cf89f3cf6fc724896a1edc82eceed4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860078066}
 --- !u!1001 &1838913272
 Prefab:
   m_ObjectHideFlags: 0
