@@ -32,6 +32,14 @@ public class Human : MonoBehaviour{
     //スポーン場所
     public int spawnPlace;
 
+    //モデル
+    GameObject model;
+
+    //人アタッチ
+    public GameObject pearPrefab;   //ペア
+    public GameObject smallPrefab;  //小グループ
+    public GameObject bigPrefab;    //大グループ
+
     //乗車させる人数
     //int maxPassengerNum;
 
@@ -134,4 +142,40 @@ public class Human : MonoBehaviour{
     {
         stateType = type;
     }
+
+    /*****************************************************************************
+    * 関数名:ModelCreate
+    * 引数：type:状態
+    * 戻り値:0
+    * 説明:生成
+     *****************************************************************************/
+    public void ModelCreate( Human.GROUPTYPE groupType)
+    {
+        switch (groupType)
+        {
+            //ペア
+            case Human.GROUPTYPE.PEAR:
+                model = pearPrefab;
+                break;
+
+            //小グループ
+            case Human.GROUPTYPE.SMAlLL:
+                model = smallPrefab;
+                break;
+
+            //大グループ
+            case Human.GROUPTYPE.BIG:
+                model = bigPrefab;
+                break;
+        }
+
+        //生成
+        GameObject human = Instantiate(model,                                        //ゲームオブジェクト
+                                               this.transform.position,             //位置
+                                               Quaternion.identity) as GameObject;  //回転
+
+        //自分の親を自分にする
+        human.transform.parent = transform;
+    }
 }
+
