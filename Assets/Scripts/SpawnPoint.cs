@@ -22,11 +22,12 @@ public class SpawnPoint : MonoBehaviour {
 
     /*****************************************************************************
     * 関数名:HumanSpawn
+    * 引数：spawnPointNum:スポーンポイントの番号
     * 引数：gourpType:人のグループタイプ
     * 戻り値:0
     * 説明:人を生成
     *****************************************************************************/
-    public void HumanSpawn(Human.GROUPTYPE groupType )
+    public void HumanSpawn(int spawnPointNum ,Human.GROUPTYPE groupType )
     {
         //生成
         GameObject human = Instantiate(humanPrefab,                                 //ゲームオブジェクト
@@ -35,5 +36,8 @@ public class SpawnPoint : MonoBehaviour {
 
         //グループタイプを設定
         human.GetComponent<Human>().groupType = groupType;
+
+        //スポーンの場所を設定
+        human.GetComponent<Human>().spawnPlace = spawnPointNum;
     }
 }

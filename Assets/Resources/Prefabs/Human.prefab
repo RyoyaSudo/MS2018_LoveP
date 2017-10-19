@@ -141,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupType: 0
   stateType: 0
+  spawnPlace: 0
 --- !u!136 &136656099614015812
 CapsuleCollider:
   m_ObjectHideFlags: 1
