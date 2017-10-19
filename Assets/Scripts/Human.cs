@@ -29,10 +29,8 @@ public class Human : MonoBehaviour{
     public GROUPTYPE groupType;
     public STATETYPE stateType;
 
-    //乗車人数
-    //public int pearPassengerNum;
-    //public int smallPassengerNum;
-    //public int bigPassengerNum;
+    //スポーン場所
+    public int spawnPlace;
 
     //乗車させる人数
     //int maxPassengerNum;
@@ -40,8 +38,8 @@ public class Human : MonoBehaviour{
     //現在の乗車人数
     //int currentPassengerNum;
 
-	// 初期化
-	void Start ()
+    // 初期化
+    void Start ()
     {
         //状態を「生成」に
         stateType = STATETYPE.CREATE;
