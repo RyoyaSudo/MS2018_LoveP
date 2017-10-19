@@ -16,6 +16,11 @@ public class SpawnManager : MonoBehaviour {
     //スポーンポイントのゲームオブジェクト保存
     SpawnPoint[] spawnPointObject;
 
+    //乗車人数
+    public int pearPassengerNum;
+    public int smallPassengerNum;
+    public int bigPassengerNum;
+
     // 初期化
     void Start()
     {
@@ -43,6 +48,10 @@ public class SpawnManager : MonoBehaviour {
         if (Input.GetKeyDown("2"))
         {
             HumanCreate(2,Human.GROUPTYPE.BIG);
+        }
+        if (Input.GetKeyDown("5"))
+        {
+            SpawnHumanGroup(0, Human.GROUPTYPE.BIG);
         }
     }
 
@@ -79,6 +88,81 @@ public class SpawnManager : MonoBehaviour {
     *****************************************************************************/
     void HumanCreate(int spawnPointNum , Human.GROUPTYPE groupType )
     {
-        spawnPointObject[spawnPointNum].HumanSpawn(groupType);
+        spawnPointObject[spawnPointNum].HumanSpawn( spawnPointNum , groupType);
+    }
+
+    /*****************************************************************************
+    * 関数名:SpawnHumanGroup
+    * 引数：groupType  :人のグループタイプ
+    * 引数：spawnPlac  :人のスポーン場所
+    * 戻り値:0
+    * 説明:グループタイプからそのグループの相方たちを生成
+    *****************************************************************************/
+    void SpawnHumanGroup ( int spawnPlace , Human.GROUPTYPE groupType)
+    {
+        //相方たちの人数
+        int passengerNum=0;
+
+        //グループによって相方の人数を決める
+        switch ( groupType )
+        {
+            //ペア
+            case Human.GROUPTYPE.PEAR:
+                passengerNum = pearPassengerNum - 1;
+                break;
+
+            //小グループ
+            case Human.GROUPTYPE.SMAlLL:
+                passengerNum = smallPassengerNum - 1;
+                break;
+
+            //大グループ
+            case Human.GROUPTYPE.BIG:
+                passengerNum = bigPassengerNum - 1;
+                break;
+        }
+
+        //ランダム数
+        int randam;
+
+        //スポーンポイントに人が生成されているかどうか
+        bool[] existPlace = new bool[spawnNum];
+
+        //初期化
+        for (int nCnt = 0; nCnt < spawnNum; nCnt++ )
+        {
+            existPlace[nCnt] = false;
+        }
+
+        existPlace[spawnPlace] = true;
+
+        //相方生成を人数分生成
+        for ( int nCnt = 0; nCnt < passengerNum; nCnt++ )
+        {
+            while(true)
+            {
+
+                bool bOut = false;
+                randam = Random.Range(0, spawnNum);
+
+                for (int i = 0; i < spawnNum; i++)
+                {
+                    if (existPlace[i] == false && i == randam)
+                    {
+                        existPlace[i] = true;
+                        bOut = true;
+                        break;
+                    }
+                }
+
+                if (bOut)
+                {
+                    break;
+                }
+            }
+
+            //人生成
+            HumanCreate(randam,groupType);
+        }
     }
 }
