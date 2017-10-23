@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour {
     public Vector3[] spawnPoint;
 
     //スポーンポイントの数
-    public int spawnNum;
+    int spawnNum;
 
     //スポーンポイントのゲームオブジェクト保存
     SpawnPoint[] spawnPointObject;
@@ -24,6 +24,7 @@ public class SpawnManager : MonoBehaviour {
     // 初期化
     void Start()
     {
+		spawnNum = spawnPoint.Length;
         //スポーンポイント生成
         spawnPointObject = new SpawnPoint[spawnNum];
 
@@ -94,11 +95,10 @@ public class SpawnManager : MonoBehaviour {
     /*****************************************************************************
     * 関数名:SpawnHumanGroup
     * 引数：groupType  :人のグループタイプ
-    * 引数：spawnPlac  :人のスポーン場所
-    * 戻り値:0
+    * 引数：spawnPlac  :現在取得した人の場所番号。この場所は除外して考える。
     * 説明:グループタイプからそのグループの相方たちを生成
     *****************************************************************************/
-    void SpawnHumanGroup ( int spawnPlace , Human.GROUPTYPE groupType)
+    public void SpawnHumanGroup ( int spawnPlace , Human.GROUPTYPE groupType)
     {
         //相方たちの人数
         int passengerNum=0;
@@ -165,4 +165,6 @@ public class SpawnManager : MonoBehaviour {
             HumanCreate(randam,groupType);
         }
     }
+
+   
 }

@@ -27,7 +27,10 @@ public class TimeCtrl : MonoBehaviour {
     public GameObject[] ConmaArray;    //コンマ専用配列
 	private int[] ConmaStack;           //コンマ専用スタック
 
-	void Start()
+    [SerializeField]
+    Sprite numberSp;
+
+    void Start()
 	{
         //分,秒の初期化
         TimeMinute = 5;
@@ -42,13 +45,18 @@ public class TimeCtrl : MonoBehaviour {
 		//桁数分スコアを生成する
 		for (int nCnt = 0; nCnt < TIME_MAX; nCnt++)
 		{
-			pos = new Vector3(TimePrefab.transform.position.x + TIME_DEFAULT_POS - (white_space * nCnt), 6.0f, 0.0f);
+            //pos = new Vector3( ScorePrefab.transform.position.x + SCORE_DEFAULT_POS - ( white_space * nCnt ) , 6.0f , 0.0f );
+            //pos.x = ( ( float )Screen.width / 2.0f ) / 2.0f + unitSize * nCnt;
+            pos.y = ( ( float )Screen.height / 2.0f ) - 20.0f;
+            pos.z = 0.0f;
+
+            pos = new Vector3(TimePrefab.transform.position.x + TIME_DEFAULT_POS - (white_space * nCnt), 6.0f, 0.0f);
 
 			TimeArray[nCnt] = Instantiate(TimePrefab, pos, Quaternion.identity); //Time生成
 
 			TimeArray[nCnt].transform.parent = gameObject.transform;   //生成されたTimeArrayに元のTimeに親子関係を紐づけする
 		}
-	}
+    }
 
 	void Update()
 	{

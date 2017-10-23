@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     public float speed;
 
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour {
     private GameObject[] passengerObj;
 
     public GameObject scoreObj;
-    public GameObject spawnManagerObj;
+    public SpawnManager spawnManagerObj;
 
     public float turnPowerPush;//プッシュ時旋回力
     public float turnPower;//旋回力
@@ -48,7 +49,8 @@ public class Player : MonoBehaviour {
     VehicleType vehicleType;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
         pushPower = 0.0f;
         pushAddValue = 0.10f;
@@ -57,89 +59,103 @@ public class Player : MonoBehaviour {
         pushCharge = 0;
         state = State.PLAYER_STATE_STOP;
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
-        vehicleModel[(int)vehicleType].SetActive(true);
+        vehicleModel[ ( int )vehicleType ].SetActive( true );
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         CityMove();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay( Collider other )
     {
-        switch(other.gameObject.tag)
+        switch( other.gameObject.tag )
         {
-            case "RideArea"://乗車エリアなら
+            // 乗車エリアに関する処理
+            case "RideArea":
                 {
-                    if( rb.velocity.magnitude < 1.0f)//ほぼ停止してるなら
+                    Human human = other.transform.parent.GetComponent<Human>();
+
+                    if( rb.velocity.magnitude < 1.0f )//ほぼ停止してるなら
                     {
                         //乗車待機状態じゃないならbreak;
-                        if (other.transform.parent.gameObject.GetComponent<Human>().stateType != Human.STATETYPE.READY) break;
+                        if( human.stateType != Human.STATETYPE.READY ) break;
                         //state = State.PLAYER_STATE_TAKE_READY;
                         //state = State.PLAYER_STATE_TAKE;
 
-                        if ( rideCount == 0 )//最初の乗客なら
+                        //最初の乗客の時に他の乗客生成を行う
+                        if( rideCount == 0 )
                         {
-                            switch(other.transform.parent.gameObject.GetComponent<Human>().groupType)
+                            switch( human.groupType )
                             {
                                 case Human.GROUPTYPE.PEAR:
                                     {
                                         rideGroupNum = 2;
-                                        Debug.Log("PEAR");
+                                        Debug.Log( "PEAR" );
+                                        spawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
                                         break;
                                     }
                                 case Human.GROUPTYPE.SMAlLL:
                                     {
                                         rideGroupNum = 3;
-                                        Debug.Log("SMALL");
+                                        Debug.Log( "SMALL" );
                                         break;
                                     }
                                 case Human.GROUPTYPE.BIG:
                                     {
                                         rideGroupNum = 5;
-                                        Debug.Log("BIG");
+                                        Debug.Log( "BIG" );
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
                                         break;
                                     }
                             }
+
                             //グループの大きさ分確保する
-                            passengerObj = new GameObject[rideGroupNum];
+                            passengerObj = new GameObject[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
                             //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
                         }
 
                         //乗客を子にする
-                        other.transform.parent.gameObject.transform.position = transform.position;
-                        other.transform.parent.transform.parent = transform;
-                        other.transform.parent.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.TRANSPORT);
-                        Debug.Log("Ride");
-                        passengerObj[rideCount] = other.transform.parent.gameObject;
+                        human.gameObject.transform.position = transform.position;
+                        human.transform.parent = transform;
+                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
+                        Debug.Log( "Ride" );
+                        passengerObj[ rideCount ] = other.transform.parent.gameObject;
                         rideCount++;
 
                         //最後の人なら降ろす
-                        if( rideCount >= rideGroupNum)
+                        if( rideCount >= rideGroupNum )
                         {
-                            for( int i = 0; i < rideCount; i++ )
+                            for( int i = 0 ; i < rideCount ; i++ )
                             {
-                                passengerObj[i].transform.parent = null;
-                                passengerObj[i].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
+                                passengerObj[ i ].transform.parent = null;
+                                passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
                             }
-                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore(rideGroupNum);
+                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( rideGroupNum );
                             rideCount = 0;
                         }
-                    }    
+                    }
                     break;
                 }
         }
     }
 
+    /// <summary>
+    /// 街移動処理
+    /// </summary>
     void CityMove()
     {
         float moveV = Input.GetAxis("Vertical");
         float moveH = Input.GetAxis("Horizontal");
 
         //プッシュ時と通常時で旋回力を分ける
-        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
+        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
         {
             moveH *= turnPowerPush;
         }
@@ -147,16 +163,16 @@ public class Player : MonoBehaviour {
         {
             moveH *= turnPower;//旋回力をかける
         }
-            
+
 
         Vector3 direction = new Vector3(moveH, 0.0f, moveV);
 
         //Debug.Log( "Horizontal:" + moveH );
 
-        if (Mathf.Abs(moveH) > 0.2f)
+        if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
-            transform.rotation = Quaternion.Euler(0, moveRadY, 0);
+            transform.rotation = Quaternion.Euler( 0 , moveRadY , 0 );
         }
 
         Vector3 force = transform.forward * speed;
@@ -164,12 +180,12 @@ public class Player : MonoBehaviour {
         //rb.AddForce(force);
 
         // プッシュ動作
-        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1") )
+        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
         {
-            force = new Vector3(0.0f, 0.0f, 0.0f);
+            force = new Vector3( 0.0f , 0.0f , 0.0f );
             rb.velocity *= 0.975f;//減速
             //速度が一定以下なら停止する
-            if (rb.velocity.magnitude < 1.0f)
+            if( rb.velocity.magnitude < 1.0f )
             {
                 rb.velocity *= 0.0f;
                 state = State.PLAYER_STATE_STOP;
@@ -178,25 +194,25 @@ public class Player : MonoBehaviour {
         }
 
         // プッシュ解放した後のダッシュ
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1"))
+        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
         {
             //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
             if( pushCharge >= 60 )
             {
-                rb.AddForce(force * turboRatio, ForceMode.VelocityChange);
+                rb.AddForce( force * turboRatio , ForceMode.VelocityChange );
             }
             //force *= ( 30.0f * rb.mass );
-            pushCharge = 0;     
+            pushCharge = 0;
         }
 
         // 今回の速度加算
-        rb.AddForce(force, ForceMode.Acceleration);
+        rb.AddForce( force , ForceMode.Acceleration );
 
         //最高速を設定
-        if( rb.velocity.magnitude >= speedMax)
+        if( rb.velocity.magnitude >= speedMax )
         {
-           // Debug.Log("最高速");
+            // Debug.Log("最高速");
             rb.velocity = rb.velocity.normalized * speedMax;
         }
 
@@ -213,6 +229,22 @@ public class Player : MonoBehaviour {
         //{
         //    state = State.PLAYER_STATE_MOVE;
         //}
+    }
+
+    private void OnGUI()
+    {
+        GUIStyleState styleState;
+        styleState = new GUIStyleState();
+        styleState.textColor = Color.white;
+ 
+        GUIStyle guiStyle = new GUIStyle();
+        guiStyle.fontSize = 48;
+        guiStyle.normal = styleState;
+
+        string str;
+        str = "速度ベクトル:" + rb.velocity + "\n速度量:" + rb.velocity.magnitude;
+
+        GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
     }
 }
 

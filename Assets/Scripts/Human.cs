@@ -26,11 +26,9 @@ public class Human : MonoBehaviour{
     };
 
     //宣言
-    public GROUPTYPE groupType;
-    public STATETYPE stateType;
-
-    //スポーン場所
-    public int spawnPlace;
+    public GROUPTYPE groupType;     // 所属するグループを示す変数
+    public STATETYPE stateType;     // 自身の状態管理要変数
+    public int spawnPlace;          //スポーン場所
 
     //モデル
     GameObject model;
