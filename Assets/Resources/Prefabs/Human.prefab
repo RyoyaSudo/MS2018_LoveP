@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114571908584615214}
   m_Layer: 0
   m_Name: Human
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +88,7 @@ MonoBehaviour:
   groupType: 0
   stateType: 0
   spawnPlace: 0
+  destroyTime: 3
 --- !u!136 &136016218072901752
 CapsuleCollider:
   m_ObjectHideFlags: 1

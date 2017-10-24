@@ -87,6 +87,21 @@ public class Player : MonoBehaviour
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )
                         {
+                            // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
+                            //       10/24現在では他の乗客はFindして消してしまうやり方をする。
+                            human.IsProtect = true;
+
+                            GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Human" );
+
+                            foreach( GameObject deleteHuman in humanAll )
+                            {
+                                if( deleteHuman.GetComponent<Human>().IsProtect == false )
+                                {
+                                    Destroy( deleteHuman.gameObject );
+                                }
+                            }
+
+                            // 乗客数の確認
                             switch( human.groupType )
                             {
                                 case Human.GROUPTYPE.PEAR:
@@ -120,6 +135,7 @@ public class Player : MonoBehaviour
                             passengerObj = new Human[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
                             //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
+
                         }
 
                         //乗客を子にする
@@ -144,6 +160,31 @@ public class Player : MonoBehaviour
                             }
                             scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( rideGroupNum );
                             rideCount = 0;
+
+                            // HACK: 次の乗客を生成。
+                            //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
+                            List< int > posList = new List< int >();
+                            posList.Add( human.spawnPlace );
+
+                            for( int i = 0 ; i < 3 ; i++ )
+                            {
+                                int pos;
+
+                                // 同じスポーンポイントで生成しないための制御処理
+                                while( true )
+                                {
+                                    pos = Random.Range( 0 , spawnManagerObj.SpawnNum - 1 );
+
+                                    if( posList.IndexOf( pos ) == -1 )
+                                    {
+                                        posList.Add( pos );
+                                        break;
+                                    }
+                                }
+
+                                // 生成処理実行
+                                spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
+                            }
                         }
                     }
                     break;
@@ -241,7 +282,7 @@ public class Player : MonoBehaviour
         GUIStyleState styleState;
         styleState = new GUIStyleState();
         styleState.textColor = Color.white;
- 
+
         GUIStyle guiStyle = new GUIStyle();
         guiStyle.fontSize = 48;
         guiStyle.normal = styleState;

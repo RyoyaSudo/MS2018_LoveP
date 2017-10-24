@@ -10,7 +10,15 @@ public class SpawnManager : MonoBehaviour {
     //スポーンポイントの場所
     public Vector3[] spawnPoint;
 
-    //スポーンポイントの数
+    /// <summary>
+    /// スポーンポイント数。
+    /// 初期化時にスポーンポイントの場所を管理する配列から数を取得。
+    /// </summary>
+    public int SpawnNum
+    {
+        get { return spawnNum; }
+    }
+
     int spawnNum;
 
     //スポーンポイントのゲームオブジェクト保存
@@ -80,24 +88,29 @@ public class SpawnManager : MonoBehaviour {
         spawnPointObject[num] = SpawnPoint.GetComponent<SpawnPoint>();
     }
 
-    /*****************************************************************************
-    * 関数名:HumanCreate
-    * 引数：spawnPointNum:スポーンポイントの番号
-    * 引数：groupType    :人のグループタイプ
-    * 戻り値:0
-    * 説明:スポーンポイントから人を生成
-    *****************************************************************************/
-    void HumanCreate(int spawnPointNum , Human.GROUPTYPE groupType )
+    /// <summary>
+    /// 乗客生成処理(個人)
+    /// </summary>
+    /// <param name="spawnPointNum">
+    /// 生成する場所のID
+    /// </param>
+    /// <param name="groupType">
+    /// 生成する乗客の所属グループタイプ
+    /// </param>
+    public void HumanCreate(int spawnPointNum , Human.GROUPTYPE groupType )
     {
         spawnPointObject[spawnPointNum].HumanSpawn( spawnPointNum , groupType);
     }
 
-    /*****************************************************************************
-    * 関数名:SpawnHumanGroup
-    * 引数：groupType  :人のグループタイプ
-    * 引数：spawnPlac  :現在取得した人の場所番号。この場所は除外して考える。
-    * 説明:グループタイプからそのグループの相方たちを生成
-    *****************************************************************************/
+    /// <summary>
+    /// 乗客生成処理(グループ)
+    /// </summary>
+    /// <param name="spawnPlace">
+    /// 現在取得した人の場所番号。この場所は除外して考える。
+    /// </param>
+    /// <param name="groupType">
+    /// 生成する乗客の所属グループタイプ
+    /// </param>
     public void SpawnHumanGroup ( int spawnPlace , Human.GROUPTYPE groupType)
     {
         //相方たちの人数

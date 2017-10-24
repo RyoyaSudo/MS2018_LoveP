@@ -73,12 +73,25 @@ public class Human : MonoBehaviour
     public float destroyTime;
 
     /// <summary>
-    /// 
+    /// 保護用フラグ変数。
+    /// trueの時には無闇にDestoroyしないようにすること。
+    /// </summary>
+    public bool IsProtect
+    {
+        get { return isProtect; }
+        set { isProtect = value; }
+    } 
+
+    bool isProtect;
+
+    /// <summary>
+    /// Awake時処理
     /// </summary>
     private void Awake()
     {
         modelID = -1;   // 不定のタイプとして初期値を負の値に設定
         destroyTimeCounter = 0.0f;
+        isProtect = false;
     }
 
     /// <summary>
