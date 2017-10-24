@@ -16,22 +16,17 @@ public class ScoreCtrl : MonoBehaviour
     const int SCORE_MAX = 8;    //スコアの桁数
     const float SCORE_DEFAULT_POS = 3.5f; //スコアの1の位の基本になる位置(いい感じの値) 
 
-    private Vector3 pos;
     private int totalScore = 0;       //総スコアを格納する用
     private int[] scoreStack;     //スコアを格納する配列
     private int ScoreTest;
     private GameObject[] ScoreArray;    //スコアの桁数
     private int scoreValueCnt;          //桁数をカウントする用
 
-    public GameObject UiCamera;     //UIのカメラ
     public GameObject ScorePrefab;
     public Sprite[] SpriteArray;    //スコアのテクスチャ
 
     [SerializeField]
     private float white_space;        //数字1つ1つの間隔を決める用
-
-    [SerializeField]
-    Camera GuiCamera;
 
     [SerializeField]
     Sprite numberSp;
@@ -45,9 +40,6 @@ public class ScoreCtrl : MonoBehaviour
 
         ScoreArray = new GameObject[ SCORE_MAX ];
 
-        Debug.Log( "Size:" + GuiCamera.orthographicSize );
-        Debug.Log( "ScrSize:" + Screen.width );
-
         //桁数分スコアを生成する
         float unitSize = ( float )numberSp.texture.width / 10.0f;
 
@@ -55,7 +47,8 @@ public class ScoreCtrl : MonoBehaviour
         {
             ScoreArray[ nCnt ] = Instantiate( ScorePrefab ); //Score生成
 
-            pos = new Vector3( ScorePrefab.transform.position.x + SCORE_DEFAULT_POS - ( white_space * nCnt ) , 6.0f , 0.0f );
+            //pos = new Vector3( ScorePrefab.transform.position.x + SCORE_DEFAULT_POS - ( white_space * nCnt ) , 6.0f , 0.0f ); // 旧バージョン
+            Vector3 pos;
             pos.x = ( ( float )Screen.width / 2.0f ) / 2.0f + unitSize * nCnt;
             pos.y = ( ( float )Screen.height / 2.0f ) - 20.0f;
             pos.z = 0.0f;
@@ -75,7 +68,8 @@ public class ScoreCtrl : MonoBehaviour
         {
             ScoreTest -= 1;
         }
-        ScoreSet( ScoreTest );
+
+        ScoreSet( 0 );
     }
 
     /************************************************************

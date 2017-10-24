@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     int rideCount; //現在乗車人数
     int rideGroupNum; //グループ乗車人数
-    private GameObject[] passengerObj;
+    private Human[] passengerObj;
 
     public GameObject scoreObj;
     public SpawnManager spawnManagerObj;
@@ -93,7 +93,6 @@ public class Player : MonoBehaviour
                                     {
                                         rideGroupNum = 2;
                                         Debug.Log( "PEAR" );
-                                        spawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
                                         break;
                                     }
                                 case Human.GROUPTYPE.SMAlLL:
@@ -115,8 +114,10 @@ public class Player : MonoBehaviour
                                     }
                             }
 
+                            spawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+
                             //グループの大きさ分確保する
-                            passengerObj = new GameObject[ rideGroupNum ];
+                            passengerObj = new Human[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
                             //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
                         }
@@ -126,8 +127,11 @@ public class Player : MonoBehaviour
                         human.transform.parent = transform;
                         human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
                         Debug.Log( "Ride" );
-                        passengerObj[ rideCount ] = other.transform.parent.gameObject;
+                        passengerObj[ rideCount ] = human;
                         rideCount++;
+
+                        // 乗客の当たり判定を消す
+                        human.GetHumanModelCollider().isTrigger = true;
 
                         //最後の人なら降ろす
                         if( rideCount >= rideGroupNum )
@@ -136,6 +140,7 @@ public class Player : MonoBehaviour
                             {
                                 passengerObj[ i ].transform.parent = null;
                                 passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
+                                passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
                             }
                             scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( rideGroupNum );
                             rideCount = 0;

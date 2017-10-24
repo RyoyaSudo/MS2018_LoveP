@@ -224,6 +224,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
+        type: 2}
+      propertyPath: humanModelNameArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4438287814034042, guid: c8236637a20555245af5d2308b653ffb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -608,6 +613,12 @@ Prefab:
       value: 420
       objectReference: {fileID: 0}
     - target: {fileID: 114326029659459666, guid: fb7da92007143bf43bffcaff070c9080,
+        type: 2}
+      propertyPath: numberSp
+      value: 
+      objectReference: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308,
+        type: 3}
+    - target: {fileID: 114227916980159670, guid: fb7da92007143bf43bffcaff070c9080,
         type: 2}
       propertyPath: numberSp
       value: 
