@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114571908584615214}
   m_Layer: 0
   m_Name: Human
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 136016218072901752}
   m_Layer: 0
   m_Name: RideArea
-  m_TagString: Untagged
+  m_TagString: RideArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,13 +81,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8e771138c642c438b9551e3106843b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  humanModelArray:
+  - {fileID: 1014544548310538, guid: 0cfb0dde68cf4ca4f9c270d8abe46ef6, type: 2}
+  - {fileID: 1008014468941902, guid: c2575e354f120174789f752cd9e2c981, type: 2}
+  - {fileID: 1391432162205968, guid: 24b98f32bd1793341954358209777524, type: 2}
   groupType: 0
   stateType: 0
   spawnPlace: 0
-  pearPrefab: {fileID: 1014544548310538, guid: 0cfb0dde68cf4ca4f9c270d8abe46ef6, type: 2}
-  smallPrefab: {fileID: 1008014468941902, guid: c2575e354f120174789f752cd9e2c981,
-    type: 2}
-  bigPrefab: {fileID: 1391432162205968, guid: 24b98f32bd1793341954358209777524, type: 2}
+  destroyTime: 3
 --- !u!136 &136016218072901752
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -95,7 +96,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1940941829120278}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 10
   m_Height: 1

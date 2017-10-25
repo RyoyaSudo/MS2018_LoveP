@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-
+public class CameraController : MonoBehaviour
+{
     public GameObject player;
-    Vector3 offset;
+    Vector3 dirStdV;                // 基準方向ベクトル
     float radius;
 
     // Use this for initialization
@@ -13,22 +13,45 @@ public class CameraController : MonoBehaviour {
     {
         Vector3 offsetV = transform.position - player.transform.position;
         radius = offsetV.magnitude;
-        offset = new Vector3( 0.0f , 5.0f , -3.0f );
+
+        // Degree値の基準方向をベクトルに
+        Matrix4x4 mtxR = Matrix4x4.Rotate( transform.rotation );
+
+        Vector3 trsStdV = transform.position;
+
+        dirStdV = mtxR.MultiplyVector( trsStdV.normalized );
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        // 向き設定
         transform.rotation = player.transform.rotation;
 
-        Vector3 s = new Vector3( 1.0f , 1.0f , 1.0f );
-        Vector3 p = new Vector3( 0.0f , 0.0f , 0.0f );
+        // プレイヤーからオフセット分ずらす値の作成
+        Matrix4x4 mtxR = Matrix4x4.Rotate( transform.rotation );
 
-        Matrix4x4 mtxR = Matrix4x4.TRS( p , transform.rotation , s );
+        Vector3 trsV = dirStdV.normalized * radius;
 
-        Vector3 dirStd = new Vector3( 0.0f , 0.5f , -10.0f );
-        Vector3 trsV = dirStd.normalized * radius + offset;
-
+        // 現在位置を設定
+        //   現在角度に応じてオフセット分のベクトルを回転させる
         transform.position = mtxR.MultiplyVector( trsV ) + player.transform.position;
+    }
+
+    private void OnGUI()
+    {
+        GUIStyleState styleState;
+        styleState = new GUIStyleState();
+        styleState.textColor = Color.white;
+
+        GUIStyle guiStyle = new GUIStyle();
+        guiStyle.fontSize = 48;
+        guiStyle.normal = styleState;
+
+        string str;
+
+        str = "向き:" + transform.rotation.eulerAngles + "\n半径:" + radius + "\n基準方向ベクトル:" + dirStdV;
+
+        GUI.Label( new Rect( 0 , 0 , 800 , 600 ) , str , guiStyle );
     }
 }
