@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   humanModelArray:
-  - {fileID: 1014544548310538, guid: 0cfb0dde68cf4ca4f9c270d8abe46ef6, type: 2}
-  - {fileID: 1008014468941902, guid: c2575e354f120174789f752cd9e2c981, type: 2}
-  - {fileID: 1391432162205968, guid: 24b98f32bd1793341954358209777524, type: 2}
+  - {fileID: 1755026764184562, guid: 10448eaae6eade54f9df5e08e6ac10b8, type: 2}
+  - {fileID: 1228520313325140, guid: e2419b9fa7c87bc468f1944a766cf382, type: 2}
+  - {fileID: 1766544041889998, guid: de122af578c24314386b956dae868edc, type: 2}
   groupType: 0
   stateType: 0
   spawnPlace: 0
