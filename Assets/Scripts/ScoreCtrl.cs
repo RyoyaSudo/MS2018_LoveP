@@ -1,11 +1,11 @@
 ﻿
 /****************************************************************************
- * ファイル名:LifeCtrl.cs
- * タイトル:キャラクターコントローラー
+ * ファイル名:ScoreCtrl.cs
+ * タイトル:スコアコントローラー
  * 作成日：2016/10/17
  * 作成者：武内 優貴
- * 説明：スコアのテクスチャ処理
- * 更新履歴：10/17:+新規作成
+ * 説明：スコアのテクスチャ処理、Ptsのロゴの作成
+ * 更新履歴：10/26:+新規作成
  * **************************************************************************/
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,19 +14,26 @@ using System.Collections;
 public class ScoreCtrl : MonoBehaviour
 {
     const int SCORE_MAX = 8;    //スコアの桁数
-    const float SCORE_DEFAULT_POS = 3.5f; //スコアの1の位の基本になる位置(いい感じの値) 
 
     private int totalScore = 0;       //総スコアを格納する用
     private int[] scoreStack;     //スコアを格納する配列
     private int ScoreTest;
     private GameObject[] ScoreArray;    //スコアの桁数
+    private GameObject ptsLogo;
     private int scoreValueCnt;          //桁数をカウントする用
 
     public GameObject ScorePrefab;
+    public GameObject ptsLogoPrefab;
     public Sprite[] SpriteArray;    //スコアのテクスチャ
 
     [SerializeField]
-    private float white_space;        //数字1つ1つの間隔を決める用
+    private float padding;  //1文字の間隔
+
+    [SerializeField]
+    private float heightPadding;    //縦の間隔
+
+    [SerializeField]
+    private float ptsPadding;   //ロゴの間隔
 
     [SerializeField]
     Sprite numberSp;
@@ -47,19 +54,28 @@ public class ScoreCtrl : MonoBehaviour
         {
             ScoreArray[ nCnt ] = Instantiate( ScorePrefab ); //Score生成
 
-            //pos = new Vector3( ScorePrefab.transform.position.x + SCORE_DEFAULT_POS - ( white_space * nCnt ) , 6.0f , 0.0f ); // 旧バージョン
             Vector3 pos;
-            pos.x = ( ( float )Screen.width / 2.0f ) / 2.0f + unitSize * nCnt;
-            pos.y = ( ( float )Screen.height / 2.0f ) - 20.0f;
+            pos.x = ( ( float )Screen.width / 2.0f ) / 3.0f + unitSize * nCnt + (padding * nCnt); // 1920/2 /2
+            pos.y = ( ( float )Screen.height / 2.0f ) - 20.0f - heightPadding;
             pos.z = 0.0f;
-
-            ScoreArray[ nCnt ].transform.position = pos;
+            ScoreArray[nCnt].transform.position = pos;
             ScoreArray[ nCnt ].transform.parent = gameObject.transform;   //生成されたScoreArrayに元のScoreに親子関係を紐づけする
+
         }
+
+        //Ptsを生成して配置する
+        ptsLogo = Instantiate(ptsLogoPrefab);
+        Vector3 ptsPos;
+        ptsPos.x = ScoreArray[7].transform.position.x + unitSize + ptsPadding * SCORE_MAX;  //スコアの最後の位置から離して配置
+        ptsPos.y = ((float)Screen.height / 2.0f) - 20.0f - heightPadding;   //縦の位置
+        ptsPos.z = 0.0f;
+        ptsLogo.transform.position = ptsPos;
+        ptsLogo.transform.parent = gameObject.transform;
     }
 
     void Update()
     {
+        //テスト用////////////////////////////////
         if( Input.GetKeyDown( KeyCode.UpArrow ) )
         {
             ScoreTest += 1;
@@ -131,7 +147,7 @@ public class ScoreCtrl : MonoBehaviour
             }
             else
             {
-                ScoreArray[ nCnt ].SetActive( false );
+                ScoreArray[ nCnt ].SetActive( true );
             }
         }
     }
