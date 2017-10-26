@@ -312,10 +312,20 @@ public class Player : MonoBehaviour
         rb.AddForce( force , ForceMode.Acceleration );
 
         //最高速を設定
-        if( rb.velocity.magnitude >= speedMax )
+        Vector3 checkV = rb.velocity;
+        checkV.y = 0.0f;
+
+        if( checkV.magnitude >= speedMax )
         {
             // Debug.Log("最高速");
-            rb.velocity = rb.velocity.normalized * speedMax;
+            // HACK:最高速制御処理
+            //      XZ方向のベクトルを作りspeedMax以上行かないように設定。
+            //      後にY方向の力を加算する。
+            float YAxisPower = rb.velocity.y;
+
+            checkV = checkV.normalized * speedMax;
+            checkV.y = YAxisPower;
+            rb.velocity = checkV;
         }
 
         ////停止処理
