@@ -341,6 +341,8 @@ public class Player : MonoBehaviour
         //{
         //    state = State.PLAYER_STATE_MOVE;
         //}
+
+        //rb.AddForce( direction * 10.0f , ForceMode.VelocityChange );
     }
 
     private void OnGUI()
