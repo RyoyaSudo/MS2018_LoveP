@@ -11,7 +11,7 @@ public class LovePCameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Vector3 offsetV = transform.position - player.transform.position;
+        Vector3 offsetV = ( transform.position + player.transform.position ) - player.transform.position;
         radius = offsetV.magnitude;
 
         // Degree値の基準方向をベクトルに
