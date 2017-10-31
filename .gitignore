@@ -35,3 +35,6 @@ sysinfo.txt
 ProjectSettings/TagManager.asset
 ProjectSettings/TagManager.asset
 ProjectSettings/TagManager.asset
+
+#除外アセット
+/Assets/IgnoreAssets/*
