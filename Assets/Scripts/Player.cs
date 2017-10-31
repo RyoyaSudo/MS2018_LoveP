@@ -28,7 +28,10 @@ public class Player : MonoBehaviour
     public float speedMax;//最高速
     public float turboRatio;//ターボレシオ
 
-    public GameObject[] vehicleModel;
+    public GameObject[] vehicleModel;//乗り物モデル
+    int vehicleScore;//乗車スコア
+    Human.GROUPTYPE passengerType;//乗客タイプ
+
 
     public enum State
     {
@@ -60,6 +63,7 @@ public class Player : MonoBehaviour
         state = State.PLAYER_STATE_STOP;
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
+        vehicleScore = 0;
     }
 
     // Update is called once per frame
@@ -101,6 +105,8 @@ public class Player : MonoBehaviour
                                 }
                             }
 
+                            passengerType = human.groupType;
+
                             // 乗客数の確認
                             switch( human.groupType )
                             {
@@ -135,7 +141,6 @@ public class Player : MonoBehaviour
                             passengerObj = new Human[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
                             //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
-
                         }
 
                         //乗客を子にする
@@ -160,6 +165,57 @@ public class Player : MonoBehaviour
                             }
                             scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( rideGroupNum );
                             rideCount = 0;
+
+                            //乗客のタイプに応じで乗り物変更用のスコアを加算する
+                            switch (passengerType)
+                            {
+                                case Human.GROUPTYPE.PEAR:
+                                    {
+                                        vehicleScore += 1;
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.SMAlLL:
+                                    {
+                                        vehicleScore += 2;
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.BIG:
+                                    {
+                                        vehicleScore += 4;
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Debug.Log("エラー:設定謎の乗客タイプが設定されています");
+                                        break;
+                                    }
+                            }
+
+                            //初期　バイク
+                            //＋1ポイント　車
+                            //＋4ポイント　バス
+                            //＋8ポイント　飛行機
+                            
+                            // TODO: 後できれいにする
+                            if( vehicleScore == 1)
+                            {
+                                vehicleModel[(int)vehicleType].SetActive(false);
+                                vehicleType = VehicleType.VEHICLE_TYPE_CAR;
+                                vehicleModel[(int)vehicleType].SetActive(true);
+                            }
+                            else if( vehicleScore >= 5 && vehicleScore < 13) 
+                            {
+                                vehicleModel[(int)vehicleType].SetActive(false);
+                                vehicleType = VehicleType.VEHICLE_TYPE_BUS;
+                                vehicleModel[(int)vehicleType].SetActive(true);
+                            }
+                            else if( vehicleScore >= 13 )
+                            {
+                                vehicleModel[(int)vehicleType].SetActive(false);
+                                vehicleType = VehicleType.VEHICLE_TYPE_AIRPLANE;
+                                vehicleModel[(int)vehicleType].SetActive(true);
+                            }
+
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
