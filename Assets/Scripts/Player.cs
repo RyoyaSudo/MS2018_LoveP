@@ -222,10 +222,12 @@ public class Player : MonoBehaviour
                             List< int > posList = new List< int >();
                             posList.Add( human.spawnPlace );
 
-                            for( int i = 0 ; i < 3 ; i++ )
+                            // プレイヤーの乗り物の種類に応じて
+                            // 出現させるグループを制御
+
+                            for ( int i = 0 ; i < 3 ; i++ )
                             {
                                 int pos;
-
                                 // 同じスポーンポイントで生成しないための制御処理
                                 while( true )
                                 {
@@ -237,6 +239,7 @@ public class Player : MonoBehaviour
                                         break;
                                     }
                                 }
+
 
                                 // 生成処理実行
                                 spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );

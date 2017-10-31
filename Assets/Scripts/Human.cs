@@ -143,6 +143,7 @@ public class Human : MonoBehaviour
 
             //回避
             case STATETYPE.EVADE:
+                //
                 break;
 
             //乗車
