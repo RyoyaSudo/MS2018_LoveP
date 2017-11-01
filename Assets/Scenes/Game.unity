@@ -153,21 +153,6 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2055033965}
-    - target: {fileID: 114326029659459666, guid: fb7da92007143bf43bffcaff070c9080,
-        type: 2}
-      propertyPath: ptsPadding
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114326029659459666, guid: fb7da92007143bf43bffcaff070c9080,
-        type: 2}
-      propertyPath: heightPadding
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 114326029659459666, guid: fb7da92007143bf43bffcaff070c9080,
-        type: 2}
-      propertyPath: padding
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb7da92007143bf43bffcaff070c9080, type: 2}
   m_IsPrefabParent: 0
@@ -220,11 +205,6 @@ Prefab:
       propertyPath: spawnManagerObj
       value: 
       objectReference: {fileID: 1818603790}
-    - target: {fileID: 114880170489779920, guid: c8236637a20555245af5d2308b653ffb,
-        type: 2}
-      propertyPath: gravity.y
-      value: -14.7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8236637a20555245af5d2308b653ffb, type: 2}
   m_IsPrefabParent: 0

@@ -989,7 +989,7 @@ MonoBehaviour:
   - {fileID: 1417895289997034}
   - {fileID: 1704177261154252}
   - {fileID: 1613793252576864}
-  gravity: {x: 0, y: 9.8, z: 0}
+  gravity: {x: 0, y: -14.7, z: 0}
 --- !u!136 &136260491451587984
 CapsuleCollider:
   m_ObjectHideFlags: 1
