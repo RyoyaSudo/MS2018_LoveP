@@ -210,11 +210,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4835215720283094, guid: fb7da92007143bf43bffcaff070c9080, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4835215720283094, guid: fb7da92007143bf43bffcaff070c9080, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -12
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4835215720283094, guid: fb7da92007143bf43bffcaff070c9080, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1189,7 +1189,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &2055033968
 CapsuleCollider:
