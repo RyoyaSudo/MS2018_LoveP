@@ -261,10 +261,13 @@ MonoBehaviour:
   - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  white_space: 0.5
-  ConmaArray:
-  - {fileID: 0}
+  colonPrefab: {fileID: 1650799135404264, guid: 62ae17bdd0552466eadbe902585c7fbd,
+    type: 2}
+  padding: 10
+  heightPadding: 80
+  colonPadding: 4
   numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
+  colonSp: {fileID: 21300000, guid: 1494cbd01068046fc9cdf7fe16ec3bcb, type: 3}
 --- !u!114 &114326029659459666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,7 +294,9 @@ MonoBehaviour:
   - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  padding: 5
+  padding: 10
+  heightPadding: 80
+  ptsPadding: 4
   numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
 --- !u!114 &114684358173952586
 MonoBehaviour:
