@@ -177,7 +177,5 @@ public class SpawnManager : MonoBehaviour {
             //人生成
             HumanCreate(randam,groupType);
         }
-    }
-
-   
+    } 
 }
