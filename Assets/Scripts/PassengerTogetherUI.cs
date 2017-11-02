@@ -8,15 +8,14 @@ public class PassengerTogetherUI : MonoBehaviour {
     public GameObject faiceUIPrefab;         //フェイスUIプレファブ
     public Sprite faiceOnUISprite;           //フェイスOnUIのスプライト
     public Sprite faiceBgUISprite;           //フェイスBgUIのスプライト
-
     public int rideNum;                      //乗車人数
     public float padding;                    //フェイスUIの間隔
     public float srideSpeed;                 //スライドさせるスピード
 
     private GameObject faiceBgUIObj=null;    //フェイスBgUIオブジェクト
     private GameObject []faiceUIObj=null;    //フェイスUIオブジェクト
-
-    private float faiceBgUISizeX;             //フェイスBgUIのサイズX
+    private float faiceBgUISizeX;            //フェイスBgUIのサイズX
+    private float faiceBgUISizeY;            //フェイスBgUIのサイズY
     private bool bStart = false;             //UI表示をスタート
     private bool bEnd = false;             　//UI表示を終了
     private float srideCnt=0 ;               //UIをスライドさせるときに使うカウント
@@ -25,7 +24,9 @@ public class PassengerTogetherUI : MonoBehaviour {
     // 初期化
     void Start ()
     {
+        //フェイスBgUIの幅と高さ
         faiceBgUISizeX = faiceBgUISprite.texture.width;
+        faiceBgUISizeY = faiceBgUISprite.texture.height;
     }
 
     // 更新
@@ -56,31 +57,39 @@ public class PassengerTogetherUI : MonoBehaviour {
         {
             FaiceUION(4);
         }
+        if (Input.GetKeyDown("5"))
+        {
+            FaiceUION(5);
+        }
+
+        Vector3 pos;
 
         //UI表示がスタートしたら
         if (bStart)
         {
+            srideCnt += srideSpeed;
+
             if (srideCnt > faiceBgUISizeX)
             {
+                pos = faiceBgUIObj.transform.localPosition;
+                pos.x = -((float)Screen.width / 2.0f - faiceBgUISizeX / 2.0f);
+                faiceBgUIObj.transform.localPosition = pos;
                 bStart = false;
                 srideCnt = 0;
             }
             else
             {
                 //UIをスライドさせる
-                Vector3 pos;
                 pos = faiceBgUIObj.transform.localPosition;
                 pos.x += srideSpeed;
                 faiceBgUIObj.transform.localPosition = pos;
-
-                srideCnt += srideSpeed;
             }
         }
 
         //UI表示が終了するとき
         if (bEnd)
         {
-            if (srideCnt > faiceBgUISizeX)
+            if (srideCnt >= faiceBgUISizeX)
             {
                 bEnd = false;
                 srideCnt = 0;
@@ -91,7 +100,6 @@ public class PassengerTogetherUI : MonoBehaviour {
             else
             {
                 //UIをスライドさせる
-                Vector3 pos;
                 pos = faiceBgUIObj.transform.localPosition;
                 pos.x -= srideSpeed;
                 faiceBgUIObj.transform.localPosition = pos;
@@ -117,8 +125,8 @@ public class PassengerTogetherUI : MonoBehaviour {
 
         //位置設定
         Vector3 pos;
-        pos.x = -560.0f - faiceBgUISizeX;
-        pos.y = -440.0f;
+        pos.x = -((float)Screen.width / 2.0f - faiceBgUISizeX / 2.0f) - faiceBgUISizeX;
+        pos.y = -((float)Screen.height / 2.0f - faiceBgUISizeY / 2.0f);
         pos.z = 12.0f;
         faiceBgUIObj.transform.localPosition = pos;
         faiceBgUIObj.transform.localRotation = Quaternion.identity;
@@ -136,15 +144,12 @@ public class PassengerTogetherUI : MonoBehaviour {
             faiceUIObj[nCnt].transform.parent = faiceBgUIObj.transform;
 
             //位置設定
-            pos.x = -300.0f + (nCnt * padding);
+            pos.x = -(faiceOnUISprite.texture.width * 2) + (nCnt * padding);
             pos.y = 0.0f;
             pos.z = -0.1f;
             faiceUIObj[nCnt].transform.localPosition = pos;
             faiceUIObj[nCnt].transform.localRotation = Quaternion.identity;
         }
-
-        //１人目を乗せたことになるので１人目のフェイスUIをONにする
-        faiceUIObj[0].GetComponent<SpriteRenderer>().sprite = faiceOnUISprite;
 
         //スタートさせたよフラグをtrueに
         bStart = true;
@@ -158,15 +163,15 @@ public class PassengerTogetherUI : MonoBehaviour {
         bEnd = true;
     }
 
-
     /// <summary>
     ///  フェイスUIをONにするよ
     /// </summary>
-    /// <param name="num">
+    /// <param name="rideCount">
     /// 今乗車させた人が何人目か
     /// </param>
-    public void FaiceUION ( int num)
+    public void FaiceUION ( int rideCount)
     {
-        faiceUIObj[num].GetComponent<SpriteRenderer>().sprite = faiceOnUISprite;
+        rideCount--;
+        faiceUIObj[rideCount].GetComponent<SpriteRenderer>().sprite = faiceOnUISprite;
     }
 }
