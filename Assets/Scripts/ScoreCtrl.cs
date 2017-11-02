@@ -55,9 +55,10 @@ public class ScoreCtrl : MonoBehaviour
             ScoreArray[ nCnt ] = Instantiate( ScorePrefab ); //Score生成
 
             Vector3 pos;
-            pos.x = ( ( float )Screen.width / 2.0f ) / 3.0f + unitSize * nCnt + (padding * nCnt); // 1920/2 /2
-            pos.y = ( ( float )Screen.height / 2.0f ) - 20.0f - heightPadding;
+            pos.x = ((float)Screen.width / 2.0f) / -1.05f + unitSize * nCnt + (padding * nCnt);
+            pos.y = ((float)Screen.height / 2.0f) - 20.0f - heightPadding;
             pos.z = 0.0f;
+
             ScoreArray[nCnt].transform.position = pos;
             ScoreArray[ nCnt ].transform.parent = gameObject.transform;   //生成されたScoreArrayに元のScoreに親子関係を紐づけする
 
@@ -67,7 +68,7 @@ public class ScoreCtrl : MonoBehaviour
         ptsLogo = Instantiate(ptsLogoPrefab);
         Vector3 ptsPos;
         ptsPos.x = ScoreArray[7].transform.position.x + unitSize + ptsPadding * SCORE_MAX;  //スコアの最後の位置から離して配置
-        ptsPos.y = ((float)Screen.height / 2.0f) - 20.0f - heightPadding;   //縦の位置
+        ptsPos.y = ScoreArray[7].transform.position.y;   //縦の位置
         ptsPos.z = 0.0f;
         ptsLogo.transform.position = ptsPos;
         ptsLogo.transform.parent = gameObject.transform;

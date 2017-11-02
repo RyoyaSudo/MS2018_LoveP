@@ -32,6 +32,10 @@ public class Player : MonoBehaviour
     int vehicleScore;//乗車スコア
     Human.GROUPTYPE passengerType;//乗客タイプ
 
+    /// <summary>
+    /// 重力量。Playerは個別に設定する。
+    /// </summary>
+    public Vector3 gravity;
 
     public enum State
     {
@@ -281,6 +285,7 @@ public class Player : MonoBehaviour
         }
 
         Vector3 force = transform.forward * speed;
+        force += gravity;
 
         //rb.AddForce(force);
 
@@ -344,6 +349,25 @@ public class Player : MonoBehaviour
         //{
         //    state = State.PLAYER_STATE_MOVE;
         //}
+
+        //rb.AddForce( direction * 10.0f , ForceMode.VelocityChange );
+
+        // TODO: 画面外に落ちたときの処理
+        //       仮で追加
+        if( transform.position.y < -50.0f )
+        {
+            Vector3 newPos = transform.position;
+            newPos.y = 30.0f;
+            transform.position = newPos;
+        }
+
+        // TODO: ジャンプ処理
+        //       デバッグ時に活用できそうなので実装
+        if( Input.GetKey( KeyCode.J ) )
+        {
+            Vector3 jumpForce = -4.0f * gravity;
+            rb.AddForce( jumpForce , ForceMode.Acceleration );
+        }
     }
 
     private void OnGUI()
