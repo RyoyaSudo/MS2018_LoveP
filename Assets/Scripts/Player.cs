@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     int vehicleScore;//乗車スコア
     Human.GROUPTYPE passengerType;//乗客タイプ
 
+    public GameObject passengerTogetherUIObj;   //乗客何人乗せるかUI
+
     /// <summary>
     /// 重力量。Playerは個別に設定する。
     /// </summary>
@@ -68,6 +70,8 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
+
+
     }
 
     // Update is called once per frame
@@ -78,23 +82,30 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay( Collider other )
     {
+        Debug.Log("onTriggerStay");
         switch( other.gameObject.tag )
         {
             // 乗車エリアに関する処理
             case "RideArea":
                 {
+                    Debug.Log("RideAreaON");
+
                     Human human = other.transform.parent.GetComponent<Human>();
 
                     if( rb.velocity.magnitude < 1.0f )//ほぼ停止してるなら
                     {
+                        Debug.Log("stop");
+
                         //乗車待機状態じゃないならbreak;
-                        if( human.stateType != Human.STATETYPE.READY ) break;
+                        if ( human.stateType != Human.STATETYPE.READY ) break;
                         //state = State.PLAYER_STATE_TAKE_READY;
                         //state = State.PLAYER_STATE_TAKE;
 
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )
                         {
+                            Debug.Log("rideCnt");
+
                             // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
                             //       10/24現在では他の乗客はFindして消してしまうやり方をする。
                             human.IsProtect = true;
@@ -145,6 +156,9 @@ public class Player : MonoBehaviour
                             passengerObj = new Human[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
                             //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
+
+                            //何人乗せるかUIを表示させる
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart(rideGroupNum);
                         }
 
                         //乗客を子にする
@@ -154,6 +168,9 @@ public class Player : MonoBehaviour
                         Debug.Log( "Ride" );
                         passengerObj[ rideCount ] = human;
                         rideCount++;
+
+                        //フェイスUIをONにする
+                        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION(rideCount);
 
                         // 乗客の当たり判定を消す
                         human.GetHumanModelCollider().isTrigger = true;
@@ -248,7 +265,9 @@ public class Player : MonoBehaviour
                                 // 生成処理実行
                                 spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
                             }
-                        }
+
+                            //何人乗せるかUIの表示を終了
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();                        }
                     }
                     break;
                 }
