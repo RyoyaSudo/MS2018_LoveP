@@ -8,18 +8,17 @@ public class PassengerTogetherUI : MonoBehaviour {
     public GameObject faiceUIPrefab;         //フェイスUIプレファブ
     public Sprite faiceOnUISprite;           //フェイスOnUIのスプライト
     public Sprite faiceBgUISprite;           //フェイスBgUIのスプライト
-    public int rideNum;                      //乗車人数
-    public float padding;                    //フェイスUIの間隔
-    public float srideSpeed;                 //スライドさせるスピード
+    public float marginePear;                //フェイスUIの左右の幅(ペア)
+    public float margineSmall;               //フェイスUIの左右の幅(小)
+    public float margineBig;                 //フェイスUIの左右の幅(大)
 
     private GameObject faiceBgUIObj=null;    //フェイスBgUIオブジェクト
     private GameObject []faiceUIObj=null;    //フェイスUIオブジェクト
     private float faiceBgUISizeX;            //フェイスBgUIのサイズX
     private float faiceBgUISizeY;            //フェイスBgUIのサイズY
-    private bool bStart = false;             //UI表示をスタート
+    private float faiceOnUISizeX;            //フェイスOnUIのサイズX
     private bool bEnd = false;             　//UI表示を終了
-    private float srideCnt=0 ;               //UIをスライドさせるときに使うカウント
-
+    private float margine;                   //フェイスUIの左右の幅
 
     // 初期化
     void Start ()
@@ -27,84 +26,23 @@ public class PassengerTogetherUI : MonoBehaviour {
         //フェイスBgUIの幅と高さ
         faiceBgUISizeX = faiceBgUISprite.texture.width;
         faiceBgUISizeY = faiceBgUISprite.texture.height;
+        //フェイスOnUIの幅
+        faiceOnUISizeX = faiceOnUISprite.texture.width;
     }
 
     // 更新
     void Update ()
     {
-        if (Input.GetKeyDown("9"))
-        {
-            PassengerTogetherUIStart(rideNum);
-        }
-        if (Input.GetKeyDown("8"))
-        {
-            PassengerTogetherUIEnd();
-        }
-
-        if (Input.GetKeyDown("1"))
-        {
-            FaiceUION(1);
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            FaiceUION(2);
-        }
-        if (Input.GetKeyDown("3"))
-        {
-            FaiceUION(3);
-        }
-        if (Input.GetKeyDown("4"))
-        {
-            FaiceUION(4);
-        }
-        if (Input.GetKeyDown("5"))
-        {
-            FaiceUION(5);
-        }
-
-        Vector3 pos;
-
-        //UI表示がスタートしたら
-        if (bStart)
-        {
-            srideCnt += srideSpeed;
-
-            if (srideCnt > faiceBgUISizeX)
-            {
-                pos = faiceBgUIObj.transform.localPosition;
-                pos.x = -((float)Screen.width / 2.0f - faiceBgUISizeX / 2.0f);
-                faiceBgUIObj.transform.localPosition = pos;
-                bStart = false;
-                srideCnt = 0;
-            }
-            else
-            {
-                //UIをスライドさせる
-                pos = faiceBgUIObj.transform.localPosition;
-                pos.x += srideSpeed;
-                faiceBgUIObj.transform.localPosition = pos;
-            }
-        }
-
         //UI表示が終了するとき
         if (bEnd)
         {
-            if (srideCnt >= faiceBgUISizeX)
+            //UI表示が画面外にいくと
+            if (faiceBgUIObj.transform.localPosition.x < -((float)Screen.width / 2.0f - faiceBgUISizeX / 2.0f) - faiceBgUISizeX)
             {
-                bEnd = false;
-                srideCnt = 0;
-
                 //フェイスBgUIオブジェクト消去
                 Destroy(faiceBgUIObj);
-            }
-            else
-            {
-                //UIをスライドさせる
-                pos = faiceBgUIObj.transform.localPosition;
-                pos.x -= srideSpeed;
-                faiceBgUIObj.transform.localPosition = pos;
 
-                srideCnt += srideSpeed;
+                bEnd = false;
             }
         }
     }
@@ -134,6 +72,28 @@ public class PassengerTogetherUI : MonoBehaviour {
         //乗車人数分の配列を作る
         faiceUIObj = new GameObject[groupNum];
 
+        //グループの人数によってmargineを設定
+        switch(groupNum)
+        {
+            //ペア
+            case 2:
+                margine = marginePear;
+                break;
+           //グループ小
+            case 3:
+                margine = margineSmall;
+                break;
+            //グループ大
+            case 5:
+                margine = margineBig;
+                break;
+        }
+
+
+        float offset = -faiceBgUISizeX / 2;
+        float padding = (faiceBgUISizeX - (margine * 2) - (faiceOnUISizeX * groupNum)) / (groupNum * 2);    //フェイスUIの間隔
+        offset += margine;
+
         //フェイスOffUI
         for (int nCnt = 0; nCnt < groupNum; nCnt++)
         {
@@ -144,15 +104,19 @@ public class PassengerTogetherUI : MonoBehaviour {
             faiceUIObj[nCnt].transform.parent = faiceBgUIObj.transform;
 
             //位置設定
-            pos.x = -(faiceOnUISprite.texture.width * 2) + (nCnt * padding);
+            offset += padding;
+            offset += faiceOnUISizeX/2;
+            pos.x = offset;
+            offset += padding;
+            offset += faiceOnUISizeX / 2;
             pos.y = 0.0f;
             pos.z = -0.1f;
             faiceUIObj[nCnt].transform.localPosition = pos;
             faiceUIObj[nCnt].transform.localRotation = Quaternion.identity;
         }
 
-        //スタートさせたよフラグをtrueに
-        bStart = true;
+        //表示をスライドさせるよ
+        iTween.MoveBy(faiceBgUIObj, iTween.Hash("x", faiceBgUISizeX, "easetype", "easeOutBounce", "time", 1.2f));
     }
 
     /// <summary>
@@ -160,6 +124,9 @@ public class PassengerTogetherUI : MonoBehaviour {
     /// </summary>
     public void PassengerTogetherUIEnd ()
     {
+        //表示をスライドさせるよ
+        iTween.MoveBy(faiceBgUIObj, iTween.Hash("x", -faiceBgUISizeX, "easetype", "easeInOutQuart", "time", 1.2f));
+
         bEnd = true;
     }
 

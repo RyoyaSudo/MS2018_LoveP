@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714681641222292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -12}
+  m_LocalPosition: {x: 0, y: 2, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4396858477749838}
@@ -261,10 +261,13 @@ MonoBehaviour:
   - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  white_space: 0.5
-  ConmaArray:
-  - {fileID: 0}
+  colonPrefab: {fileID: 1650799135404264, guid: 62ae17bdd0552466eadbe902585c7fbd,
+    type: 2}
+  padding: 10
+  heightPadding: 75
+  colonPadding: 4
   numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
+  colonSp: {fileID: 21300000, guid: 1494cbd01068046fc9cdf7fe16ec3bcb, type: 3}
 --- !u!114 &114326029659459666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,7 +294,9 @@ MonoBehaviour:
   - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
   - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  padding: 5
+  padding: 10
+  heightPadding: 75
+  ptsPadding: 4
   numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
 --- !u!114 &114684358173952586
 MonoBehaviour:
