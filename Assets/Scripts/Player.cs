@@ -310,14 +310,14 @@ public class Player : MonoBehaviour
 
             if( pushCharge >= 60 )
             {
-                rb.AddForce( force * turboRatio , ForceMode.VelocityChange );
+                rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
             }
             //force *= ( 30.0f * rb.mass );
             pushCharge = 0;
         }
 
         // 今回の速度加算
-        rb.AddForce( force , ForceMode.Acceleration );
+        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
 
         //最高速を設定
         Vector3 checkV = rb.velocity;
@@ -365,8 +365,8 @@ public class Player : MonoBehaviour
         //       デバッグ時に活用できそうなので実装
         if( Input.GetKey( KeyCode.J ) )
         {
-            Vector3 jumpForce = -4.0f * gravity;
-            rb.AddForce( jumpForce , ForceMode.Acceleration );
+            Vector3 jumpForce = -40.0f * gravity;
+            rb.AddForce( jumpForce * Time.deltaTime , ForceMode.Acceleration );
         }
     }
 
