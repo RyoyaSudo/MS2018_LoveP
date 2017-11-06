@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     Human.GROUPTYPE passengerType;//乗客タイプ
 
     public GameObject passengerTogetherUIObj;   //乗客何人乗せるかUI
+    public GameObject gameObj;
+
+    public GameObject earth;
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -44,7 +47,8 @@ public class Player : MonoBehaviour
         PLAYER_STATE_STOP = 0,
         PLAYER_STATE_MOVE,
         PLAYER_STATE_TAKE,
-        PLAYER_STATE_TAKE_READY
+        PLAYER_STATE_TAKE_READY,
+        PLAYER_STATE_IN_CHANGE
     }
     State state;
 
@@ -70,14 +74,35 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        CityMove();
+        if (state != State.PLAYER_STATE_IN_CHANGE)return;
+        switch( vehicleType )
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    CityMove();
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    CityMove();
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    CityMove();
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    StarMove();
+                    break;
+                }
+        }
     }
 
     private void OnTriggerStay( Collider other )
@@ -216,27 +241,36 @@ public class Player : MonoBehaviour
                             //＋1ポイント　車
                             //＋4ポイント　バス
                             //＋8ポイント　飛行機
-                            
+
                             // TODO: 後できれいにする
-                            if( vehicleScore == 1)
-                            {
-                                vehicleModel[(int)vehicleType].SetActive(false);
-                                vehicleType = VehicleType.VEHICLE_TYPE_CAR;
-                                vehicleModel[(int)vehicleType].SetActive(true);
-                            }
-                            else if( vehicleScore >= 5 && vehicleScore < 13) 
-                            {
-                                vehicleModel[(int)vehicleType].SetActive(false);
-                                vehicleType = VehicleType.VEHICLE_TYPE_BUS;
-                                vehicleModel[(int)vehicleType].SetActive(true);
-                            }
-                            else if( vehicleScore >= 13 )
+                            //if(vehicleScore >= 1 && vehicleScore < 5 )
+                            //{
+                            //    vehicleModel[(int)vehicleType].SetActive(false);
+                            //    vehicleType = VehicleType.VEHICLE_TYPE_CAR;
+                            //    vehicleModel[(int)vehicleType].SetActive(true);
+                            //}
+                            //else if( vehicleScore >= 5 && vehicleScore < 13) 
+                            //{
+                            //    vehicleModel[(int)vehicleType].SetActive(false);
+                            //    vehicleType = VehicleType.VEHICLE_TYPE_BUS;
+                            //    vehicleModel[(int)vehicleType].SetActive(true);
+                            //}
+                            //else if( vehicleScore >= 13 )
+                            //{
+                            //    vehicleModel[(int)vehicleType].SetActive(false);
+                            //    vehicleType = VehicleType.VEHICLE_TYPE_AIRPLANE;
+                            //    vehicleModel[(int)vehicleType].SetActive(true);
+                            //    gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+                            //}
+
+                            if (vehicleScore >= 5)
                             {
                                 vehicleModel[(int)vehicleType].SetActive(false);
                                 vehicleType = VehicleType.VEHICLE_TYPE_AIRPLANE;
                                 vehicleModel[(int)vehicleType].SetActive(true);
+                                gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+                                Debug.Log("Star");
                             }
-
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
@@ -387,6 +421,74 @@ public class Player : MonoBehaviour
             Vector3 jumpForce = -4.0f * gravity;
             rb.AddForce( jumpForce , ForceMode.Acceleration );
         }
+    }
+
+    /// <summary>
+    /// 星移動処理
+    /// </summary>
+    void StarMove()
+    {
+        float moveV = Input.GetAxis("Vertical");
+        float moveH = Input.GetAxis("Horizontal");
+        Vector3 gravityVec = earth.transform.position - transform.position;
+        gravityVec.Normalize();
+        rb.AddForce(9.8f * gravityVec, ForceMode.Acceleration);
+        transform.up = -gravityVec.normalized;
+
+        Vector3 direction = new Vector3(moveH, 0.0f, moveV);
+
+        //Debug.Log( "Horizontal:" + moveH );
+        Vector3 axis = transform.up;// 回転軸
+                                    //float angle = 90f * Time.deltaTime; // 回転の角度
+
+
+        //this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
+        moveRadY += moveH * 180.0f * Time.deltaTime;
+        //transform.rotation = Quaternion.Euler(0, moveRadY, 0);
+        Quaternion q = Quaternion.AngleAxis(moveRadY, axis); // 軸axisの周りにangle回転させるクォータニオン
+        this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
+        if (Mathf.Abs(moveH) > 0.2f)
+        {
+
+        }
+
+        Vector3 force = transform.forward * speed;
+
+        //rb.AddForce(force);
+
+        // プッシュ動作
+        if (Input.GetKey(KeyCode.Space))
+        {
+            force = rb.velocity * 0.0f;
+            //rb.velocity = rb.velocity * 0.99f;
+
+            if (rb.velocity.magnitude < 2)
+            {
+                rb.velocity *= 0;
+            }
+
+        }
+
+        // プッシュ解放した後のダッシュ
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            //force *= ( 30.0f * rb.mass );
+            rb.AddForce(force * 4.0f, ForceMode.VelocityChange);
+        }
+
+        //force += gravityVec;
+        // 今回の速度加算
+        rb.AddForce(force, ForceMode.Acceleration);
+
+
+        if (rb.velocity.magnitude > speedMax)
+        {
+            rb.velocity = rb.velocity.normalized * speedMax;
+        }
+
+        //rb.velocity = force;
+        //transform.position += transform.forward;
     }
 
     private void OnGUI()
