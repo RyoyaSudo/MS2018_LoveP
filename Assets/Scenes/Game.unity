@@ -290,12 +290,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114669912580284494, guid: fb7da92007143bf43bffcaff070c9080,
+    - target: {fileID: 114999666480063140, guid: fb7da92007143bf43bffcaff070c9080,
         type: 2}
       propertyPath: player
       value: 
       objectReference: {fileID: 2055033965}
-    - target: {fileID: 114999666480063140, guid: fb7da92007143bf43bffcaff070c9080,
+    - target: {fileID: 114669912580284494, guid: fb7da92007143bf43bffcaff070c9080,
         type: 2}
       propertyPath: player
       value: 
@@ -531,14 +531,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 3361438, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 163433002}
     - target: {fileID: 3348178, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1958450661}
+    - target: {fileID: 3361438, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 163433002}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
   m_IsPrefabParent: 0
