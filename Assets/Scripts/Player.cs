@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
     /// 重力量。Playerは個別に設定する。
     /// </summary>
     public Vector3 gravity;
+    Vector3 curGravity;
+
+    /// <summary>
+    /// 前回フレーム時の位置。重力計算などに参照する。
+    /// </summary>
+    Vector3 oldPos;
 
     public enum State
     {
@@ -55,7 +61,9 @@ public class Player : MonoBehaviour
     }
     VehicleType vehicleType;
 
-    // Use this for initialization
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -68,6 +76,8 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
+
+        oldPos = transform.position;
     }
 
     // Update is called once per frame
@@ -273,19 +283,14 @@ public class Player : MonoBehaviour
             moveH *= turnPower;//旋回力をかける
         }
 
-
-        Vector3 direction = new Vector3(moveH, 0.0f, moveV);
-
-        //Debug.Log( "Horizontal:" + moveH );
-
         if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
-            transform.rotation = Quaternion.Euler( 0 , moveRadY , 0 );
+
+            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
         }
 
         Vector3 force = transform.forward * speed;
-        force += gravity;
 
         //rb.AddForce(force);
 
@@ -365,9 +370,23 @@ public class Player : MonoBehaviour
         //       デバッグ時に活用できそうなので実装
         if( Input.GetKey( KeyCode.J ) )
         {
-            Vector3 jumpForce = -40.0f * gravity;
-            rb.AddForce( jumpForce * Time.deltaTime , ForceMode.Acceleration );
+            Vector3 jumpForce = -curGravity * 2.0f;
+            rb.AddForce( jumpForce , ForceMode.Acceleration );
         }
+
+        // TODO: 重力計算
+        //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
+        curGravity += ( gravity * Time.deltaTime );
+
+        rb.AddForce( curGravity , ForceMode.Acceleration );
+        
+        if( transform.position.y == oldPos.y )
+        {
+            curGravity = Vector3.zero;
+            Debug.Log( "Gravity Reset" );
+        }
+
+        oldPos = transform.position;
     }
 
     private void OnGUI()
