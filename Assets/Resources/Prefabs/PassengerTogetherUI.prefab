@@ -57,6 +57,6 @@ MonoBehaviour:
     type: 2}
   faiceOnUISprite: {fileID: 21300000, guid: f56dfbca2b8c8864dae40d5309c5d069, type: 3}
   faiceBgUISprite: {fileID: 21300000, guid: 0ac00f580f0efce4f82afa52aa76c7dd, type: 3}
-  rideNum: 5
-  padding: 150
-  srideSpeed: 15
+  marginePear: 100
+  margineSmall: 50
+  margineBig: 20
