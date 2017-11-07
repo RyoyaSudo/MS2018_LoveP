@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     Human.GROUPTYPE passengerType;//乗客タイプ
 
     public GameObject passengerTogetherUIObj;   //乗客何人乗せるかUI
+    public GameObject gameObj;
+
+    public GameObject earth;
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -50,7 +53,8 @@ public class Player : MonoBehaviour
         PLAYER_STATE_STOP = 0,
         PLAYER_STATE_MOVE,
         PLAYER_STATE_TAKE,
-        PLAYER_STATE_TAKE_READY
+        PLAYER_STATE_TAKE_READY,
+        PLAYER_STATE_IN_CHANGE
     }
     State state;
 
@@ -63,9 +67,7 @@ public class Player : MonoBehaviour
     }
     VehicleType vehicleType;
 
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
+    // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -78,14 +80,36 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
-        
         oldPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CityMove();
+        if (state == State.PLAYER_STATE_IN_CHANGE)return;
+        switch( vehicleType )
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    CityMove();
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    CityMove();
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    CityMove();
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    StarMove();
+                    break;
+                }
+        }
     }
 
     private void OnTriggerStay( Collider other )
@@ -172,7 +196,7 @@ public class Player : MonoBehaviour
                         //乗客を子にする
                         human.gameObject.transform.position = transform.position;
                         human.transform.parent = transform;
-                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.RIDE );
+                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
                         Debug.Log( "Ride" );
                         passengerObj[ rideCount ] = human;
                         rideCount++;
@@ -224,27 +248,28 @@ public class Player : MonoBehaviour
                             //＋1ポイント　車
                             //＋4ポイント　バス
                             //＋8ポイント　飛行機
-                            
+
                             // TODO: 後できれいにする
-                            if( vehicleScore == 1)
+                            if (vehicleScore >= 1 && vehicleScore < 5)
                             {
-                                vehicleModel[(int)vehicleType].SetActive(false);
-                                vehicleType = VehicleType.VEHICLE_TYPE_CAR;
-                                vehicleModel[(int)vehicleType].SetActive(true);
+                                SetVehicle(VehicleType.VEHICLE_TYPE_CAR);
                             }
-                            else if( vehicleScore >= 5 && vehicleScore < 13) 
+                            else if (vehicleScore >= 5 && vehicleScore < 13)
                             {
-                                vehicleModel[(int)vehicleType].SetActive(false);
-                                vehicleType = VehicleType.VEHICLE_TYPE_BUS;
-                                vehicleModel[(int)vehicleType].SetActive(true);
+                                SetVehicle(VehicleType.VEHICLE_TYPE_BUS);
                             }
-                            else if( vehicleScore >= 13 )
+                            else if (vehicleScore >= 13)
                             {
-                                vehicleModel[(int)vehicleType].SetActive(false);
-                                vehicleType = VehicleType.VEHICLE_TYPE_AIRPLANE;
-                                vehicleModel[(int)vehicleType].SetActive(true);
+                                SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+                                gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
                             }
 
+                            //if (vehicleScore >= 4)
+                            //{
+                            //    SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+                            //    gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+                            //    Debug.Log("Star");
+                            //}
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
@@ -275,7 +300,8 @@ public class Player : MonoBehaviour
                             }
 
                             //何人乗せるかUIの表示を終了
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();                        }
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+                        }
                     }
                     break;
                 }
@@ -291,7 +317,7 @@ public class Player : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal");
 
         //プッシュ時と通常時で旋回力を分ける
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
         {
             moveH *= turnPowerPush;
         }
@@ -300,11 +326,11 @@ public class Player : MonoBehaviour
             moveH *= turnPower;//旋回力をかける
         }
 
-        if( Mathf.Abs( moveH ) > 0.2f )
+        if (Mathf.Abs(moveH) > 0.2f)
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
 
-            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
+            transform.rotation = Quaternion.Euler(transform.rotation.x, moveRadY, transform.rotation.z);
         }
 
         Vector3 force = transform.forward * speed;
@@ -312,12 +338,12 @@ public class Player : MonoBehaviour
         //rb.AddForce(force);
 
         // プッシュ動作
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
         {
-            force = new Vector3( 0.0f , 0.0f , 0.0f );
+            force = new Vector3(0.0f, 0.0f, 0.0f);
             rb.velocity *= 0.975f;//減速
             //速度が一定以下なら停止する
-            if( rb.velocity.magnitude < 1.0f )
+            if (rb.velocity.magnitude < 1.0f)
             {
                 rb.velocity *= 0.0f;
                 state = State.PLAYER_STATE_STOP;
@@ -326,26 +352,26 @@ public class Player : MonoBehaviour
         }
 
         // プッシュ解放した後のダッシュ
-        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1"))
         {
             //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-            if( pushCharge >= 60 )
+            if (pushCharge >= 60)
             {
-                rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
+                rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
             }
             //force *= ( 30.0f * rb.mass );
             pushCharge = 0;
         }
 
         // 今回の速度加算
-        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
+        rb.AddForce(force * Time.deltaTime, ForceMode.Acceleration);
 
         //最高速を設定
         Vector3 checkV = rb.velocity;
         checkV.y = 0.0f;
 
-        if( checkV.magnitude >= speedMax )
+        if (checkV.magnitude >= speedMax)
         {
             // Debug.Log("最高速");
             // HACK:最高速制御処理
@@ -376,7 +402,7 @@ public class Player : MonoBehaviour
 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
-        if( transform.position.y < -50.0f )
+        if (transform.position.y < -50.0f)
         {
             Vector3 newPos = transform.position;
             newPos.y = 30.0f;
@@ -385,25 +411,96 @@ public class Player : MonoBehaviour
 
         // TODO: ジャンプ処理
         //       デバッグ時に活用できそうなので実装
-        if( Input.GetKey( KeyCode.J ) )
+        if (Input.GetKey(KeyCode.J))
         {
             Vector3 jumpForce = -curGravity * 2.0f;
-            rb.AddForce( jumpForce , ForceMode.Acceleration );
+            rb.AddForce(jumpForce, ForceMode.Acceleration);
         }
 
         // TODO: 重力計算
         //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
-        curGravity += ( gravity * Time.deltaTime );
+        curGravity += (gravity * Time.deltaTime);
 
-        rb.AddForce( curGravity , ForceMode.Acceleration );
-        
-        if( transform.position.y == oldPos.y )
+        rb.AddForce(curGravity, ForceMode.Acceleration);
+
+        if (transform.position.y == oldPos.y)
         {
             curGravity = Vector3.zero;
-            Debug.Log( "Gravity Reset" );
+            Debug.Log("Gravity Reset");
         }
 
         oldPos = transform.position;
+    }
+
+    /// <summary>
+    /// 星移動処理
+    /// </summary>
+    void StarMove()
+    {
+        float moveV = Input.GetAxis("Vertical");
+        float moveH = Input.GetAxis("Horizontal");
+        Vector3 gravityVec = earth.transform.position - transform.position;
+        gravityVec.Normalize();
+        rb.AddForce(9.8f * gravityVec, ForceMode.Acceleration);
+        transform.up = -gravityVec.normalized;
+
+        Vector3 direction = new Vector3(moveH, 0.0f, moveV);
+
+        //Debug.Log( "Horizontal:" + moveH );
+        Vector3 axis = transform.up;// 回転軸
+                                    //float angle = 90f * Time.deltaTime; // 回転の角度
+
+        //this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
+        moveRadY += moveH * 180.0f * Time.deltaTime;
+        //transform.rotation = Quaternion.Euler(0, moveRadY, 0);
+        Quaternion q = Quaternion.AngleAxis(moveRadY, axis); // 軸axisの周りにangle回転させるクォータニオン
+        this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
+        if (Mathf.Abs(moveH) > 0.2f)
+        {
+
+        }
+
+        Vector3 force = transform.forward * speed;
+
+        // プッシュ動作
+        if (Input.GetKey(KeyCode.Space))
+        {
+            force = rb.velocity * 0.0f;
+            //rb.velocity = rb.velocity * 0.99f;
+
+            if (rb.velocity.magnitude < 2)
+            {
+                rb.velocity *= 0;
+            }
+
+        }
+
+        // プッシュ解放した後のダッシュ
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            //force *= ( 30.0f * rb.mass );
+            rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
+        }
+
+        // 今回の速度加算
+        rb.AddForce(force * Time.deltaTime, ForceMode.Acceleration);
+
+
+        if (rb.velocity.magnitude > speedMax)
+        {
+            rb.velocity = rb.velocity.normalized * speedMax;
+        }
+    }
+
+    /// <summary>
+    /// 乗り物設定関数
+    /// </summary>
+    void SetVehicle( VehicleType setVehicleType )
+    {
+        vehicleModel[(int)vehicleType].SetActive(false);
+        vehicleType = setVehicleType;
+        vehicleModel[(int)vehicleType].SetActive(true);
     }
 
     private void OnGUI()
