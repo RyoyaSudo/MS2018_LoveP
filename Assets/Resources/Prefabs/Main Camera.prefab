@@ -27,6 +27,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1174685748236440
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4919942635713616}
+  - component: {fileID: 114492897179696640}
+  m_Layer: 1
+  m_Name: PassengerTogetherUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1561408539923620
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,7 +56,7 @@ GameObject:
   - component: {fileID: 124564067792638302}
   - component: {fileID: 92520709294407462}
   - component: {fileID: 81240093306081272}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: GUI Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,6 +111,7 @@ Transform:
   m_Children:
   - {fileID: 4801079603826610}
   - {fileID: 4471272808832354}
+  - {fileID: 4919942635713616}
   m_Father: {fileID: 4835215720283094}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,6 +155,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4919942635713616
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174685748236440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4396858477749838}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20152529506145260
 Camera:
   m_ObjectHideFlags: 1
@@ -162,7 +192,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967293
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -298,6 +328,26 @@ MonoBehaviour:
   heightPadding: 75
   ptsPadding: 4
   numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
+--- !u!114 &114492897179696640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174685748236440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6f0e64b4b081747acd19dbf108b792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faiceBgUIPrefab: {fileID: 1812629574139264, guid: e5c65aafae576e8498cf020993921dc5,
+    type: 2}
+  faiceUIPrefab: {fileID: 1852817434084290, guid: 092ca56eb7d4b854ea0ee6a027abfbb7,
+    type: 2}
+  faiceOnUISprite: {fileID: 21300000, guid: f56dfbca2b8c8864dae40d5309c5d069, type: 3}
+  faiceBgUISprite: {fileID: 21300000, guid: 0ac00f580f0efce4f82afa52aa76c7dd, type: 3}
+  marginePear: 100
+  margineSmall: 50
+  margineBig: 20
 --- !u!114 &114684358173952586
 MonoBehaviour:
   m_ObjectHideFlags: 1
