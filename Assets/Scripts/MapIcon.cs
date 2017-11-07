@@ -33,10 +33,10 @@ public class MapIcon : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        if(type == TYPE.TYPE_FAR_GUEST)
+        /*if(type == TYPE.TYPE_FAR_GUEST)
         {
             Vector3 mapCameraPos = mapCamera.transform.position;
             transform.position = transform.position = new Vector3();
-        }
+        }*/
 	}
 }

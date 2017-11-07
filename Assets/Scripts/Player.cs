@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
                         //乗客を子にする
                         human.gameObject.transform.position = transform.position;
                         human.transform.parent = transform;
-                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
+                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.RIDE );
                         Debug.Log( "Ride" );
                         passengerObj[ rideCount ] = human;
                         rideCount++;
