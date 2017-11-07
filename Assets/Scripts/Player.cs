@@ -41,6 +41,12 @@ public class Player : MonoBehaviour
     /// 重力量。Playerは個別に設定する。
     /// </summary>
     public Vector3 gravity;
+    Vector3 curGravity;
+
+    /// <summary>
+    /// 前回フレーム時の位置。重力計算などに参照する。
+    /// </summary>
+    Vector3 oldPos;
 
     public enum State
     {
@@ -74,6 +80,7 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
+        oldPos = transform.position;
     }
 
     // Update is called once per frame
@@ -293,7 +300,8 @@ public class Player : MonoBehaviour
                             }
 
                             //何人乗せるかUIの表示を終了
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();                        }
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+                        }
                     }
                     break;
                 }
@@ -309,7 +317,7 @@ public class Player : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal");
 
         //プッシュ時と通常時で旋回力を分ける
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
         {
             moveH *= turnPowerPush;
         }
@@ -318,29 +326,24 @@ public class Player : MonoBehaviour
             moveH *= turnPower;//旋回力をかける
         }
 
-
-        Vector3 direction = new Vector3(moveH, 0.0f, moveV);
-
-        //Debug.Log( "Horizontal:" + moveH );
-
-        if( Mathf.Abs( moveH ) > 0.2f )
+        if (Mathf.Abs(moveH) > 0.2f)
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
-            transform.rotation = Quaternion.Euler( 0 , moveRadY , 0 );
+
+            transform.rotation = Quaternion.Euler(transform.rotation.x, moveRadY, transform.rotation.z);
         }
 
         Vector3 force = transform.forward * speed;
-        force += gravity;
 
         //rb.AddForce(force);
 
         // プッシュ動作
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
         {
-            force = new Vector3( 0.0f , 0.0f , 0.0f );
+            force = new Vector3(0.0f, 0.0f, 0.0f);
             rb.velocity *= 0.975f;//減速
             //速度が一定以下なら停止する
-            if( rb.velocity.magnitude < 1.0f )
+            if (rb.velocity.magnitude < 1.0f)
             {
                 rb.velocity *= 0.0f;
                 state = State.PLAYER_STATE_STOP;
@@ -349,26 +352,26 @@ public class Player : MonoBehaviour
         }
 
         // プッシュ解放した後のダッシュ
-        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1"))
         {
             //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-            if( pushCharge >= 60 )
+            if (pushCharge >= 60)
             {
-                rb.AddForce( force * turboRatio , ForceMode.VelocityChange );
+                rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
             }
             //force *= ( 30.0f * rb.mass );
             pushCharge = 0;
         }
 
         // 今回の速度加算
-        rb.AddForce( force , ForceMode.Acceleration );
+        rb.AddForce(force * Time.deltaTime, ForceMode.Acceleration);
 
         //最高速を設定
         Vector3 checkV = rb.velocity;
         checkV.y = 0.0f;
 
-        if( checkV.magnitude >= speedMax )
+        if (checkV.magnitude >= speedMax)
         {
             // Debug.Log("最高速");
             // HACK:最高速制御処理
@@ -399,7 +402,7 @@ public class Player : MonoBehaviour
 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
-        if( transform.position.y < -50.0f )
+        if (transform.position.y < -50.0f)
         {
             Vector3 newPos = transform.position;
             newPos.y = 30.0f;
@@ -408,11 +411,25 @@ public class Player : MonoBehaviour
 
         // TODO: ジャンプ処理
         //       デバッグ時に活用できそうなので実装
-        if( Input.GetKey( KeyCode.J ) )
+        if (Input.GetKey(KeyCode.J))
         {
-            Vector3 jumpForce = -4.0f * gravity;
-            rb.AddForce( jumpForce , ForceMode.Acceleration );
+            Vector3 jumpForce = -curGravity * 2.0f;
+            rb.AddForce(jumpForce, ForceMode.Acceleration);
         }
+
+        // TODO: 重力計算
+        //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
+        curGravity += (gravity * Time.deltaTime);
+
+        rb.AddForce(curGravity, ForceMode.Acceleration);
+
+        if (transform.position.y == oldPos.y)
+        {
+            curGravity = Vector3.zero;
+            Debug.Log("Gravity Reset");
+        }
+
+        oldPos = transform.position;
     }
 
     /// <summary>
@@ -463,11 +480,11 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
             //force *= ( 30.0f * rb.mass );
-            rb.AddForce(force * 4.0f, ForceMode.VelocityChange);
+            rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
         }
 
         // 今回の速度加算
-        rb.AddForce(force, ForceMode.Acceleration);
+        rb.AddForce(force * Time.deltaTime, ForceMode.Acceleration);
 
 
         if (rb.velocity.magnitude > speedMax)
