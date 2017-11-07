@@ -59,11 +59,7 @@ public class Human : MonoBehaviour
     public STATETYPE stateType;     // 自身の状態管理要変数
     public int spawnPlace;          //スポーン場所
 
-    //乗車させる人数
-    //int maxPassengerNum;
-
-    //現在の乗車人数
-    //int currentPassengerNum;
+    private GameObject modelObj;    //モデルオブジェクト
 
     /// <summary>
     /// 待機時間用カウンタ。
@@ -148,12 +144,20 @@ public class Human : MonoBehaviour
 
             //乗車
             case STATETYPE.RIDE:
-
+                //乗車アニメーションをさせる
+                modelObj.GetComponent<test>().RideAnimON();
+                //運搬アニメーションをさせる
+                modelObj.GetComponent<test>().TransportAnimON();    // TODO: 11/7現在。乗客の状態に運搬状態が設定されることがないためここで運搬アニメーションをしている
                 break;
 
             //下車
             case STATETYPE.GETOFF:
                 stateType = STATETYPE.RELEASE;      // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
+
+                //下車アニメーションをさせる
+                modelObj.GetComponent<test>().GetoffAnimON();
+                //解散アニメーションをさせる
+                modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
                 break;
 
             //運搬
@@ -267,7 +271,7 @@ public class Human : MonoBehaviour
         }
 
         // 生成
-        GameObject modelObj = Instantiate(humanModelArray[ modelID ],                   //ゲームオブジェクト
+        modelObj = Instantiate(humanModelArray[ modelID ],                              //ゲームオブジェクト
                                                this.transform.position,                 //位置
                                                Quaternion.identity) as GameObject;      //回転
 
