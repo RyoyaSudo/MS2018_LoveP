@@ -75,6 +75,8 @@ public class Game : MonoBehaviour {
         StarObj.SetActive(true);
         PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
         PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        PlayerObj.GetComponent<Player>().speed = 35.0f;
+        PlayerObj.GetComponent<Player>().speedMax = 60.0f;
         CameraObj.GetComponent<LovePCameraController>().enabled = false;
         CameraObj.GetComponent<StarCameraController>().enabled = true;
     }

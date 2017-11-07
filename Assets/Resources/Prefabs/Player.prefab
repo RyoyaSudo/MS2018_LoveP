@@ -418,9 +418,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4201612460157052}
+  - {fileID: 4883850745528142}
   - {fileID: 4962496362291470}
   - {fileID: 4231214127134436}
-  - {fileID: 4883850745528142}
   m_Father: {fileID: 4438287814034042}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -465,7 +465,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4164571994799070}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4250889248151126
 Transform:
@@ -617,7 +617,7 @@ Transform:
   - {fileID: 4757407183783870}
   - {fileID: 4306064708339528}
   m_Father: {fileID: 4164571994799070}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4914351745937404
 Transform:
@@ -656,7 +656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4164571994799070}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20616669911797442
 Camera:
@@ -1254,6 +1254,8 @@ MonoBehaviour:
   - {fileID: 1704177261154252}
   - {fileID: 1613793252576864}
   passengerTogetherUIObj: {fileID: 0}
+  gameObj: {fileID: 0}
+  earth: {fileID: 0}
   gravity: {x: 0, y: -14.7, z: 0}
 --- !u!124 &124133291857170306
 Behaviour:
@@ -1283,7 +1285,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1613793252576864}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

@@ -51,3 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8731101624ed6b442a406faf03951f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CityObj: {fileID: 0}
+  StarObj: {fileID: 0}
+  PlayerObj: {fileID: 0}
+  CameraObj: {fileID: 0}
+  CatInObj: {fileID: 0}
