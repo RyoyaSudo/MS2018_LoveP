@@ -177,5 +177,149 @@ public class SpawnManager : MonoBehaviour {
             //人生成
             HumanCreate(randam,groupType);
         }
-    } 
+    }
+
+    /// <summary>
+    /// プレイヤーの乗物によって人を生成
+    /// </summary>
+    /// <param name="vehicleType">
+    /// 現在のプレイヤーの乗物の種類
+    /// </param>
+    /// <param name="lastHumanSpawnPlace">
+    /// 最後の乗客の場所
+    /// </param>
+    /// <param name="pearNum">
+    /// ペアを何人生成するか
+    /// </param>
+    /// <param name="smallGroupNum">
+    /// 小グループを何人生成するか
+    /// </param>
+    /// <param name="BigGroubNum">
+    /// 大グループを何人生成するか
+    /// </param>
+    public void HumanCreateByVehicleType(Player.VehicleType vehicleType,int lastHumanSpawnPlace,int pearNum,int smallGroupNum,int BigGroubNum)
+    {
+        List<int> posList = new List<int>();
+        posList.Add(lastHumanSpawnPlace);
+        int pos;
+
+        //乗物の種類によっての生成方法
+        switch(vehicleType)
+        {
+            //バイクのとき
+            case Player.VehicleType.VEHICLE_TYPE_BIKE:
+                //ペア生成
+                for ( int nCnt=0; nCnt < pearNum; nCnt++ )
+                {
+                    while(true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1 )
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos,Human.GROUPTYPE.PEAR);
+                }
+                break;
+
+            //車のとき
+            case Player.VehicleType.VEHICLE_TYPE_CAR:
+                //ペア生成
+                for (int nCnt = 0; nCnt < pearNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.PEAR);
+                }
+                //小グループ生成
+                for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL);
+                }
+                break;
+
+            //バスのとき
+            case Player.VehicleType.VEHICLE_TYPE_BUS:
+                //ペア生成
+                for (int nCnt = 0; nCnt < pearNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.PEAR);
+                }
+                //小グループ生成
+                for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL);
+                }
+                //大グループ生成
+                for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.BIG);
+                }
+
+                break;
+        }
+    }
 }
