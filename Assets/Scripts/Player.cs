@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
         oldPos = transform.position;
+        moveRadY = 180.0f;
     }
 
     // Update is called once per frame
@@ -501,6 +502,14 @@ public class Player : MonoBehaviour
         vehicleModel[(int)vehicleType].SetActive(false);
         vehicleType = setVehicleType;
         vehicleModel[(int)vehicleType].SetActive(true);
+    }
+
+    /// <summary>
+    /// 状態設定関数
+    /// </summary>
+    public void SetState(State setState)
+    {
+        state = setState;
     }
 
     private void OnGUI()
