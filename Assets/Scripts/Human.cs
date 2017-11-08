@@ -144,10 +144,6 @@ public class Human : MonoBehaviour
 
             //乗車
             case STATETYPE.RIDE:
-                //乗車アニメーションをさせる
-                modelObj.GetComponent<test>().RideAnimON();
-                //運搬アニメーションをさせる
-                modelObj.GetComponent<test>().TransportAnimON();    // TODO: 11/7現在。乗客の状態に運搬状態が設定されることがないためここで運搬アニメーションをしている
                 break;
 
             //下車
@@ -162,6 +158,11 @@ public class Human : MonoBehaviour
 
             //運搬
             case STATETYPE.TRANSPORT:
+                //乗車アニメーションをさせる
+                modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
+                //運搬アニメーションをさせる
+                modelObj.GetComponent<test>().TransportAnimON();   
+
                 break;
 
             //解散
