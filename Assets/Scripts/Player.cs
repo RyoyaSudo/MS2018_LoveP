@@ -497,7 +497,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 乗り物設定関数
     /// </summary>
-    void SetVehicle( VehicleType setVehicleType )
+    public void SetVehicle( VehicleType setVehicleType )
     {
         vehicleModel[(int)vehicleType].SetActive(false);
         vehicleType = setVehicleType;

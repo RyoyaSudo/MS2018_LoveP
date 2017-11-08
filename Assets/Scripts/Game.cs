@@ -27,13 +27,11 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR
     }
-    Phase phase;
+    public Phase phase;
 
     // Use this for initialization
     void Start () {
-        phase = Phase.GAME_PAHSE_READY;
-        SetPhase(Phase.GAME_PAHSE_READY);
-        
+        SetPhase(phase);   
     }
 	
 	// Update is called once per frame
@@ -51,19 +49,28 @@ public class Game : MonoBehaviour {
                 }
             case Phase.GAME_PAHSE_CITY:
                 {
-                    if( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 )
+                    //デバッグ用
+                    if (Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
+                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 )
                     {
                         SceneManager.LoadScene("Result");
                     }
-
                     break;
                 }
             case Phase.GAME_PAHSE_STAR:
                 {
+                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0)
+                    {
+                        SceneManager.LoadScene("Result");
+                    }
                     break;
                 }
         }
-	}
+
+        //デバッグ用
+        if( Input.GetKeyUp(KeyCode.Return)) SceneManager.LoadScene("Result");
+
+    }
 
     public void SetPhase( Game.Phase SetPhase )
     {
@@ -91,7 +98,6 @@ public class Game : MonoBehaviour {
     //TODO 同じコンポーネントを使ってるところは後できれいにする
     void PhaseReadyStart()
     {
-        Debug.Log("ready");
         //SetPhase(Phase.GAME_PAHSE_CITY);
         PlayerObj.transform.position = new Vector3(175.0f, 1.0f, 120.0f);
         PlayerObj.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
@@ -102,7 +108,8 @@ public class Game : MonoBehaviour {
 
     void PhaseCityStart()
     {
-        Debug.Log("cityStart");
+        PlayerObj.transform.position = new Vector3(175.0f, 1.0f, 120.0f);
+        PlayerObj.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
         CityObj.SetActive(true);
         StarObj.SetActive(false);
         CameraObj.GetComponent<LovePCameraController>().enabled = true;
@@ -118,6 +125,7 @@ public class Game : MonoBehaviour {
         PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().speed = 1300f;
         PlayerObj.GetComponent<Player>().speedMax = 60.0f;
+        PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         CameraObj.GetComponent<LovePCameraController>().enabled = false;
         CameraObj.GetComponent<StarCameraController>().enabled = true;
     }
