@@ -24,6 +24,7 @@ public class test : MonoBehaviour {
     public void RideAnimON ()
     {
          anim.SetBool("Ride", true);
+        Debug.Log("OK!!!!!!");
     }
 
     /// <summary>

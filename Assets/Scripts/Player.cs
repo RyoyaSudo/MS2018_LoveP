@@ -274,6 +274,9 @@ public class Player : MonoBehaviour
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
+
+                            // TODO: 2017/11/07田口コメントアウトしました
+                            /*
                             List< int > posList = new List< int >();
                             posList.Add( human.spawnPlace );
 
@@ -299,6 +302,10 @@ public class Player : MonoBehaviour
                                 // 生成処理実行
                                 spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
                             }
+                            */
+
+                            //乗物によって生成する人を設定
+                            spawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
