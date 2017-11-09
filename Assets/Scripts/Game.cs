@@ -18,6 +18,7 @@ public class Game : MonoBehaviour {
     public GameObject CatInObj;
     public GameObject SpawnManagerObj;
     public GameObject TimeObj;
+    public GameObject MiniMapObj;
 
     int readyCount;
 
@@ -128,6 +129,8 @@ public class Game : MonoBehaviour {
         PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         CameraObj.GetComponent<LovePCameraController>().enabled = false;
         CameraObj.GetComponent<StarCameraController>().enabled = true;
+        MiniMapObj.GetComponent<MiniMap>().enabled = false;
+        MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
     }
 
     //タイトルシーンから移行
