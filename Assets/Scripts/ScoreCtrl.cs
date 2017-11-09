@@ -38,6 +38,9 @@ public class ScoreCtrl : MonoBehaviour
     [SerializeField]
     Sprite numberSp;
 
+    //スコアの保存キー
+    string scorKey = "scorKey";
+
     void Start()
     {
         ScoreTest = 1000;
@@ -72,6 +75,9 @@ public class ScoreCtrl : MonoBehaviour
         ptsPos.z = 0.0f;
         ptsLogo.transform.position = ptsPos;
         ptsLogo.transform.parent = gameObject.transform;
+
+        //総スコアを保存
+        PlayerPrefs.SetInt(scorKey, totalScore);
     }
 
     void Update()
@@ -157,6 +163,9 @@ public class ScoreCtrl : MonoBehaviour
     public void AddScore( int add )
     {
         totalScore += add;
+
+        //総スコアを保存
+        PlayerPrefs.SetInt(scorKey, totalScore);
     }
 
     private void OnGUI()

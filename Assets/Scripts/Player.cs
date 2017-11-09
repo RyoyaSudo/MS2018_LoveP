@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
         oldPos = transform.position;
+        moveRadY = 180.0f;
     }
 
     // Update is called once per frame
@@ -273,6 +274,9 @@ public class Player : MonoBehaviour
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
+
+                            // TODO: 2017/11/07田口コメントアウトしました
+                            /*
                             List< int > posList = new List< int >();
                             posList.Add( human.spawnPlace );
 
@@ -298,6 +302,10 @@ public class Player : MonoBehaviour
                                 // 生成処理実行
                                 spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
                             }
+                            */
+
+                            //乗物によって生成する人を設定
+                            spawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
@@ -496,11 +504,19 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 乗り物設定関数
     /// </summary>
-    void SetVehicle( VehicleType setVehicleType )
+    public void SetVehicle( VehicleType setVehicleType )
     {
         vehicleModel[(int)vehicleType].SetActive(false);
         vehicleType = setVehicleType;
         vehicleModel[(int)vehicleType].SetActive(true);
+    }
+
+    /// <summary>
+    /// 状態設定関数
+    /// </summary>
+    public void SetState(State setState)
+    {
+        state = setState;
     }
 
     private void OnGUI()
