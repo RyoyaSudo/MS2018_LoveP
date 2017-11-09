@@ -15,6 +15,7 @@ public class TestEffect : MonoBehaviour {
     private SoundController testMusic;
     public SoundController.Sounds soundType;
 
+    private ParticleSystem testEffect;
     // Use this for initialization
     void Start()
     {
@@ -32,7 +33,7 @@ public class TestEffect : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            test.EffectCreate(type, gameObject.transform);  //エフェクトを生成
+            testEffect = test.EffectCreate(type, gameObject.transform);  //エフェクトを生成
         }
         if(Input.GetKeyDown(KeyCode.Alpha4))
         {
