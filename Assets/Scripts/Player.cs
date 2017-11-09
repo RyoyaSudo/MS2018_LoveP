@@ -217,7 +217,9 @@ public class Player : MonoBehaviour
                                 passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
                                 passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
                             }
-                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( rideGroupNum );
+                            // HACK: スコア加算処理の場所
+                            //       現状プレイヤークラス内だが、後に変更の可能性有り。
+                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
                             rideCount = 0;
 
                             //乗客のタイプに応じで乗り物変更用のスコアを加算する
