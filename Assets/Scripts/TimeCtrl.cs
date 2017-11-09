@@ -17,6 +17,7 @@ public class TimeCtrl : MonoBehaviour
 
     private GameObject[] TimeArray;    //スコアの桁数
     private float Timeleft;
+    private float timer;
 
     private GameObject colonObj;
 
@@ -57,6 +58,9 @@ public class TimeCtrl : MonoBehaviour
         TimeMinute = 5;
         TimeSeconds = 0;
         TotalTime = TOTAL_TIME;
+
+        timer = 0.0f;
+        Timeleft = 0.0f;
 
         //スコアの実際に表示される0~9の値を格納する変数
         TimeStack = new int[ TIME_MAX ];
@@ -110,6 +114,7 @@ public class TimeCtrl : MonoBehaviour
                     if( Timeleft >= 1.0f )
                     {
                         Timeleft = 0.0f;
+                        timer = Mathf.Floor(Timeleft);
                         TimeSet( 1 );
                     }
                     break;
