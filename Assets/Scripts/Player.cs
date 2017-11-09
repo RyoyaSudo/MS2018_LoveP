@@ -94,12 +94,13 @@ public class Player : MonoBehaviour
         effect = GameObject.Find("EffectManager").GetComponent<EffectController>();
         ChargeEffectCreate();
         ChargeMaxEffectCreate();
+        moveRadY = 180.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (state == State.PLAYER_STATE_IN_CHANGE)return;
+        if( state == State.PLAYER_STATE_IN_CHANGE ) return;
         switch( vehicleType )
         {
             case VehicleType.VEHICLE_TYPE_BIKE:
@@ -127,29 +128,29 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay( Collider other )
     {
-        Debug.Log("onTriggerStay");
+        Debug.Log( "onTriggerStay" );
         switch( other.gameObject.tag )
         {
             // 乗車エリアに関する処理
             case "RideArea":
                 {
-                    Debug.Log("RideAreaON");
+                    Debug.Log( "RideAreaON" );
 
                     Human human = other.transform.parent.GetComponent<Human>();
 
                     if( rb.velocity.magnitude < 1.0f )//ほぼ停止してるなら
                     {
-                        Debug.Log("stop");
+                        Debug.Log( "stop" );
 
                         //乗車待機状態じゃないならbreak;
-                        if ( human.stateType != Human.STATETYPE.READY ) break;
+                        if( human.stateType != Human.STATETYPE.READY ) break;
                         //state = State.PLAYER_STATE_TAKE_READY;
                         //state = State.PLAYER_STATE_TAKE;
 
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )
                         {
-                            Debug.Log("rideCnt");
+                            Debug.Log( "rideCnt" );
 
                             // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
                             //       10/24現在では他の乗客はFindして消してしまうやり方をする。
@@ -203,7 +204,7 @@ public class Player : MonoBehaviour
                             //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
 
                             //何人乗せるかUIを表示させる
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart(rideGroupNum);
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
                         }
 
                         //乗客を子にする
@@ -215,7 +216,7 @@ public class Player : MonoBehaviour
                         rideCount++;
 
                         //フェイスUIをONにする
-                        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION(rideCount);
+                        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount );
 
                         // 乗客の当たり判定を消す
                         human.GetHumanModelCollider().isTrigger = true;
@@ -229,11 +230,13 @@ public class Player : MonoBehaviour
                                 passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
                                 passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
                             }
-                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( rideGroupNum );
+                            // HACK: スコア加算処理の場所
+                            //       現状プレイヤークラス内だが、後に変更の可能性有り。
+                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
                             rideCount = 0;
 
                             //乗客のタイプに応じで乗り物変更用のスコアを加算する
-                            switch (passengerType)
+                            switch( passengerType )
                             {
                                 case Human.GROUPTYPE.PEAR:
                                     {
@@ -252,7 +255,7 @@ public class Player : MonoBehaviour
                                     }
                                 default:
                                     {
-                                        Debug.Log("エラー:設定謎の乗客タイプが設定されています");
+                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
                                         break;
                                     }
                             }
@@ -263,18 +266,18 @@ public class Player : MonoBehaviour
                             //＋8ポイント　飛行機
 
                             // TODO: 後できれいにする
-                            if (vehicleScore >= 1 && vehicleScore < 5)
+                            if( vehicleScore >= 1 && vehicleScore < 5 )
                             {
-                                SetVehicle(VehicleType.VEHICLE_TYPE_CAR);
+                                SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
                             }
-                            else if (vehicleScore >= 5 && vehicleScore < 13)
+                            else if( vehicleScore >= 5 && vehicleScore < 13 )
                             {
-                                SetVehicle(VehicleType.VEHICLE_TYPE_BUS);
+                                SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
                             }
-                            else if (vehicleScore >= 13)
+                            else if( vehicleScore >= 13 )
                             {
-                                SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
-                                gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+                                SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
+                                gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
                             }
 
                             //if (vehicleScore >= 4)
@@ -317,7 +320,7 @@ public class Player : MonoBehaviour
                             */
 
                             //乗物によって生成する人を設定
-                            spawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                            spawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
@@ -337,7 +340,7 @@ public class Player : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal");
 
         //プッシュ時と通常時で旋回力を分ける
-        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
+        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
         {
             moveH *= turnPowerPush;
         }
@@ -346,11 +349,11 @@ public class Player : MonoBehaviour
             moveH *= turnPower;//旋回力をかける
         }
 
-        if (Mathf.Abs(moveH) > 0.2f)
+        if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
 
-            transform.rotation = Quaternion.Euler(transform.rotation.x, moveRadY, transform.rotation.z);
+            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
         }
 
         Vector3 force = transform.forward * speed;
@@ -358,13 +361,12 @@ public class Player : MonoBehaviour
         //rb.AddForce(force);
 
         // プッシュ動作
-        if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
-        {           
-
-            force = new Vector3(0.0f, 0.0f, 0.0f);
+        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        {
+            force = new Vector3( 0.0f , 0.0f , 0.0f );
             rb.velocity *= 0.975f;//減速
             //速度が一定以下なら停止する
-            if (rb.velocity.magnitude < 1.0f)
+            if( rb.velocity.magnitude < 1.0f )
             {
                 rb.velocity *= 0.0f;
                 state = State.PLAYER_STATE_STOP;
@@ -399,13 +401,13 @@ public class Player : MonoBehaviour
         }
 
         // プッシュ解放した後のダッシュ
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1"))
+        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
         {
             //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
             if (pushCharge >= CHARGE_MAX)
             {
-                rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
+                rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
             }
             else
             {
@@ -431,13 +433,13 @@ public class Player : MonoBehaviour
         }
 
         // 今回の速度加算
-        rb.AddForce(force * Time.deltaTime, ForceMode.Acceleration);
+        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
 
         //最高速を設定
         Vector3 checkV = rb.velocity;
         checkV.y = 0.0f;
 
-        if (checkV.magnitude >= speedMax)
+        if( checkV.magnitude >= speedMax )
         {
             // Debug.Log("最高速");
             // HACK:最高速制御処理
@@ -468,7 +470,7 @@ public class Player : MonoBehaviour
 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
-        if (transform.position.y < -50.0f)
+        if( transform.position.y < -50.0f )
         {
             Vector3 newPos = transform.position;
             newPos.y = 30.0f;
@@ -477,22 +479,22 @@ public class Player : MonoBehaviour
 
         // TODO: ジャンプ処理
         //       デバッグ時に活用できそうなので実装
-        if (Input.GetKey(KeyCode.J))
+        if( Input.GetKey( KeyCode.J ) )
         {
             Vector3 jumpForce = -curGravity * 2.0f;
-            rb.AddForce(jumpForce, ForceMode.Acceleration);
+            rb.AddForce( jumpForce , ForceMode.Acceleration );
         }
 
         // TODO: 重力計算
         //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
-        curGravity += (gravity * Time.deltaTime);
+        curGravity += ( gravity * Time.deltaTime );
 
-        rb.AddForce(curGravity, ForceMode.Acceleration);
+        rb.AddForce( curGravity , ForceMode.Acceleration );
 
-        if (transform.position.y == oldPos.y)
+        if( transform.position.y == oldPos.y )
         {
             curGravity = Vector3.zero;
-            Debug.Log("Gravity Reset");
+            Debug.Log( "Gravity Reset" );
         }
 
         oldPos = transform.position;
@@ -507,7 +509,7 @@ public class Player : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal");
         Vector3 gravityVec = earth.transform.position - transform.position;
         gravityVec.Normalize();
-        rb.AddForce(9.8f * gravityVec, ForceMode.Acceleration);
+        rb.AddForce( 9.8f * gravityVec * Time.deltaTime , ForceMode.Acceleration );
         transform.up = -gravityVec.normalized;
 
         Vector3 direction = new Vector3(moveH, 0.0f, moveV);
@@ -521,7 +523,7 @@ public class Player : MonoBehaviour
         //transform.rotation = Quaternion.Euler(0, moveRadY, 0);
         Quaternion q = Quaternion.AngleAxis(moveRadY, axis); // 軸axisの周りにangle回転させるクォータニオン
         this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
-        if (Mathf.Abs(moveH) > 0.2f)
+        if( Mathf.Abs( moveH ) > 0.2f )
         {
 
         }
@@ -529,12 +531,12 @@ public class Player : MonoBehaviour
         Vector3 force = transform.forward * speed;
 
         // プッシュ動作
-        if (Input.GetKey(KeyCode.Space))
+        if( Input.GetKey( KeyCode.Space ) )
         {
             force = rb.velocity * 0.0f;
             //rb.velocity = rb.velocity * 0.99f;
 
-            if (rb.velocity.magnitude < 2)
+            if( rb.velocity.magnitude < 2 )
             {
                 rb.velocity *= 0;
             }
@@ -542,18 +544,17 @@ public class Player : MonoBehaviour
         }
 
         // プッシュ解放した後のダッシュ
-        if (Input.GetKeyUp(KeyCode.Space))
+        if( Input.GetKeyUp( KeyCode.Space ) )
         {
-            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            rb.velocity = new Vector3( 0.0f , 0.0f , 0.0f );
             //force *= ( 30.0f * rb.mass );
-            rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
         }
 
         // 今回の速度加算
-        rb.AddForce(force * Time.deltaTime, ForceMode.Acceleration);
+        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
 
-
-        if (rb.velocity.magnitude > speedMax)
+        if( rb.velocity.magnitude > speedMax )
         {
             rb.velocity = rb.velocity.normalized * speedMax;
         }
@@ -562,11 +563,19 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 乗り物設定関数
     /// </summary>
-    void SetVehicle( VehicleType setVehicleType )
+    public void SetVehicle( VehicleType setVehicleType )
     {
-        vehicleModel[(int)vehicleType].SetActive(false);
+        vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
-        vehicleModel[(int)vehicleType].SetActive(true);
+        vehicleModel[ ( int )vehicleType ].SetActive( true );
+    }
+
+    /// <summary>
+    /// 状態設定関数
+    /// </summary>
+    public void SetState( State setState )
+    {
+        state = setState;
     }
 
     private void OnGUI()

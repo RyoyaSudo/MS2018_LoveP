@@ -38,11 +38,36 @@ public class ScoreCtrl : MonoBehaviour
     [SerializeField]
     Sprite numberSp;
 
+    /// <summary>
+    /// ゲームシーン管理クラスを保持する。
+    /// ゲーム状態に応じたスコア加算処理を行うため
+    /// </summary>
+    [SerializeField]
+    Game gameCtrl;
+
+    /// <summary>
+    /// 星フェイズ時にスコア加算された回数。
+    /// この数値を利用して星フェイズのスコア算出を行う。
+    /// </summary>
+    int starPhaseAddScoreNum;
+
+    /// <summary>
+    /// スコアテーブル。
+    /// グループの総数に応じて適時追加
+    /// </summary>
+    int[] scoreTable =
+    {
+        1000,
+        1500,
+        2500,
+    };
+
     //スコアの保存キー
     string scorKey = "scorKey";
 
     void Start()
     {
+        starPhaseAddScoreNum = 1;
         ScoreTest = 1000;
         scoreValueCnt = 0;
         //スコアの実際に表示される0~9の値を格納する変数
@@ -160,12 +185,61 @@ public class ScoreCtrl : MonoBehaviour
     }
 
     //スコア加算関数
-    public void AddScore( int add )
+    public void AddScore( int groupNo )
     {
-        totalScore += add;
+        int result = 0;
+
+        // 計算部分
+        switch( gameCtrl.phase )
+        {
+            case Game.Phase.GAME_PAHSE_CITY:
+                result = CityPhaseScoreCal( groupNo );
+                break;
+
+            case Game.Phase.GAME_PAHSE_STAR:
+                result = StarPhaseScoreCal( groupNo );
+                break;
+
+            default:
+                Debug.LogError( "スコア加算時に不正なフェイズを読み込みました" );
+                break;
+        }
+
+
+        // トータルに反映
+        totalScore += result;
 
         //総スコアを保存
         PlayerPrefs.SetInt(scorKey, totalScore);
+    }
+
+    /// <summary>
+    /// 街フェイズのスコア算出処理
+    /// </summary>
+    int CityPhaseScoreCal( int groupNo )
+    {
+        int result = scoreTable[ groupNo ];
+
+        return result;
+    }
+
+    /// <summary>
+    /// 星フェイズのスコア算出処理
+    /// </summary>
+    int StarPhaseScoreCal( int groupNo )
+    {
+        int result = 0;
+
+        // TODO: 星フェイズスコア算出処理
+        // 算出式は
+        // 取得グループ別係数 * Exp( 2 * Log( addNum ) ) * addNum ^ 3
+        // 後ほど変える可能性もあるかも？
+        result = scoreTable[ groupNo ] * ( int )( Mathf.Exp( 2 * Mathf.Log( starPhaseAddScoreNum ) ) * Mathf.Pow( starPhaseAddScoreNum , 3 ) );
+
+        // 後処理
+        starPhaseAddScoreNum++;
+
+        return result;
     }
 
     private void OnGUI()

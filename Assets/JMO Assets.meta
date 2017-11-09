@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/JMO Assets.meta
 guid: 446a4cb484fd0854b9445970b6041993
 folderAsset: yes
 timeCreated: 1510196965
+=======
+guid: 206724d7c95ac864cb44ba81ab953ccd
+timeCreated: 1510198053
+>>>>>>> master:Assets/Scenes/Game.unity.meta
 licenseType: Free
 DefaultImporter:
   userData: 

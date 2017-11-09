@@ -7,7 +7,7 @@ public class TimeCtrl : MonoBehaviour
 
     const int TIME_MAX = 4;    //スコアの桁数
     const float TIME_DEFAULT_POS = -1.5f; //スコアの1の位の基本になる位置(いい感じの値) 
-    const int TOTAL_TIME = 500;
+    const int TOTAL_TIME = 300;
 
     private int[] TimeStack;     //スコアを格納する配列
 
@@ -40,6 +40,13 @@ public class TimeCtrl : MonoBehaviour
     [SerializeField]
     Sprite colonSp;
 
+    public enum State
+    {
+        TIME_STATE_STOP = 0,
+        TIME_STATE_RUN
+    }
+    State state;
+
     //private int TimeConma;      //秒以下の数字
     //public GameObject[] ConmaArray;    //コンマ専用配列
     //private int[] ConmaStack;           //コンマ専用スタック
@@ -48,7 +55,7 @@ public class TimeCtrl : MonoBehaviour
     {
         //分,秒の初期化
         TimeMinute = 5;
-        TimeSeconds = 60;
+        TimeSeconds = 0;
         TotalTime = TOTAL_TIME;
 
         //スコアの実際に表示される0~9の値を格納する変数
@@ -85,16 +92,34 @@ public class TimeCtrl : MonoBehaviour
 
         colonObj.transform.position = colonPos;
         colonObj.transform.parent = gameObject.transform;
+
+        TimeSet(0);
     }
 
     void Update()
     {
-        Timeleft += Time.deltaTime;
-        if( Timeleft >= 1.0f )
+        switch (state)
         {
-            Timeleft = 0.0f;
-            TimeSet( 1 );
+            case State.TIME_STATE_STOP:
+                {
+                    break;
+                }
+            case State.TIME_STATE_RUN:
+                {
+                    Timeleft += Time.deltaTime;
+                    if( Timeleft >= 1.0f )
+                    {
+                        Timeleft = 0.0f;
+                        TimeSet( 1 );
+                    }
+                    break;
+                }
         }
+    }
+
+    public void SetState( State setState )
+    {
+        state = setState;
     }
 
     /************************************************************
@@ -114,6 +139,7 @@ public class TimeCtrl : MonoBehaviour
         if( TimeSeconds < 0 )
         {
             TimeMinute -= 1;
+            if (TimeMinute <= 0) TimeMinute = 0;
             TimeSeconds = 59;
         }
 
@@ -129,6 +155,11 @@ public class TimeCtrl : MonoBehaviour
         {
             TimeArray[ nCnt ].GetComponent<SpriteRenderer>().sprite = SpriteArray[ TimeStack[ nCnt ] ];
         }
+    }
+
+    public int GetTime()
+    {
+        return TotalTime;
     }
 
     //------------------------もう使わなくなったやつ------------------------///
