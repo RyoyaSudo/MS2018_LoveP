@@ -58,4 +58,4 @@ MonoBehaviour:
   CatInObj: {fileID: 0}
   SpawnManagerObj: {fileID: 0}
   TimeObj: {fileID: 0}
-  phase: 1
+  phase: 0
