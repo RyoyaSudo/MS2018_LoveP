@@ -350,6 +350,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1779765421901728, guid: 427fd16f96fd2114ba26480c20c8379f,
     type: 2}
   m_PrefabInternal: {fileID: 256660006}
+--- !u!1 &456078042 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1499832240518992, guid: 9a4a9bde652a5b746b4743d9ce404cc3,
+    type: 2}
+  m_PrefabInternal: {fileID: 165763721}
 --- !u!1001 &602857946
 Prefab:
   m_ObjectHideFlags: 0
@@ -807,14 +812,9 @@ Prefab:
       objectReference: {fileID: 1425930530}
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
-      propertyPath: phase
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
-        type: 2}
       propertyPath: MiniMapObj
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 456078042}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
   m_IsPrefabParent: 0
