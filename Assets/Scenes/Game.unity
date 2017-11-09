@@ -762,8 +762,13 @@ Prefab:
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
       propertyPath: phase
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: MiniMapObj
+      value: 
+      objectReference: {fileID: 1817359227}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
   m_IsPrefabParent: 0
@@ -1060,6 +1065,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a5817ddf43bfdc41867fc1eafd800fa, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1817359227 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1499832240518992, guid: 9a4a9bde652a5b746b4743d9ce404cc3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1318694994}
+--- !u!114 &1817359234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1817359227}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22ae7ef2291c0847818d03fbeda381e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1818603790 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114976934096940558, guid: 05cf89f3cf6fc724896a1edc82eceed4,
