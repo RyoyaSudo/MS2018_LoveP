@@ -18,6 +18,7 @@ public class Game : MonoBehaviour {
     public GameObject CatInObj;
     public GameObject SpawnManagerObj;
     public GameObject TimeObj;
+    public GameObject MiniMapObj;
 
     int readyCount;
 
@@ -123,11 +124,13 @@ public class Game : MonoBehaviour {
         StarObj.SetActive(true);
         PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
         PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        PlayerObj.GetComponent<Player>().speed = 1300f;
+        PlayerObj.GetComponent<Player>().speed = 1800f;
         PlayerObj.GetComponent<Player>().speedMax = 60.0f;
         PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         CameraObj.GetComponent<LovePCameraController>().enabled = false;
         CameraObj.GetComponent<StarCameraController>().enabled = true;
+        MiniMapObj.GetComponent<MiniMap>().enabled = false;
+        MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
     }
 
     //タイトルシーンから移行
