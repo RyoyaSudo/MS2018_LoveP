@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     public float speed;
 
     Rigidbody rb;
@@ -24,7 +23,7 @@ public class Player : MonoBehaviour
     public float turnPowerPush;//プッシュ時旋回力
     public float turnPower;//旋回力
 
-    int  pushCharge;//pushチャージ量
+    float  pushCharge;//pushチャージ量
     public float speedMax;//最高速
     public float turboRatio;//ターボレシオ
 
@@ -36,6 +35,15 @@ public class Player : MonoBehaviour
     public GameObject gameObj;
 
     public GameObject earth;
+
+    [SerializeField]
+    private float CHARGE_MAX;
+
+    //エフェクト関係
+    private EffectController effect;
+    private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
+    private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
+    private bool bChargeMax=false;               //チャージがマックス状態かどうか    
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -81,6 +89,11 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
         oldPos = transform.position;
+
+        //エフェクト関係
+        effect = GameObject.Find("EffectManager").GetComponent<EffectController>();
+        ChargeEffectCreate();
+        ChargeMaxEffectCreate();
     }
 
     // Update is called once per frame
@@ -346,7 +359,8 @@ public class Player : MonoBehaviour
 
         // プッシュ動作
         if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
-        {
+        {           
+
             force = new Vector3(0.0f, 0.0f, 0.0f);
             rb.velocity *= 0.975f;//減速
             //速度が一定以下なら停止する
@@ -355,7 +369,33 @@ public class Player : MonoBehaviour
                 rb.velocity *= 0.0f;
                 state = State.PLAYER_STATE_STOP;
             }
-            pushCharge++;
+
+            //チャージエフェクト再生
+            if (pushCharge == 0)
+            {
+                var emission = chargeEffectObj.emission;
+                emission.enabled = true;
+            }
+
+            //チャージがマックスになったら
+            if (pushCharge >= CHARGE_MAX)
+            {
+                //チャージマックスエフェクト再生
+                if (!bChargeMax)
+                {
+                    //チャージエフェクト停止
+                    var emission = chargeEffectObj.emission;
+                    emission.enabled = false;
+
+                    //チャージマックスエフェクト再生
+                    emission = chargeMaxEffectObj.emission;
+                    emission.enabled = true;
+
+                    bChargeMax = true;
+                }
+            }
+
+            pushCharge+=Time.deltaTime;
         }
 
         // プッシュ解放した後のダッシュ
@@ -363,10 +403,29 @@ public class Player : MonoBehaviour
         {
             //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-            if (pushCharge >= 60)
+            if (pushCharge >= CHARGE_MAX)
             {
                 rb.AddForce(force * turboRatio * Time.deltaTime, ForceMode.VelocityChange);
             }
+            else
+            {
+            }
+
+            if (bChargeMax)
+            {           
+                //チャージマックスエフェクト停止
+                var emission = chargeMaxEffectObj.emission;
+                emission.enabled = false;
+                bChargeMax = false;
+            }
+            else
+            {
+                //チャージエフェクト停止
+                var emissione = chargeEffectObj.emission;
+                emissione.enabled = false;
+
+            }
+
             //force *= ( 30.0f * rb.mass );
             pushCharge = 0;
         }
@@ -524,6 +583,46 @@ public class Player : MonoBehaviour
         str = "速度ベクトル:" + rb.velocity + "\n速度量:" + rb.velocity.magnitude;
 
         GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+    }
+
+    /// <summary>
+    /// チャージエフェクト生成
+    /// </summary>
+    public void ChargeEffectCreate()
+    {
+        //生成
+        chargeEffectObj = effect.EffectCreate(EffectController.Effects.CHARGE_EFFECT, gameObject.transform);
+
+        //再生OFF
+        var emissione = chargeEffectObj.emission;
+        emissione.enabled = false;
+
+        //位置設定
+        Vector3 pos;
+        pos = chargeEffectObj.transform.localPosition;
+        pos.y = -1.0f;
+        pos.z = -1.0f;
+        chargeEffectObj.transform.localPosition = pos;
+    }
+
+    /// <summary>
+    /// チャージマックスエフェクト生成
+    /// </summary>
+    public void ChargeMaxEffectCreate()
+    {
+        //生成
+        chargeMaxEffectObj = effect.EffectCreate(EffectController.Effects.CHARGE_MAX_EFFECT, gameObject.transform);
+
+        //再生OFF
+        var emissione = chargeMaxEffectObj.emission;
+        emissione.enabled = false;
+
+        //位置設定
+        Vector3 pos;
+        pos = chargeMaxEffectObj.transform.localPosition;
+        pos.y = 0.0f;
+        pos.z = -1.0f;
+        chargeMaxEffectObj.transform.localPosition = pos;
     }
 }
 

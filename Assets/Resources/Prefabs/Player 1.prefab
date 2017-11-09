@@ -1192,6 +1192,7 @@ MonoBehaviour:
   passengerTogetherUIObj: {fileID: 0}
   gameObj: {fileID: 0}
   earth: {fileID: 0}
+  CHARGE_MAX: 60
   gravity: {x: 0, y: -98.1, z: 0}
 --- !u!136 &136115222088202264
 CapsuleCollider:
