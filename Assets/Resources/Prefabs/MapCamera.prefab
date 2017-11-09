@@ -58,8 +58,8 @@ Camera:
     serializedVersion: 2
     x: 0.73
     y: 0
-    width: 0.3
-    height: 0.3
+    width: 0.31
+    height: 0.31
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -68,7 +68,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967005
   m_RenderingPath: 0
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
