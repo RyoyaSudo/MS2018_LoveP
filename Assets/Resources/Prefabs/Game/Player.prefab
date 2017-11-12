@@ -1085,6 +1085,9 @@ MonoBehaviour:
   - {fileID: 1704177261154252}
   - {fileID: 1613793252576864}
   passengerTogetherUIObj: {fileID: 0}
+  gameObj: {fileID: 0}
+  earth: {fileID: 0}
+  CHARGE_MAX: 0
   gravity: {x: 0, y: -14.7, z: 0}
 --- !u!124 &124133291857170306
 Behaviour:
