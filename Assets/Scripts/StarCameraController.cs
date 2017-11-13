@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class StarCameraController : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーオブジェクト。
+    /// 位置などを参照して追従する処理を実装するのに利用。
+    /// </summary>
+    GameObject player;
+    public string playerObjPath;
 
-    public GameObject player;
     Vector3 offset;
     public float radius;
 
     // Use this for initialization
     void Start()
     {
+        // オブジェクトを取得
+        player = GameObject.Find( playerObjPath );
+
         Vector3 offsetV = transform.position - player.transform.position;
         //radius = offsetV.magnitude;
         offset = new Vector3(0.0f, 5.0f, -3.0f);
+
     }
 
     // Update is called once per frame

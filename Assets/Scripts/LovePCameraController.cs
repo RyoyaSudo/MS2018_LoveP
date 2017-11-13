@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class LovePCameraController : MonoBehaviour
 {
-    public GameObject player;
+    /// <summary>
+    /// プレイヤーオブジェクト。
+    /// 位置などを参照して追従する処理を実装するのに利用。
+    /// </summary>
+    GameObject player;
+    public string playerObjPath;
+
     Vector3 dirStdV;                // 基準方向ベクトル
     float radius;
 
     // Use this for initialization
     void Start()
     {
+        // オブジェクトを取得
+        player = GameObject.Find( playerObjPath );
+
         Vector3 offsetV = ( transform.position + player.transform.position ) - player.transform.position;
         radius = offsetV.magnitude;
 

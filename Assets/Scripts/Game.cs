@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;  //画面遷移を可能にする
 using UnityEngine;
+using System;
 
 /// <summary>
 /// ゲームシーン管理クラス
@@ -11,14 +12,28 @@ using UnityEngine;
 /// </remarks>
 public class Game : MonoBehaviour {
 
-    public GameObject CityObj;
-    public GameObject StarObj;
-    public GameObject PlayerObj;
-    public GameObject CameraObj;
-    public GameObject CatInObj;
-    public GameObject SpawnManagerObj;
-    public GameObject TimeObj;
-    public GameObject MiniMapObj;
+    // プレハブ系
+    // Hierarchy上から設定する
+    public GameObject CityPrefab;
+    public GameObject StarPrefab;
+    public GameObject PlayerPrefab;
+    public GameObject CameraPrefab;
+    public GameObject SpawnManagerPrefab;
+    public GameObject MiniMapPrefab;
+    public GameObject effectManagerPrefab;
+    public GameObject soundManagerPrefab;
+
+    // オブジェクト系
+    // シーン中シーン管理上操作したい場合に保持しておく
+    GameObject CityObj;
+    GameObject StarObj;
+    GameObject PlayerObj;
+    GameObject CameraObj;
+    GameObject SpawnManagerObj;
+    GameObject TimeObj;
+    GameObject MiniMapObj;
+    GameObject effectManagerObj;
+    GameObject soundManagerObj;
 
     int readyCount;
 
@@ -30,9 +45,16 @@ public class Game : MonoBehaviour {
     }
     public Phase phase;
 
+    private void Awake()
+    {
+        InitCreateObjects();
+    }
+
     // Use this for initialization
     void Start () {
-        SetPhase(phase);   
+        // フェイズステータス設定
+        // Hierarchy上でフェイズを設定できるように依存した処理はできるだけかかない
+        SetPhase(phase);
     }
 	
 	// Update is called once per frame
@@ -127,6 +149,7 @@ public class Game : MonoBehaviour {
         PlayerObj.GetComponent<Player>().speed = 1800f;
         PlayerObj.GetComponent<Player>().speedMax = 60.0f;
         PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
+        PlayerObj.GetComponent<Player>().StarPhaseInit();
         CameraObj.GetComponent<LovePCameraController>().enabled = false;
         CameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
@@ -139,4 +162,45 @@ public class Game : MonoBehaviour {
     //ゲーム開始（Playerを動けるようにする、タイムの動作開始）
     //ゲーム中
     //時間切れでリザルトに遷移
+
+    /// <summary>
+    /// 初期化時オブジェクト生成処理
+    /// </summary>
+    /// <remarks>
+    /// Hierarchy上にプレハブと同名のオブジェクトが無いか検索し、無ければ生成。
+    /// ある場合はHierarchy上の物を使用する。
+    /// Debug時などはHierarchy上のもののほうが使い勝手が良いため。
+    /// </remarks>
+    private void InitCreateObjects()
+    {
+        // HACK: ラムダ式で生成処理を実装
+        //       効率が良いのかは分からん
+        Func< GameObject , GameObject > Create = ( GameObject prefabs ) =>
+        {
+            GameObject obj = GameObject.Find( prefabs.name );
+
+            if( obj == null )
+            {
+                obj = Instantiate( prefabs );
+                obj.name = prefabs.name;
+            }
+
+            return obj;
+        };
+
+        // 各オブジェクトの生成
+        CityObj = Create( CityPrefab );
+        StarObj = Create( StarPrefab );
+        PlayerObj = Create( PlayerPrefab );
+        CameraObj = Create( CameraPrefab );
+        SpawnManagerObj = Create( SpawnManagerPrefab );
+        MiniMapObj = Create( MiniMapPrefab );
+        effectManagerObj = Create( effectManagerPrefab );
+        soundManagerObj = Create( soundManagerPrefab );
+
+        // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
+        //       直接パスを記述。後に変更したほうがいいか？
+        TimeObj = GameObject.Find( "Time" );
+    }
+
 }

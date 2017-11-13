@@ -17,8 +17,15 @@ public class Player : MonoBehaviour
     int rideGroupNum; //グループ乗車人数
     private Human[] passengerObj;
 
-    public GameObject scoreObj;
-    public SpawnManager spawnManagerObj;
+    private GameObject scoreObj;
+
+    public string spawnManagerPath;
+
+    /// <summary>
+    /// スポーンマネージャーオブジェクト。
+    /// 乗客生成にまつわる処理をさせるため必要。
+    /// </summary>
+    private SpawnManager spawnManagerObj;
 
     public float turnPowerPush;//プッシュ時旋回力
     public float turnPower;//旋回力
@@ -31,10 +38,26 @@ public class Player : MonoBehaviour
     int vehicleScore;//乗車スコア
     Human.GROUPTYPE passengerType;//乗客タイプ
 
-    public GameObject passengerTogetherUIObj;   //乗客何人乗せるかUI
-    public GameObject gameObj;
+    /// <summary>
+    /// 乗客乗車人数を示すUIオブジェクト。
+    /// プレイヤー側から操作するために取得。
+    /// </summary>
+    private GameObject passengerTogetherUIObj;
+    public string passengerTogetherUIObjPath;
 
-    public GameObject earth;
+    /// <summary>
+    /// ゲームシーン管理オブジェクト。
+    /// シーン管理クラスで利用したい処理があるため取得。
+    /// </summary>
+    private GameObject gameObj;
+    public string gamectrlObjPath;
+
+    /// <summary>
+    /// 星フェイズのフィールドオブジェクト。
+    /// 引力計算などに情報が必要なため。
+    /// </summary>
+    private GameObject earth;
+    public string earthObjPath;
 
     [SerializeField]
     private float CHARGE_MAX;
@@ -95,6 +118,13 @@ public class Player : MonoBehaviour
         ChargeEffectCreate();
         ChargeMaxEffectCreate();
         moveRadY = 180.0f;
+
+        // シーン内から必要なオブジェクトを取得
+        scoreObj = GameObject.Find( "Score" );
+        spawnManagerObj = GameObject.Find( spawnManagerPath ).GetComponent<SpawnManager>();
+        gameObj = GameObject.Find( gamectrlObjPath );
+        earth = GameObject.Find( earthObjPath );
+        passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
     }
 
     // Update is called once per frame
@@ -632,6 +662,14 @@ public class Player : MonoBehaviour
         pos.y = 0.0f;
         pos.z = -1.0f;
         chargeMaxEffectObj.transform.localPosition = pos;
+    }
+
+    /// <summary>
+    /// 星フェイズ開始時のプレイヤー初期化処理
+    /// </summary>
+    public void StarPhaseInit()
+    {
+        earth = GameObject.Find( earthObjPath );
     }
 }
 
