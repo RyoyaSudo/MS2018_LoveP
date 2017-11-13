@@ -42,8 +42,8 @@ public class ScoreCtrl : MonoBehaviour
     /// ゲームシーン管理クラスを保持する。
     /// ゲーム状態に応じたスコア加算処理を行うため
     /// </summary>
-    [SerializeField]
     Game gameCtrl;
+    public string gameCtrlObjPath;
 
     /// <summary>
     /// 星フェイズ時にスコア加算された回数。
@@ -103,6 +103,9 @@ public class ScoreCtrl : MonoBehaviour
 
         //総スコアを保存
         PlayerPrefs.SetInt(scorKey, totalScore);
+
+        // オブジェクトを取得
+        gameCtrl = GameObject.Find( gameCtrlObjPath ).GetComponent<Game>();
     }
 
     void Update()

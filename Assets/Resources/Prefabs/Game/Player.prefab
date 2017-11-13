@@ -100,7 +100,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4282010515415226}
-  - component: {fileID: 64344501487437376}
   m_Layer: 8
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -459,8 +458,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4857063594266958}
-  - {fileID: 4805967240767102}
   - {fileID: 4502182340651840}
+  - {fileID: 4805967240767102}
   - {fileID: 4282010515415226}
   m_Father: {fileID: 4108543525780746}
   m_RootOrder: 0
@@ -516,7 +515,7 @@ Transform:
   m_Children:
   - {fileID: 4056547442735154}
   m_Father: {fileID: 4165956753202980}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4535622873344558
 Transform:
@@ -586,7 +585,7 @@ Transform:
   m_Children:
   - {fileID: 4204702551589874}
   m_Father: {fileID: 4165956753202980}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4856924979652918
 Transform:
@@ -1152,20 +1151,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
---- !u!64 &64344501487437376
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1361022233453816}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 77743cebc8c055147a3c9137d28803ef, type: 3}
 --- !u!114 &114136928577545194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1178,8 +1163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1200
-  scoreObj: {fileID: 0}
-  spawnManagerObj: {fileID: 0}
+  spawnManagerPath: SpawnManager
   turnPowerPush: 0.9
   turnPower: 0.8
   speedMax: 30
@@ -1189,9 +1173,9 @@ MonoBehaviour:
   - {fileID: 1840533725889126}
   - {fileID: 1129533187261258}
   - {fileID: 1936653705991076}
-  passengerTogetherUIObj: {fileID: 0}
-  gameObj: {fileID: 0}
-  earth: {fileID: 0}
+  passengerTogetherUIObjPath: GUI Camera/PassengerTogetherUI
+  gamectrlObjPath: Game
+  earthObjPath: Earth
   CHARGE_MAX: 2
   gravity: {x: 0, y: -98.1, z: 0}
 --- !u!136 &136199062147650420
