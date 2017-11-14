@@ -118,12 +118,11 @@ public class Game : MonoBehaviour {
         }
     }
 
-    //TODO 同じコンポーネントを使ってるところは後できれいにする
+    // 同じコンポーネントを使ってるところは後できれいにする
+    // TODO: 各フェイズ初期化処理。あとで確実に問題が生じるので、何か不都合が生じたら優先して見る！
     void PhaseReadyStart()
     {
         //SetPhase(Phase.GAME_PAHSE_CITY);
-        PlayerObj.transform.position = new Vector3(175.0f, 1.0f, 120.0f);
-        PlayerObj.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_IN_CHANGE);
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_STOP);
         readyCount = 0;
@@ -131,12 +130,11 @@ public class Game : MonoBehaviour {
 
     void PhaseCityStart()
     {
-        PlayerObj.transform.position = new Vector3(175.0f, 1.0f, 120.0f);
-        PlayerObj.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
         CityObj.SetActive(true);
         StarObj.SetActive(false);
         CameraObj.GetComponent<LovePCameraController>().enabled = true;
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
+        PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
     }
 
