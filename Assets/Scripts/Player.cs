@@ -79,6 +79,11 @@ public class Player : MonoBehaviour
     /// </summary>
     Vector3 oldPos;
 
+    //サウンド用/////////////////////////////
+    private AudioSource playerAudioS;
+    private SoundController playerSoundCtrl;
+    private SoundController.Sounds playerType;  //プレイヤーの車両用
+
     public enum State
     {
         PLAYER_STATE_STOP = 0,
@@ -125,6 +130,11 @@ public class Player : MonoBehaviour
         gameObj = GameObject.Find( gamectrlObjPath );
         earth = GameObject.Find( earthObjPath );
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
+
+        //サウンド用//////////////////////////////////////
+        playerSoundCtrl = GameObject.Find("SoundManager").GetComponent<SoundController>();
+        //オブジェクトについているAudioSourceを取得する
+        playerAudioS = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -136,21 +146,25 @@ public class Player : MonoBehaviour
             case VehicleType.VEHICLE_TYPE_BIKE:
                 {
                     CityMove();
+                    playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_CAR:
                 {
                     CityMove();
+                    playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_BUS:
                 {
                     CityMove();
+                    playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
                     StarMove();
+                    playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
         }
@@ -270,16 +284,22 @@ public class Player : MonoBehaviour
                             {
                                 case Human.GROUPTYPE.PEAR:
                                     {
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.CREATING_PEAR));    
                                         vehicleScore += 1;
                                         break;
                                     }
                                 case Human.GROUPTYPE.SMAlLL:
                                     {
                                         vehicleScore += 2;
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.CREATING_PEAR));    
                                         break;
                                     }
                                 case Human.GROUPTYPE.BIG:
                                     {
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.CREATING_PEAR));    
                                         vehicleScore += 4;
                                         break;
                                     }
@@ -387,6 +407,8 @@ public class Player : MonoBehaviour
         }
 
         Vector3 force = transform.forward * speed;
+
+        //playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(playerType));
 
         //rb.AddForce(force);
 
@@ -595,6 +617,9 @@ public class Player : MonoBehaviour
     /// </summary>
     public void SetVehicle( VehicleType setVehicleType )
     {
+        //SE再生/////////////////////////////////////////////////////////////
+        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
+
         vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
