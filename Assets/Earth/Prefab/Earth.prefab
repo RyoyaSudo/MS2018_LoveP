@@ -42,14 +42,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 432644}
-  - component: {fileID: 135327471702135472}
+  - component: {fileID: 135661487583525430}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &163060
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a70c881415690c418f87514fe62ae5f, type: 3}
   m_Name: 
@@ -235,7 +235,7 @@ MonoBehaviour:
   lastIcoSphere: 1
   dirty: 0
   RotationSpeedX: 0
-  RotationSpeedY: 1
+  RotationSpeedY: 0
   RotationSpeedZ: 0
 --- !u!114 &11481204
 MonoBehaviour:
@@ -280,7 +280,7 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 157262}
   m_IsPrefabParent: 1
---- !u!135 &135327471702135472
+--- !u!135 &135661487583525430
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
