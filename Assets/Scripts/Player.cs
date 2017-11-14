@@ -409,8 +409,6 @@ public class Player : MonoBehaviour
 
         Vector3 force = transform.forward * speed;
 
-        //playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(playerType));
-
         //rb.AddForce(force);
 
         // プッシュ動作
