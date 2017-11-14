@@ -381,7 +381,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887163398427806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 154.47, y: 12, z: 123}
+  m_LocalPosition: {x: 8.6, y: 17.1, z: 93.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4108543525780746}
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1200
-  spawnManagerPath: SpawnManager
+  citySpawnManagerPath: CitySpawnManager
   turnPowerPush: 0.9
   turnPower: 0.8
   speedMax: 30

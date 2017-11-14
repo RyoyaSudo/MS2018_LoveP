@@ -19,13 +19,12 @@ public class Player : MonoBehaviour
 
     private GameObject scoreObj;
 
-    public string spawnManagerPath;
-
     /// <summary>
     /// スポーンマネージャーオブジェクト。
     /// 乗客生成にまつわる処理をさせるため必要。
     /// </summary>
-    private SpawnManager spawnManagerObj;
+    private CitySpawnManager citySpawnManagerObj;
+    public string citySpawnManagerPath;
 
     public float turnPowerPush;//プッシュ時旋回力
     public float turnPower;//旋回力
@@ -117,11 +116,13 @@ public class Player : MonoBehaviour
         effect = GameObject.Find("EffectManager").GetComponent<EffectController>();
         ChargeEffectCreate();
         ChargeMaxEffectCreate();
-        moveRadY = 180.0f;
+
+
+        moveRadY = 0.0f;
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-        spawnManagerObj = GameObject.Find( spawnManagerPath ).GetComponent<SpawnManager>();
+        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
         gameObj = GameObject.Find( gamectrlObjPath );
         earth = GameObject.Find( earthObjPath );
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
@@ -226,12 +227,12 @@ public class Player : MonoBehaviour
                                     }
                             }
 
-                            spawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                            citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
 
                             //グループの大きさ分確保する
                             passengerObj = new Human[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
-                            //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
+                            //citySpawnManagerObj.gameObject.GetComponent<SpawnManager>().
 
                             //何人乗せるかUIを表示させる
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
@@ -334,7 +335,7 @@ public class Player : MonoBehaviour
                                 // 同じスポーンポイントで生成しないための制御処理
                                 while( true )
                                 {
-                                    pos = Random.Range( 0 , spawnManagerObj.SpawnNum - 1 );
+                                    pos = Random.Range( 0 , citySpawnManagerObj.SpawnNum - 1 );
 
                                     if( posList.IndexOf( pos ) == -1 )
                                     {
@@ -345,12 +346,12 @@ public class Player : MonoBehaviour
 
 
                                 // 生成処理実行
-                                spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
+                                citySpawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
                             }
                             */
 
                             //乗物によって生成する人を設定
-                            spawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                            citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
@@ -507,14 +508,6 @@ public class Player : MonoBehaviour
             transform.position = newPos;
         }
 
-        // TODO: ジャンプ処理
-        //       デバッグ時に活用できそうなので実装
-        if( Input.GetKey( KeyCode.J ) )
-        {
-            Vector3 jumpForce = -curGravity * 2.0f;
-            rb.AddForce( jumpForce , ForceMode.Acceleration );
-        }
-
         // TODO: 重力計算
         //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
         curGravity += ( gravity * Time.deltaTime );
@@ -527,6 +520,17 @@ public class Player : MonoBehaviour
             Debug.Log( "Gravity Reset" );
         }
 
+        // TODO: ジャンプ処理
+        //       デバッグ時に活用できそうなので実装
+        if( Input.GetKey( KeyCode.J ) )
+        {
+            curGravity = Vector3.zero;
+
+            Vector3 jumpForce = -gravity * 2.0f;
+            rb.AddForce( jumpForce , ForceMode.Acceleration );
+        }
+
+        // 過去位置を保存しておく
         oldPos = transform.position;
     }
 
