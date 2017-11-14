@@ -54,15 +54,13 @@ MonoBehaviour:
   spawnPointPrefab: {fileID: 1419229282505804, guid: 90696ef91b711c346b5ab80b425164b5,
     type: 2}
   spawnPoint:
-  - {x: -150, y: 1, z: 150}
-  - {x: 0, y: 1, z: 150}
-  - {x: 150, y: 1, z: 150}
-  - {x: -150, y: 1, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: 150, y: 1, z: 0}
-  - {x: -150, y: 1, z: -150}
-  - {x: 0, y: 1, z: -150}
-  - {x: 150, y: 1, z: -150}
+  - {x: -282, y: 1, z: -96}
+  - {x: -260, y: 1, z: 124}
+  - {x: -186, y: 1, z: 28}
+  - {x: -177, y: 1, z: -118}
+  - {x: -70, y: 1, z: 20}
+  - {x: 12, y: 1, z: 111}
+  - {x: -7, y: 1, z: -57}
   pearPassengerNum: 2
   smallPassengerNum: 3
   bigPassengerNum: 5

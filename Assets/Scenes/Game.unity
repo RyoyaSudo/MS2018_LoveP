@@ -212,12 +212,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
-      propertyPath: StarPrefab
-      value: 
-      objectReference: {fileID: 157262, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
-    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
-        type: 2}
-      propertyPath: phase
+      propertyPath: debugFlags
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

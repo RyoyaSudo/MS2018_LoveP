@@ -17,7 +17,8 @@ public class Game : MonoBehaviour {
     public GameObject CityPrefab;
     public GameObject StarPrefab;
     public GameObject PlayerPrefab;
-    public GameObject CameraPrefab;
+    public GameObject mainCameraPrefab;
+    public GameObject guiCameraPrefab;
     public GameObject SpawnManagerPrefab;
     public GameObject MiniMapPrefab;
     public GameObject effectManagerPrefab;
@@ -28,7 +29,8 @@ public class Game : MonoBehaviour {
     GameObject CityObj;
     GameObject StarObj;
     GameObject PlayerObj;
-    GameObject CameraObj;
+    GameObject mainCameraObj;
+    GameObject guiCameraObj;
     GameObject SpawnManagerObj;
     GameObject TimeObj;
     GameObject MiniMapObj;
@@ -49,6 +51,13 @@ public class Game : MonoBehaviour {
     {
         InitCreateObjects();
     }
+
+    /// <summary>
+    /// デバッグ用フラグ変数
+    /// デバッグ時にしたくない処理を除外する時などに使うこと
+    /// </summary>
+    [SerializeField]
+    bool debugFlags;
 
     // Use this for initialization
     void Start () {
@@ -74,7 +83,7 @@ public class Game : MonoBehaviour {
                 {
                     //デバッグ用
                     if (Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
-                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 )
+                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -82,7 +91,7 @@ public class Game : MonoBehaviour {
                 }
             case Phase.GAME_PAHSE_STAR:
                 {
-                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0)
+                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -132,7 +141,7 @@ public class Game : MonoBehaviour {
     {
         CityObj.SetActive(true);
         StarObj.SetActive(false);
-        CameraObj.GetComponent<LovePCameraController>().enabled = true;
+        mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
         PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
@@ -148,8 +157,8 @@ public class Game : MonoBehaviour {
         PlayerObj.GetComponent<Player>().speedMax = 60.0f;
         PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         PlayerObj.GetComponent<Player>().StarPhaseInit();
-        CameraObj.GetComponent<LovePCameraController>().enabled = false;
-        CameraObj.GetComponent<StarCameraController>().enabled = true;
+        mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
+        mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
     }
@@ -190,7 +199,8 @@ public class Game : MonoBehaviour {
         CityObj = Create( CityPrefab );
         StarObj = Create( StarPrefab );
         PlayerObj = Create( PlayerPrefab );
-        CameraObj = Create( CameraPrefab );
+        mainCameraObj = Create( mainCameraPrefab );
+        guiCameraObj = Create( guiCameraPrefab );
         SpawnManagerObj = Create( SpawnManagerPrefab );
         MiniMapObj = Create( MiniMapPrefab );
         effectManagerObj = Create( effectManagerPrefab );
