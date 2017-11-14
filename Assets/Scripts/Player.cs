@@ -710,8 +710,8 @@ public class Player : MonoBehaviour
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
                     //乗物によって生成する人を設定
-                    //starSpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
-                    citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    starSpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    //citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
                     break;
                 }
         }
@@ -745,8 +745,8 @@ public class Player : MonoBehaviour
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
                     //乗物によって生成する人を設定
-                    //starSpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
-                    citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    starSpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    //citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
                     break;
                 }
         }

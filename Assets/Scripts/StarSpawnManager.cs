@@ -46,7 +46,7 @@ public class StarSpawnManager : MonoBehaviour
         var landChild = landmarkObj.GetComponentInChildren<Transform>();
         //スポーンポイント生成
         spawnPointObject = new SpawnPoint[landmarkObj.transform.childCount];
-
+        spawnNum = landmarkObj.transform.childCount;
         int count = 0;
         foreach (Transform child in landChild)
         {
