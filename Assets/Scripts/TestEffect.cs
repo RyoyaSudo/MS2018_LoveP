@@ -31,7 +31,7 @@ public class TestEffect : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        /*if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             testEffect = test.EffectCreate(type, gameObject.transform);  //エフェクトを生成
         }
@@ -42,9 +42,9 @@ public class TestEffect : MonoBehaviour {
         }
         if(Input.GetKeyDown(KeyCode.Alpha5))
         {
-            testAudioSource.clip = testMusic.AudioClipCreate(SoundController.Sounds.TEST_SOUND1); 
+            //testAudioSource.clip = testMusic.AudioClipCreate(SoundController.Sounds.TEST_SOUND1); 
             //ずっと流したい場合はAudioSourceのClipの中に入れる必要がある
             testAudioSource.Play();
-        }
+        }*/
     }
 }
