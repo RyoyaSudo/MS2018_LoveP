@@ -20,6 +20,7 @@ public class Game : MonoBehaviour {
     public GameObject mainCameraPrefab;
     public GameObject guiCameraPrefab;
     public GameObject SpawnManagerPrefab;
+    public GameObject starSpawnPrefab;
     public GameObject MiniMapPrefab;
     public GameObject effectManagerPrefab;
     public GameObject soundManagerPrefab;
@@ -32,6 +33,7 @@ public class Game : MonoBehaviour {
     GameObject mainCameraObj;
     GameObject guiCameraObj;
     GameObject SpawnManagerObj;
+    GameObject starSpawnManagerObj;
     GameObject TimeObj;
     GameObject MiniMapObj;
     GameObject effectManagerObj;
@@ -141,6 +143,8 @@ public class Game : MonoBehaviour {
     {
         CityObj.SetActive(true);
         StarObj.SetActive(false);
+        SpawnManagerObj.SetActive(true);
+        starSpawnManagerObj.SetActive(false);
         mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
         PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
@@ -151,8 +155,10 @@ public class Game : MonoBehaviour {
     {
         CityObj.SetActive(false);
         StarObj.SetActive(true);
-        PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
-        PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        SpawnManagerObj.SetActive(false);
+        starSpawnManagerObj.SetActive(true);
+        //PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
+        //PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().speed = 1800f;
         PlayerObj.GetComponent<Player>().speedMax = 60.0f;
         PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
@@ -161,6 +167,7 @@ public class Game : MonoBehaviour {
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
+        
     }
 
     //タイトルシーンから移行
@@ -198,14 +205,15 @@ public class Game : MonoBehaviour {
         // 各オブジェクトの生成
         CityObj = Create( CityPrefab );
         StarObj = Create( StarPrefab );
-        PlayerObj = Create( PlayerPrefab );
+        
         mainCameraObj = Create( mainCameraPrefab );
         guiCameraObj = Create( guiCameraPrefab );
         SpawnManagerObj = Create( SpawnManagerPrefab );
+        starSpawnManagerObj = Create(starSpawnPrefab);
         MiniMapObj = Create( MiniMapPrefab );
         effectManagerObj = Create( effectManagerPrefab );
         soundManagerObj = Create( soundManagerPrefab );
-
+        PlayerObj = Create( PlayerPrefab );
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
         TimeObj = GameObject.Find( "Time" );

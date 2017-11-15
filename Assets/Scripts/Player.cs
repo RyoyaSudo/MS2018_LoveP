@@ -110,6 +110,8 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
+        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
     }
 
     // Use this for initialization
@@ -136,8 +138,8 @@ public class Player : MonoBehaviour
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
-        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+        
+
         gameObj = GameObject.Find( gamectrlObjPath );
         earth = GameObject.Find( earthObjPath );
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
@@ -340,6 +342,7 @@ public class Player : MonoBehaviour
                             {
                                 SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
                                 gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
+                                starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
                             }
 
                             //if (vehicleScore >= 4)
@@ -631,7 +634,8 @@ public class Player : MonoBehaviour
     public void SetVehicle( VehicleType setVehicleType )
     {
         //SE再生/////////////////////////////////////////////////////////////
-        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
+        // TODO オブジェクトが見つからなかったため一時コメントアウトしました
+        //playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
 
         vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
@@ -710,6 +714,7 @@ public class Player : MonoBehaviour
         earth = GameObject.Find( earthObjPath );
         vehicleScore = 13;
         SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
     }
 
     /// <summary>
