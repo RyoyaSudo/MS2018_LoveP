@@ -53,6 +53,7 @@ public class StarSpawnManager : MonoBehaviour
             SpawnPointCreate(count, child);
             count++;
         }
+        HumanCreate(0, Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     // 更新
@@ -283,6 +284,61 @@ public class StarSpawnManager : MonoBehaviour
 
             //バスのとき
             case Player.VehicleType.VEHICLE_TYPE_BUS:
+                //ペア生成
+                for (int nCnt = 0; nCnt < pearNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                }
+                //小グループ生成
+                for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                }
+                //大グループ生成
+                for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+                }
+
+                break;
+            //飛行機のとき
+            case Player.VehicleType.VEHICLE_TYPE_AIRPLANE:
                 //ペア生成
                 for (int nCnt = 0; nCnt < pearNum; nCnt++)
                 {
