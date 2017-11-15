@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CityPrefab: {fileID: 1775778298112610, guid: 1a5b4f5bae8ee9e46b3ba3d5bbb24e98, type: 2}
-  StarPrefab: {fileID: 1249759282940816, guid: e49810c163dfa5b4ab7124e8e5d12178, type: 2}
+  StarPrefab: {fileID: 157262, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
   PlayerPrefab: {fileID: 1887163398427806, guid: c8236637a20555245af5d2308b653ffb,
     type: 2}
-  CameraPrefab: {fileID: 1855342487187970, guid: 0793db4416fa315418b3940f6a5d9682,
+  mainCameraPrefab: {fileID: 1292214055280866, guid: 0793db4416fa315418b3940f6a5d9682,
+    type: 2}
+  guiCameraPrefab: {fileID: 1122665361876424, guid: c5e561ab78414654f9851553b4fc38bc,
     type: 2}
   SpawnManagerPrefab: {fileID: 1648512796981284, guid: 05cf89f3cf6fc724896a1edc82eceed4,
     type: 2}
@@ -65,4 +67,4 @@ MonoBehaviour:
     type: 2}
   soundManagerPrefab: {fileID: 1860252071176286, guid: 1b7fa2fbedb381148a028d135dc1e8c3,
     type: 2}
-  phase: 1
+  phase: 2

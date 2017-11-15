@@ -214,12 +214,24 @@ Prefab:
         type: 2}
       propertyPath: StarPrefab
       value: 
-      objectReference: {fileID: 157262, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 2}
+      objectReference: {fileID: 1249759282940816, guid: e49810c163dfa5b4ab7124e8e5d12178,
+        type: 2}
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
       propertyPath: phase
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: debugFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: starSpawnPrefab
+      value: 
+      objectReference: {fileID: 1458502282586436, guid: ac96ab3ef69a00748b9250c00cb21942,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
   m_IsPrefabParent: 0
