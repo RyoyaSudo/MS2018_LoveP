@@ -1245,6 +1245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1200
   citySpawnManagerPath: CitySpawnManager
+  starSpawnManagerPath: StarSpawnManager
   turnPowerPush: 0.9
   turnPower: 0.8
   speedMax: 30
