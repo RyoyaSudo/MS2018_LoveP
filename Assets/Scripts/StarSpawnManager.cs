@@ -53,7 +53,7 @@ public class StarSpawnManager : MonoBehaviour
             SpawnPointCreate(count, child);
             count++;
         }
-        HumanCreate(0, Human.GROUPTYPE.PEAR);
+        HumanCreate(0, Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     // 更新
@@ -354,7 +354,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.PEAR);
+                    HumanCreate(pos, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -371,7 +371,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL);
+                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
@@ -388,7 +388,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.BIG);
+                    HumanCreate(pos, Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
 
                 break;
