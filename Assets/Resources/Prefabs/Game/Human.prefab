@@ -345,6 +345,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8e771138c642c438b9551e3106843b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passengerGroupUIEnptyPrefab: {fileID: 1727667008595502, guid: 91ce169bab77377488d17150e465cfa5,
+    type: 2}
+  passengerGroupUIPlanePrefab: {fileID: 1340392640901240, guid: 59aa84ac6dcb3b1468ba15f584b377f7,
+    type: 2}
+  passengerGroupUIPos: {x: 0, y: 10, z: 0}
+  passengerGroupUIPearMat: {fileID: 2100000, guid: 012cd107413c46848a99e908b2dfcb3c,
+    type: 2}
+  passengerGroupUISmallMat: {fileID: 2100000, guid: ea1d43394201f8244a200fe55c2d8ce1,
+    type: 2}
+  passengerGroupUIBigMat: {fileID: 2100000, guid: b91b99d2ecb8aa14c95ff4d09bc9aa0d,
+    type: 2}
+  passengerGroupUIHeartMat: {fileID: 2100000, guid: 495a322513779064a93f8c0731187171,
+    type: 2}
   humanModelArray:
   - {fileID: 1755026764184562, guid: 10448eaae6eade54f9df5e08e6ac10b8, type: 2}
   - {fileID: 1228520313325140, guid: e2419b9fa7c87bc468f1944a766cf382, type: 2}
@@ -352,6 +365,7 @@ MonoBehaviour:
   groupType: 0
   stateType: 0
   spawnPlace: 0
+  pasengerOrder: 0
   destroyTime: 3
 --- !u!136 &136016218072901752
 CapsuleCollider:
