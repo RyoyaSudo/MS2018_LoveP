@@ -65,4 +65,4 @@ MonoBehaviour:
     type: 2}
   soundManagerPrefab: {fileID: 1860252071176286, guid: 1b7fa2fbedb381148a028d135dc1e8c3,
     type: 2}
-  phase: 1
+  phase: 2

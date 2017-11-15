@@ -100,6 +100,13 @@ public class Player : MonoBehaviour
     }
     VehicleType vehicleType;
 
+    private void Awake()
+    {
+        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
+        vehicleModel[ ( int )vehicleType ].SetActive( true );
+        vehicleScore = 0;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -110,9 +117,8 @@ public class Player : MonoBehaviour
         rideCount = 0;
         pushCharge = 0;
         state = State.PLAYER_STATE_STOP;
-        vehicleType = VehicleType.VEHICLE_TYPE_AIRPLANE;
-        vehicleModel[ ( int )vehicleType ].SetActive( true );
-        vehicleScore = 0;
+
+        
         oldPos = transform.position;
 
         //エフェクト関係
@@ -680,6 +686,7 @@ public class Player : MonoBehaviour
     {
         earth = GameObject.Find( earthObjPath );
         vehicleScore = 13;
+        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
     }
 
     /// <summary>
