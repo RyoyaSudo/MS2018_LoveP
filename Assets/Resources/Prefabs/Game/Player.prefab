@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 114377122876851530}
   - component: {fileID: 136943567456573010}
   - component: {fileID: 82244802205648336}
+  - component: {fileID: 143571668409644224}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1825,7 +1826,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311534602684992}
-  m_Material: {fileID: 13400000, guid: e60e571b097226f439371be957869ee8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1839,7 +1840,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259595058004542}
-  m_Material: {fileID: 13400000, guid: e60e571b097226f439371be957869ee8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1853,7 +1854,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1757138117401290}
-  m_Material: {fileID: 13400000, guid: e60e571b097226f439371be957869ee8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1942,7 +1943,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1966,7 +1967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d2e77feef6acf4f996e46a02e16878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1200
+  speed: 20
   citySpawnManagerPath: CitySpawnManager
   starSpawnManagerPath: StarSpawnManager
   turnPowerPush: 0.9
@@ -1982,7 +1983,8 @@ MonoBehaviour:
   gamectrlObjPath: Game
   earthObjPath: Earth
   CHARGE_MAX: 2
-  gravity: {x: 0, y: -98.1, z: 0}
+  gravity: {x: 0, y: -9.81, z: 0}
+  controllerPath: Player
 --- !u!136 &136520873113840436
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1991,7 +1993,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1240372312338618}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.05
   m_Height: 2
   m_Direction: 1
@@ -2004,11 +2006,28 @@ CapsuleCollider:
   m_GameObject: {fileID: 1931795237704324}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.6
   m_Height: 2
   m_Direction: 2
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!143 &143571668409644224
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931795237704324}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!146 &146074611915610842
 WheelCollider:
   m_ObjectHideFlags: 1
