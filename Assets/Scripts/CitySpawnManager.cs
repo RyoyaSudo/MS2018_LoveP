@@ -40,7 +40,8 @@ public class CitySpawnManager : MonoBehaviour {
         {
             SpawnPointCreate(i, spawnPoint[i]);
         }
- 
+        //初回スポーン
+        HumanCreate(1, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     // 更新

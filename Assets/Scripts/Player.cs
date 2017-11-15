@@ -343,6 +343,10 @@ public class Player : MonoBehaviour
                                 SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
                                 gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
                                 starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+                                var emission = chargeMaxEffectObj.emission;
+                                emission.enabled = false;
+                                emission = chargeEffectObj.emission;
+                                emission.enabled = false;
                             }
 
                             //if (vehicleScore >= 4)
@@ -715,6 +719,10 @@ public class Player : MonoBehaviour
         vehicleScore = 13;
         SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
         starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+        var emission = chargeMaxEffectObj.emission;
+        emission.enabled = false;
+        emission = chargeEffectObj.emission;
+        emission.enabled = false;
     }
 
     /// <summary>

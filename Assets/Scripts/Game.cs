@@ -149,6 +149,7 @@ public class Game : MonoBehaviour {
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
         PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
+        //SpawnManagerObj.GetComponent<CitySpawnManager>().HumanCreate(1, Human.GROUPTYPE.PEAR);
     }
 
     void PhaseStarStart()
