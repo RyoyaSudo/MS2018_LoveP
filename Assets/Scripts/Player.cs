@@ -731,12 +731,8 @@ public class Player : MonoBehaviour
     {
         earth = GameObject.Find( earthObjPath );
         vehicleScore = 13;
-        SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
-        starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
-        var emission = chargeMaxEffectObj.emission;
-        emission.enabled = false;
-        emission = chargeEffectObj.emission;
-        emission.enabled = false;
+        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
     }
 
     /// <summary>
