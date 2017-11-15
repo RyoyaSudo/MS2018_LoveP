@@ -54,7 +54,7 @@ MonoBehaviour:
   spawnPointPrefab: {fileID: 1419229282505804, guid: 90696ef91b711c346b5ab80b425164b5,
     type: 2}
   landmarkPath: Earth/LandMark
-  earthPath: 
+  earthPath: Earth
   pearPassengerNum: 2
   smallPassengerNum: 3
   bigPassengerNum: 5
