@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CitySpawnManager : MonoBehaviour {
+public class StarSpawnManager : MonoBehaviour
+{
 
     //スポーンポイントアタッチ
     public GameObject spawnPointPrefab;
 
-    //スポーンポイントの場所
-    public Vector3[] spawnPoint;
+    ////スポーンポイントの場所
+    //public Vector3[] spawnPoint;
+    GameObject landmarkObj;
+    public string landmarkPath;
+
+    GameObject earthObj;
+    public string earthPath;
 
     /// <summary>
     /// スポーンポイント数。
@@ -32,16 +38,22 @@ public class CitySpawnManager : MonoBehaviour {
     // 初期化
     void Start()
     {
-		spawnNum = spawnPoint.Length;
-        //スポーンポイント生成
-        spawnPointObject = new SpawnPoint[spawnNum];
+        earthObj = GameObject.Find(earthPath);
+        //ランドマークObj取得
+        landmarkObj = GameObject.Find(landmarkPath);
 
-        for (int i = 0; i < spawnNum; i++)
+        //子のリストを作成
+        var landChild = landmarkObj.GetComponentInChildren<Transform>();
+        //スポーンポイント生成
+        spawnPointObject = new SpawnPoint[landmarkObj.transform.childCount];
+        spawnNum = landmarkObj.transform.childCount;
+        int count = 0;
+        foreach (Transform child in landChild)
         {
-            SpawnPointCreate(i, spawnPoint[i]);
+            SpawnPointCreate(count, child);
+            count++;
         }
-        //初回スポーン
-        HumanCreate(1, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+        HumanCreate(0, Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     // 更新
@@ -49,15 +61,15 @@ public class CitySpawnManager : MonoBehaviour {
     {
         if (Input.GetKeyDown("0"))
         {
-            HumanCreate(0,Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(0, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("1"))
         {
-            HumanCreate(1,Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(1, Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("2"))
         {
-            HumanCreate(2,Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(2, Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("5"))
         {
@@ -72,12 +84,16 @@ public class CitySpawnManager : MonoBehaviour {
     * 戻り値:0
     * 説明:スポーンポイントを生成
     *****************************************************************************/
-    void SpawnPointCreate(int num, Vector3 position)
+    void SpawnPointCreate(int num, Transform trans)
     {
+        
+
         //生成
         GameObject SpawnPoint = Instantiate(spawnPointPrefab,                       //ゲームオブジェクト
-                                               position,                            //位置
-                                               Quaternion.identity) as GameObject;  //回転
+                                               trans.position,                            //位置
+                                               trans.rotation) as GameObject;  //回転
+        Vector3 upVec = SpawnPoint.transform.position - earthObj.transform.position;
+        SpawnPoint.transform.up = upVec.normalized;
 
         //自分の親を自分にする
         SpawnPoint.transform.parent = transform;
@@ -98,12 +114,9 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="groupType">
     /// 生成する乗客の所属グループタイプ
     /// </param>
-    /// <param name="passengerOrder">
-    /// 乗客の乗車順番
-    /// </param>
-    public void HumanCreate(int spawnPointNum , Human.GROUPTYPE groupType , SpawnPoint.PASSENGER_ORDER passengerOrder)
+    public void HumanCreate(int spawnPointNum, Human.GROUPTYPE groupType,SpawnPoint.PASSENGER_ORDER passengerOrder )
     {
-        spawnPointObject[spawnPointNum].HumanSpawn( spawnPointNum , groupType , passengerOrder);
+        spawnPointObject[spawnPointNum].HumanSpawn(spawnPointNum, groupType , passengerOrder);
     }
 
     /// <summary>
@@ -115,13 +128,13 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="groupType">
     /// 生成する乗客の所属グループタイプ
     /// </param>
-    public void SpawnHumanGroup ( int spawnPlace , Human.GROUPTYPE groupType)
+    public void SpawnHumanGroup(int spawnPlace, Human.GROUPTYPE groupType)
     {
         //相方たちの人数
-        int passengerNum=0;
+        int passengerNum = 0;
 
         //グループによって相方の人数を決める
-        switch ( groupType )
+        switch (groupType)
         {
             //ペア
             case Human.GROUPTYPE.PEAR:
@@ -146,7 +159,7 @@ public class CitySpawnManager : MonoBehaviour {
         bool[] existPlace = new bool[spawnNum];
 
         //初期化
-        for (int nCnt = 0; nCnt < spawnNum; nCnt++ )
+        for (int nCnt = 0; nCnt < spawnNum; nCnt++)
         {
             existPlace[nCnt] = false;
         }
@@ -154,9 +167,9 @@ public class CitySpawnManager : MonoBehaviour {
         existPlace[spawnPlace] = true;
 
         //相方生成を人数分生成
-        for ( int nCnt = 0; nCnt < passengerNum; nCnt++ )
+        for (int nCnt = 0; nCnt < passengerNum; nCnt++)
         {
-            while(true)
+            while (true)
             {
 
                 bool bOut = false;
@@ -179,7 +192,7 @@ public class CitySpawnManager : MonoBehaviour {
             }
 
             //人生成
-            HumanCreate(randam,groupType, SpawnPoint.PASSENGER_ORDER.DEFOULT);
+            HumanCreate(randam, groupType,SpawnPoint.PASSENGER_ORDER.DEFOULT);
         }
     }
 
@@ -201,25 +214,25 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="BigGroubNum">
     /// 大グループを何人生成するか
     /// </param>
-    public void HumanCreateByVehicleType(Player.VehicleType vehicleType,int lastHumanSpawnPlace,int pearNum,int smallGroupNum,int BigGroubNum)
+    public void HumanCreateByVehicleType(Player.VehicleType vehicleType, int lastHumanSpawnPlace, int pearNum, int smallGroupNum, int BigGroubNum)
     {
         List<int> posList = new List<int>();
         posList.Add(lastHumanSpawnPlace);
         int pos;
 
         //乗物の種類によっての生成方法
-        switch(vehicleType)
+        switch (vehicleType)
         {
             //バイクのとき
             case Player.VehicleType.VEHICLE_TYPE_BIKE:
                 //ペア生成
-                for ( int nCnt=0; nCnt < pearNum; nCnt++ )
+                for (int nCnt = 0; nCnt < pearNum; nCnt++)
                 {
-                    while(true)
+                    while (true)
                     {
                         pos = Random.Range(0, SpawnNum);
 
-                        if (posList.IndexOf(pos) == -1 )
+                        if (posList.IndexOf(pos) == -1)
                         {
                             posList.Add(pos);
                             break;
@@ -227,7 +240,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos,Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 break;
 
@@ -271,6 +284,61 @@ public class CitySpawnManager : MonoBehaviour {
 
             //バスのとき
             case Player.VehicleType.VEHICLE_TYPE_BUS:
+                //ペア生成
+                for (int nCnt = 0; nCnt < pearNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                }
+                //小グループ生成
+                for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                }
+                //大グループ生成
+                for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
+                {
+                    while (true)
+                    {
+                        pos = Random.Range(0, SpawnNum);
+
+                        if (posList.IndexOf(pos) == -1)
+                        {
+                            posList.Add(pos);
+                            break;
+                        }
+                    }
+
+                    // 人生成
+                    HumanCreate(pos, Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+                }
+
+                break;
+            //飛行機のとき
+            case Player.VehicleType.VEHICLE_TYPE_AIRPLANE:
                 //ペア生成
                 for (int nCnt = 0; nCnt < pearNum; nCnt++)
                 {

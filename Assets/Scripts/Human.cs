@@ -10,6 +10,17 @@ using UnityEngine;
 /// </remarks>
 public class Human : MonoBehaviour
 {
+    //乗客がどのグループなのかUI
+    public GameObject passengerGroupUIEnptyPrefab;   //空プレファブ
+    public GameObject passengerGroupUIPlanePrefab;   //プレーンプレファブ
+    public Vector3 passengerGroupUIPos;              //位置
+    public Material passengerGroupUIPearMat;         //ペアマテリアル
+    public Material passengerGroupUISmallMat;        //小グループマテリアル
+    public Material passengerGroupUIBigMat;          //大グループマテリアル
+    public Material passengerGroupUIHeartMat;        //ハートマテリアル
+    private bool bPassengerUI = false;               //表示してるかどうか
+    private GameObject passengerGroupUIEnptyObj;     //空オブジェ
+
     /// <summary>
     /// グループ種類。
     /// </summary>
@@ -61,6 +72,8 @@ public class Human : MonoBehaviour
 
     private GameObject modelObj;    //モデルオブジェクト
 
+    public SpawnPoint.PASSENGER_ORDER pasengerOrder;    //乗客の乗車順番
+
     /// <summary>
     /// 待機時間用カウンタ。
     /// 10/24現在、この時間を元にオブジェクト消去判定を行うこともある。
@@ -97,6 +110,10 @@ public class Human : MonoBehaviour
     {
         //状態を「生成」に
         stateType = STATETYPE.CREATE;
+
+        //乗客がどのグループかUI生成
+        PassengerGroupUICreate();
+
 
         ////乗車させる人数を設定
         //switch (groupType)
@@ -144,7 +161,6 @@ public class Human : MonoBehaviour
 
             //乗車
             case STATETYPE.RIDE:
-                break;
 
             //下車
             case STATETYPE.GETOFF:
@@ -158,6 +174,12 @@ public class Human : MonoBehaviour
 
             //運搬
             case STATETYPE.TRANSPORT:
+                //乗客がどのグループなのかUI削除
+                if (bPassengerUI)
+                {
+                    PassengerGroupUIDestroy();
+                }
+
                 //乗車アニメーションをさせる
                 modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
                 //運搬アニメーションをさせる
@@ -251,6 +273,7 @@ public class Human : MonoBehaviour
      *****************************************************************************/
     public void ModelCreate( Human.GROUPTYPE groupType )
     {
+
         switch( groupType )
         {
             case Human.GROUPTYPE.PEAR:
@@ -315,5 +338,78 @@ public class Human : MonoBehaviour
 
         return flags;
     }
+
+
+    /// <summary>
+    /// 乗客がどのグループなのかUI生成
+    /// </summary>
+    public void PassengerGroupUICreate ()
+    {
+        //空のオブジェクト
+        //生成
+        passengerGroupUIEnptyObj = Instantiate(passengerGroupUIEnptyPrefab);
+
+        //自分の親を自分にする
+        passengerGroupUIEnptyObj.transform.parent = transform;
+
+        //位置設定
+        passengerGroupUIEnptyObj.transform.localPosition = passengerGroupUIPos;
+
+
+        //プレーンオブジェクト
+        //生成
+        GameObject passengerGroupUIPlane = Instantiate(passengerGroupUIPlanePrefab);
+
+        //自分の親を空のオブジェクトにする
+        passengerGroupUIPlane.transform.parent = passengerGroupUIEnptyObj.transform;
+
+        //位置設定
+        passengerGroupUIPlane.transform.localPosition = new Vector3 (0.0f , 0.0f , 0.0f);
+
+
+        //順番とグループによってマテリアル設定
+        switch(pasengerOrder)
+        {
+            //最初
+            case SpawnPoint.PASSENGER_ORDER.FIRST:
+                switch (groupType)
+                {
+                    //ペア
+                    case GROUPTYPE.PEAR:
+                        passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIPearMat;
+                        break;
+                    //小グループ
+                    case GROUPTYPE.SMAlLL:
+                        passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUISmallMat;
+                        break;
+                    //大グループ
+                    case GROUPTYPE.BIG:
+                        passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIBigMat;
+                        break;
+                    default:
+                        Debug.Log("どのグループにも所属してないよ");
+                        break;
+                }
+                break;
+
+            //それ以降
+            case SpawnPoint.PASSENGER_ORDER.DEFOULT:
+                //ハート
+                passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIHeartMat;
+                break;
+        }
+
+        bPassengerUI = true;
+    }
+
+    /// <summary>
+    /// 乗客がどのグループなのかUI削除
+    /// </summary>
+   void PassengerGroupUIDestroy()
+    {
+        Destroy(passengerGroupUIEnptyObj);
+        bPassengerUI = false;
+    }
+
 }
 

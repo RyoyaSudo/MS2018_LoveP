@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Passenger : MonoBehaviour {
 
+    //アニメーション
     Animator anim;
 
 

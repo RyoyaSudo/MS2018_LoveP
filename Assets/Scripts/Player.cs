@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     private CitySpawnManager citySpawnManagerObj;
     public string citySpawnManagerPath;
 
+    private StarSpawnManager starSpawnManagerObj;
+    public string starSpawnManagerPath;
+
     public float turnPowerPush;//プッシュ時旋回力
     public float turnPower;//旋回力
 
@@ -102,6 +105,15 @@ public class Player : MonoBehaviour
     }
     VehicleType vehicleType;
 
+    private void Awake()
+    {
+        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
+        vehicleModel[ ( int )vehicleType ].SetActive( true );
+        vehicleScore = 0;
+        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -112,9 +124,8 @@ public class Player : MonoBehaviour
         rideCount = 0;
         pushCharge = 0;
         state = State.PLAYER_STATE_STOP;
-        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
-        vehicleModel[ ( int )vehicleType ].SetActive( true );
-        vehicleScore = 0;
+
+        
         oldPos = transform.position;
 
         //エフェクト関係
@@ -127,7 +138,8 @@ public class Player : MonoBehaviour
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
+        
+
         gameObj = GameObject.Find( gamectrlObjPath );
         earth = GameObject.Find( earthObjPath );
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
@@ -241,7 +253,8 @@ public class Player : MonoBehaviour
                                     }
                             }
 
-                            citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                            HumanCreate(human);
+                            //citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
 
                             //グループの大きさ分確保する
                             passengerObj = new Human[ rideGroupNum ];
@@ -329,6 +342,11 @@ public class Player : MonoBehaviour
                             {
                                 SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
                                 gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
+                                starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+                                var emission = chargeMaxEffectObj.emission;
+                                emission.enabled = false;
+                                emission = chargeEffectObj.emission;
+                                emission.enabled = false;
                             }
 
                             //if (vehicleScore >= 4)
@@ -371,7 +389,7 @@ public class Player : MonoBehaviour
                             */
 
                             //乗物によって生成する人を設定
-                            citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                            HumanCreateGroup(human);
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
@@ -563,7 +581,7 @@ public class Player : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal");
         Vector3 gravityVec = earth.transform.position - transform.position;
         gravityVec.Normalize();
-        rb.AddForce( 9.8f * gravityVec * Time.deltaTime , ForceMode.Acceleration );
+        rb.AddForce( 9.8f * gravityVec * ( 60.0f * Time.deltaTime ) , ForceMode.Acceleration );
         transform.up = -gravityVec.normalized;
 
         Vector3 direction = new Vector3(moveH, 0.0f, moveV);
@@ -620,7 +638,8 @@ public class Player : MonoBehaviour
     public void SetVehicle( VehicleType setVehicleType )
     {
         //SE再生/////////////////////////////////////////////////////////////
-        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
+        // TODO オブジェクトが見つからなかったため一時コメントアウトしました
+        //playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
 
         vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
@@ -697,6 +716,83 @@ public class Player : MonoBehaviour
     public void StarPhaseInit()
     {
         earth = GameObject.Find( earthObjPath );
+        vehicleScore = 13;
+        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+        var emission = chargeMaxEffectObj.emission;
+        emission.enabled = false;
+        emission = chargeEffectObj.emission;
+        emission.enabled = false;
+    }
+
+    /// <summary>
+    /// 乗り物に応じでスポーンマネージャを分ける(初乗り）
+    /// </summary>
+    public void HumanCreate(Human human)
+    {
+        switch (vehicleType)
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    //乗物によって生成する人を設定
+                    starSpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    //citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    break;
+                }
+        }
+    }
+
+    /// <summary>
+    /// 乗り物に応じでスポーンマネージャを分ける(相方用）
+    /// </summary>
+    public void HumanCreateGroup(Human human)
+    {
+        switch( vehicleType )
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    //乗物によって生成する人を設定
+                    starSpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    //citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    break;
+                }
+        }
     }
 }
 

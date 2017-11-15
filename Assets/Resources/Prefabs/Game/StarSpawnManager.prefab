@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1648512796981284}
+  m_RootGameObject: {fileID: 1458502282586436}
   m_IsPrefabParent: 1
---- !u!1 &1648512796981284
+--- !u!1 &1458502282586436
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4919885139050692}
-  - component: {fileID: 114976934096940558}
+  - component: {fileID: 4694076193406952}
+  - component: {fileID: 114131503654412570}
   m_Layer: 0
-  m_Name: CitySpawnManager
+  m_Name: StarSpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4919885139050692
+--- !u!4 &4694076193406952
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1648512796981284}
+  m_GameObject: {fileID: 1458502282586436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,29 +40,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114976934096940558
+--- !u!114 &114131503654412570
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1648512796981284}
+  m_GameObject: {fileID: 1458502282586436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3626971b0fcdc841bf1a8abad682f5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3430648f7c2db1643a93a7057fd93ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPointPrefab: {fileID: 1419229282505804, guid: 90696ef91b711c346b5ab80b425164b5,
     type: 2}
-  spawnPoint:
-  - {x: -300, y: 1, z: -50}
-  - {x: -230, y: 1, z: 125}
-  - {x: -265, y: 1, z: 50}
-  - {x: -145, y: 1, z: -130}
-  - {x: -120, y: 1, z: 7}
-  - {x: -35, y: 1, z: 90}
-  - {x: -35, y: 1, z: -55}
-  - {x: -135, y: 1, z: 105}
-  - {x: 4, y: 1, z: 35}
+  landmarkPath: Earth/LandMark
+  earthPath: Earth
   pearPassengerNum: 2
   smallPassengerNum: 3
   bigPassengerNum: 5
