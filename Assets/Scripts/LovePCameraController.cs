@@ -49,18 +49,21 @@ public class LovePCameraController : MonoBehaviour
 
     private void OnGUI()
     {
-        GUIStyleState styleState;
-        styleState = new GUIStyleState();
-        styleState.textColor = Color.white;
+        if( Game.IsOnGUIEnable )
+        {
+            GUIStyleState styleState;
+            styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
 
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.fontSize = 48;
-        guiStyle.normal = styleState;
+            GUIStyle guiStyle = new GUIStyle();
+            guiStyle.fontSize = 48;
+            guiStyle.normal = styleState;
 
-        string str;
+            string str;
 
-        str = "向き:" + transform.rotation.eulerAngles + "\n半径:" + radius + "\n基準方向ベクトル:" + dirStdV;
+            str = "向き:" + transform.rotation.eulerAngles + "\n半径:" + radius + "\n基準方向ベクトル:" + dirStdV;
 
-        GUI.Label( new Rect( 0 , 0 , 800 , 600 ) , str , guiStyle );
+            GUI.Label( new Rect( 0 , 0 , 800 , 600 ) , str , guiStyle );
+        }
     }
 }

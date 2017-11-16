@@ -61,6 +61,15 @@ public class Game : MonoBehaviour {
     [SerializeField]
     bool debugFlags;
 
+    /// <summary>
+    /// OnGUI有効化フラグ
+    /// 他のスクリプトで参照してOnGUIを出す出さないを選択する
+    /// </summary>
+    public static bool IsOnGUIEnable;
+
+    [SerializeField]
+    bool isOnGUIEnable;
+
     // Use this for initialization
     void Start () {
         // フェイズステータス設定
@@ -104,6 +113,9 @@ public class Game : MonoBehaviour {
         //デバッグ用
         if( Input.GetKeyUp(KeyCode.Return)) SceneManager.LoadScene("Result");
 
+        // HACK: OnGUIデバッグ時On・Off処理
+        //       もっといい方法がありそうだけど現状これで
+        IsOnGUIEnable = isOnGUIEnable;
     }
 
     public void SetPhase( Game.Phase SetPhase )

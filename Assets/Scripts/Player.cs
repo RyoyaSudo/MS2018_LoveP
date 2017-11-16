@@ -670,18 +670,21 @@ public class Player : MonoBehaviour
 
     private void OnGUI()
     {
-        GUIStyleState styleState;
-        styleState = new GUIStyleState();
-        styleState.textColor = Color.white;
+        if( Game.IsOnGUIEnable )
+        {
+            GUIStyleState styleState;
+            styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
 
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.fontSize = 48;
-        guiStyle.normal = styleState;
+            GUIStyle guiStyle = new GUIStyle();
+            guiStyle.fontSize = 48;
+            guiStyle.normal = styleState;
 
-        string str;
-        str = "速度ベクトル:" + rb.velocity + "\n速度量:" + rb.velocity.magnitude;
+            string str;
+            str = "速度ベクトル:" + rb.velocity + "\n速度量:" + rb.velocity.magnitude;
 
-        GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+            GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+        }
     }
 
     /// <summary>
@@ -963,10 +966,6 @@ public class Player : MonoBehaviour
 
         // 過去位置を保存しておく
         oldPos = transform.position;
-    }
-
-    void OnControllerColliderHit( ControllerColliderHit hit )
-    {
     }
 }
 

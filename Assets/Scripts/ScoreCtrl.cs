@@ -254,17 +254,20 @@ public class ScoreCtrl : MonoBehaviour
 
     private void OnGUI()
     {
-        GUIStyleState styleState;
-        styleState = new GUIStyleState();
-        styleState.textColor = Color.white;
+        if( Game.IsOnGUIEnable )
+        {
+            GUIStyleState styleState;
+            styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
 
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.fontSize = 48;
-        guiStyle.normal = styleState;
+            GUIStyle guiStyle = new GUIStyle();
+            guiStyle.fontSize = 48;
+            guiStyle.normal = styleState;
 
-        string str;
-        str = "現在スコア:" + totalScore;
+            string str;
+            str = "現在スコア:" + totalScore;
 
-        GUI.Label( new Rect( 0 , 400 , 800 , 600 ) , str , guiStyle );
+            GUI.Label( new Rect( 0 , 400 , 800 , 600 ) , str , guiStyle );
+        }
     }
 }
