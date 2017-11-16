@@ -13,17 +13,18 @@ public class GuestCursor : MonoBehaviour {
         // プレイヤーオブジェクトと親オブジェクトを取得
         player = GameObject.Find("Player");
         parent = transform.root.gameObject;
-
+        parent.transform.position = new Vector3(parent.transform.position.x, 0.0f, parent.transform.position.z);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 iti = parent.transform.position;    // 親オブジェクトの位置を取得
-
+        
         // 自分の位置をプレイヤーの位置に設定
-        transform.position = new Vector3(player.transform.position.x, 
-                                         player.transform.position.y, 
+        transform.position = new Vector3(player.transform.position.x,
+                                         player.transform.position.y,
                                          player.transform.position.z);
+
+        Vector3 iti = new Vector3(parent.transform.position.x, transform.position.y, parent.transform.position.z);// parent.transform.position;    // 親オブジェクトの位置を取得
 
         // 自分の向きをプレイヤーに向ける
         transform.LookAt(iti);
@@ -33,13 +34,14 @@ public class GuestCursor : MonoBehaviour {
         if(dis >=  45.0f)
         {
             // Y座標を上に上げる
-            transform.position = new Vector3(player.transform.position.x, 30.0f, player.transform.position.z);
+            transform.position = new Vector3(player.transform.position.x, 3.0f, player.transform.position.z);
         }
         else
         {
             // Y座標を上に上げる
             transform.position = new Vector3(player.transform.position.x, -1130.0f, player.transform.position.z);
         }
-        
+
+        transform.Translate(new Vector3(0.0f, 0.0f, 23.4f));
     }
 }
