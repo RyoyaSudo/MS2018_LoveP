@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
     private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
     private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
     private bool bChargeMax=false;               //チャージがマックス状態かどうか    
+    private ParticleSystem scoreUpEffectObj;    //スコアアップエフェクト
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -407,6 +408,21 @@ public class Player : MonoBehaviour
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+
+                            //スコアアップエフェクト
+                            //生成
+                            scoreUpEffectObj = effect.EffectCreate(EffectController.Effects.SCORE_UP_EFFECT, human.transform);
+
+                            //再生OFF
+                            var emissione = scoreUpEffectObj.emission;
+                            emissione.enabled = true;
+
+                            ////位置設定
+                            //Vector3 pos;
+                            //pos = chargeMaxEffectObj.transform.localPosition;
+                            //pos.y = 0.0f;
+                            //pos.z = -1.0f;
+                            //chargeMaxEffectObj.transform.localPosition = pos;
                         }
                     }
                     break;
