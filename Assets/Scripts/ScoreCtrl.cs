@@ -190,6 +190,13 @@ public class ScoreCtrl : MonoBehaviour
     //スコア加算関数
     public void AddScore( int groupNo )
     {
+        //iTween.PunchScale(this.gameObject, iTween.Hash(
+        //"x", 3,
+        //"y", 3,
+        //"delay", 1,
+        //"time", 3.0f)
+        //);
+
         int result = 0;
 
         // 計算部分

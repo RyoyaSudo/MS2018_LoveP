@@ -19,13 +19,15 @@ public class Player : MonoBehaviour
 
     private GameObject scoreObj;
 
-    public string spawnManagerPath;
-
     /// <summary>
     /// スポーンマネージャーオブジェクト。
     /// 乗客生成にまつわる処理をさせるため必要。
     /// </summary>
-    private SpawnManager spawnManagerObj;
+    private CitySpawnManager citySpawnManagerObj;
+    public string citySpawnManagerPath;
+
+    private StarSpawnManager starSpawnManagerObj;
+    public string starSpawnManagerPath;
 
     public float turnPowerPush;//プッシュ時旋回力
     public float turnPower;//旋回力
@@ -79,6 +81,17 @@ public class Player : MonoBehaviour
     /// </summary>
     Vector3 oldPos;
 
+    /// <summary>
+    /// プレイヤー移動に用いるUnityコンポーネント
+    /// </summary>
+    CharacterController controller;
+    public string controllerPath;
+
+    //サウンド用/////////////////////////////
+    private AudioSource playerAudioS;
+    private SoundController playerSoundCtrl;
+    private SoundController.Sounds playerType;  //プレイヤーの車両用
+
     public enum State
     {
         PLAYER_STATE_STOP = 0,
@@ -98,9 +111,24 @@ public class Player : MonoBehaviour
     }
     VehicleType vehicleType;
 
+    private void Awake()
+    {
+        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
+        vehicleModel[ ( int )vehicleType ].SetActive( true );
+        vehicleScore = 0;
+
+        // HACK: 星フェイズスポーンマネージャーの設定場所に関して
+        //       フェイズ初期化関数を追加して、Game.csで読み込む設定に変えたほうが良いと思う。
+        //starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
+    }
+
     // Use this for initialization
     void Start()
     {
+        // HACK: 街フェイズスポーンマネージャーの設定場所に関して
+        //       フェイズ初期化関数を追加して、Game.csで読み込む設定に変えたほうが良いと思う。
+        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
+
         rb = GetComponent<Rigidbody>();
         pushPower = 0.0f;
         pushAddValue = 0.10f;
@@ -108,23 +136,30 @@ public class Player : MonoBehaviour
         rideCount = 0;
         pushCharge = 0;
         state = State.PLAYER_STATE_STOP;
-        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
-        vehicleModel[ ( int )vehicleType ].SetActive( true );
-        vehicleScore = 0;
+
+
         oldPos = transform.position;
 
         //エフェクト関係
-        effect = GameObject.Find("EffectManager").GetComponent<EffectController>();
+        effect = GameObject.Find( "EffectManager" ).GetComponent<EffectController>();
         ChargeEffectCreate();
         ChargeMaxEffectCreate();
-        moveRadY = 180.0f;
+
+
+        moveRadY = 0.0f;
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-        spawnManagerObj = GameObject.Find( spawnManagerPath ).GetComponent<SpawnManager>();
+        controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
+
         gameObj = GameObject.Find( gamectrlObjPath );
         earth = GameObject.Find( earthObjPath );
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
+
+        //サウンド用//////////////////////////////////////
+        playerSoundCtrl = GameObject.Find( "SoundManager" ).GetComponent<SoundController>();
+        //オブジェクトについているAudioSourceを取得する
+        playerAudioS = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -135,22 +170,29 @@ public class Player : MonoBehaviour
         {
             case VehicleType.VEHICLE_TYPE_BIKE:
                 {
-                    CityMove();
+                    //CityMove();
+                    CityMoveCharcterController();
+                    playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_CAR:
                 {
-                    CityMove();
+                    //CityMove();
+                    CityMoveCharcterController();
+                    playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_BUS:
                 {
-                    CityMove();
+                    //CityMove();
+                    CityMoveCharcterController();
+                    playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
                     StarMove();
+                    playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
         }
@@ -158,7 +200,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay( Collider other )
     {
-        Debug.Log( "onTriggerStay" );
         switch( other.gameObject.tag )
         {
             // 乗車エリアに関する処理
@@ -226,12 +267,13 @@ public class Player : MonoBehaviour
                                     }
                             }
 
-                            spawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                            HumanCreate( human );
+                            //citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
 
                             //グループの大きさ分確保する
                             passengerObj = new Human[ rideGroupNum ];
                             //spawnManagerにペアを生成してもらう
-                            //spawnManagerObj.gameObject.GetComponent<SpawnManager>().
+                            //citySpawnManagerObj.gameObject.GetComponent<SpawnManager>().
 
                             //何人乗せるかUIを表示させる
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
@@ -270,16 +312,22 @@ public class Player : MonoBehaviour
                             {
                                 case Human.GROUPTYPE.PEAR:
                                     {
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
                                         vehicleScore += 1;
                                         break;
                                     }
                                 case Human.GROUPTYPE.SMAlLL:
                                     {
                                         vehicleScore += 2;
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
                                         break;
                                     }
                                 case Human.GROUPTYPE.BIG:
                                     {
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
                                         vehicleScore += 4;
                                         break;
                                     }
@@ -308,6 +356,11 @@ public class Player : MonoBehaviour
                             {
                                 SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
                                 gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
+                                starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
+                                var emission = chargeMaxEffectObj.emission;
+                                emission.enabled = false;
+                                emission = chargeEffectObj.emission;
+                                emission.enabled = false;
                             }
 
                             //if (vehicleScore >= 4)
@@ -334,7 +387,7 @@ public class Player : MonoBehaviour
                                 // 同じスポーンポイントで生成しないための制御処理
                                 while( true )
                                 {
-                                    pos = Random.Range( 0 , spawnManagerObj.SpawnNum - 1 );
+                                    pos = Random.Range( 0 , citySpawnManagerObj.SpawnNum - 1 );
 
                                     if( posList.IndexOf( pos ) == -1 )
                                     {
@@ -345,12 +398,12 @@ public class Player : MonoBehaviour
 
 
                                 // 生成処理実行
-                                spawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
+                                citySpawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
                             }
                             */
 
                             //乗物によって生成する人を設定
-                            spawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                            HumanCreateGroup( human );
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
@@ -403,17 +456,17 @@ public class Player : MonoBehaviour
             }
 
             //チャージエフェクト再生
-            if (pushCharge == 0)
+            if( pushCharge == 0 )
             {
                 var emission = chargeEffectObj.emission;
                 emission.enabled = true;
             }
 
             //チャージがマックスになったら
-            if (pushCharge >= CHARGE_MAX)
+            if( pushCharge >= CHARGE_MAX )
             {
                 //チャージマックスエフェクト再生
-                if (!bChargeMax)
+                if( !bChargeMax )
                 {
                     //チャージエフェクト停止
                     var emission = chargeEffectObj.emission;
@@ -427,7 +480,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            pushCharge+=Time.deltaTime;
+            pushCharge += Time.deltaTime;
         }
 
         // プッシュ解放した後のダッシュ
@@ -435,7 +488,7 @@ public class Player : MonoBehaviour
         {
             //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-            if (pushCharge >= CHARGE_MAX)
+            if( pushCharge >= CHARGE_MAX )
             {
                 rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
             }
@@ -443,8 +496,8 @@ public class Player : MonoBehaviour
             {
             }
 
-            if (bChargeMax)
-            {           
+            if( bChargeMax )
+            {
                 //チャージマックスエフェクト停止
                 var emission = chargeMaxEffectObj.emission;
                 emission.enabled = false;
@@ -507,14 +560,6 @@ public class Player : MonoBehaviour
             transform.position = newPos;
         }
 
-        // TODO: ジャンプ処理
-        //       デバッグ時に活用できそうなので実装
-        if( Input.GetKey( KeyCode.J ) )
-        {
-            Vector3 jumpForce = -curGravity * 2.0f;
-            rb.AddForce( jumpForce , ForceMode.Acceleration );
-        }
-
         // TODO: 重力計算
         //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
         curGravity += ( gravity * Time.deltaTime );
@@ -527,6 +572,17 @@ public class Player : MonoBehaviour
             Debug.Log( "Gravity Reset" );
         }
 
+        // TODO: ジャンプ処理
+        //       デバッグ時に活用できそうなので実装
+        if( Input.GetKey( KeyCode.J ) )
+        {
+            curGravity = Vector3.zero;
+
+            Vector3 jumpForce = -gravity * 2.0f;
+            rb.AddForce( jumpForce , ForceMode.Acceleration );
+        }
+
+        // 過去位置を保存しておく
         oldPos = transform.position;
     }
 
@@ -539,7 +595,7 @@ public class Player : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal");
         Vector3 gravityVec = earth.transform.position - transform.position;
         gravityVec.Normalize();
-        rb.AddForce( 9.8f * gravityVec * Time.deltaTime , ForceMode.Acceleration );
+        rb.AddForce( 9.8f * gravityVec * ( 60.0f * Time.deltaTime ) , ForceMode.Acceleration );
         transform.up = -gravityVec.normalized;
 
         Vector3 direction = new Vector3(moveH, 0.0f, moveV);
@@ -595,6 +651,10 @@ public class Player : MonoBehaviour
     /// </summary>
     public void SetVehicle( VehicleType setVehicleType )
     {
+        //SE再生/////////////////////////////////////////////////////////////
+        // TODO オブジェクトが見つからなかったため一時コメントアウトしました
+        //playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
+
         vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
@@ -630,7 +690,7 @@ public class Player : MonoBehaviour
     public void ChargeEffectCreate()
     {
         //生成
-        chargeEffectObj = effect.EffectCreate(EffectController.Effects.CHARGE_EFFECT, gameObject.transform);
+        chargeEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_EFFECT , gameObject.transform );
 
         //再生OFF
         var emissione = chargeEffectObj.emission;
@@ -650,7 +710,7 @@ public class Player : MonoBehaviour
     public void ChargeMaxEffectCreate()
     {
         //生成
-        chargeMaxEffectObj = effect.EffectCreate(EffectController.Effects.CHARGE_MAX_EFFECT, gameObject.transform);
+        chargeMaxEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_MAX_EFFECT , gameObject.transform );
 
         //再生OFF
         var emissione = chargeMaxEffectObj.emission;
@@ -670,6 +730,243 @@ public class Player : MonoBehaviour
     public void StarPhaseInit()
     {
         earth = GameObject.Find( earthObjPath );
+        vehicleScore = 13;
+        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+    }
+
+    /// <summary>
+    /// 乗り物に応じでスポーンマネージャを分ける(初乗り）
+    /// </summary>
+    public void HumanCreate( Human human )
+    {
+        switch( vehicleType )
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    //乗物によって生成する人を設定
+                    starSpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    //citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
+                    break;
+                }
+        }
+    }
+
+    /// <summary>
+    /// 乗り物に応じでスポーンマネージャを分ける(相方用）
+    /// </summary>
+    public void HumanCreateGroup( Human human )
+    {
+        switch( vehicleType )
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    //乗物によって生成する人を設定
+                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    //乗物によって生成する人を設定
+                    starSpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    //citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
+                    break;
+                }
+        }
+    }
+
+    /// <summary>
+    /// CharcterControllerを用いたプレイヤーの移動処理。
+    /// </summary>
+    void CityMoveCharcterController()
+    {
+        float moveV = Input.GetAxis("Vertical");
+        float moveH = Input.GetAxis("Horizontal");
+
+        //プッシュ時と通常時で旋回力を分ける
+        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        {
+            moveH *= turnPowerPush;
+        }
+        else
+        {
+            moveH *= turnPower;//旋回力をかける
+        }
+
+        if( Mathf.Abs( moveH ) > 0.2f )
+        {
+            moveRadY += moveH * 180.0f * Time.deltaTime;
+
+            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
+        }
+
+        Vector3 force = transform.forward * speed;
+
+        // プッシュ動作
+        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        {
+            force = new Vector3( 0.0f , 0.0f , 0.0f );
+            rb.velocity *= 0.975f;//減速
+            //速度が一定以下なら停止する
+            if( rb.velocity.magnitude < 1.0f )
+            {
+                rb.velocity *= 0.0f;
+                state = State.PLAYER_STATE_STOP;
+            }
+
+            //チャージエフェクト再生
+            if( pushCharge == 0 )
+            {
+                var emission = chargeEffectObj.emission;
+                emission.enabled = true;
+            }
+
+            //チャージがマックスになったら
+            if( pushCharge >= CHARGE_MAX )
+            {
+                //チャージマックスエフェクト再生
+                if( !bChargeMax )
+                {
+                    //チャージエフェクト停止
+                    var emission = chargeEffectObj.emission;
+                    emission.enabled = false;
+
+                    //チャージマックスエフェクト再生
+                    emission = chargeMaxEffectObj.emission;
+                    emission.enabled = true;
+
+                    bChargeMax = true;
+                }
+            }
+
+            pushCharge += Time.deltaTime;
+        }
+
+        // プッシュ解放した後のダッシュ
+        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
+        {
+            //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+
+            if( pushCharge >= CHARGE_MAX )
+            {
+                controller.Move( force * turboRatio * Time.deltaTime );
+                //rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
+            }
+            else
+            {
+            }
+
+            if( bChargeMax )
+            {
+                //チャージマックスエフェクト停止
+                var emission = chargeMaxEffectObj.emission;
+                emission.enabled = false;
+                bChargeMax = false;
+            }
+            else
+            {
+                //チャージエフェクト停止
+                var emissione = chargeEffectObj.emission;
+                emissione.enabled = false;
+
+            }
+
+            //force *= ( 30.0f * rb.mass );
+            pushCharge = 0;
+        }
+
+        // 今回の速度加算
+        controller.Move( force * Time.deltaTime );
+        //rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
+
+        //最高速を設定
+        Vector3 checkV = rb.velocity;
+        checkV.y = 0.0f;
+
+        if( checkV.magnitude >= speedMax )
+        {
+            // HACK:最高速制御処理
+            //      XZ方向のベクトルを作りspeedMax以上行かないように設定。
+            //      後にY方向の力を加算する。
+            float YAxisPower = rb.velocity.y;
+
+            checkV = checkV.normalized * speedMax;
+            checkV.y = YAxisPower;
+            rb.velocity = checkV;
+        }
+
+        // TODO: 画面外に落ちたときの処理
+        //       仮で追加
+        if( transform.position.y < -50.0f )
+        {
+            Vector3 newPos = transform.position;
+            newPos.y = 30.0f;
+            transform.position = newPos;
+        }
+
+        // TODO: 重力計算
+        //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
+        curGravity += ( gravity * Time.deltaTime );
+
+        controller.Move( curGravity );
+        //rb.AddForce( curGravity , ForceMode.Acceleration );
+
+        if( transform.position.y == oldPos.y )
+        {
+            curGravity = Vector3.zero;
+            Debug.Log( "Gravity Reset" );
+        }
+
+        // TODO: ジャンプ処理
+        //       デバッグ時に活用できそうなので実装
+        if( Input.GetKey( KeyCode.J ) )
+        {
+            curGravity = Vector3.zero;
+
+            Vector3 jumpForce = -gravity * 2.0f;
+            controller.Move( jumpForce * Time.deltaTime );
+            //rb.AddForce( jumpForce , ForceMode.Acceleration );
+        }
+
+        // 移動量の反映
+        //controller.Move( moveDirection * Time.deltaTime );
+
+        // 過去位置を保存しておく
+        oldPos = transform.position;
+    }
+
+    void OnControllerColliderHit( ControllerColliderHit hit )
+    {
     }
 }
 

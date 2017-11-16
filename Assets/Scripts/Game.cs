@@ -17,8 +17,10 @@ public class Game : MonoBehaviour {
     public GameObject CityPrefab;
     public GameObject StarPrefab;
     public GameObject PlayerPrefab;
-    public GameObject CameraPrefab;
+    public GameObject mainCameraPrefab;
+    public GameObject guiCameraPrefab;
     public GameObject SpawnManagerPrefab;
+    public GameObject starSpawnPrefab;
     public GameObject MiniMapPrefab;
     public GameObject effectManagerPrefab;
     public GameObject soundManagerPrefab;
@@ -28,8 +30,10 @@ public class Game : MonoBehaviour {
     GameObject CityObj;
     GameObject StarObj;
     GameObject PlayerObj;
-    GameObject CameraObj;
+    GameObject mainCameraObj;
+    GameObject guiCameraObj;
     GameObject SpawnManagerObj;
+    GameObject starSpawnManagerObj;
     GameObject TimeObj;
     GameObject MiniMapObj;
     GameObject effectManagerObj;
@@ -49,6 +53,13 @@ public class Game : MonoBehaviour {
     {
         InitCreateObjects();
     }
+
+    /// <summary>
+    /// デバッグ用フラグ変数
+    /// デバッグ時にしたくない処理を除外する時などに使うこと
+    /// </summary>
+    [SerializeField]
+    bool debugFlags;
 
     // Use this for initialization
     void Start () {
@@ -74,7 +85,7 @@ public class Game : MonoBehaviour {
                 {
                     //デバッグ用
                     if (Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
-                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 )
+                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -82,7 +93,7 @@ public class Game : MonoBehaviour {
                 }
             case Phase.GAME_PAHSE_STAR:
                 {
-                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0)
+                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -118,12 +129,11 @@ public class Game : MonoBehaviour {
         }
     }
 
-    //TODO 同じコンポーネントを使ってるところは後できれいにする
+    // 同じコンポーネントを使ってるところは後できれいにする
+    // TODO: 各フェイズ初期化処理。あとで確実に問題が生じるので、何か不都合が生じたら優先して見る！
     void PhaseReadyStart()
     {
         //SetPhase(Phase.GAME_PAHSE_CITY);
-        PlayerObj.transform.position = new Vector3(175.0f, 1.0f, 120.0f);
-        PlayerObj.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_IN_CHANGE);
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_STOP);
         readyCount = 0;
@@ -131,29 +141,34 @@ public class Game : MonoBehaviour {
 
     void PhaseCityStart()
     {
-        PlayerObj.transform.position = new Vector3(175.0f, 1.0f, 120.0f);
-        PlayerObj.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
         CityObj.SetActive(true);
         StarObj.SetActive(false);
-        CameraObj.GetComponent<LovePCameraController>().enabled = true;
+        SpawnManagerObj.SetActive(true);
+        starSpawnManagerObj.SetActive(false);
+        mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
         PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
+        PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
+        //SpawnManagerObj.GetComponent<CitySpawnManager>().HumanCreate(1, Human.GROUPTYPE.PEAR);
     }
 
     void PhaseStarStart()
     {
         CityObj.SetActive(false);
         StarObj.SetActive(true);
-        PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
-        PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        SpawnManagerObj.SetActive(false);
+        starSpawnManagerObj.SetActive(true);
+        //PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
+        //PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().speed = 1800f;
         PlayerObj.GetComponent<Player>().speedMax = 60.0f;
         PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         PlayerObj.GetComponent<Player>().StarPhaseInit();
-        CameraObj.GetComponent<LovePCameraController>().enabled = false;
-        CameraObj.GetComponent<StarCameraController>().enabled = true;
+        mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
+        mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
+        
     }
 
     //タイトルシーンから移行
@@ -191,13 +206,15 @@ public class Game : MonoBehaviour {
         // 各オブジェクトの生成
         CityObj = Create( CityPrefab );
         StarObj = Create( StarPrefab );
-        PlayerObj = Create( PlayerPrefab );
-        CameraObj = Create( CameraPrefab );
+        
+        mainCameraObj = Create( mainCameraPrefab );
+        guiCameraObj = Create( guiCameraPrefab );
         SpawnManagerObj = Create( SpawnManagerPrefab );
+        starSpawnManagerObj = Create(starSpawnPrefab);
         MiniMapObj = Create( MiniMapPrefab );
         effectManagerObj = Create( effectManagerPrefab );
         soundManagerObj = Create( soundManagerPrefab );
-
+        PlayerObj = Create( PlayerPrefab );
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
         TimeObj = GameObject.Find( "Time" );
