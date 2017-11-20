@@ -158,8 +158,7 @@ public class Game : MonoBehaviour {
         SpawnManagerObj.SetActive(true);
         starSpawnManagerObj.SetActive(false);
         mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
-        PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
-        PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
+        PlayerObj.GetComponent<Player>().CityPhaseInit();
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
         //SpawnManagerObj.GetComponent<CitySpawnManager>().HumanCreate(1, Human.GROUPTYPE.PEAR);
     }
@@ -172,9 +171,6 @@ public class Game : MonoBehaviour {
         starSpawnManagerObj.SetActive(true);
         //PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
         //PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        PlayerObj.GetComponent<Player>().speed = 1800f;
-        PlayerObj.GetComponent<Player>().speedMax = 60.0f;
-        PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         PlayerObj.GetComponent<Player>().StarPhaseInit();
         mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;

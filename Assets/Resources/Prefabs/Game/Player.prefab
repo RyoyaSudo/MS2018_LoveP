@@ -79,22 +79,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1240372312338618
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4069574945760556}
-  - component: {fileID: 136520873113840436}
-  m_Layer: 0
-  m_Name: GroundCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1252656900517726
 GameObject:
   m_ObjectHideFlags: 1
@@ -510,7 +494,6 @@ GameObject:
   - component: {fileID: 4541990154489586}
   - component: {fileID: 54931219802038218}
   - component: {fileID: 114377122876851530}
-  - component: {fileID: 136943567456573010}
   - component: {fileID: 82244802205648336}
   - component: {fileID: 143571668409644224}
   m_Layer: 8
@@ -603,19 +586,6 @@ Transform:
   - {fileID: 4236936590949504}
   m_Father: {fileID: 4541990154489586}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4069574945760556
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240372312338618}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4541990154489586}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4207715256507416
 Transform:
@@ -850,7 +820,6 @@ Transform:
   m_Children:
   - {fileID: 4029538733851014}
   - {fileID: 4509008709129746}
-  - {fileID: 4069574945760556}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -982,7 +951,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570656652911158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4735567215940980}
@@ -1989,7 +1958,9 @@ MonoBehaviour:
   initialVelocity: 10
   acceleration: 6
   velocityMax: 30
-  stoppingTime: 1.5
+  stoppingTime: 1
+  stoppingRate: 1.35
+  stoppingDeadZone: 2.5
   boostVelocityRate: 1.5
   defaultVelocityRate: 1
   boostDuration: 2
@@ -2004,32 +1975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77478dfeb4bb544389562804fc5184f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &136520873113840436
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240372312338618}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.05
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0}
---- !u!136 &136943567456573010
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1931795237704324}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.6
-  m_Height: 2
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!143 &143571668409644224
 CharacterController:
   m_ObjectHideFlags: 1
@@ -2040,13 +1985,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!146 &146074611915610842
 WheelCollider:
   m_ObjectHideFlags: 1
