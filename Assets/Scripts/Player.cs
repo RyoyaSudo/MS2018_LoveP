@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     public float speed;
 
     Rigidbody rb;
@@ -68,7 +69,7 @@ public class Player : MonoBehaviour
     private EffectController effect;
     private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
     private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
-    private bool bChargeMax=false;               //チャージがマックス状態かどうか    
+    private bool bChargeMax;                     //チャージがマックス状態かどうか    
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -86,6 +87,70 @@ public class Player : MonoBehaviour
     /// </summary>
     CharacterController controller;
     public string controllerPath;
+
+    /// <summary>
+    /// 移動量ベクトル
+    /// </summary>
+    Vector3 velocityVec;
+    Vector3 velocityVecOld;
+
+    /// <summary>
+    /// 移動量(スカラー)
+    /// </summary>
+    float velocity;
+
+    /// <summary>
+    /// 初速
+    /// </summary>
+    [SerializeField]
+    float initialVelocity;
+
+    /// <summary>
+    /// 加速度
+    /// </summary>
+    [SerializeField]
+    float acceleration;
+
+    /// <summary>
+    /// 速度限界値
+    /// </summary>
+    [SerializeField]
+    float velocityMax;
+
+    /// <summary>
+    /// 停車までの時間(単位:秒)
+    /// </summary>
+    [SerializeField]
+    float stoppingTime;
+    float stoppingPower;
+
+    /// <summary>
+    /// チャージブースト時の速度倍率
+    /// </summary>
+    [SerializeField]
+    float boostVelocityRate;
+
+    /// <summary>
+    /// 通常時の速度倍率
+    /// </summary>
+    [SerializeField]
+    float defaultVelocityRate;
+
+    /// <summary>
+    /// 現在の速度倍率
+    /// </summary>
+    float velocityRate;
+
+    /// <summary>
+    /// チャージブースト継続時間
+    /// </summary>
+    [SerializeField]
+    float boostDuration;
+
+    /// <summary>
+    /// チャージブースト時間計測変数
+    /// </summary>
+    float boostTimer;
 
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
@@ -113,9 +178,16 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        bChargeMax = false;
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
+        velocity = 0.0f;
+        velocityVec = Vector3.zero;
+        velocityVecOld = Vector3.zero;
+        stoppingPower = stoppingTime == 0.0f ? 1.0f : 1.0f / stoppingTime;
+        velocityRate = defaultVelocityRate;
+        boostTimer = 0.0f;
 
         // HACK: 星フェイズスポーンマネージャーの設定場所に関して
         //       フェイズ初期化関数を追加して、Game.csで読み込む設定に変えたほうが良いと思う。
@@ -668,25 +740,6 @@ public class Player : MonoBehaviour
         state = setState;
     }
 
-    private void OnGUI()
-    {
-        if( Game.IsOnGUIEnable )
-        {
-            GUIStyleState styleState;
-            styleState = new GUIStyleState();
-            styleState.textColor = Color.white;
-
-            GUIStyle guiStyle = new GUIStyle();
-            guiStyle.fontSize = 48;
-            guiStyle.normal = styleState;
-
-            string str;
-            str = "速度ベクトル:" + rb.velocity + "\n速度量:" + rb.velocity.magnitude;
-
-            GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
-        }
-    }
-
     /// <summary>
     /// チャージエフェクト生成
     /// </summary>
@@ -815,17 +868,19 @@ public class Player : MonoBehaviour
     {
         float moveV = Input.GetAxis("Vertical");
         float moveH = Input.GetAxis("Horizontal");
+        bool isPush = Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" );  // プッシュボタンを押したか判定するフラグ
 
         //プッシュ時と通常時で旋回力を分ける
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if( isPush )
         {
             moveH *= turnPowerPush;
         }
         else
         {
-            moveH *= turnPower;//旋回力をかける
+            moveH *= turnPower;
         }
 
+        // 旋回処理
         if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
@@ -833,13 +888,18 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
         }
 
-        Vector3 force = transform.forward * speed;
+        // HACK: 地上の速度演算
+        if( !isPush )
+        {
+            velocity = Mathf.Max( velocity , initialVelocity );
+            velocity += acceleration * Time.deltaTime;
+        }
 
         // プッシュ動作
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if( isPush )
         {
-            force = new Vector3( 0.0f , 0.0f , 0.0f );
-            rb.velocity *= 0.975f;//減速
+            velocity += ( ( 0.0f - velocity ) * stoppingPower * Time.deltaTime );
+
             //速度が一定以下なら停止する
             if( rb.velocity.magnitude < 1.0f )
             {
@@ -876,17 +936,17 @@ public class Player : MonoBehaviour
         }
 
         // プッシュ解放した後のダッシュ
-        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
+        if( !isPush )
         {
-            //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-
-            if( pushCharge >= CHARGE_MAX )
+            // 速度倍率の変更
+            if( boostTimer > 0.0f )
             {
-                controller.Move( force * turboRatio * Time.deltaTime );
-                //rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
+                velocityRate = boostVelocityRate;
+                boostTimer -= Time.deltaTime;
             }
             else
             {
+                velocityRate = defaultVelocityRate;
             }
 
             if( bChargeMax )
@@ -904,30 +964,19 @@ public class Player : MonoBehaviour
 
             }
 
-            //force *= ( 30.0f * rb.mass );
+            // ブースト時間を与える
+            if( pushCharge >= CHARGE_MAX )
+            {
+                boostTimer = boostDuration;
+            }
+
             pushCharge = 0;
         }
 
         // 今回の速度加算
-        controller.Move( force * Time.deltaTime );
-        //rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
-
-        //最高速を設定
-        Vector3 checkV = rb.velocity;
-        checkV.y = 0.0f;
-
-        if( checkV.magnitude >= speedMax )
-        {
-            // HACK:最高速制御処理
-            //      XZ方向のベクトルを作りspeedMax以上行かないように設定。
-            //      後にY方向の力を加算する。
-            float YAxisPower = rb.velocity.y;
-
-            checkV = checkV.normalized * speedMax;
-            checkV.y = YAxisPower;
-            rb.velocity = checkV;
-        }
-
+        velocity = Mathf.Min( velocity , velocityMax ) * velocityRate;
+        velocityVec = velocity * transform.forward * Time.deltaTime;
+ 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
         if( transform.position.y < -50.0f )
@@ -962,10 +1011,33 @@ public class Player : MonoBehaviour
         }
 
         // 移動量の反映
-        //controller.Move( moveDirection * Time.deltaTime );
+        controller.Move( velocityVec );
 
         // 過去位置を保存しておく
         oldPos = transform.position;
+    }
+
+    /// <summary>
+    /// OnGUI処理
+    /// 主にデバッグ情報を出す
+    /// </summary>
+    private void OnGUI()
+    {
+        if( Game.IsOnGUIEnable )
+        {
+            GUIStyleState styleState;
+            styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
+
+            GUIStyle guiStyle = new GUIStyle();
+            guiStyle.fontSize = 48;
+            guiStyle.normal = styleState;
+
+            string str;
+            str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
+
+            GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+        }
     }
 }
 

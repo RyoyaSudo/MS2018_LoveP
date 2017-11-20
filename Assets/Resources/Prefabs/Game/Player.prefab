@@ -1185,7 +1185,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 479029b7ca22e24489e6a81208d1d5aa, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1281,7 +1281,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 479029b7ca22e24489e6a81208d1d5aa, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1799,7 +1799,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840796299343014}
-  m_Material: {fileID: 13400000, guid: e60e571b097226f439371be957869ee8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1986,6 +1986,13 @@ MonoBehaviour:
   CHARGE_MAX: 2
   gravity: {x: 0, y: -9.81, z: 0}
   controllerPath: Player
+  initialVelocity: 10
+  acceleration: 6
+  velocityMax: 30
+  stoppingTime: 1.5
+  boostVelocityRate: 1.5
+  defaultVelocityRate: 1
+  boostDuration: 2
 --- !u!114 &114444640197381324
 MonoBehaviour:
   m_ObjectHideFlags: 1
