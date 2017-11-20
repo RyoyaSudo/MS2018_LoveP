@@ -281,7 +281,7 @@ public class Player : MonoBehaviour
 
                     Human human = other.transform.parent.GetComponent<Human>();
 
-                    if( rb.velocity.magnitude < 1.0f )//ほぼ停止してるなら
+                    if( velocity < 1.0f )//ほぼ停止してるなら
                     {
                         Debug.Log( "stop" );
 
