@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
     private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
     private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
     private bool bChargeMax;                     //チャージがマックス状態かどうか    
+    private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。

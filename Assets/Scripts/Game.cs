@@ -24,6 +24,7 @@ public class Game : MonoBehaviour {
     public GameObject MiniMapPrefab;
     public GameObject effectManagerPrefab;
     public GameObject soundManagerPrefab;
+    public GameObject skyboxManagerPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -38,6 +39,7 @@ public class Game : MonoBehaviour {
     GameObject MiniMapObj;
     GameObject effectManagerObj;
     GameObject soundManagerObj;
+    GameObject skyboxManagerObj;
 
     int readyCount;
 
@@ -161,6 +163,7 @@ public class Game : MonoBehaviour {
         PlayerObj.GetComponent<Player>().CityPhaseInit();
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
         //SpawnManagerObj.GetComponent<CitySpawnManager>().HumanCreate(1, Human.GROUPTYPE.PEAR);
+        skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
     }
 
     void PhaseStarStart()
@@ -176,7 +179,7 @@ public class Game : MonoBehaviour {
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
-        
+        skyboxManagerObj.GetComponent<SkyboxManager>().SetStarSkyBox();
     }
 
     //タイトルシーンから移行
@@ -223,6 +226,7 @@ public class Game : MonoBehaviour {
         effectManagerObj = Create( effectManagerPrefab );
         soundManagerObj = Create( soundManagerPrefab );
         PlayerObj = Create( PlayerPrefab );
+        skyboxManagerObj = Create( skyboxManagerPrefab );
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
         TimeObj = GameObject.Find( "Time" );

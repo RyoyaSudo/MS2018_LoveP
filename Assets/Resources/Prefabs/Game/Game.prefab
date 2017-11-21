@@ -69,6 +69,8 @@ MonoBehaviour:
     type: 2}
   soundManagerPrefab: {fileID: 1860252071176286, guid: 1b7fa2fbedb381148a028d135dc1e8c3,
     type: 2}
+  skyboxManagerPrefab: {fileID: 1066798036683194, guid: 39c1179bb107b4a8082c10ad86a003c3,
+    type: 2}
   phase: 1
   debugFlags: 1
   isOnGUIEnable: 1
