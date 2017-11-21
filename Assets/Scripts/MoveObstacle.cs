@@ -26,8 +26,13 @@ public class MoveObstacle : MonoBehaviour {
     {
         if (col.gameObject.name == "Player")
         {
+            Player playerObj = col.gameObject.GetComponent<Player>();
+            float playerVelocity = playerObj.Velocity;
+            Vector3 playerVelocityVec = playerObj.VelocityVec;
+
             Debug.Log("ぶつかったぜ");
-            velocity.y += velocity.y * addPower;
+            //velocity.y += velocity.y * addPower;
+            velocity = playerVelocityVec.normalized * playerVelocity * addPower;
             //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
             obstacleRb.AddForce(transform.forward * addPower, ForceMode.Impulse);
             obstacleRb.AddForce(velocity * impactRate, ForceMode.Impulse);

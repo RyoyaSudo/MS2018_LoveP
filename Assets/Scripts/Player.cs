@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     public float speed;
 
     Rigidbody rb;
@@ -68,8 +69,8 @@ public class Player : MonoBehaviour
     private EffectController effect;
     private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
     private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
-    private bool bChargeMax=false;               //チャージがマックス状態かどうか    
-    private ParticleSystem scoreUpEffectObj;    //スコアアップエフェクト
+    private bool bChargeMax;                     //チャージがマックス状態かどうか    
+    private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -87,6 +88,95 @@ public class Player : MonoBehaviour
     /// </summary>
     CharacterController controller;
     public string controllerPath;
+
+    /// <summary>
+    /// 移動量ベクトル
+    /// </summary>
+    Vector3 velocityVec;
+    Vector3 velocityVecOld;
+
+    public Vector3 VelocityVec {
+        get { return velocityVec; }
+    }
+
+    /// <summary>
+    /// 移動量(スカラー)
+    /// </summary>
+    float velocity;
+
+    public float Velocity {
+        get{ return velocity; }
+    }
+
+    /// <summary>
+    /// 初速
+    /// </summary>
+    [SerializeField]
+    float initialVelocity;
+
+    /// <summary>
+    /// 加速度
+    /// </summary>
+    [SerializeField]
+    float acceleration;
+
+    /// <summary>
+    /// 速度限界値
+    /// </summary>
+    [SerializeField]
+    float velocityMax;
+
+    /// <summary>
+    /// 停車までの予定時間(単位:秒)
+    /// </summary>
+    [SerializeField]
+    float stoppingTime;
+
+    /// <summary>
+    /// 停車にかける力の倍率
+    /// </summary>
+    [SerializeField]
+    float stoppingRate;
+
+    /// <summary>
+    /// 停車時のデッドゾーンの値。
+    /// この値以下になった場合、完全停車 = 移動量を0 にする
+    /// </summary>
+    [SerializeField]
+    float stoppingDeadZone;
+
+    /// <summary>
+    /// 停車力。初期化時に算出する。
+    /// </summary>
+    float stoppingPower;
+
+    /// <summary>
+    /// チャージブースト時の速度倍率
+    /// </summary>
+    [SerializeField]
+    float boostVelocityRate;
+
+    /// <summary>
+    /// 通常時の速度倍率
+    /// </summary>
+    [SerializeField]
+    float defaultVelocityRate;
+
+    /// <summary>
+    /// 現在の速度倍率
+    /// </summary>
+    float velocityRate;
+
+    /// <summary>
+    /// チャージブースト継続時間
+    /// </summary>
+    [SerializeField]
+    float boostDuration;
+
+    /// <summary>
+    /// チャージブースト時間計測変数
+    /// </summary>
+    float boostTimer;
 
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
@@ -114,22 +204,21 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        bChargeMax = false;
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
-
-        // HACK: 星フェイズスポーンマネージャーの設定場所に関して
-        //       フェイズ初期化関数を追加して、Game.csで読み込む設定に変えたほうが良いと思う。
-        //starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
+        velocity = 0.0f;
+        velocityVec = Vector3.zero;
+        velocityVecOld = Vector3.zero;
+        stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
+        velocityRate = defaultVelocityRate;
+        boostTimer = 0.0f;
     }
 
     // Use this for initialization
     void Start()
     {
-        // HACK: 街フェイズスポーンマネージャーの設定場所に関して
-        //       フェイズ初期化関数を追加して、Game.csで読み込む設定に変えたほうが良いと思う。
-        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
-
         rb = GetComponent<Rigidbody>();
         pushPower = 0.0f;
         pushAddValue = 0.10f;
@@ -138,14 +227,12 @@ public class Player : MonoBehaviour
         pushCharge = 0;
         state = State.PLAYER_STATE_STOP;
 
-
         oldPos = transform.position;
 
         //エフェクト関係
         effect = GameObject.Find( "EffectManager" ).GetComponent<EffectController>();
         ChargeEffectCreate();
         ChargeMaxEffectCreate();
-
 
         moveRadY = 0.0f;
 
@@ -199,235 +286,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay( Collider other )
+    /// <summary>
+    /// 街フェイズ開始時のプレイヤー初期化処理
+    /// </summary>
+    public void CityPhaseInit()
     {
-        switch( other.gameObject.tag )
-        {
-            // 乗車エリアに関する処理
-            case "RideArea":
-                {
-                    Debug.Log( "RideAreaON" );
+        citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
+        state = State.PLAYER_STATE_STOP;
+        transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
 
-                    Human human = other.transform.parent.GetComponent<Human>();
+        ScriptDebug.Log( "街フェイズ開始" );
+    }
 
-                    if( rb.velocity.magnitude < 1.0f )//ほぼ停止してるなら
-                    {
-                        Debug.Log( "stop" );
+    /// <summary>
+    /// 星フェイズ開始時のプレイヤー初期化処理
+    /// </summary>
+    public void StarPhaseInit()
+    {
+        earth = GameObject.Find( earthObjPath );
+        vehicleScore = 13;
+        SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
+        starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
+        speed = 1800f;
+        speedMax = 60.0f;
 
-                        //乗車待機状態じゃないならbreak;
-                        if( human.stateType != Human.STATETYPE.READY ) break;
-                        //state = State.PLAYER_STATE_TAKE_READY;
-                        //state = State.PLAYER_STATE_TAKE;
-
-                        //最初の乗客の時に他の乗客生成を行う
-                        if( rideCount == 0 )
-                        {
-                            Debug.Log( "rideCnt" );
-
-                            // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
-                            //       10/24現在では他の乗客はFindして消してしまうやり方をする。
-                            human.IsProtect = true;
-
-                            GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Human" );
-
-                            foreach( GameObject deleteHuman in humanAll )
-                            {
-                                if( deleteHuman.GetComponent<Human>().IsProtect == false )
-                                {
-                                    Destroy( deleteHuman.gameObject );
-                                }
-                            }
-
-                            passengerType = human.groupType;
-
-                            // 乗客数の確認
-                            switch( human.groupType )
-                            {
-                                case Human.GROUPTYPE.PEAR:
-                                    {
-                                        rideGroupNum = 2;
-                                        Debug.Log( "PEAR" );
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.SMAlLL:
-                                    {
-                                        rideGroupNum = 3;
-                                        Debug.Log( "SMALL" );
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.BIG:
-                                    {
-                                        rideGroupNum = 5;
-                                        Debug.Log( "BIG" );
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
-                                        break;
-                                    }
-                            }
-
-                            HumanCreate( human );
-                            //citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
-
-                            //グループの大きさ分確保する
-                            passengerObj = new Human[ rideGroupNum ];
-                            //spawnManagerにペアを生成してもらう
-                            //citySpawnManagerObj.gameObject.GetComponent<SpawnManager>().
-
-                            //何人乗せるかUIを表示させる
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
-                        }
-
-                        //乗客を子にする
-                        human.gameObject.transform.position = transform.position;
-                        human.transform.parent = transform;
-                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
-                        Debug.Log( "Ride" );
-                        passengerObj[ rideCount ] = human;
-                        rideCount++;
-
-                        //フェイスUIをONにする
-                        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount );
-
-                        // 乗客の当たり判定を消す
-                        human.GetHumanModelCollider().isTrigger = true;
-
-                        //最後の人なら降ろす
-                        if( rideCount >= rideGroupNum )
-                        {
-                            for( int i = 0 ; i < rideCount ; i++ )
-                            {
-                                passengerObj[ i ].transform.parent = null;
-                                passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
-                                passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
-                            }
-                            // HACK: スコア加算処理の場所
-                            //       現状プレイヤークラス内だが、後に変更の可能性有り。
-                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
-                            rideCount = 0;
-
-                            //乗客のタイプに応じで乗り物変更用のスコアを加算する
-                            switch( passengerType )
-                            {
-                                case Human.GROUPTYPE.PEAR:
-                                    {
-                                        //ペア作成時のSE再生///////////////////////////////////////////////
-                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                                        vehicleScore += 1;
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.SMAlLL:
-                                    {
-                                        vehicleScore += 2;
-                                        //ペア作成時のSE再生///////////////////////////////////////////////
-                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.BIG:
-                                    {
-                                        //ペア作成時のSE再生///////////////////////////////////////////////
-                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                                        vehicleScore += 4;
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
-                                        break;
-                                    }
-                            }
-
-                            //初期　バイク
-                            //＋1ポイント　車
-                            //＋4ポイント　バス
-                            //＋8ポイント　飛行機
-
-                            // TODO: 後できれいにする
-                            if( vehicleScore >= 1 && vehicleScore < 5 )
-                            {
-                                SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
-                            }
-                            else if( vehicleScore >= 5 && vehicleScore < 13 )
-                            {
-                                SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
-                            }
-                            else if( vehicleScore >= 13 )
-                            {
-                                SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
-                                gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
-                                starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
-                                var emission = chargeMaxEffectObj.emission;
-                                emission.enabled = false;
-                                emission = chargeEffectObj.emission;
-                                emission.enabled = false;
-                            }
-
-                            //if (vehicleScore >= 4)
-                            //{
-                            //    SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
-                            //    gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
-                            //    Debug.Log("Star");
-                            //}
-
-                            // HACK: 次の乗客を生成。
-                            //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
-
-                            // TODO: 2017/11/07田口コメントアウトしました
-                            /*
-                            List< int > posList = new List< int >();
-                            posList.Add( human.spawnPlace );
-
-                            // プレイヤーの乗り物の種類に応じて
-                            // 出現させるグループを制御
-
-                            for ( int i = 0 ; i < 3 ; i++ )
-                            {
-                                int pos;
-                                // 同じスポーンポイントで生成しないための制御処理
-                                while( true )
-                                {
-                                    pos = Random.Range( 0 , citySpawnManagerObj.SpawnNum - 1 );
-
-                                    if( posList.IndexOf( pos ) == -1 )
-                                    {
-                                        posList.Add( pos );
-                                        break;
-                                    }
-                                }
-
-
-                                // 生成処理実行
-                                citySpawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
-                            }
-                            */
-
-                            //乗物によって生成する人を設定
-                            HumanCreateGroup( human );
-
-                            //何人乗せるかUIの表示を終了
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
-
-                            //スコアアップエフェクト
-                            //生成
-                            scoreUpEffectObj = effect.EffectCreate(EffectController.Effects.SCORE_UP_EFFECT, human.transform);
-
-                            //再生OFF
-                            var emissione = scoreUpEffectObj.emission;
-                            emissione.enabled = true;
-
-                            ////位置設定
-                            //Vector3 pos;
-                            //pos = chargeMaxEffectObj.transform.localPosition;
-                            //pos.y = 0.0f;
-                            //pos.z = -1.0f;
-                            //chargeMaxEffectObj.transform.localPosition = pos;
-                        }
-                    }
-                    break;
-                }
-        }
+        ScriptDebug.Log( "星フェイズ開始" );
     }
 
     /// <summary>
@@ -674,6 +557,25 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
+
+        switch( setVehicleType )
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                break;
+
+            case VehicleType.VEHICLE_TYPE_CAR:
+                break;
+
+            case VehicleType.VEHICLE_TYPE_BUS:
+                break;
+
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                break;
+
+            default:
+                ScriptDebug.Log( "未確定の乗り物タイプが指定されました。" );
+                break;
+        }
     }
 
     /// <summary>
@@ -682,22 +584,6 @@ public class Player : MonoBehaviour
     public void SetState( State setState )
     {
         state = setState;
-    }
-
-    private void OnGUI()
-    {
-        GUIStyleState styleState;
-        styleState = new GUIStyleState();
-        styleState.textColor = Color.white;
-
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.fontSize = 48;
-        guiStyle.normal = styleState;
-
-        string str;
-        str = "速度ベクトル:" + rb.velocity + "\n速度量:" + rb.velocity.magnitude;
-
-        GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
     }
 
     /// <summary>
@@ -738,17 +624,6 @@ public class Player : MonoBehaviour
         pos.y = 0.0f;
         pos.z = -1.0f;
         chargeMaxEffectObj.transform.localPosition = pos;
-    }
-
-    /// <summary>
-    /// 星フェイズ開始時のプレイヤー初期化処理
-    /// </summary>
-    public void StarPhaseInit()
-    {
-        earth = GameObject.Find( earthObjPath );
-        vehicleScore = 13;
-        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
-        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
     }
 
     /// <summary>
@@ -828,17 +703,19 @@ public class Player : MonoBehaviour
     {
         float moveV = Input.GetAxis("Vertical");
         float moveH = Input.GetAxis("Horizontal");
+        bool isPush = Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" );  // プッシュボタンを押したか判定するフラグ
 
         //プッシュ時と通常時で旋回力を分ける
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if( isPush )
         {
             moveH *= turnPowerPush;
         }
         else
         {
-            moveH *= turnPower;//旋回力をかける
+            moveH *= turnPower;
         }
 
+        // 旋回処理
         if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
@@ -846,17 +723,22 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
         }
 
-        Vector3 force = transform.forward * speed;
+        // HACK: 地上の速度演算
+        if( !isPush )
+        {
+            velocity = Mathf.Max( velocity , initialVelocity );
+            velocity += acceleration * Time.deltaTime;
+        }
 
         // プッシュ動作
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
+        if( isPush )
         {
-            force = new Vector3( 0.0f , 0.0f , 0.0f );
-            rb.velocity *= 0.975f;//減速
-            //速度が一定以下なら停止する
-            if( rb.velocity.magnitude < 1.0f )
+            velocity += ( ( 0.0f - velocity ) * stoppingPower * Time.deltaTime );
+
+            // デッドゾーン確認
+            if( velocity < stoppingDeadZone )
             {
-                rb.velocity *= 0.0f;
+                velocity = 0.0f;
                 state = State.PLAYER_STATE_STOP;
             }
 
@@ -888,20 +770,20 @@ public class Player : MonoBehaviour
             pushCharge += Time.deltaTime;
         }
 
-        // プッシュ解放した後のダッシュ
-        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
+        // 速度倍率の変更
+        if( boostTimer > 0.0f )
         {
-            //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            velocityRate = boostVelocityRate;
+            boostTimer -= Time.deltaTime;
+        }
+        else
+        {
+            velocityRate = defaultVelocityRate;
+        }
 
-            if( pushCharge >= CHARGE_MAX )
-            {
-                controller.Move( force * turboRatio * Time.deltaTime );
-                //rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
-            }
-            else
-            {
-            }
-
+        // プッシュ解放した後のダッシュ
+        if( !isPush )
+        {
             if( bChargeMax )
             {
                 //チャージマックスエフェクト停止
@@ -917,30 +799,19 @@ public class Player : MonoBehaviour
 
             }
 
-            //force *= ( 30.0f * rb.mass );
+            // ブースト時間を与える
+            if( pushCharge >= CHARGE_MAX )
+            {
+                boostTimer = boostDuration;
+            }
+
             pushCharge = 0;
         }
 
         // 今回の速度加算
-        controller.Move( force * Time.deltaTime );
-        //rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
-
-        //最高速を設定
-        Vector3 checkV = rb.velocity;
-        checkV.y = 0.0f;
-
-        if( checkV.magnitude >= speedMax )
-        {
-            // HACK:最高速制御処理
-            //      XZ方向のベクトルを作りspeedMax以上行かないように設定。
-            //      後にY方向の力を加算する。
-            float YAxisPower = rb.velocity.y;
-
-            checkV = checkV.normalized * speedMax;
-            checkV.y = YAxisPower;
-            rb.velocity = checkV;
-        }
-
+        velocity = Mathf.Min( velocity , velocityMax ) * velocityRate;
+        velocityVec = velocity * transform.forward * Time.deltaTime;
+ 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
         if( transform.position.y < -50.0f )
@@ -975,14 +846,252 @@ public class Player : MonoBehaviour
         }
 
         // 移動量の反映
-        //controller.Move( moveDirection * Time.deltaTime );
+        controller.Move( velocityVec );
 
         // 過去位置を保存しておく
         oldPos = transform.position;
     }
 
-    void OnControllerColliderHit( ControllerColliderHit hit )
+    /// <summary>
+    /// 当たり判定後に行う処理
+    /// </summary>
+    private void OnTriggerStay( Collider other )
     {
+        switch( other.gameObject.tag )
+        {
+            // 乗車エリアに関する処理
+            case "RideArea":
+                {
+                    Debug.Log( "RideAreaON" );
+
+                    Human human = other.transform.parent.GetComponent<Human>();
+
+                    if( velocity < 1.0f )//ほぼ停止してるなら
+                    {
+                        Debug.Log( "stop" );
+
+                        //乗車待機状態じゃないならbreak;
+                        if( human.stateType != Human.STATETYPE.READY ) break;
+                        //state = State.PLAYER_STATE_TAKE_READY;
+                        //state = State.PLAYER_STATE_TAKE;
+
+                        //最初の乗客の時に他の乗客生成を行う
+                        if( rideCount == 0 )
+                        {
+                            Debug.Log( "rideCnt" );
+
+                            // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
+                            //       10/24現在では他の乗客はFindして消してしまうやり方をする。
+                            human.IsProtect = true;
+
+                            GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Human" );
+
+                            foreach( GameObject deleteHuman in humanAll )
+                            {
+                                if( deleteHuman.GetComponent<Human>().IsProtect == false )
+                                {
+                                    Destroy( deleteHuman.gameObject );
+                                }
+                            }
+
+                            passengerType = human.groupType;
+
+                            // 乗客数の確認
+                            switch( human.groupType )
+                            {
+                                case Human.GROUPTYPE.PEAR:
+                                    {
+                                        rideGroupNum = 2;
+                                        Debug.Log( "PEAR" );
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.SMAlLL:
+                                    {
+                                        rideGroupNum = 3;
+                                        Debug.Log( "SMALL" );
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.BIG:
+                                    {
+                                        rideGroupNum = 5;
+                                        Debug.Log( "BIG" );
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
+                                        break;
+                                    }
+                            }
+
+                            HumanCreate( human );
+                            //citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+
+                            //グループの大きさ分確保する
+                            passengerObj = new Human[ rideGroupNum ];
+                            //spawnManagerにペアを生成してもらう
+                            //citySpawnManagerObj.gameObject.GetComponent<SpawnManager>().
+
+                            //何人乗せるかUIを表示させる
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
+                        }
+
+                        //乗客を子にする
+                        human.gameObject.transform.position = transform.position;
+                        human.transform.parent = transform;
+                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
+                        Debug.Log( "Ride" );
+                        passengerObj[ rideCount ] = human;
+                        rideCount++;
+
+                        //フェイスUIをONにする
+                        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount );
+
+                        // 乗客の当たり判定を消す
+                        human.GetHumanModelCollider().isTrigger = true;
+
+                        //最後の人なら降ろす
+                        if( rideCount >= rideGroupNum )
+                        {
+                            for( int i = 0 ; i < rideCount ; i++ )
+                            {
+                                passengerObj[ i ].transform.parent = null;
+                                passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
+                                passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
+                            }
+                            // HACK: スコア加算処理の場所
+                            //       現状プレイヤークラス内だが、後に変更の可能性有り。
+                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
+                            rideCount = 0;
+
+                            //乗客のタイプに応じで乗り物変更用のスコアを加算する
+                            switch( passengerType )
+                            {
+                                case Human.GROUPTYPE.PEAR:
+                                    {
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                                        vehicleScore += 1;
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.SMAlLL:
+                                    {
+                                        vehicleScore += 2;
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                                        break;
+                                    }
+                                case Human.GROUPTYPE.BIG:
+                                    {
+                                        //ペア作成時のSE再生///////////////////////////////////////////////
+                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                                        vehicleScore += 4;
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
+                                        break;
+                                    }
+                            }
+
+                            //初期　バイク
+                            //＋1ポイント　車
+                            //＋4ポイント　バス
+                            //＋8ポイント　飛行機
+
+                            // TODO: 後できれいにする
+                            if( vehicleScore >= 1 && vehicleScore < 5 )
+                            {
+                                SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
+                            }
+                            else if( vehicleScore >= 5 && vehicleScore < 13 )
+                            {
+                                SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
+                            }
+                            else if( vehicleScore >= 13 )
+                            {
+                                SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
+                                gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
+                                starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
+                                var emission = chargeMaxEffectObj.emission;
+                                emission.enabled = false;
+                                emission = chargeEffectObj.emission;
+                                emission.enabled = false;
+                            }
+
+                            //if (vehicleScore >= 4)
+                            //{
+                            //    SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+                            //    gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+                            //    Debug.Log("Star");
+                            //}
+
+                            // HACK: 次の乗客を生成。
+                            //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
+
+                            // TODO: 2017/11/07田口コメントアウトしました
+                            /*
+                            List< int > posList = new List< int >();
+                            posList.Add( human.spawnPlace );
+
+                            // プレイヤーの乗り物の種類に応じて
+                            // 出現させるグループを制御
+
+                            for ( int i = 0 ; i < 3 ; i++ )
+                            {
+                                int pos;
+                                // 同じスポーンポイントで生成しないための制御処理
+                                while( true )
+                                {
+                                    pos = Random.Range( 0 , citySpawnManagerObj.SpawnNum - 1 );
+
+                                    if( posList.IndexOf( pos ) == -1 )
+                                    {
+                                        posList.Add( pos );
+                                        break;
+                                    }
+                                }
+
+
+                                // 生成処理実行
+                                citySpawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
+                            }
+                            */
+
+                            //乗物によって生成する人を設定
+                            HumanCreateGroup( human );
+
+                            //何人乗せるかUIの表示を終了
+                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+                        }
+                    }
+                    break;
+                }
+        }
+    }
+
+    /// <summary>
+    /// OnGUI処理
+    /// 主にデバッグ情報を出す
+    /// </summary>
+    private void OnGUI()
+    {
+        if( Game.IsOnGUIEnable )
+        {
+            GUIStyleState styleState;
+            styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
+
+            GUIStyle guiStyle = new GUIStyle();
+            guiStyle.fontSize = 48;
+            guiStyle.normal = styleState;
+
+            string str;
+            str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
+
+            GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+        }
     }
 }
 
