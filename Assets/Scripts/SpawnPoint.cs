@@ -30,7 +30,7 @@ public class SpawnPoint : MonoBehaviour {
     void Update()
     {
         //回転
-        transform.Rotate(new Vector3(0, 20, 0) * Time.deltaTime);
+        //transform.Rotate(new Vector3(0, 20, 0) * Time.deltaTime);
     }
 
     /// <summary>
