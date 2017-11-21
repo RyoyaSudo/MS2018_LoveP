@@ -12,7 +12,8 @@ public class EffectController : MonoBehaviour
         TEST_EFFECT1 = 1,
         TEST_EFFECT2 = 2 ,
         CHARGE_EFFECT = 3 ,
-        CHARGE_MAX_EFFECT = 4
+        CHARGE_MAX_EFFECT = 4,
+        SCORE_UP_EFFECT = 5
     }
 
     //エフェクト用の配列
