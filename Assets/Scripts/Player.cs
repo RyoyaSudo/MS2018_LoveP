@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
     private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
     private bool bChargeMax;                     //チャージがマックス状態かどうか    
     private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
+    private ParticleSystem changeEffectObj;
 
     /// <summary>
     /// 重力量。Playerは個別に設定する。
@@ -233,6 +234,7 @@ public class Player : MonoBehaviour
         effect = GameObject.Find( "EffectManager" ).GetComponent<EffectController>();
         ChargeEffectCreate();
         ChargeMaxEffectCreate();
+        ChangeEffectCreate();
 
         moveRadY = 0.0f;
 
@@ -558,7 +560,11 @@ public class Player : MonoBehaviour
         vehicleType = setVehicleType;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
 
-        switch( setVehicleType )
+        //チェンジエフェクト
+        //changeEffectObj = effect.EffectCreate(EffectController.Effects.CHARGE_MAX_EFFECT, gameObject.transform);
+        changeEffectObj.Play();
+
+        switch ( setVehicleType )
         {
             case VehicleType.VEHICLE_TYPE_BIKE:
                 break;
@@ -624,6 +630,26 @@ public class Player : MonoBehaviour
         pos.y = 0.0f;
         pos.z = -1.0f;
         chargeMaxEffectObj.transform.localPosition = pos;
+    }
+
+    /// <summary>
+    /// 変身エフェクト生成
+    /// </summary>
+    public void ChangeEffectCreate()
+    {
+        //生成
+        changeEffectObj = effect.EffectCreate(EffectController.Effects.CHANGE_EFFECT, gameObject.transform);
+
+        //再生OFF
+        var emissione = changeEffectObj.emission;
+        emissione.enabled = true;
+
+        //位置設定
+        Vector3 pos;
+        pos = changeEffectObj.transform.localPosition;
+        pos.y = 0.0f;
+        pos.z = -1.0f;
+        changeEffectObj.transform.localPosition = pos;
     }
 
     /// <summary>
@@ -1001,15 +1027,15 @@ public class Player : MonoBehaviour
                             //＋8ポイント　飛行機
 
                             // TODO: 後できれいにする
-                            if( vehicleScore >= 1 && vehicleScore < 5 )
+                            if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
                                 SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
                             }
-                            else if( vehicleScore >= 5 && vehicleScore < 13 )
+                            else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
                             {
                                 SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
                             }
-                            else if( vehicleScore >= 13 )
+                            else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
                             {
                                 SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
                                 gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
