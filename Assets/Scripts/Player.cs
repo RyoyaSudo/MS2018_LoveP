@@ -560,9 +560,6 @@ public class Player : MonoBehaviour
         vehicleType = setVehicleType;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
 
-        //チェンジエフェクト
-        //changeEffectObj = effect.EffectCreate(EffectController.Effects.CHARGE_MAX_EFFECT, gameObject.transform);
-        changeEffectObj.Play();
 
         switch ( setVehicleType )
         {
@@ -1029,10 +1026,14 @@ public class Player : MonoBehaviour
                             // TODO: 後できれいにする
                             if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
+                                //チェンジエフェクト
+                                changeEffectObj.Play();
                                 SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
                             }
                             else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
                             {
+                                //チェンジエフェクト
+                                changeEffectObj.Play();
                                 SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
                             }
                             else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
