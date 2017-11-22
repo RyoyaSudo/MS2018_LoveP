@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     public float speed;
 
     Rigidbody rb;
     float moveRadY;
-
-    float pushPower;
-    float pushAddValue;
-    float pushForceFriction;
 
     int rideCount; //現在乗車人数
     int rideGroupNum; //グループ乗車人数
@@ -29,11 +24,7 @@ public class Player : MonoBehaviour
 
     private StarSpawnManager starSpawnManagerObj;
     public string starSpawnManagerPath;
-
-    public float turnPowerPush;//プッシュ時旋回力
-    public float turnPower;//旋回力
-
-    float  pushCharge;//pushチャージ量
+    
     public float speedMax;//最高速
     public float turboRatio;//ターボレシオ
 
@@ -62,33 +53,24 @@ public class Player : MonoBehaviour
     private GameObject earth;
     public string earthObjPath;
 
-    [SerializeField]
-    private float CHARGE_MAX;
-
     //エフェクト関係
     private EffectController effect;
     private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
+
+    public ParticleSystem ChargeEffectObj
+    {
+        get { return chargeEffectObj; }
+    }
+
     private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
-    private bool bChargeMax;                     //チャージがマックス状態かどうか    
+
+    public ParticleSystem ChargeMaxEffectObj
+    {
+        get { return changeEffectObj; }
+    }
+
     private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
     private ParticleSystem changeEffectObj;
-
-    /// <summary>
-    /// 重力量。Playerは個別に設定する。
-    /// </summary>
-    public Vector3 gravity;
-    Vector3 curGravity;
-
-    /// <summary>
-    /// 前回フレーム時の位置。重力計算などに参照する。
-    /// </summary>
-    Vector3 oldPos;
-
-    /// <summary>
-    /// プレイヤー移動に用いるUnityコンポーネント
-    /// </summary>
-    CharacterController controller;
-    public string controllerPath;
 
     /// <summary>
     /// 移動量ベクトル
@@ -109,81 +91,14 @@ public class Player : MonoBehaviour
         get{ return velocity; }
     }
 
-    /// <summary>
-    /// 初速
-    /// </summary>
-    [SerializeField]
-    float initialVelocity;
-
-    /// <summary>
-    /// 加速度
-    /// </summary>
-    [SerializeField]
-    float acceleration;
-
-    /// <summary>
-    /// 速度限界値
-    /// </summary>
-    [SerializeField]
-    float velocityMax;
-
-    /// <summary>
-    /// 停車までの予定時間(単位:秒)
-    /// </summary>
-    [SerializeField]
-    float stoppingTime;
-
-    /// <summary>
-    /// 停車にかける力の倍率
-    /// </summary>
-    [SerializeField]
-    float stoppingRate;
-
-    /// <summary>
-    /// 停車時のデッドゾーンの値。
-    /// この値以下になった場合、完全停車 = 移動量を0 にする
-    /// </summary>
-    [SerializeField]
-    float stoppingDeadZone;
-
-    /// <summary>
-    /// 停車力。初期化時に算出する。
-    /// </summary>
-    float stoppingPower;
-
-    /// <summary>
-    /// チャージブースト時の速度倍率
-    /// </summary>
-    [SerializeField]
-    float boostVelocityRate;
-
-    /// <summary>
-    /// 通常時の速度倍率
-    /// </summary>
-    [SerializeField]
-    float defaultVelocityRate;
-
-    /// <summary>
-    /// 現在の速度倍率
-    /// </summary>
-    float velocityRate;
-
-    /// <summary>
-    /// チャージブースト継続時間
-    /// </summary>
-    [SerializeField]
-    float boostDuration;
-
-    /// <summary>
-    /// チャージブースト時間計測変数
-    /// </summary>
-    float boostTimer;
-
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
     private SoundController playerSoundCtrl;
     private SoundController.Sounds playerType;  //プレイヤーの車両用
 
+    /// <summary>
+    /// 状態パラメータ
+    /// </summary>
     public enum State
     {
         PLAYER_STATE_STOP = 0,
@@ -192,7 +107,20 @@ public class Player : MonoBehaviour
         PLAYER_STATE_TAKE_READY,
         PLAYER_STATE_IN_CHANGE
     }
+
+    /// <summary>
+    /// 状態管理変数
+    /// </summary>
     State state;
+
+    /// <summary>
+    /// 状態管理変数
+    /// </summary>
+    public State StateParam
+    {
+        get { return state; }
+        set { state = value; }
+    }
 
     public enum VehicleType
     {
@@ -203,32 +131,42 @@ public class Player : MonoBehaviour
     }
     VehicleType vehicleType;
 
+    /// <summary>
+    /// 街フェイズ時の挙動管理オブジェクト
+    /// </summary>
+    CityPhaseMove cityPhaseMoveObj;
+
+    /// <summary>
+    /// 街フェイズ時の挙動管理オブジェクトのパス
+    /// </summary>
+    [SerializeField]
+    string cityPhaseMoveObjPath;
+
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
     private void Awake()
     {
-        bChargeMax = false;
+        // 初期化系
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
         velocity = 0.0f;
         velocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
-        stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
-        velocityRate = defaultVelocityRate;
-        boostTimer = 0.0f;
+
+        // オブジェクト取得
+        cityPhaseMoveObj = GameObject.Find( cityPhaseMoveObjPath ).GetComponent<CityPhaseMove>();
     }
 
-    // Use this for initialization
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        pushPower = 0.0f;
-        pushAddValue = 0.10f;
-        pushForceFriction = 0.05f;
         rideCount = 0;
-        pushCharge = 0;
         state = State.PLAYER_STATE_STOP;
-
-        oldPos = transform.position;
 
         //エフェクト関係
         effect = GameObject.Find( "EffectManager" ).GetComponent<EffectController>();
@@ -240,7 +178,6 @@ public class Player : MonoBehaviour
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-        controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
 
         gameObj = GameObject.Find( gamectrlObjPath );
         earth = GameObject.Find( earthObjPath );
@@ -252,7 +189,9 @@ public class Player : MonoBehaviour
         playerAudioS = gameObject.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// 更新処理
+    /// </summary>
     void Update()
     {
         if( state == State.PLAYER_STATE_IN_CHANGE ) return;
@@ -261,21 +200,21 @@ public class Player : MonoBehaviour
             case VehicleType.VEHICLE_TYPE_BIKE:
                 {
                     //CityMove();
-                    CityMoveCharcterController();
+                    //CityMoveCharcterController();
                     playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_CAR:
                 {
                     //CityMove();
-                    CityMoveCharcterController();
+                    //CityMoveCharcterController();
                     playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_BUS:
                 {
                     //CityMove();
-                    CityMoveCharcterController();
+                    //CityMoveCharcterController();
                     playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
@@ -294,6 +233,9 @@ public class Player : MonoBehaviour
     public void CityPhaseInit()
     {
         citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
+
+        cityPhaseMoveObj.IsEnable = true;
+
         state = State.PLAYER_STATE_STOP;
         transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
 
@@ -312,179 +254,9 @@ public class Player : MonoBehaviour
         speed = 1800f;
         speedMax = 60.0f;
 
+        cityPhaseMoveObj.IsEnable = false;
+
         ScriptDebug.Log( "星フェイズ開始" );
-    }
-
-    /// <summary>
-    /// 街移動処理
-    /// </summary>
-    void CityMove()
-    {
-        float moveV = Input.GetAxis("Vertical");
-        float moveH = Input.GetAxis("Horizontal");
-
-        //プッシュ時と通常時で旋回力を分ける
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
-        {
-            moveH *= turnPowerPush;
-        }
-        else
-        {
-            moveH *= turnPower;//旋回力をかける
-        }
-
-        if( Mathf.Abs( moveH ) > 0.2f )
-        {
-            moveRadY += moveH * 180.0f * Time.deltaTime;
-
-            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
-        }
-
-        Vector3 force = transform.forward * speed;
-
-        //rb.AddForce(force);
-
-        // プッシュ動作
-        if( Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" ) )
-        {
-            force = new Vector3( 0.0f , 0.0f , 0.0f );
-            rb.velocity *= 0.975f;//減速
-            //速度が一定以下なら停止する
-            if( rb.velocity.magnitude < 1.0f )
-            {
-                rb.velocity *= 0.0f;
-                state = State.PLAYER_STATE_STOP;
-            }
-
-            //チャージエフェクト再生
-            if( pushCharge == 0 )
-            {
-                var emission = chargeEffectObj.emission;
-                emission.enabled = true;
-            }
-
-            //チャージがマックスになったら
-            if( pushCharge >= CHARGE_MAX )
-            {
-                //チャージマックスエフェクト再生
-                if( !bChargeMax )
-                {
-                    //チャージエフェクト停止
-                    var emission = chargeEffectObj.emission;
-                    emission.enabled = false;
-
-                    //チャージマックスエフェクト再生
-                    emission = chargeMaxEffectObj.emission;
-                    emission.enabled = true;
-
-                    bChargeMax = true;
-                }
-            }
-
-            pushCharge += Time.deltaTime;
-        }
-
-        // プッシュ解放した後のダッシュ
-        if( Input.GetKeyUp( KeyCode.Space ) || Input.GetButtonUp( "Fire1" ) )
-        {
-            //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-
-            if( pushCharge >= CHARGE_MAX )
-            {
-                rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
-            }
-            else
-            {
-            }
-
-            if( bChargeMax )
-            {
-                //チャージマックスエフェクト停止
-                var emission = chargeMaxEffectObj.emission;
-                emission.enabled = false;
-                bChargeMax = false;
-            }
-            else
-            {
-                //チャージエフェクト停止
-                var emissione = chargeEffectObj.emission;
-                emissione.enabled = false;
-
-            }
-
-            //force *= ( 30.0f * rb.mass );
-            pushCharge = 0;
-        }
-
-        // 今回の速度加算
-        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
-
-        //最高速を設定
-        Vector3 checkV = rb.velocity;
-        checkV.y = 0.0f;
-
-        if( checkV.magnitude >= speedMax )
-        {
-            // Debug.Log("最高速");
-            // HACK:最高速制御処理
-            //      XZ方向のベクトルを作りspeedMax以上行かないように設定。
-            //      後にY方向の力を加算する。
-            float YAxisPower = rb.velocity.y;
-
-            checkV = checkV.normalized * speedMax;
-            checkV.y = YAxisPower;
-            rb.velocity = checkV;
-        }
-
-        ////停止処理
-        //if( rb.velocity.magnitude < 1.0f)
-        //{
-        //    rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        //    if ( state == State.PLAYER_STATE_MOVE )
-        //    {
-        //        state = State.PLAYER_STATE_STOP;
-        //    }
-        //}
-        //else
-        //{
-        //    state = State.PLAYER_STATE_MOVE;
-        //}
-
-        //rb.AddForce( direction * 10.0f , ForceMode.VelocityChange );
-
-        // TODO: 画面外に落ちたときの処理
-        //       仮で追加
-        if( transform.position.y < -50.0f )
-        {
-            Vector3 newPos = transform.position;
-            newPos.y = 30.0f;
-            transform.position = newPos;
-        }
-
-        // TODO: 重力計算
-        //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
-        curGravity += ( gravity * Time.deltaTime );
-
-        rb.AddForce( curGravity , ForceMode.Acceleration );
-
-        if( transform.position.y == oldPos.y )
-        {
-            curGravity = Vector3.zero;
-            Debug.Log( "Gravity Reset" );
-        }
-
-        // TODO: ジャンプ処理
-        //       デバッグ時に活用できそうなので実装
-        if( Input.GetKey( KeyCode.J ) )
-        {
-            curGravity = Vector3.zero;
-
-            Vector3 jumpForce = -gravity * 2.0f;
-            rb.AddForce( jumpForce , ForceMode.Acceleration );
-        }
-
-        // 過去位置を保存しておく
-        oldPos = transform.position;
     }
 
     /// <summary>
@@ -717,162 +489,6 @@ public class Player : MonoBehaviour
                     break;
                 }
         }
-    }
-
-    /// <summary>
-    /// CharcterControllerを用いたプレイヤーの移動処理。
-    /// </summary>
-    void CityMoveCharcterController()
-    {
-        float moveV = Input.GetAxis("Vertical");
-        float moveH = Input.GetAxis("Horizontal");
-        bool isPush = Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" );  // プッシュボタンを押したか判定するフラグ
-
-        //プッシュ時と通常時で旋回力を分ける
-        if( isPush )
-        {
-            moveH *= turnPowerPush;
-        }
-        else
-        {
-            moveH *= turnPower;
-        }
-
-        // 旋回処理
-        if( Mathf.Abs( moveH ) > 0.2f )
-        {
-            moveRadY += moveH * 180.0f * Time.deltaTime;
-
-            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
-        }
-
-        // HACK: 地上の速度演算
-        if( !isPush )
-        {
-            velocity = Mathf.Max( velocity , initialVelocity );
-            velocity += acceleration * Time.deltaTime;
-        }
-
-        // プッシュ動作
-        if( isPush )
-        {
-            velocity += ( ( 0.0f - velocity ) * stoppingPower * Time.deltaTime );
-
-            // デッドゾーン確認
-            if( velocity < stoppingDeadZone )
-            {
-                velocity = 0.0f;
-                state = State.PLAYER_STATE_STOP;
-            }
-
-            //チャージエフェクト再生
-            if( pushCharge == 0 )
-            {
-                var emission = chargeEffectObj.emission;
-                emission.enabled = true;
-            }
-
-            //チャージがマックスになったら
-            if( pushCharge >= CHARGE_MAX )
-            {
-                //チャージマックスエフェクト再生
-                if( !bChargeMax )
-                {
-                    //チャージエフェクト停止
-                    var emission = chargeEffectObj.emission;
-                    emission.enabled = false;
-
-                    //チャージマックスエフェクト再生
-                    emission = chargeMaxEffectObj.emission;
-                    emission.enabled = true;
-
-                    bChargeMax = true;
-                }
-            }
-
-            pushCharge += Time.deltaTime;
-        }
-
-        // 速度倍率の変更
-        if( boostTimer > 0.0f )
-        {
-            velocityRate = boostVelocityRate;
-            boostTimer -= Time.deltaTime;
-        }
-        else
-        {
-            velocityRate = defaultVelocityRate;
-        }
-
-        // プッシュ解放した後のダッシュ
-        if( !isPush )
-        {
-            if( bChargeMax )
-            {
-                //チャージマックスエフェクト停止
-                var emission = chargeMaxEffectObj.emission;
-                emission.enabled = false;
-                bChargeMax = false;
-            }
-            else
-            {
-                //チャージエフェクト停止
-                var emissione = chargeEffectObj.emission;
-                emissione.enabled = false;
-
-            }
-
-            // ブースト時間を与える
-            if( pushCharge >= CHARGE_MAX )
-            {
-                boostTimer = boostDuration;
-            }
-
-            pushCharge = 0;
-        }
-
-        // 今回の速度加算
-        velocity = Mathf.Min( velocity , velocityMax ) * velocityRate;
-        velocityVec = velocity * transform.forward * Time.deltaTime;
- 
-        // TODO: 画面外に落ちたときの処理
-        //       仮で追加
-        if( transform.position.y < -50.0f )
-        {
-            Vector3 newPos = transform.position;
-            newPos.y = 30.0f;
-            transform.position = newPos;
-        }
-
-        // TODO: 重力計算
-        //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
-        curGravity += ( gravity * Time.deltaTime );
-
-        controller.Move( curGravity );
-        //rb.AddForce( curGravity , ForceMode.Acceleration );
-
-        if( transform.position.y == oldPos.y )
-        {
-            curGravity = Vector3.zero;
-            Debug.Log( "Gravity Reset" );
-        }
-
-        // TODO: ジャンプ処理
-        //       デバッグ時に活用できそうなので実装
-        if( Input.GetKey( KeyCode.J ) )
-        {
-            curGravity = Vector3.zero;
-
-            Vector3 jumpForce = -gravity * 2.0f;
-            controller.Move( jumpForce * Time.deltaTime );
-            //rb.AddForce( jumpForce , ForceMode.Acceleration );
-        }
-
-        // 移動量の反映
-        controller.Move( velocityVec );
-
-        // 過去位置を保存しておく
-        oldPos = transform.position;
     }
 
     /// <summary>
@@ -1115,8 +731,8 @@ public class Player : MonoBehaviour
             guiStyle.fontSize = 48;
             guiStyle.normal = styleState;
 
-            string str;
-            str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
+            string str = "";
+            //str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
