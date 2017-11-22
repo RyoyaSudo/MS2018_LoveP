@@ -38,6 +38,11 @@ public class StarSpawnManager : MonoBehaviour
     // 初期化
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         earthObj = GameObject.Find(earthPath);
         //ランドマークObj取得
         landmarkObj = GameObject.Find(landmarkPath);
