@@ -38,7 +38,6 @@ public class StarSpawnManager : MonoBehaviour
     // 初期化
     void Start()
     {
-        Init();
     }
 
     public void Init()

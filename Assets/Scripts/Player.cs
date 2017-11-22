@@ -1018,12 +1018,13 @@ public class Player : MonoBehaviour
                                     }
                             }
 
-                            //初期　バイク
-                            //＋1ポイント　車
-                            //＋4ポイント　バス
-                            //＋8ポイント　飛行機
-
-                            // TODO: 後できれいにする
+                            // HACK: 乗り物変更処理
+                            //       後に関数化する。
+                            // 〇変身条件
+                            //    初期        : バイク
+                            //    ＋1ポイント : 車
+                            //    ＋4ポイント : 大型車( バス )
+                            //    ＋8ポイント : 飛行機
                             if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
                                 //チェンジエフェクト
