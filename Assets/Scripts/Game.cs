@@ -172,6 +172,7 @@ public class Game : MonoBehaviour {
         StarObj.SetActive(true);
         SpawnManagerObj.SetActive(false);
         starSpawnManagerObj.SetActive(true);
+        starSpawnManagerObj.GetComponent<StarSpawnManager>().Init();
         //PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
         //PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().StarPhaseInit();
