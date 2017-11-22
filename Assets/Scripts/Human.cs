@@ -161,7 +161,6 @@ public class Human : MonoBehaviour
 
             //乗車
             case STATETYPE.RIDE:
-
             //下車
             case STATETYPE.GETOFF:
                 stateType = STATETYPE.RELEASE;      // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
