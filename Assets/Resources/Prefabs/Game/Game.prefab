@@ -71,6 +71,6 @@ MonoBehaviour:
     type: 2}
   skyboxManagerPrefab: {fileID: 1066798036683194, guid: 39c1179bb107b4a8082c10ad86a003c3,
     type: 2}
-  phase: 1
+  phase: 2
   debugFlags: 1
   isOnGUIEnable: 1
