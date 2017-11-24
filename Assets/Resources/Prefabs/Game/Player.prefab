@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 54931219802038218}
   - component: {fileID: 114377122876851530}
   - component: {fileID: 114860307667817136}
+  - component: {fileID: 114189476377578114}
   - component: {fileID: 82244802205648336}
   - component: {fileID: 143571668409644224}
   m_Layer: 8
@@ -1927,6 +1928,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114189476377578114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931795237704324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ee33c3aded6cf48b29e77cd6951d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  earthObjPath: Earth
+  speedMax: 30
+  turboRatio: 2
 --- !u!114 &114377122876851530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1938,11 +1954,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d2e77feef6acf4f996e46a02e16878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
   citySpawnManagerPath: CitySpawnManager
   starSpawnManagerPath: StarSpawnManager
-  speedMax: 30
-  turboRatio: 2
   vehicleModel:
   - {fileID: 1570656652911158}
   - {fileID: 1350160768310600}
@@ -1950,9 +1963,8 @@ MonoBehaviour:
   - {fileID: 1621866775314600}
   passengerTogetherUIObjPath: GUI Camera/PassengerTogetherUI
   gamectrlObjPath: Game
-  earthObjPath: Earth
-  CHARGE_MAX: 2
   cityPhaseMoveObjPath: Player
+  starPhaseMoveObjPath: Player
 --- !u!114 &114814756618038432
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed;
-
-    Rigidbody rb;
-    float moveRadY;
-
     int rideCount; //現在乗車人数
     int rideGroupNum; //グループ乗車人数
     private Human[] passengerObj;
@@ -24,9 +19,6 @@ public class Player : MonoBehaviour
 
     private StarSpawnManager starSpawnManagerObj;
     public string starSpawnManagerPath;
-    
-    public float speedMax;//最高速
-    public float turboRatio;//ターボレシオ
 
     public GameObject[] vehicleModel;//乗り物モデル
     int vehicleScore;//乗車スコア
@@ -45,13 +37,6 @@ public class Player : MonoBehaviour
     /// </summary>
     private GameObject gameObj;
     public string gamectrlObjPath;
-
-    /// <summary>
-    /// 星フェイズのフィールドオブジェクト。
-    /// 引力計算などに情報が必要なため。
-    /// </summary>
-    private GameObject earth;
-    public string earthObjPath;
 
     //エフェクト関係
     private EffectController effect;
@@ -85,11 +70,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 移動量(スカラー)
     /// </summary>
-    float velocity;
-
-    public float Velocity {
-        get{ return velocity; }
-    }
+    public float Velocity { get; private set; }
 
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
@@ -139,8 +120,17 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 街フェイズ時の挙動管理オブジェクトのパス
     /// </summary>
-    [SerializeField]
-    string cityPhaseMoveObjPath;
+    [SerializeField] string cityPhaseMoveObjPath;
+
+    /// <summary>
+    /// 星フェイズ時の挙動管理オブジェクト
+    /// </summary>
+    StarPhaseMove starPhaseMoveObj;
+
+    /// <summary>
+    /// 星フェイズ時の挙動管理オブジェクトのパス
+    /// </summary>
+    [SerializeField] string starPhaseMoveObjPath;
 
     /// <summary>
     /// 生成時処理
@@ -151,12 +141,12 @@ public class Player : MonoBehaviour
         vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
-        velocity = 0.0f;
+        Velocity = 0.0f;
         velocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
 
-        // オブジェクト取得
-        cityPhaseMoveObj = GameObject.Find( cityPhaseMoveObjPath ).GetComponent<CityPhaseMove>();
+        cityPhaseMoveObj = null;
+        starPhaseMoveObj = null;
     }
 
     /// <summary>
@@ -164,7 +154,6 @@ public class Player : MonoBehaviour
     /// </summary>
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         rideCount = 0;
         state = State.PLAYER_STATE_STOP;
 
@@ -174,13 +163,10 @@ public class Player : MonoBehaviour
         ChargeMaxEffectCreate();
         ChangeEffectCreate();
 
-        moveRadY = 0.0f;
-
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
 
         gameObj = GameObject.Find( gamectrlObjPath );
-        earth = GameObject.Find( earthObjPath );
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
 
         //サウンド用//////////////////////////////////////
@@ -220,7 +206,7 @@ public class Player : MonoBehaviour
                 }
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
-                    StarMove();
+                    //StarMove();
                     playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
@@ -234,7 +220,13 @@ public class Player : MonoBehaviour
     {
         citySpawnManagerObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CitySpawnManager>();
 
+        cityPhaseMoveObj = GameObject.Find( cityPhaseMoveObjPath ).GetComponent<CityPhaseMove>();
         cityPhaseMoveObj.IsEnable = true;
+
+        if( starPhaseMoveObj != null )
+        {
+            starPhaseMoveObj.IsEnable = false;
+        }
 
         state = State.PLAYER_STATE_STOP;
         transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
@@ -247,76 +239,19 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StarPhaseInit()
     {
-        earth = GameObject.Find( earthObjPath );
         vehicleScore = 13;
         SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
         starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
-        speed = 1800f;
-        speedMax = 60.0f;
 
-        cityPhaseMoveObj.IsEnable = false;
+        if( cityPhaseMoveObj != null )
+        {
+            cityPhaseMoveObj.IsEnable = false;
+        }
+
+        starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
+        starPhaseMoveObj.IsEnable = true;
 
         ScriptDebug.Log( "星フェイズ開始" );
-    }
-
-    /// <summary>
-    /// 星移動処理
-    /// </summary>
-    void StarMove()
-    {
-        float moveV = Input.GetAxis("Vertical");
-        float moveH = Input.GetAxis("Horizontal");
-        Vector3 gravityVec = earth.transform.position - transform.position;
-        gravityVec.Normalize();
-        rb.AddForce( 9.8f * gravityVec * ( 60.0f * Time.deltaTime ) , ForceMode.Acceleration );
-        transform.up = -gravityVec.normalized;
-
-        Vector3 direction = new Vector3(moveH, 0.0f, moveV);
-
-        //Debug.Log( "Horizontal:" + moveH );
-        Vector3 axis = transform.up;// 回転軸
-                                    //float angle = 90f * Time.deltaTime; // 回転の角度
-
-        //this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
-        moveRadY += moveH * 180.0f * Time.deltaTime;
-        //transform.rotation = Quaternion.Euler(0, moveRadY, 0);
-        Quaternion q = Quaternion.AngleAxis(moveRadY, axis); // 軸axisの周りにangle回転させるクォータニオン
-        this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
-        if( Mathf.Abs( moveH ) > 0.2f )
-        {
-
-        }
-
-        Vector3 force = transform.forward * speed;
-
-        // プッシュ動作
-        if( Input.GetKey( KeyCode.Space ) )
-        {
-            force = rb.velocity * 0.0f;
-            //rb.velocity = rb.velocity * 0.99f;
-
-            if( rb.velocity.magnitude < 2 )
-            {
-                rb.velocity *= 0;
-            }
-
-        }
-
-        // プッシュ解放した後のダッシュ
-        if( Input.GetKeyUp( KeyCode.Space ) )
-        {
-            rb.velocity = new Vector3( 0.0f , 0.0f , 0.0f );
-            //force *= ( 30.0f * rb.mass );
-            rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
-        }
-
-        // 今回の速度加算
-        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
-
-        if( rb.velocity.magnitude > speedMax )
-        {
-            rb.velocity = rb.velocity.normalized * speedMax;
-        }
     }
 
     /// <summary>
@@ -505,7 +440,7 @@ public class Player : MonoBehaviour
 
                     Human human = other.transform.parent.GetComponent<Human>();
 
-                    if( velocity < 1.0f )//ほぼ停止してるなら
+                    if( Velocity < 1.0f )//ほぼ停止してるなら
                     {
                         Debug.Log( "stop" );
 

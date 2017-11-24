@@ -20,18 +20,9 @@ public class CityPhaseMove : MonoBehaviour {
     string playerObjPath;
 
     /// <summary>
-    /// 有効化フラグ。Player.csで制御してもらう。
+    /// 移動処理有効化フラグ。Player.csで制御してもらう。
     /// </summary>
-    bool isEnable;
-
-    /// <summary>
-    /// 移動処理有効化フラグ
-    /// </summary>
-    public bool IsEnable
-    {
-        get { return isEnable; }
-        set { isEnable = value; }
-    }
+    public bool IsEnable { get; set; }
 
     /// <summary>
     /// 旋回力
@@ -48,15 +39,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 移動量(スカラー)
     /// </summary>
-    float velocity;
-
-    /// <summary>
-    /// 移動量(スカラー)
-    /// </summary>
-    public float Velocity
-    {
-        get { return velocity; }
-    }
+    public float Velocity { get; private set; }
 
     /// <summary>
     /// 速度限界値
@@ -67,15 +50,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 移動量ベクトル
     /// </summary>
-    Vector3 velocityVec;
-
-    /// <summary>
-    /// 移動量ベクトル
-    /// </summary>
-    public Vector3 VelocityVec
-    {
-        get { return velocityVec; }
-    }
+    public Vector3 VelocityVec { get; private set; }
 
     /// <summary>
     /// 前回フレームの移動量ベクトル
@@ -194,13 +169,13 @@ public class CityPhaseMove : MonoBehaviour {
     private void Awake()
     {
         // 初期化系
-        velocity = 0.0f;
+        Velocity = 0.0f;
         pushCharge = 0.0f;
         isChargeMax = false;
         velocityRate = defaultVelocityRate;
         boostTimer = 0.0f;
-        isEnable = false;
-        velocityVec = Vector3.zero;
+        IsEnable = false;
+        VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
 
         // 算出系
@@ -225,7 +200,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// 更新処理
     /// </summary>
     void Update () {
-        if( isEnable )
+        if( IsEnable )
         {
             CityMoveCharcterController();
         }
@@ -261,19 +236,19 @@ public class CityPhaseMove : MonoBehaviour {
         // HACK: 地上の速度演算
         if( !isPush )
         {
-            velocity = Mathf.Max( velocity , initialVelocity );
-            velocity += acceleration * Time.deltaTime;
+            Velocity = Mathf.Max( Velocity , initialVelocity );
+            Velocity += acceleration * Time.deltaTime;
         }
 
         // プッシュ動作
         if( isPush )
         {
-            velocity += ( ( 0.0f - velocity ) * stoppingPower * Time.deltaTime );
+            Velocity += ( ( 0.0f - Velocity ) * stoppingPower * Time.deltaTime );
 
             // デッドゾーン確認
-            if( velocity < stoppingDeadZone )
+            if( Velocity < stoppingDeadZone )
             {
-                velocity = 0.0f;
+                Velocity = 0.0f;
                 playerObj.StateParam = Player.State.PLAYER_STATE_STOP;
             }
 
@@ -346,8 +321,8 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // 今回の速度加算
-        velocity = Mathf.Min( velocity , velocityMax ) * velocityRate;
-        velocityVec = velocity * transform.forward * Time.deltaTime;
+        Velocity = Mathf.Min( Velocity , velocityMax ) * velocityRate;
+        VelocityVec = Velocity * transform.forward * Time.deltaTime;
 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
@@ -383,7 +358,7 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // 移動量の反映
-        controller.Move( velocityVec );
+        controller.Move( VelocityVec );
 
         // 過去位置を保存しておく
         oldPos = transform.position;
@@ -406,7 +381,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str;
-            str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
+            str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
