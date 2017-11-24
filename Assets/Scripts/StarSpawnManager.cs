@@ -38,7 +38,6 @@ public class StarSpawnManager : MonoBehaviour
     // 初期化
     void Start()
     {
-        Init();
     }
 
     public void Init()
@@ -114,8 +113,8 @@ public class StarSpawnManager : MonoBehaviour
 
         /*******ここから先が追加分
          * */
-        string path = "/Assets/Resources/Prefabs/Game/LandMarkObject/LandMark" + num;
-        GameObject landMark = GameObject.CreatePrimitive()
+        //string path = "/Assets/Resources/Prefabs/Game/LandMarkObject/LandMark" + num;
+        //GameObject landMark = GameObject.CreatePrimitive()
     }
 
     /// <summary>
