@@ -88,6 +88,9 @@ public class StarSpawnManager : MonoBehaviour
     * 引数:position:位置
     * 戻り値:0
     * 説明:スポーンポイントを生成
+    ******************************************************************************
+    *2017/11/24
+    *佐藤峻一：ランドマークオブジェクト作成処理を追加
     *****************************************************************************/
     void SpawnPointCreate(int num, Transform trans)
     {
@@ -108,6 +111,11 @@ public class StarSpawnManager : MonoBehaviour
 
         //生成したブロックを配列に保存
         spawnPointObject[num] = SpawnPoint.GetComponent<SpawnPoint>();
+
+        /*******ここから先が追加分
+         * */
+        string path = "/Assets/Resources/Prefabs/Game/LandMarkObject/LandMark" + num;
+        GameObject landMark = GameObject.CreatePrimitive()
     }
 
     /// <summary>
