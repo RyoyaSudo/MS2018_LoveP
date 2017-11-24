@@ -24,6 +24,7 @@ public class Game : MonoBehaviour {
     public GameObject MiniMapPrefab;
     public GameObject effectManagerPrefab;
     public GameObject soundManagerPrefab;
+    public GameObject skyboxManagerPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -38,6 +39,7 @@ public class Game : MonoBehaviour {
     GameObject MiniMapObj;
     GameObject effectManagerObj;
     GameObject soundManagerObj;
+    GameObject skyboxManagerObj;
 
     int readyCount;
 
@@ -60,6 +62,15 @@ public class Game : MonoBehaviour {
     /// </summary>
     [SerializeField]
     bool debugFlags;
+
+    /// <summary>
+    /// OnGUI有効化フラグ
+    /// 他のスクリプトで参照してOnGUIを出す出さないを選択する
+    /// </summary>
+    public static bool IsOnGUIEnable;
+
+    [SerializeField]
+    bool isOnGUIEnable;
 
     // Use this for initialization
     void Start () {
@@ -104,6 +115,9 @@ public class Game : MonoBehaviour {
         //デバッグ用
         if( Input.GetKeyUp(KeyCode.Return)) SceneManager.LoadScene("Result");
 
+        // HACK: OnGUIデバッグ時On・Off処理
+        //       もっといい方法がありそうだけど現状これで
+        IsOnGUIEnable = isOnGUIEnable;
     }
 
     public void SetPhase( Game.Phase SetPhase )
@@ -146,10 +160,10 @@ public class Game : MonoBehaviour {
         SpawnManagerObj.SetActive(true);
         starSpawnManagerObj.SetActive(false);
         mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
-        PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_STOP);
-        PlayerObj.transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
+        PlayerObj.GetComponent<Player>().CityPhaseInit();
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
         //SpawnManagerObj.GetComponent<CitySpawnManager>().HumanCreate(1, Human.GROUPTYPE.PEAR);
+        skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
     }
 
     void PhaseStarStart()
@@ -158,17 +172,15 @@ public class Game : MonoBehaviour {
         StarObj.SetActive(true);
         SpawnManagerObj.SetActive(false);
         starSpawnManagerObj.SetActive(true);
+        starSpawnManagerObj.GetComponent<StarSpawnManager>().Init();
         //PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
         //PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        PlayerObj.GetComponent<Player>().speed = 1800f;
-        PlayerObj.GetComponent<Player>().speedMax = 60.0f;
-        PlayerObj.GetComponent<Player>().SetVehicle(Player.VehicleType.VEHICLE_TYPE_AIRPLANE);
         PlayerObj.GetComponent<Player>().StarPhaseInit();
         mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
-        
+        skyboxManagerObj.GetComponent<SkyboxManager>().SetStarSkyBox();
     }
 
     //タイトルシーンから移行
@@ -215,6 +227,7 @@ public class Game : MonoBehaviour {
         effectManagerObj = Create( effectManagerPrefab );
         soundManagerObj = Create( soundManagerPrefab );
         PlayerObj = Create( PlayerPrefab );
+        skyboxManagerObj = Create( skyboxManagerPrefab );
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
         TimeObj = GameObject.Find( "Time" );

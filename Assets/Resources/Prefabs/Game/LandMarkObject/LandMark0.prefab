@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4436449071895878}
   m_Layer: 0
-  m_Name: LandMarkJapan1
+  m_Name: LandMark0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
