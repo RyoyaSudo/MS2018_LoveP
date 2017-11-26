@@ -132,6 +132,9 @@ public class Player : MonoBehaviour
     /// </summary>
     [SerializeField] string starPhaseMoveObjPath;
 
+
+    bool changeFade;
+
     /// <summary>
     /// 生成時処理
     /// </summary>
@@ -147,6 +150,7 @@ public class Player : MonoBehaviour
 
         cityPhaseMoveObj = null;
         starPhaseMoveObj = null;
+        changeFade = true;
     }
 
     /// <summary>
@@ -180,34 +184,20 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if( state == State.PLAYER_STATE_IN_CHANGE ) return;
-        switch( vehicleType )
+        //if( state == State.PLAYER_STATE_IN_CHANGE ) return;
+        switch(state)
         {
-            case VehicleType.VEHICLE_TYPE_BIKE:
+            case State.PLAYER_STATE_STOP:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
-                    playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_CAR:
+            case State.PLAYER_STATE_MOVE:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
-                    playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_BUS:
+            case State.PLAYER_STATE_IN_CHANGE:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
-                    playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
-                    break;
-                }
-            case VehicleType.VEHICLE_TYPE_AIRPLANE:
-                {
-                    //StarMove();
-                    playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
+                    VehicleChange();
                     break;
                 }
         }
@@ -440,7 +430,7 @@ public class Player : MonoBehaviour
 
                     Human human = other.transform.parent.GetComponent<Human>();
 
-                    if( Velocity < 1.0f )//ほぼ停止してるなら
+                    if(cityPhaseMoveObj.Velocity < 1.0f )//ほぼ停止してるなら
                     {
                         Debug.Log( "stop" );
 
@@ -578,9 +568,8 @@ public class Player : MonoBehaviour
                             //    ＋8ポイント : 飛行機
                             if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
-                                //チェンジエフェクト
-                                changeEffectObj.Play();
-                                SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
+
+                                VehicleChangeStart();
                             }
                             else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
                             {
@@ -648,6 +637,81 @@ public class Player : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    /// <summary>
+    /// 乗り物に応じた動作をする
+    /// </summary>
+    void VehicleMove()
+    {
+        switch (vehicleType)
+        {
+            case VehicleType.VEHICLE_TYPE_BIKE:
+                {
+                    //CityMove();
+                    //CityMoveCharcterController();
+                    playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_CAR:
+                {
+                    //CityMove();
+                    //CityMoveCharcterController();
+                    playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_BUS:
+                {
+                    //CityMove();
+                    //CityMoveCharcterController();
+                    playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    //StarMove();
+                    playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
+                    break;
+                }
+        }
+    }
+
+    void VehicleChangeStart()
+    {
+        cityPhaseMoveObj.IsEnable = false;
+        state = State.PLAYER_STATE_IN_CHANGE;
+        //チェンジエフェクト
+        changeEffectObj.Play();
+    }
+
+    void VehicleChange()
+    {
+        if( changeFade )
+        {
+            Vector3 scale;
+            scale = new Vector3(transform.localScale.x - Time.deltaTime, transform.localScale.y - Time.deltaTime, transform.localScale.z - Time.deltaTime);
+            transform.localScale = scale;
+            if(transform.localScale.x < 0.0f)
+            {
+                scale = new Vector3(0.0f, 0.0f, 0.0f);
+                transform.localScale = scale;
+                changeFade = false;
+                SetVehicle(VehicleType.VEHICLE_TYPE_CAR);
+            }
+        }
+        else
+        {
+            Vector3 scale;
+            scale = new Vector3(transform.localScale.x + Time.deltaTime, transform.localScale.y + Time.deltaTime, transform.localScale.z + Time.deltaTime);
+            transform.localScale = scale;
+            if ( transform.localScale.x > 1.0f)
+            {
+                scale = new Vector3(1.0f, 1.0f, 1.0f);
+                transform.localScale = scale;
+                state = State.PLAYER_STATE_STOP;
+                cityPhaseMoveObj.IsEnable = true;
+            }
+        }      
     }
 
     /// <summary>
