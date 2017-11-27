@@ -568,14 +568,13 @@ public class Player : MonoBehaviour
                             //    ＋8ポイント : 飛行機
                             if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
-
+                                //チェンジエフェクト
+                                changeEffectObj.Play();
                                 VehicleChangeStart();
                             }
                             else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
                             {
-                                //チェンジエフェクト
-                                changeEffectObj.Play();
-                                SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
+                                VehicleChangeStart();
                             }
                             else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
                             {
@@ -677,41 +676,42 @@ public class Player : MonoBehaviour
     }
 
     void VehicleChangeStart()
-    {
+    { 
         cityPhaseMoveObj.IsEnable = false;
         state = State.PLAYER_STATE_IN_CHANGE;
-        //チェンジエフェクト
-        changeEffectObj.Play();
     }
 
     void VehicleChange()
     {
-        if( changeFade )
+        if (changeFade)
         {
             Vector3 scale;
-            scale = new Vector3(transform.localScale.x - Time.deltaTime, transform.localScale.y - Time.deltaTime, transform.localScale.z - Time.deltaTime);
-            transform.localScale = scale;
-            if(transform.localScale.x < 0.0f)
+
+            scale = new Vector3(vehicleModel[(int)vehicleType].transform.localScale.x - Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.y - Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.z - Time.deltaTime);
+            vehicleModel[(int)vehicleType].transform.localScale = scale;
+            if (vehicleModel[(int)vehicleType].transform.localScale.x < 0.0f)
             {
                 scale = new Vector3(0.0f, 0.0f, 0.0f);
-                transform.localScale = scale;
+                vehicleModel[(int)vehicleType].transform.localScale = scale;
                 changeFade = false;
-                SetVehicle(VehicleType.VEHICLE_TYPE_CAR);
+                SetVehicle(vehicleType + 1);
+                scale = new Vector3(0.0f, 0.0f, 0.0f);
+                vehicleModel[(int)vehicleType].transform.localScale = scale;
             }
         }
         else
         {
             Vector3 scale;
-            scale = new Vector3(transform.localScale.x + Time.deltaTime, transform.localScale.y + Time.deltaTime, transform.localScale.z + Time.deltaTime);
-            transform.localScale = scale;
-            if ( transform.localScale.x > 1.0f)
+            scale = new Vector3(vehicleModel[(int)vehicleType].transform.localScale.x + Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.y + Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.z + Time.deltaTime);
+            vehicleModel[(int)vehicleType].transform.localScale = scale;
+            if (vehicleModel[(int)vehicleType].transform.localScale.x > 1.0f)
             {
                 scale = new Vector3(1.0f, 1.0f, 1.0f);
-                transform.localScale = scale;
+                vehicleModel[(int)vehicleType].transform.localScale = scale;
                 state = State.PLAYER_STATE_STOP;
                 cityPhaseMoveObj.IsEnable = true;
             }
-        }      
+        }
     }
 
     /// <summary>
