@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
 
     public ParticleSystem ChargeMaxEffectObj
     {
-        get { return chargeMaxEffectObj; }
+        get { return changeEffectObj; }
     }
 
     private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
@@ -132,9 +132,6 @@ public class Player : MonoBehaviour
     /// </summary>
     [SerializeField] string starPhaseMoveObjPath;
 
-
-    bool changeFade;
-
     /// <summary>
     /// 生成時処理
     /// </summary>
@@ -150,7 +147,6 @@ public class Player : MonoBehaviour
 
         cityPhaseMoveObj = null;
         starPhaseMoveObj = null;
-        changeFade = true;
     }
 
     /// <summary>
@@ -184,20 +180,34 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //if( state == State.PLAYER_STATE_IN_CHANGE ) return;
-        switch(state)
+        if( state == State.PLAYER_STATE_IN_CHANGE ) return;
+        switch( vehicleType )
         {
-            case State.PLAYER_STATE_STOP:
+            case VehicleType.VEHICLE_TYPE_BIKE:
                 {
+                    //CityMove();
+                    //CityMoveCharcterController();
+                    playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case State.PLAYER_STATE_MOVE:
+            case VehicleType.VEHICLE_TYPE_CAR:
                 {
+                    //CityMove();
+                    //CityMoveCharcterController();
+                    playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case State.PLAYER_STATE_IN_CHANGE:
+            case VehicleType.VEHICLE_TYPE_BUS:
                 {
-                    VehicleChange();
+                    //CityMove();
+                    //CityMoveCharcterController();
+                    playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
+                    break;
+                }
+            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+                {
+                    //StarMove();
+                    playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
         }
@@ -432,7 +442,7 @@ public class Player : MonoBehaviour
 
                     Human human = other.transform.parent.GetComponent<Human>();
 
-                    if(cityPhaseMoveObj.Velocity < 1.0f )//ほぼ停止してるなら
+                    if( Velocity < 1.0f )//ほぼ停止してるなら
                     {
                         Debug.Log( "stop" );
 
@@ -570,11 +580,15 @@ public class Player : MonoBehaviour
                             //    ＋8ポイント : 飛行機
                             if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
-                                VehicleChangeStart();
+                                //チェンジエフェクト
+                                changeEffectObj.Play();
+                                SetVehicle( VehicleType.VEHICLE_TYPE_CAR );
                             }
                             else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
                             {
-                                VehicleChangeStart();
+                                //チェンジエフェクト
+                                changeEffectObj.Play();
+                                SetVehicle( VehicleType.VEHICLE_TYPE_BUS );
                             }
                             else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
                             {
@@ -635,84 +649,6 @@ public class Player : MonoBehaviour
                     }
                     break;
                 }
-        }
-    }
-
-    /// <summary>
-    /// 乗り物に応じた動作をする
-    /// </summary>
-    void VehicleMove()
-    {
-        switch (vehicleType)
-        {
-            case VehicleType.VEHICLE_TYPE_BIKE:
-                {
-                    //CityMove();
-                    //CityMoveCharcterController();
-                    playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
-                    break;
-                }
-            case VehicleType.VEHICLE_TYPE_CAR:
-                {
-                    //CityMove();
-                    //CityMoveCharcterController();
-                    playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
-                    break;
-                }
-            case VehicleType.VEHICLE_TYPE_BUS:
-                {
-                    //CityMove();
-                    //CityMoveCharcterController();
-                    playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
-                    break;
-                }
-            case VehicleType.VEHICLE_TYPE_AIRPLANE:
-                {
-                    //StarMove();
-                    playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
-                    break;
-                }
-        }
-    }
-
-    void VehicleChangeStart()
-    {
-        //チェンジエフェクト
-        changeEffectObj.Play();
-        cityPhaseMoveObj.IsEnable = false;
-        state = State.PLAYER_STATE_IN_CHANGE;
-    }
-
-    void VehicleChange()
-    {
-        if (changeFade)
-        {
-            Vector3 scale;
-
-            scale = new Vector3(vehicleModel[(int)vehicleType].transform.localScale.x - Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.y - Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.z - Time.deltaTime);
-            vehicleModel[(int)vehicleType].transform.localScale = scale;
-            if (vehicleModel[(int)vehicleType].transform.localScale.x < 0.0f)
-            {
-                scale = new Vector3(0.0f, 0.0f, 0.0f);
-                vehicleModel[(int)vehicleType].transform.localScale = scale;
-                changeFade = false;
-                SetVehicle(vehicleType + 1);
-                scale = new Vector3(0.0f, 0.0f, 0.0f);
-                vehicleModel[(int)vehicleType].transform.localScale = scale;
-            }
-        }
-        else
-        {
-            Vector3 scale;
-            scale = new Vector3(vehicleModel[(int)vehicleType].transform.localScale.x + Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.y + Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.z + Time.deltaTime);
-            vehicleModel[(int)vehicleType].transform.localScale = scale;
-            if (vehicleModel[(int)vehicleType].transform.localScale.x > 1.0f)
-            {
-                scale = new Vector3(1.0f, 1.0f, 1.0f);
-                vehicleModel[(int)vehicleType].transform.localScale = scale;
-                state = State.PLAYER_STATE_STOP;
-                cityPhaseMoveObj.IsEnable = true;
-            }
         }
     }
 
