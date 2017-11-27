@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
 
     public ParticleSystem ChargeMaxEffectObj
     {
-        get { return changeEffectObj; }
+        get { return chargeMaxEffectObj; }
     }
 
     private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
@@ -568,8 +568,6 @@ public class Player : MonoBehaviour
                             //    ＋8ポイント : 飛行機
                             if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
                             {
-                                //チェンジエフェクト
-                                changeEffectObj.Play();
                                 VehicleChangeStart();
                             }
                             else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
@@ -676,7 +674,9 @@ public class Player : MonoBehaviour
     }
 
     void VehicleChangeStart()
-    { 
+    {
+        //チェンジエフェクト
+        changeEffectObj.Play();
         cityPhaseMoveObj.IsEnable = false;
         state = State.PLAYER_STATE_IN_CHANGE;
     }
