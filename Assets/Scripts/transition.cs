@@ -2,8 +2,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;  //画面遷移を可能にする
 
-public class transition : MonoBehaviour
+public class Transition : MonoBehaviour
 {
     [SerializeField]
     private Material _transitionIn;
@@ -16,9 +17,16 @@ public class transition : MonoBehaviour
     [SerializeField]
     private UnityEvent OnComplete;
 
+    private string transitionScene;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     void Start()
     {
-        StartCoroutine(BeginTransition());
+        StartCoroutine(StartTransition());
     }
 
     void Update()
@@ -30,7 +38,14 @@ public class transition : MonoBehaviour
         yield return Animate(_transitionIn, 1);
         if (OnTransition != null) { OnTransition.Invoke(); }
         yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene(transitionScene);
 
+        yield return Animate(_transitionOut, 1);
+        if (OnComplete != null) { OnComplete.Invoke(); }
+    }
+
+    IEnumerator StartTransition()
+    {
         yield return Animate(_transitionOut, 1);
         if (OnComplete != null) { OnComplete.Invoke(); }
     }
@@ -51,5 +66,11 @@ public class transition : MonoBehaviour
             current += Time.deltaTime;
         }
         material.SetFloat("_Alpha", 1);
+    }
+
+    public void StartTransition( string sceneName )
+    {
+        transitionScene = sceneName;
+        StartCoroutine(BeginTransition());
     }
 }
