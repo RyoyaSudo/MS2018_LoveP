@@ -97,7 +97,7 @@ public class Game : MonoBehaviour {
             case Phase.GAME_PAHSE_CITY:
                 {
                     //デバッグ用
-                    if (Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
+                    if (debugFlags && Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
                     if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");

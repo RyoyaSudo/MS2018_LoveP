@@ -580,6 +580,8 @@ public class Player : MonoBehaviour
                             }
                             else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
                             {
+                                //星フェーズへの移行開始
+
                                 SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
                                 gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
                                 starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
@@ -727,14 +729,19 @@ public class Player : MonoBehaviour
     }
 
     //スコアが貯まる
+    //プレイヤー操作の停止
     //トランジションで演出用の場面に移る
     //飛行場から飛行機が飛び立つ演出
-    //星フェーズ
-    //
+    //トランジションイン
+    //星フェーズ切り替え
+    //トランジションアウト
     //
     void ChangeStarPhase()
     {
-        
+        cityPhaseMoveObj.IsEnable = false;
+        state = State.PLAYER_STATE_IN_CHANGE;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
     }
 
     /// <summary>
