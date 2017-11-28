@@ -726,6 +726,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    //スコアが貯まる
+    //トランジションで演出用の場面に移る
+    //飛行場から飛行機が飛び立つ演出
+    //星フェーズ
+    //
+    //
+    void ChangeStarPhase()
+    {
+        
+    }
+
     /// <summary>
     /// OnGUI処理
     /// 主にデバッグ情報を出す
