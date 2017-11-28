@@ -25,6 +25,7 @@ public class Game : MonoBehaviour {
     public GameObject effectManagerPrefab;
     public GameObject soundManagerPrefab;
     public GameObject skyboxManagerPrefab;
+    public GameObject transitionPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -40,6 +41,7 @@ public class Game : MonoBehaviour {
     GameObject effectManagerObj;
     GameObject soundManagerObj;
     GameObject skyboxManagerObj;
+    GameObject transitionObj;
 
     int readyCount;
 
@@ -95,7 +97,7 @@ public class Game : MonoBehaviour {
             case Phase.GAME_PAHSE_CITY:
                 {
                     //デバッグ用
-                    if (Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
+                    if (debugFlags && Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
                     if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
@@ -113,7 +115,10 @@ public class Game : MonoBehaviour {
         }
 
         //デバッグ用
-        if( Input.GetKeyUp(KeyCode.Return)) SceneManager.LoadScene("Result");
+        if (debugFlags && Input.GetKeyUp(KeyCode.O))
+        {
+            transitionObj.GetComponent<Transition>().StartTransition("Result");
+        }
 
         // HACK: OnGUIデバッグ時On・Off処理
         //       もっといい方法がありそうだけど現状これで
@@ -228,6 +233,7 @@ public class Game : MonoBehaviour {
         soundManagerObj = Create( soundManagerPrefab );
         PlayerObj = Create( PlayerPrefab );
         skyboxManagerObj = Create( skyboxManagerPrefab );
+        transitionObj = Create(transitionPrefab);
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
         TimeObj = GameObject.Find( "Time" );
