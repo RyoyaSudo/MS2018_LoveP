@@ -6,6 +6,7 @@ public class Title : MonoBehaviour {
 
     GameObject fadePanel;   // フェードパネル
     public int fadeNum;     // 遷移先の番号
+    public GameObject transition;
 
     //サウンド用/////////////////////////////
     public SoundController.Sounds titleSoundType;
@@ -27,9 +28,12 @@ public class Title : MonoBehaviour {
     void Update()
     {
         //_____フェード関連_____________
-        if (Input.GetKey(KeyCode.Space))
-        {// Spaceキーで次のシーン
-            fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
+        if (Input.GetKey(KeyCode.O))
+        {
+            // Spaceキーで次のシーン
+            // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
+            transition.SetActive(true);
+            transition.GetComponent<Transition>().StartTransition("Tutorial");
             //遷移するときのSE
             titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
         }

@@ -35,7 +35,7 @@ public class LovePCameraController : MonoBehaviour
     void LateUpdate()
     {
         // 向き設定
-        transform.rotation = Quaternion.Lerp( transform.rotation , player.transform.rotation , 0.1f );
+        transform.rotation = Quaternion.Lerp( transform.rotation , player.transform.rotation , 0.4f );
 
         //Quaternion q = Quaternion.Euler( player.transform.rotation.x , player.transform.rotation.y , 0.0f );
 
