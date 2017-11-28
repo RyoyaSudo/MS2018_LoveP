@@ -225,12 +225,17 @@ public class CityPhaseMove : MonoBehaviour {
             moveH *= turnPower;
         }
 
+        // TODO: バイク旋回
+        //       Z軸回転させるため
+        //float radZ = -moveH * 45.0f;
+        float radZ = 0.0f;
+
         // 旋回処理
         if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
 
-            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
+            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z + radZ );
         }
 
         // HACK: 地上の速度演算
