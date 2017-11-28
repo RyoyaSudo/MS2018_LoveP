@@ -380,8 +380,8 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.fontSize = 48;
             guiStyle.normal = styleState;
 
-            string str;
-            str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            string str = "";
+            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
