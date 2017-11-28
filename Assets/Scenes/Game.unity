@@ -212,6 +212,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
+      propertyPath: isOnGUIEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
       propertyPath: phase
       value: 1
       objectReference: {fileID: 0}
@@ -221,6 +226,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1749253033977780, guid: cefb8cc64b20a5b49a45108118c56814,
         type: 2}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: debugFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
   m_IsPrefabParent: 0
