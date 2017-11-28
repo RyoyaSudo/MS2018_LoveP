@@ -430,39 +430,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 1833703333782144, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212743717414689154, guid: d45f8aee520e3c345b2e56e34576ff25,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212743717414689154, guid: d45f8aee520e3c345b2e56e34576ff25,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212743717414689154, guid: d45f8aee520e3c345b2e56e34576ff25,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807864485948880, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212042044062136018, guid: d45f8aee520e3c345b2e56e34576ff25,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212226701944977802, guid: d45f8aee520e3c345b2e56e34576ff25,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
   m_IsPrefabParent: 0
