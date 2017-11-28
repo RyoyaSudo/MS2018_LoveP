@@ -35,7 +35,11 @@ public class LovePCameraController : MonoBehaviour
     void LateUpdate()
     {
         // 向き設定
-        transform.rotation = player.transform.rotation;
+        transform.rotation = Quaternion.Lerp( transform.rotation , player.transform.rotation , 0.1f );
+
+        //Quaternion q = Quaternion.Euler( player.transform.rotation.x , player.transform.rotation.y , 0.0f );
+
+        //transform.rotation = Quaternion.Lerp( transform.rotation , q , 0.1f );
 
         // プレイヤーからオフセット分ずらす値の作成
         Matrix4x4 mtxR = Matrix4x4.Rotate( transform.rotation );
@@ -45,6 +49,7 @@ public class LovePCameraController : MonoBehaviour
         // 現在位置を設定
         //   現在角度に応じてオフセット分のベクトルを回転させる
         transform.position = mtxR.MultiplyVector( trsV ) + player.transform.position;
+        //transform.position = Vector3.Lerp( transform.position , mtxR.MultiplyVector( trsV ) + player.transform.position , 0.1f );
     }
 
     private void OnGUI()
