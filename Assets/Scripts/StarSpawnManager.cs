@@ -112,15 +112,15 @@ public class StarSpawnManager : MonoBehaviour
         //生成したブロックを配列に保存
         spawnPointObject[num] = SpawnPoint.GetComponent<SpawnPoint>();
 
-        /*******ここから先が追加分
-         * */
-        if (num < 11)
-        {
-            GameObject landMark = (GameObject)Resources.Load("Prefabs/Game/LandMarkObject/LandMark" + num);
+        /*******ここから先が追加分*/
+        // ランドマークオブジェクトを生成
+        GameObject landMark = (GameObject)Resources.Load("Prefabs/Game/LandMarkObject/LandMark" + num);
 
-            // プレハブからインスタンスを生成
-            Instantiate(landMark, new Vector3(trans.position.x, trans.position.y, trans.position.z), trans.rotation);
-        }
+        // プレハブからインスタンスを生成
+        GameObject landMarkSet = Instantiate(landMark, new Vector3(trans.position.x, trans.position.y, trans.position.z), trans.rotation);
+
+        // 親オブジェクトをスポーンポイントに設定
+        landMarkSet.transform.parent = SpawnPoint.transform;
         /****追加分終了*****/
     }
 
