@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4154207670017970}
+  - component: {fileID: 114026606554436468}
   m_Layer: 0
   m_Name: LandMark6
   m_TagString: Untagged
@@ -36,7 +37,6 @@ GameObject:
   - component: {fileID: 4267662384968488}
   - component: {fileID: 33584508574858886}
   - component: {fileID: 23535800544149638}
-  - component: {fileID: 64757839721272606}
   - component: {fileID: 95059047932166778}
   m_Layer: 0
   m_Name: Pyramid_1
@@ -53,7 +53,7 @@ Transform:
   m_GameObject: {fileID: 1419409343552162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4267662384968488}
   m_Father: {fileID: 0}
@@ -65,13 +65,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546958977036344}
-  m_LocalRotation: {x: -0.7071069, y: 0, z: -0, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 4154207670017970}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &23535800544149638
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -111,20 +111,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546958977036344}
   m_Mesh: {fileID: 4300000, guid: e1fd0fc81e7cafe49825c22f7d743ba6, type: 3}
---- !u!64 &64757839721272606
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1546958977036344}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: e1fd0fc81e7cafe49825c22f7d743ba6, type: 3}
 --- !u!95 &95059047932166778
 Animator:
   serializedVersion: 3
@@ -142,3 +128,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114026606554436468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419409343552162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a2d6ace351ccb4799b4fa43933cdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posCtl: 2

@@ -38,7 +38,7 @@ public class StarSpawnManager : MonoBehaviour
     // 初期化
     void Start()
     {
-        Init();
+       // Init();
     }
 
     public void Init()
@@ -114,8 +114,14 @@ public class StarSpawnManager : MonoBehaviour
 
         /*******ここから先が追加分
          * */
-        string path = "/Assets/Resources/Prefabs/Game/LandMarkObject/LandMark" + num;
-        GameObject landMark = GameObject.CreatePrimitive()
+        if (num < 11)
+        {
+            GameObject landMark = (GameObject)Resources.Load("Prefabs/Game/LandMarkObject/LandMark" + num);
+
+            // プレハブからインスタンスを生成
+            Instantiate(landMark, new Vector3(trans.position.x, trans.position.y, trans.position.z), trans.rotation);
+        }
+        /****追加分終了*****/
     }
 
     /// <summary>
