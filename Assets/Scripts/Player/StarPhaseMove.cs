@@ -68,7 +68,7 @@ public class StarPhaseMove : MonoBehaviour {
         int layerMask = LayerMask.GetMask( new string[] { "earth" } );
         RaycastHit hitInfo;
 
-        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 10.0f , layerMask ) )
+        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 100.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;
@@ -157,9 +157,9 @@ public class StarPhaseMove : MonoBehaviour {
         int layerMask = LayerMask.GetMask( new string[] { "earth" } );
         RaycastHit hitInfo;
         Vector3 castPos = transform.position;
-        Vector3 castDir = Vector3.Normalize( transform.position - earthObj.transform.position );
+        Vector3 castDir = Vector3.Normalize( earthObj.transform.position - transform.position );
 
-        if( Physics.Raycast( castPos , castDir , out hitInfo , 50.0f , layerMask ) )
+        if( Physics.Raycast( castPos , castDir , out hitInfo , 300.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;

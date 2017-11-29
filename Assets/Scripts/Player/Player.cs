@@ -218,7 +218,10 @@ public class Player : MonoBehaviour
             cityPhaseMoveObj.IsEnable = false;
         }
 
+        // TODO: 星フェイズ開始時のプレイヤー初期位置設定
+        //       Earthオブジェクトにプレイヤー初期位置のスポーンポイントを仕込んでおいて、そこから設定する形に変更したほうがよさそう
         transform.position = new Vector3( 250.0f , 290.0f , -350.0f );
+        transform.position = new Vector3( 0.0f , 520.0f , 0.0f );
 
         starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
         starPhaseMoveObj.IsEnable = true;
