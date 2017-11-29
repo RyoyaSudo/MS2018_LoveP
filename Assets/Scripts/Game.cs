@@ -152,7 +152,6 @@ public class Game : MonoBehaviour {
     void PhaseReadyStart()
     {
         //SetPhase(Phase.GAME_PAHSE_CITY);
-        PlayerObj.GetComponent<Player>().StateParam = Player.State.PLAYER_STATE_IN_CHANGE;
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_STOP);
         readyCount = 0;
     }

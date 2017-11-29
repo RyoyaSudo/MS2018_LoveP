@@ -44,8 +44,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 速度限界値
     /// </summary>
-    [SerializeField]
-    float velocityMax;
+    [SerializeField] float velocityMax;
 
     /// <summary>
     /// 移動量ベクトル
@@ -244,7 +243,7 @@ public class CityPhaseMove : MonoBehaviour {
             if( Velocity < stoppingDeadZone )
             {
                 Velocity = 0.0f;
-                playerObj.StateParam = Player.State.PLAYER_STATE_STOP;
+                playerObj.IsStopped = true;
             }
 
             //チャージエフェクト再生
@@ -313,6 +312,7 @@ public class CityPhaseMove : MonoBehaviour {
             }
 
             pushCharge = 0;
+            playerObj.IsStopped = false;
         }
 
         // 今回の速度加算
