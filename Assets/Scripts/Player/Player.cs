@@ -220,6 +220,7 @@ public class Player : MonoBehaviour
 
         starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
         starPhaseMoveObj.IsEnable = true;
+        starPhaseMoveObj.StarPhaseStart();
 
         transform.position = new Vector3( 250.0f , 290.0f , -300.0f );
 
@@ -559,17 +560,19 @@ public class Player : MonoBehaviour
                             else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
                             {
                                 //星フェーズへの移行開始
+                                ChangeStarPhase();
+                                //StarPhaseInit
+                                //SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
+                                //gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
+                                //starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
+                                //var emission = chargeMaxEffectObj.emission;
+                                //emission.enabled = false;
+                                //emission = chargeEffectObj.emission;
+                                //emission.enabled = false;
 
-                                SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
-                                gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
-                                starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
-                                var emission = ChargeMaxEffectObj.emission;
-                                emission.enabled = false;
-                                emission = ChargeEffectObj.emission;
-                                emission.enabled = false;
-
-                                cityPhaseMoveObj.IsEnable = false;
-                                starPhaseMoveObj.IsEnable = true;
+                                //cityPhaseMoveObj.IsEnable = false;
+                                //starPhaseMoveObj.IsEnable = true;
+                                //StarPhaseInit();
                             }
 
                             //if (vehicleScore >= 4)
@@ -716,10 +719,26 @@ public class Player : MonoBehaviour
     //
     void ChangeStarPhase()
     {
-        cityPhaseMoveObj.IsEnable = false;
-        StateParam = State.PLAYER_STATE_IN_CHANGE;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+//<<<<<<< HEAD
+        //cityPhaseMoveObj.IsEnable = false;
+        ////state = State.PLAYER_STATE_IN_CHANGE;
+        //GetComponent<Rigidbody>().velocity = Vector3.zero;
 
+        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+        var emission = ChargeMaxEffectObj.emission;
+        emission.enabled = false;
+        emission = ChargeEffectObj.emission;
+        emission.enabled = false;
+//=======
+//        cityPhaseMoveObj.IsEnable = false;
+//        StateParam = State.PLAYER_STATE_IN_CHANGE;
+//        GetComponent<Rigidbody>().velocity = Vector3.zero;
+//>>>>>>> master
+
+        cityPhaseMoveObj.IsEnable = false;
+        starPhaseMoveObj.IsEnable = true;
     }
 
     /// <summary>

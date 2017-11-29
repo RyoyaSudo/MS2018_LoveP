@@ -138,6 +138,12 @@ public class StarPhaseMove : MonoBehaviour {
         }
     }
 
+    public void StarPhaseStart()
+    {
+        // シーン内から必要なオブジェクトを取得
+        earthObj = GameObject.Find(earthObjPath);
+    }
+
     /// <summary>
     /// OnGUI処理
     /// 主にデバッグ情報を出す
