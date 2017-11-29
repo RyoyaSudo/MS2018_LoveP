@@ -60,33 +60,28 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 初速
     /// </summary>
-    [SerializeField]
-    float initialVelocity;
+    [SerializeField] float initialVelocity;
 
     /// <summary>
     /// 加速度
     /// </summary>
-    [SerializeField]
-    float acceleration;
+    [SerializeField] float acceleration;
 
     /// <summary>
     /// 停車までの予定時間(単位:秒)
     /// </summary>
-    [SerializeField]
-    float stoppingTime;
+    [SerializeField] float stoppingTime;
 
     /// <summary>
     /// 停車にかける力の倍率
     /// </summary>
-    [SerializeField]
-    float stoppingRate;
+    [SerializeField] float stoppingRate;
 
     /// <summary>
     /// 停車時のデッドゾーンの値。
     /// この値以下になった場合、完全停車 = 移動量を0 にする
     /// </summary>
-    [SerializeField]
-    float stoppingDeadZone;
+    [SerializeField] float stoppingDeadZone;
 
     /// <summary>
     /// 停車力。初期化時に算出する。
@@ -101,8 +96,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// チャージ限界量
     /// </summary>
-    [SerializeField]
-    private float chargeMax;
+    [SerializeField] private float chargeMax;
 
     /// <summary>
     /// チャージマックス状態の判定フラグ
@@ -112,8 +106,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// チャージブースト継続時間
     /// </summary>
-    [SerializeField]
-    float boostDuration;
+    [SerializeField] float boostDuration;
 
     /// <summary>
     /// チャージブースト時間計測変数
@@ -123,14 +116,12 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// チャージブースト時の速度倍率
     /// </summary>
-    [SerializeField]
-    float boostVelocityRate;
+    [SerializeField] float boostVelocityRate;
 
     /// <summary>
     /// 通常時の速度倍率
     /// </summary>
-    [SerializeField]
-    float defaultVelocityRate;
+    [SerializeField] float defaultVelocityRate;
 
     /// <summary>
     /// 現在の速度倍率
@@ -140,8 +131,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 重力量。Playerは個別に設定する。
     /// </summary>
-    [SerializeField]
-    Vector3 gravity;
+    [SerializeField] Vector3 gravity;
 
     /// <summary>
     /// 現在の重力量の累計

@@ -59,6 +59,11 @@ public class Player : MonoBehaviour
     /// </summary>
     public float Velocity { get; private set; }
 
+    /// <summary>
+    /// 停車しているか判別するフラグ。
+    /// </summary>
+    public bool IsStopped { get; private set; }
+
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
     private SoundController playerSoundCtrl;
@@ -71,8 +76,8 @@ public class Player : MonoBehaviour
     {
         PLAYER_STATE_STOP = 0,
         PLAYER_STATE_MOVE,
-        PLAYER_STATE_TAKE,
         PLAYER_STATE_TAKE_READY,
+        PLAYER_STATE_TAKE,
         PLAYER_STATE_IN_CHANGE
     }
 
@@ -129,6 +134,8 @@ public class Player : MonoBehaviour
         starPhaseMoveObj = null;
 
         changeFade = true;
+
+        IsStopped = false;
     }
 
     /// <summary>
@@ -162,24 +169,30 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //if( StateParam == State.PLAYER_STATE_IN_CHANGE ) return;
-        switch (StateParam)
+        switch( StateParam )
         {
             case State.PLAYER_STATE_STOP:
-                {
-                    VehicleMove();
-                    break;
-                }
+                VehicleMove();
+                break;
+
             case State.PLAYER_STATE_MOVE:
-                {
-                    VehicleMove();
-                    break;
-                }
+                VehicleMove();
+                break;
+
+            case State.PLAYER_STATE_TAKE_READY:
+                break;
+
+            case State.PLAYER_STATE_TAKE:
+                VehicleMove();
+                break;
+
             case State.PLAYER_STATE_IN_CHANGE:
-                {
-                    VehicleChange();
-                    break;
-                }
+                VehicleChange();
+                break;
+
+            default:
+                Debug.LogError( "プレイヤー状態で不定のタイプが設定されました。適切な挙動を割り当てて下さい。" );
+                break;
         }
     }
 
@@ -218,7 +231,10 @@ public class Player : MonoBehaviour
             cityPhaseMoveObj.IsEnable = false;
         }
 
+        // TODO: 星フェイズ開始時のプレイヤー初期位置設定
+        //       Earthオブジェクトにプレイヤー初期位置のスポーンポイントを仕込んでおいて、そこから設定する形に変更したほうがよさそう
         transform.position = new Vector3( 250.0f , 290.0f , -350.0f );
+        transform.position = new Vector3( 0.0f , 520.0f , 0.0f );
 
         starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
         starPhaseMoveObj.IsEnable = true;
@@ -261,14 +277,6 @@ public class Player : MonoBehaviour
                 ScriptDebug.Log( "未確定の乗り物タイプが指定されました。" );
                 break;
         }
-    }
-
-    /// <summary>
-    /// 状態設定関数
-    /// </summary>
-    public void SetState( State setState )
-    {
-        StateParam = setState;
     }
 
     /// <summary>
@@ -637,31 +645,24 @@ public class Player : MonoBehaviour
         {
             case VehicleType.VEHICLE_TYPE_BIKE:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_CAR:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_BUS:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
-                    //StarMove();
                     playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
@@ -670,7 +671,7 @@ public class Player : MonoBehaviour
 
     void VehicleChangeStart()
     {
-        //チェンジエフェクト
+        // チェンジエフェクト
         changeEffectObj.Play();
         cityPhaseMoveObj.IsEnable = false;
         StateParam = State.PLAYER_STATE_IN_CHANGE;

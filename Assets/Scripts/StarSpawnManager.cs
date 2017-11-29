@@ -114,7 +114,7 @@ public class StarSpawnManager : MonoBehaviour
 
         /*******ここから先が追加分*/
         // ランドマークオブジェクトを生成
-        GameObject landMark = (GameObject)Resources.Load("Prefabs/Game/LandMarkObject/LandMark" + num);
+        GameObject landMark = Resources.Load("Prefabs/Game/LandMarkObject/LandMark" + num) as GameObject;
 
         // プレハブからインスタンスを生成
         GameObject landMarkSet = Instantiate(landMark, new Vector3(trans.position.x, trans.position.y, trans.position.z), trans.rotation);

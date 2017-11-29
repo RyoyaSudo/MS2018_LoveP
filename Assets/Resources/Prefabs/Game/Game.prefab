@@ -57,7 +57,7 @@ MonoBehaviour:
     type: 2}
   mainCameraPrefab: {fileID: 1292214055280866, guid: 0793db4416fa315418b3940f6a5d9682,
     type: 2}
-  guiCameraPrefab: {fileID: 1122665361876424, guid: c5e561ab78414654f9851553b4fc38bc,
+  guiCameraPrefab: {fileID: 1477520057521798, guid: c3f80760529395b4e903dd80343a06dd,
     type: 2}
   SpawnManagerPrefab: {fileID: 1648512796981284, guid: 05cf89f3cf6fc724896a1edc82eceed4,
     type: 2}
@@ -71,7 +71,7 @@ MonoBehaviour:
     type: 2}
   skyboxManagerPrefab: {fileID: 1066798036683194, guid: 39c1179bb107b4a8082c10ad86a003c3,
     type: 2}
-  transitionPrefab: {fileID: 1749253033977780, guid: cefb8cc64b20a5b49a45108118c56814,
+  transitionPrefab: {fileID: 1605810942692100, guid: cefb8cc64b20a5b49a45108118c56814,
     type: 2}
   phase: 2
   debugFlags: 1
