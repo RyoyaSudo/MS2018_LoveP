@@ -218,11 +218,13 @@ public class Player : MonoBehaviour
             cityPhaseMoveObj.IsEnable = false;
         }
 
+        transform.position = new Vector3( 250.0f , 290.0f , -350.0f );
+
         starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
         starPhaseMoveObj.IsEnable = true;
-        starPhaseMoveObj.StarPhaseStart();
+        //starPhaseMoveObj.StarPhaseStart();
 
-        transform.position = new Vector3( 250.0f , 290.0f , -300.0f );
+        starPhaseMoveObj.Initialize();
 
         ScriptDebug.Log( "星フェイズ開始" );
     }
