@@ -727,9 +727,9 @@ public class Player : MonoBehaviour
         SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
         gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
         starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
-        var emission = chargeMaxEffectObj.emission;
+        var emission = ChargeMaxEffectObj.emission;
         emission.enabled = false;
-        emission = chargeEffectObj.emission;
+        emission = ChargeEffectObj.emission;
         emission.enabled = false;
 //=======
 //        cityPhaseMoveObj.IsEnable = false;
