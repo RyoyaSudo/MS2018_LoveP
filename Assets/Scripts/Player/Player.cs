@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     /// ゲームシーン管理オブジェクト。
     /// シーン管理クラスで利用したい処理があるため取得。
     /// </summary>
-    private GameObject gameObj;
+    private Game gameObj;
     public string gamectrlObjPath;
 
     //エフェクト関係
@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
         PLAYER_STATE_FREE,          // 自由移動
         PLAYER_STATE_TAKE_READY,    // 乗車待機
         PLAYER_STATE_TAKE,          // 運搬中
+        PLAYER_STATE_GET_OFF,       // 乗客下車動作中
         PLAYER_STATE_IN_CHANGE      // 車両変化中
     }
 
@@ -171,7 +172,7 @@ public class Player : MonoBehaviour
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
 
-        gameObj = GameObject.Find( gamectrlObjPath );
+        gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
 
         //サウンド用//////////////////////////////////////
@@ -198,6 +199,10 @@ public class Player : MonoBehaviour
 
             case State.PLAYER_STATE_TAKE:
                 VehicleMove();
+                break;
+
+            case State.PLAYER_STATE_GET_OFF:
+                GetOff();
                 break;
 
             case State.PLAYER_STATE_IN_CHANGE:
@@ -565,26 +570,9 @@ public class Player : MonoBehaviour
                                     }
                             }
 
-                            // HACK: 乗り物変更処理
-                            //       後に関数化する。
-                            // 〇変身条件
-                            //    初期        : バイク
-                            //    ＋1ポイント : 車
-                            //    ＋4ポイント : 大型車( バス )
-                            //    ＋8ポイント : 飛行機
-                            if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
-                            {
-                                VehicleChangeStart();
-                            }
-                            else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
-                            {
-                                VehicleChangeStart();
-                            }
-                            else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
-                            {
-                                //星フェーズへの移行開始
-                                ChangeStarPhase();
-                            }
+                            // HACK: 下車状態へ移行
+                            //       下車状態時実行処理内で乗り物変化判定を行わなければならない。
+                            StateParam = State.PLAYER_STATE_GET_OFF;
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
@@ -593,6 +581,11 @@ public class Player : MonoBehaviour
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+                        }
+                        else
+                        {
+                            // 乗客はまだ1人以上残っているため、乗車待機状態に
+                            StateParam = State.PLAYER_STATE_TAKE_READY;
                         }
                     }
                     break;
@@ -637,7 +630,7 @@ public class Player : MonoBehaviour
     {
         // チェンジエフェクト
         changeEffectObj.Play();
-        cityPhaseMoveObj.IsEnable = false;
+        MoveEnable( false );
         StateParam = State.PLAYER_STATE_IN_CHANGE;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
@@ -675,7 +668,7 @@ public class Player : MonoBehaviour
                 scale = new Vector3(1.0f, 1.0f, 1.0f);
                 vehicleModel[(int)vehicleType].transform.localScale = scale;
                 StateParam = State.PLAYER_STATE_FREE;
-                cityPhaseMoveObj.IsEnable = true;
+                MoveEnable( true );
                 changeFade = true;
             }
         }
@@ -695,7 +688,7 @@ public class Player : MonoBehaviour
         //GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
-        gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
+        gameObj.PhaseParam = Game.Phase.GAME_PAHSE_STAR;
         starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
         var emission = ChargeMaxEffectObj.emission;
         emission.enabled = false;
@@ -727,9 +720,18 @@ public class Player : MonoBehaviour
                 //       タイムライン側からデータ抽出をするべきか否かで悩む。のちに判断。
                 //       2017/11/30現在はマジックナンバーで。
                 StateTimer = 5.0f;
+                MoveEnable( false );
                 break;
 
             case State.PLAYER_STATE_TAKE:
+                break;
+
+            case State.PLAYER_STATE_GET_OFF:
+                // HACK: 下車時間を与える
+                //       タイムライン側からデータ抽出をするべきか否かで悩む。のちに判断。
+                //       2017/11/30現在はマジックナンバーで。
+                StateTimer = 5.0f;
+                MoveEnable( false );
                 break;
 
             case State.PLAYER_STATE_IN_CHANGE:
@@ -751,6 +753,45 @@ public class Player : MonoBehaviour
         {
             StateTimer = 0.0f;
             StateParam = State.PLAYER_STATE_TAKE;
+
+            MoveEnable( true );
+        }
+    }
+
+    /// <summary>
+    /// 下車動作中に行う動作処理
+    /// </summary>
+    private void GetOff()
+    {
+        StateTimer -= Time.deltaTime;
+
+        if( StateTimer < 0.0f )
+        {
+            StateTimer = 0.0f;
+            StateParam = State.PLAYER_STATE_FREE;
+
+            MoveEnable( true );
+
+            // HACK: 乗り物変更処理
+            //       後に関数化する。
+            // 〇変身条件
+            //    初期        : バイク
+            //    ＋1ポイント : 車
+            //    ＋4ポイント : 大型車( バス )
+            //    ＋8ポイント : 飛行機
+            if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
+            {
+                VehicleChangeStart();
+            }
+            else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS )
+            {
+                VehicleChangeStart();
+            }
+            else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE )
+            {
+                //星フェーズへの移行開始
+                ChangeStarPhase();
+            }
         }
     }
 
@@ -771,12 +812,45 @@ public class Player : MonoBehaviour
             case State.PLAYER_STATE_FREE:       flags = true;  break;
             case State.PLAYER_STATE_TAKE_READY: flags = false; break;
             case State.PLAYER_STATE_TAKE:       flags = true;  break;
+            case State.PLAYER_STATE_GET_OFF:    flags = false; break;
             case State.PLAYER_STATE_IN_CHANGE:  flags = false; break;
 
             default: break;
         }
 
         return flags;
+    }
+
+    /// <summary>
+    /// 移動処理有効化処理
+    /// </summary>
+    /// <param name="flags">フラグ</param>
+    private void MoveEnable( bool flags )
+    {
+        // 現在状態からどれに設定にするか判断
+        switch( gameObj.PhaseParam )
+        {
+            case Game.Phase.GAME_PAHSE_READY:
+                break;
+
+            case Game.Phase.GAME_PAHSE_CITY:
+                if( cityPhaseMoveObj == null )
+                {
+                    cityPhaseMoveObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CityPhaseMove>();
+                }
+
+                cityPhaseMoveObj.IsEnable = flags;
+                break;
+
+            case Game.Phase.GAME_PAHSE_STAR:
+                if( starPhaseMoveObj == null )
+                {
+                    starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
+                }
+
+                starPhaseMoveObj.IsEnable = flags;
+                break;
+        }
     }
 
     /// <summary>

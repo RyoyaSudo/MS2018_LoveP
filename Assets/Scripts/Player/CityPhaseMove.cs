@@ -193,6 +193,13 @@ public class CityPhaseMove : MonoBehaviour {
         {
             CityMoveCharcterController();
         }
+        else
+        {
+            // HACK: 移動無効化時に行うべきこと
+            //       CharcterControllerを利用している場合、移動ベクトルを0にしなくてはならないらしい(検証不十分)
+            //       それに伴い、重力値が反映されているか怪しいため、あとでキチンと調査すること。
+            controller.Move( Vector3.zero );
+        }
     }
 
     /// <summary>
@@ -376,7 +383,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
