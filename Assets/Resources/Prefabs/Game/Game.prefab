@@ -73,6 +73,6 @@ MonoBehaviour:
     type: 2}
   transitionPrefab: {fileID: 1749253033977780, guid: cefb8cc64b20a5b49a45108118c56814,
     type: 2}
-  phase: 1
+  phase: 2
   debugFlags: 1
   isOnGUIEnable: 1
