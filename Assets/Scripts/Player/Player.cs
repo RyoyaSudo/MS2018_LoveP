@@ -40,19 +40,9 @@ public class Player : MonoBehaviour
 
     //エフェクト関係
     private EffectController effect;
-    private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
 
-    public ParticleSystem ChargeEffectObj
-    {
-        get { return chargeEffectObj; }
-    }
-
-    private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
-
-    public ParticleSystem ChargeMaxEffectObj
-    {
-        get { return chargeMaxEffectObj; }
-    }
+    public ParticleSystem ChargeEffectObj { get; private set; }
+    public ParticleSystem ChargeMaxEffectObj { get; private set; }
 
     private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
     private ParticleSystem changeEffectObj;
@@ -60,12 +50,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 移動量ベクトル
     /// </summary>
-    Vector3 velocityVec;
-    Vector3 velocityVecOld;
+    public Vector3 VelocityVec { get; private set; }
 
-    public Vector3 VelocityVec {
-        get { return velocityVec; }
-    }
+    Vector3 velocityVecOld;
 
     /// <summary>
     /// 移動量(スカラー)
@@ -92,16 +79,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 状態管理変数
     /// </summary>
-    State state;
-
-    /// <summary>
-    /// 状態管理変数
-    /// </summary>
-    public State StateParam
-    {
-        get { return state; }
-        set { state = value; }
-    }
+    public State StateParam { get; set; }
 
     public enum VehicleType
     {
@@ -144,7 +122,7 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
         Velocity = 0.0f;
-        velocityVec = Vector3.zero;
+        VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
 
         cityPhaseMoveObj = null;
@@ -159,7 +137,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rideCount = 0;
-        state = State.PLAYER_STATE_STOP;
+        StateParam = State.PLAYER_STATE_STOP;
 
         //エフェクト関係
         effect = GameObject.Find( "EffectManager" ).GetComponent<EffectController>();
@@ -184,8 +162,8 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //if( state == State.PLAYER_STATE_IN_CHANGE ) return;
-        switch (state)
+        //if( StateParam == State.PLAYER_STATE_IN_CHANGE ) return;
+        switch (StateParam)
         {
             case State.PLAYER_STATE_STOP:
                 {
@@ -220,7 +198,7 @@ public class Player : MonoBehaviour
             starPhaseMoveObj.IsEnable = false;
         }
 
-        state = State.PLAYER_STATE_STOP;
+        StateParam = State.PLAYER_STATE_STOP;
         transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
 
         ScriptDebug.Log( "街フェイズ開始" );
@@ -288,7 +266,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public void SetState( State setState )
     {
-        state = setState;
+        StateParam = setState;
     }
 
     /// <summary>
@@ -297,18 +275,18 @@ public class Player : MonoBehaviour
     public void ChargeEffectCreate()
     {
         //生成
-        chargeEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_EFFECT , gameObject.transform );
+        ChargeEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_EFFECT , gameObject.transform );
 
         //再生OFF
-        var emissione = chargeEffectObj.emission;
+        var emissione = ChargeEffectObj.emission;
         emissione.enabled = false;
 
         //位置設定
         Vector3 pos;
-        pos = chargeEffectObj.transform.localPosition;
+        pos = ChargeEffectObj.transform.localPosition;
         pos.y = -1.0f;
         pos.z = -1.0f;
-        chargeEffectObj.transform.localPosition = pos;
+        ChargeEffectObj.transform.localPosition = pos;
     }
 
     /// <summary>
@@ -317,18 +295,18 @@ public class Player : MonoBehaviour
     public void ChargeMaxEffectCreate()
     {
         //生成
-        chargeMaxEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_MAX_EFFECT , gameObject.transform );
+        ChargeMaxEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_MAX_EFFECT , gameObject.transform );
 
         //再生OFF
-        var emissione = chargeMaxEffectObj.emission;
+        var emissione = ChargeMaxEffectObj.emission;
         emissione.enabled = false;
 
         //位置設定
         Vector3 pos;
-        pos = chargeMaxEffectObj.transform.localPosition;
+        pos = ChargeMaxEffectObj.transform.localPosition;
         pos.y = 0.0f;
         pos.z = -1.0f;
-        chargeMaxEffectObj.transform.localPosition = pos;
+        ChargeMaxEffectObj.transform.localPosition = pos;
     }
 
     /// <summary>
@@ -441,8 +419,8 @@ public class Player : MonoBehaviour
 
                         //乗車待機状態じゃないならbreak;
                         if( human.stateType != Human.STATETYPE.READY ) break;
-                        //state = State.PLAYER_STATE_TAKE_READY;
-                        //state = State.PLAYER_STATE_TAKE;
+                        //StateParam = State.PLAYER_STATE_TAKE_READY;
+                        //StateParam = State.PLAYER_STATE_TAKE;
 
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )
@@ -693,7 +671,7 @@ public class Player : MonoBehaviour
         //チェンジエフェクト
         changeEffectObj.Play();
         cityPhaseMoveObj.IsEnable = false;
-        state = State.PLAYER_STATE_IN_CHANGE;
+        StateParam = State.PLAYER_STATE_IN_CHANGE;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
@@ -724,7 +702,7 @@ public class Player : MonoBehaviour
             {
                 scale = new Vector3(1.0f, 1.0f, 1.0f);
                 vehicleModel[(int)vehicleType].transform.localScale = scale;
-                state = State.PLAYER_STATE_STOP;
+                StateParam = State.PLAYER_STATE_STOP;
                 cityPhaseMoveObj.IsEnable = true;
                 changeFade = true;
             }
@@ -741,6 +719,7 @@ public class Player : MonoBehaviour
     //
     void ChangeStarPhase()
     {
+//<<<<<<< HEAD
         //cityPhaseMoveObj.IsEnable = false;
         ////state = State.PLAYER_STATE_IN_CHANGE;
         //GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -752,6 +731,11 @@ public class Player : MonoBehaviour
         emission.enabled = false;
         emission = chargeEffectObj.emission;
         emission.enabled = false;
+//=======
+//        cityPhaseMoveObj.IsEnable = false;
+//        StateParam = State.PLAYER_STATE_IN_CHANGE;
+//        GetComponent<Rigidbody>().velocity = Vector3.zero;
+//>>>>>>> master
 
         cityPhaseMoveObj.IsEnable = false;
         starPhaseMoveObj.IsEnable = true;
@@ -774,7 +758,7 @@ public class Player : MonoBehaviour
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
+            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }

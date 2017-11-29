@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4227489533669168}
   - component: {fileID: 212272483291666464}
-  - component: {fileID: 114442894268070962}
+  - component: {fileID: 114183242159621688}
   m_Layer: 1
   m_Name: transition
   m_TagString: Untagged
@@ -101,7 +101,7 @@ Transform:
   m_Father: {fileID: 4227489533669168}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114442894268070962
+--- !u!114 &114183242159621688
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -112,33 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8adcb880b4587241940f438fdff3609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionIn: {fileID: 2100000, guid: 091a228a6a8474f4c977a9bade62400e, type: 2}
-  _transitionOut: {fileID: 2100000, guid: d9e8ad396fc188c498e917aeece24fc8, type: 2}
+  _transitionIn: {fileID: 0}
+  _transitionOut: {fileID: 0}
   OnTransition:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1673647628310894}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1203128350337258}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   OnComplete:
