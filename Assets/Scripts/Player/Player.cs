@@ -741,9 +741,9 @@ public class Player : MonoBehaviour
     //
     void ChangeStarPhase()
     {
-        cityPhaseMoveObj.IsEnable = false;
-        //state = State.PLAYER_STATE_IN_CHANGE;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //cityPhaseMoveObj.IsEnable = false;
+        ////state = State.PLAYER_STATE_IN_CHANGE;
+        //GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
         gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
