@@ -51,6 +51,7 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR
     }
+
     public Phase phase;
 
     private void Awake()
@@ -62,8 +63,7 @@ public class Game : MonoBehaviour {
     /// デバッグ用フラグ変数
     /// デバッグ時にしたくない処理を除外する時などに使うこと
     /// </summary>
-    [SerializeField]
-    bool debugFlags;
+    [SerializeField] bool debugFlags;
 
     /// <summary>
     /// OnGUI有効化フラグ
@@ -71,8 +71,7 @@ public class Game : MonoBehaviour {
     /// </summary>
     public static bool IsOnGUIEnable;
 
-    [SerializeField]
-    bool isOnGUIEnable;
+    [SerializeField] bool isOnGUIEnable;
 
     // Use this for initialization
     void Start () {
@@ -234,6 +233,7 @@ public class Game : MonoBehaviour {
         PlayerObj = Create( PlayerPrefab );
         skyboxManagerObj = Create( skyboxManagerPrefab );
         transitionObj = Create(transitionPrefab);
+
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
         TimeObj = GameObject.Find( "Time" );
