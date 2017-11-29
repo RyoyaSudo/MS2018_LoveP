@@ -122,6 +122,10 @@ public class StarSpawnManager : MonoBehaviour
         // 親オブジェクトをスポーンポイントに設定
         landMarkSet.transform.parent = SpawnPoint.transform;
         /****追加分終了*****/
+        /*******ここから先が追加分
+         * */
+        //string path = "/Assets/Resources/Prefabs/Game/LandMarkObject/LandMark" + num;
+        //GameObject landMark = GameObject.CreatePrimitive()
     }
 
     /// <summary>
