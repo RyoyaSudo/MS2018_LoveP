@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -108,6 +108,48 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &930256295
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156538831773192, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b47efdd985ab690419adcd024ec3b2e7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1321120716
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +215,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1557618465
+--- !u!1001 &1450885648
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -186,11 +228,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4266542624817452, guid: 85ec0ec8b6faf574592174f3e47ff1e7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4266542624817452, guid: 85ec0ec8b6faf574592174f3e47ff1e7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4266542624817452, guid: 85ec0ec8b6faf574592174f3e47ff1e7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -215,11 +257,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85ec0ec8b6faf574592174f3e47ff1e7, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1892218503 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1816947542470966, guid: 85ec0ec8b6faf574592174f3e47ff1e7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1557618465}
 --- !u!1 &1940980610
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7fce431a900b744ad912b4349354c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 1892218503}
+  transition: {fileID: 1989815295}
 --- !u!4 &1940980612
 Transform:
   m_ObjectHideFlags: 0
@@ -261,3 +298,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1989815295 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1748187775550362, guid: b47efdd985ab690419adcd024ec3b2e7,
+    type: 2}
+  m_PrefabInternal: {fileID: 930256295}
