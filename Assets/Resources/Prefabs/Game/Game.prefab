@@ -73,6 +73,8 @@ MonoBehaviour:
     type: 2}
   transitionPrefab: {fileID: 1605810942692100, guid: cefb8cc64b20a5b49a45108118c56814,
     type: 2}
+  timelinePrefab: {fileID: 1817147495876592, guid: 99878c54874fc7e43bee40d98b7a15f9,
+    type: 2}
   phaseParam: 1
   debugFlags: 1
   isOnGUIEnable: 1

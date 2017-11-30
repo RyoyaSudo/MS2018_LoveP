@@ -242,7 +242,7 @@ public class Player : MonoBehaviour
         StateParam = State.PLAYER_STATE_FREE;
         transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
 
-        ScriptDebug.Log( "街フェイズ開始" );
+        Debug.Log( "街フェイズ開始" );
     }
 
     /// <summary>
@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
         starPhaseMoveObj.Initialize();
         StateParam = State.PLAYER_STATE_FREE;
 
-        ScriptDebug.Log( "星フェイズ開始" );
+        Debug.Log( "星フェイズ開始" );
     }
 
     /// <summary>
@@ -302,7 +302,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                ScriptDebug.Log( "未確定の乗り物タイプが指定されました。" );
+                Debug.LogError( "未確定の乗り物タイプが指定されました。" );
                 break;
         }
     }

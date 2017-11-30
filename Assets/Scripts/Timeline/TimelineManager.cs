@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.Playables;
 using System.Linq;
 
-
+/// <summary>
+/// タイムライン管理クラス
+/// </summary>
 public class TimelineManager : MonoBehaviour {
 
     public GameObject[] timelinePrefab;                     //タイムラインプレファブ
