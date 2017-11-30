@@ -122,6 +122,10 @@ public class Human : MonoBehaviour
 
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
+
+        //プレイヤーオブジェクト取得
+        playerObj = GameObject.Find(playerPath);
+
     }
 
     /// <summary>
@@ -156,7 +160,7 @@ public class Human : MonoBehaviour
                 if (rideCnt >= rideTime)
                 {
                     //「運搬」状態に
-                    //SetStateType(STATETYPE.TRANSPORT);
+                    SetStateType(STATETYPE.TRANSPORT);
                 }
                 else
                 {
@@ -257,16 +261,20 @@ public class Human : MonoBehaviour
         {
             //乗車
             case STATETYPE.RIDE:
+
                 rideStartPos = this.transform.position;       //スタート位置
                 rideEndPos = playerObj.transform.position;    //終了位置
                 rideMoveRate = 1.0f / rideTime;               //移動割合
                 transform.LookAt(playerObj.transform);        //プレイヤーの位置を向かせる
+                Debug.Log("あ");
                 break;
 
             //運搬
             case STATETYPE.TRANSPORT:
                 //親をプレイヤーにする
                 gameObject.transform.parent = playerObj.transform;
+                Debug.Log("い");
+
                 break;
         }
     }

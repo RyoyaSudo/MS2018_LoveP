@@ -518,7 +518,7 @@ public class Player : MonoBehaviour
                         //human.transform.parent = transform;
 
                         //乗客の状態を「運搬」に
-                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
+                        //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
                         Debug.Log( "Ride" );
                         passengerObj[ rideCount ] = human;
                         rideCount++;
