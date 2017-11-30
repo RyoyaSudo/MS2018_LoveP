@@ -52,12 +52,15 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_STAR
     }
 
-    public Phase phase;
+    /// <summary>
+    /// ゲームシーンフェーズ変数
+    /// </summary>
+    public Phase PhaseParam { get { return phaseParam; } set { SetPhase( value ); } }
 
-    private void Awake()
-    {
-        InitCreateObjects();
-    }
+    /// <summary>
+    /// ゲームシーンフェーズ変数のバッキングストア。値を変更するときはプロパティ側を基本利用。
+    /// </summary>
+    [SerializeField] Phase phaseParam;
 
     /// <summary>
     /// デバッグ用フラグ変数
@@ -73,36 +76,54 @@ public class Game : MonoBehaviour {
 
     [SerializeField] bool isOnGUIEnable;
 
-    // Use this for initialization
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        InitCreateObjects();
+    }
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     void Start () {
         // フェイズステータス設定
         // Hierarchy上でフェイズを設定できるように依存した処理はできるだけかかない
-        SetPhase(phase);
+        PhaseParam = phaseParam;
     }
 	
-	// Update is called once per frame
+	/// <summary>
+    /// 更新処理
+    /// </summary>
 	void Update () {
-		switch( phase )
+		switch( phaseParam )
         {
             case Phase.GAME_PAHSE_READY:
                 {
                     readyCount++;
                     if( readyCount > 180 )
                     {
-                        SetPhase(Phase.GAME_PAHSE_CITY);
+                        PhaseParam = Phase.GAME_PAHSE_CITY;
                     }
                     break;
                 }
+
             case Phase.GAME_PAHSE_CITY:
                 {
                     //デバッグ用
-                    if (debugFlags && Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
+                    if( debugFlags && Input.GetKeyUp( KeyCode.P ) )
+                    {
+                        PhaseParam = Phase.GAME_PAHSE_STAR;
+                    }
+
                     if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
                     }
                     break;
                 }
+
             case Phase.GAME_PAHSE_STAR:
                 {
                     if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
@@ -114,36 +135,37 @@ public class Game : MonoBehaviour {
         }
 
         //デバッグ用
-        if (debugFlags && Input.GetKeyUp(KeyCode.O))
+        if( debugFlags && Input.GetKeyUp( KeyCode.O ) )
         {
             transitionObj.GetComponent<Transition>().StartTransition("Result");
         }
-
+        
         // HACK: OnGUIデバッグ時On・Off処理
         //       もっといい方法がありそうだけど現状これで
         IsOnGUIEnable = isOnGUIEnable;
     }
 
-    public void SetPhase( Game.Phase SetPhase )
+    /// <summary>
+    /// フェーズ設定諸処理
+    /// </summary>
+    /// <param name="phase">設定値</param>
+    private void SetPhase( Phase phase )
     {
-        phase = SetPhase;
-        switch( phase )
+        phaseParam = phase;
+
+        switch( phaseParam )
         {
             case Phase.GAME_PAHSE_READY:
-                {
-                    PhaseReadyStart();
-                    break;
-                }
+                PhaseReadyStart();
+                break;
+
             case Phase.GAME_PAHSE_CITY:
-                {
-                    PhaseCityStart();
-                    break;
-                }
+                PhaseCityStart();
+                break;
+
             case Phase.GAME_PAHSE_STAR:
-                {
-                    PhaseStarStart();
-                    break;
-                }
+                PhaseStarStart();
+                break;
         }
     }
 
@@ -152,7 +174,6 @@ public class Game : MonoBehaviour {
     void PhaseReadyStart()
     {
         //SetPhase(Phase.GAME_PAHSE_CITY);
-        PlayerObj.GetComponent<Player>().StateParam = Player.State.PLAYER_STATE_IN_CHANGE;
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_STOP);
         readyCount = 0;
     }
