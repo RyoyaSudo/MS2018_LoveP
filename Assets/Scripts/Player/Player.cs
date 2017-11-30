@@ -35,24 +35,14 @@ public class Player : MonoBehaviour
     /// ゲームシーン管理オブジェクト。
     /// シーン管理クラスで利用したい処理があるため取得。
     /// </summary>
-    private GameObject gameObj;
+    private Game gameObj;
     public string gamectrlObjPath;
 
     //エフェクト関係
     private EffectController effect;
-    private ParticleSystem chargeEffectObj;      //チャージエフェクトオブジェ
 
-    public ParticleSystem ChargeEffectObj
-    {
-        get { return chargeEffectObj; }
-    }
-
-    private ParticleSystem chargeMaxEffectObj;   //チャージマックスエフェクトオブジェ
-
-    public ParticleSystem ChargeMaxEffectObj
-    {
-        get { return chargeMaxEffectObj; }
-    }
+    public ParticleSystem ChargeEffectObj { get; private set; }
+    public ParticleSystem ChargeMaxEffectObj { get; private set; }
 
     private ParticleSystem scoreUpEffectObj;     //スコアアップエフェクト
     private ParticleSystem changeEffectObj;
@@ -60,17 +50,19 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 移動量ベクトル
     /// </summary>
-    Vector3 velocityVec;
-    Vector3 velocityVecOld;
+    public Vector3 VelocityVec { get; private set; }
 
-    public Vector3 VelocityVec {
-        get { return velocityVec; }
-    }
+    Vector3 velocityVecOld;
 
     /// <summary>
     /// 移動量(スカラー)
     /// </summary>
     public float Velocity { get; private set; }
+
+    /// <summary>
+    /// 停車しているか判別するフラグ。
+    /// </summary>
+    public bool IsStopped { get; set; }
 
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
@@ -78,30 +70,36 @@ public class Player : MonoBehaviour
     private SoundController.Sounds playerType;  //プレイヤーの車両用
 
     /// <summary>
-    /// 状態パラメータ
+    /// 状態パラメータ列挙型
     /// </summary>
     public enum State
     {
-        PLAYER_STATE_STOP = 0,
-        PLAYER_STATE_MOVE,
-        PLAYER_STATE_TAKE,
-        PLAYER_STATE_TAKE_READY,
-        PLAYER_STATE_IN_CHANGE
+        PLAYER_STATE_FREE,          // 自由移動
+        PLAYER_STATE_TAKE_READY,    // 乗車待機
+        PLAYER_STATE_TAKE,          // 運搬中
+        PLAYER_STATE_GET_OFF,       // 乗客下車動作中
+        PLAYER_STATE_IN_CHANGE      // 車両変化中
     }
 
     /// <summary>
     /// 状態管理変数
     /// </summary>
-    State state;
+    public State StateParam { get { return stateParam; } set { SetState( value ); } }
 
     /// <summary>
-    /// 状態管理変数
+    /// 状態管理変数のバッキングストア。値を変更するときはプロパティ側を基本利用。
     /// </summary>
-    public State StateParam
-    {
-        get { return state; }
-        set { state = value; }
-    }
+    private State stateParam;
+
+    /// <summary>
+    /// 前回フレームの状態
+    /// </summary>
+    public State StateParamOld { get; private set; }
+
+    /// <summary>
+    /// 状態管理関連の汎用タイマー
+    /// </summary>
+    public float StateTimer { get; private set; }
 
     public enum VehicleType
     {
@@ -144,13 +142,17 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( true );
         vehicleScore = 0;
         Velocity = 0.0f;
-        velocityVec = Vector3.zero;
+        VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
 
         cityPhaseMoveObj = null;
         starPhaseMoveObj = null;
 
         changeFade = true;
+
+        IsStopped = false;
+
+        StateTimer = 0.0f;
     }
 
     /// <summary>
@@ -159,7 +161,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rideCount = 0;
-        state = State.PLAYER_STATE_STOP;
+        StateParam = StateParamOld = State.PLAYER_STATE_FREE;
 
         //エフェクト関係
         effect = GameObject.Find( "EffectManager" ).GetComponent<EffectController>();
@@ -170,7 +172,7 @@ public class Player : MonoBehaviour
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
 
-        gameObj = GameObject.Find( gamectrlObjPath );
+        gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
 
         //サウンド用//////////////////////////////////////
@@ -184,25 +186,42 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //if( state == State.PLAYER_STATE_IN_CHANGE ) return;
-        switch (state)
+        // 状態に応じた行動
+        switch( StateParam )
         {
-            case State.PLAYER_STATE_STOP:
-                {
-                    VehicleMove();
-                    break;
-                }
-            case State.PLAYER_STATE_MOVE:
-                {
-                    VehicleMove();
-                    break;
-                }
+            case State.PLAYER_STATE_FREE:
+                VehicleMove();
+                break;
+
+            case State.PLAYER_STATE_TAKE_READY:
+                TakeRady();
+                break;
+
+            case State.PLAYER_STATE_TAKE:
+                VehicleMove();
+                break;
+
+            case State.PLAYER_STATE_GET_OFF:
+                GetOff();
+                break;
+
             case State.PLAYER_STATE_IN_CHANGE:
-                {
-                    VehicleChange();
-                    break;
-                }
+                VehicleChange();
+                break;
+
+            default:
+                Debug.LogError( "プレイヤー状態で不定のタイプが設定されました。適切な挙動を割り当てて下さい。" );
+                break;
         }
+    }
+
+    /// <summary>
+    /// 遅延更新処理
+    /// </summary>
+    private void LateUpdate()
+    {
+        // 今回の状態の保存
+        StateParamOld = StateParam;
     }
 
     /// <summary>
@@ -220,7 +239,7 @@ public class Player : MonoBehaviour
             starPhaseMoveObj.IsEnable = false;
         }
 
-        state = State.PLAYER_STATE_STOP;
+        StateParam = State.PLAYER_STATE_FREE;
         transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
 
         ScriptDebug.Log( "街フェイズ開始" );
@@ -240,10 +259,17 @@ public class Player : MonoBehaviour
             cityPhaseMoveObj.IsEnable = false;
         }
 
+        // TODO: 星フェイズ開始時のプレイヤー初期位置設定
+        //       Earthオブジェクトにプレイヤー初期位置のスポーンポイントを仕込んでおいて、そこから設定する形に変更したほうがよさそう
+        transform.position = new Vector3( 250.0f , 290.0f , -350.0f );
+        transform.position = new Vector3( 0.0f , 520.0f , 0.0f );
+
         starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
         starPhaseMoveObj.IsEnable = true;
+        //starPhaseMoveObj.StarPhaseStart();
 
-        transform.position = new Vector3( 250.0f , 290.0f , -300.0f );
+        starPhaseMoveObj.Initialize();
+        StateParam = State.PLAYER_STATE_FREE;
 
         ScriptDebug.Log( "星フェイズ開始" );
     }
@@ -260,7 +286,6 @@ public class Player : MonoBehaviour
         vehicleModel[ ( int )vehicleType ].SetActive( false );
         vehicleType = setVehicleType;
         vehicleModel[ ( int )vehicleType ].SetActive( true );
-
 
         switch ( setVehicleType )
         {
@@ -283,31 +308,23 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 状態設定関数
-    /// </summary>
-    public void SetState( State setState )
-    {
-        state = setState;
-    }
-
-    /// <summary>
     /// チャージエフェクト生成
     /// </summary>
     public void ChargeEffectCreate()
     {
         //生成
-        chargeEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_EFFECT , gameObject.transform );
+        ChargeEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_EFFECT , gameObject.transform );
 
         //再生OFF
-        var emissione = chargeEffectObj.emission;
+        var emissione = ChargeEffectObj.emission;
         emissione.enabled = false;
 
         //位置設定
         Vector3 pos;
-        pos = chargeEffectObj.transform.localPosition;
+        pos = ChargeEffectObj.transform.localPosition;
         pos.y = -1.0f;
         pos.z = -1.0f;
-        chargeEffectObj.transform.localPosition = pos;
+        ChargeEffectObj.transform.localPosition = pos;
     }
 
     /// <summary>
@@ -316,18 +333,18 @@ public class Player : MonoBehaviour
     public void ChargeMaxEffectCreate()
     {
         //生成
-        chargeMaxEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_MAX_EFFECT , gameObject.transform );
+        ChargeMaxEffectObj = effect.EffectCreate( EffectController.Effects.CHARGE_MAX_EFFECT , gameObject.transform );
 
         //再生OFF
-        var emissione = chargeMaxEffectObj.emission;
+        var emissione = ChargeMaxEffectObj.emission;
         emissione.enabled = false;
 
         //位置設定
         Vector3 pos;
-        pos = chargeMaxEffectObj.transform.localPosition;
+        pos = ChargeMaxEffectObj.transform.localPosition;
         pos.y = 0.0f;
         pos.z = -1.0f;
-        chargeMaxEffectObj.transform.localPosition = pos;
+        ChargeMaxEffectObj.transform.localPosition = pos;
     }
 
     /// <summary>
@@ -430,24 +447,17 @@ public class Player : MonoBehaviour
             // 乗車エリアに関する処理
             case "RideArea":
                 {
-                    Debug.Log( "RideAreaON" );
-
                     Human human = other.transform.parent.GetComponent<Human>();
 
-                    if( Velocity < 1.0f )//ほぼ停止してるなら
+                    // 可否を確認し、乗車処理を実行
+                    if( RideEnableCheck() )
                     {
-                        Debug.Log( "stop" );
-
                         //乗車待機状態じゃないならbreak;
                         if( human.stateType != Human.STATETYPE.READY ) break;
-                        //state = State.PLAYER_STATE_TAKE_READY;
-                        //state = State.PLAYER_STATE_TAKE;
 
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )
                         {
-                            Debug.Log( "rideCnt" );
-
                             // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
                             //       10/24現在では他の乗客はFindして消してしまうやり方をする。
                             human.IsProtect = true;
@@ -487,18 +497,15 @@ public class Player : MonoBehaviour
                                     }
                                 default:
                                     {
-                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
+                                        Debug.LogError( "エラー:設定謎の乗客タイプが設定されています" );
                                         break;
                                     }
                             }
 
                             HumanCreate( human );
-                            //citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
 
                             //グループの大きさ分確保する
                             passengerObj = new Human[ rideGroupNum ];
-                            //spawnManagerにペアを生成してもらう
-                            //citySpawnManagerObj.gameObject.GetComponent<SpawnManager>().
 
                             //何人乗せるかUIを表示させる
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
@@ -563,79 +570,22 @@ public class Player : MonoBehaviour
                                     }
                             }
 
-                            // HACK: 乗り物変更処理
-                            //       後に関数化する。
-                            // 〇変身条件
-                            //    初期        : バイク
-                            //    ＋1ポイント : 車
-                            //    ＋4ポイント : 大型車( バス )
-                            //    ＋8ポイント : 飛行機
-                            if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
-                            {
-                                VehicleChangeStart();
-                            }
-                            else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS)
-                            {
-                                VehicleChangeStart();
-                            }
-                            else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE)
-                            {
-                                SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
-                                gameObj.GetComponent<Game>().SetPhase( Game.Phase.GAME_PAHSE_STAR );
-                                starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
-                                var emission = chargeMaxEffectObj.emission;
-                                emission.enabled = false;
-                                emission = chargeEffectObj.emission;
-                                emission.enabled = false;
-
-                                cityPhaseMoveObj.IsEnable = false;
-                                starPhaseMoveObj.IsEnable = true;
-                            }
-
-                            //if (vehicleScore >= 4)
-                            //{
-                            //    SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
-                            //    gameObj.GetComponent<Game>().SetPhase(Game.Phase.GAME_PAHSE_STAR);
-                            //    Debug.Log("Star");
-                            //}
+                            // HACK: 下車状態へ移行
+                            //       下車状態時実行処理内で乗り物変化判定を行わなければならない。
+                            StateParam = State.PLAYER_STATE_GET_OFF;
 
                             // HACK: 次の乗客を生成。
                             //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
-
-                            // TODO: 2017/11/07田口コメントアウトしました
-                            /*
-                            List< int > posList = new List< int >();
-                            posList.Add( human.spawnPlace );
-
-                            // プレイヤーの乗り物の種類に応じて
-                            // 出現させるグループを制御
-
-                            for ( int i = 0 ; i < 3 ; i++ )
-                            {
-                                int pos;
-                                // 同じスポーンポイントで生成しないための制御処理
-                                while( true )
-                                {
-                                    pos = Random.Range( 0 , citySpawnManagerObj.SpawnNum - 1 );
-
-                                    if( posList.IndexOf( pos ) == -1 )
-                                    {
-                                        posList.Add( pos );
-                                        break;
-                                    }
-                                }
-
-
-                                // 生成処理実行
-                                citySpawnManagerObj.HumanCreate( pos , ( Human.GROUPTYPE )i );
-                            }
-                            */
-
                             //乗物によって生成する人を設定
                             HumanCreateGroup( human );
 
                             //何人乗せるかUIの表示を終了
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+                        }
+                        else
+                        {
+                            // 乗客はまだ1人以上残っているため、乗車待機状態に
+                            StateParam = State.PLAYER_STATE_TAKE_READY;
                         }
                     }
                     break;
@@ -652,31 +602,24 @@ public class Player : MonoBehaviour
         {
             case VehicleType.VEHICLE_TYPE_BIKE:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_CAR:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_BUS:
                 {
-                    //CityMove();
-                    //CityMoveCharcterController();
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
-                    //StarMove();
                     playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
@@ -685,15 +628,20 @@ public class Player : MonoBehaviour
 
     void VehicleChangeStart()
     {
-        //チェンジエフェクト
+        // チェンジエフェクト
         changeEffectObj.Play();
-        cityPhaseMoveObj.IsEnable = false;
-        state = State.PLAYER_STATE_IN_CHANGE;
+        MoveEnable( false );
+        StateParam = State.PLAYER_STATE_IN_CHANGE;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
+    /// <summary>
+    /// 車両変化処理
+    /// </summary>
     void VehicleChange()
     {
+        // HACK: 車両変化時の演出に関する部分
+        //       煙エフェクトを出しつつスケール値を段々小さくしたあとに段々大きくなって現れる感じにしたい。
         if (changeFade)
         {
             Vector3 scale;
@@ -719,10 +667,189 @@ public class Player : MonoBehaviour
             {
                 scale = new Vector3(1.0f, 1.0f, 1.0f);
                 vehicleModel[(int)vehicleType].transform.localScale = scale;
-                state = State.PLAYER_STATE_STOP;
-                cityPhaseMoveObj.IsEnable = true;
+                StateParam = State.PLAYER_STATE_FREE;
+                MoveEnable( true );
                 changeFade = true;
             }
+        }
+    }
+
+    //スコアが貯まる
+    //プレイヤー操作の停止
+    //トランジションで演出用の場面に移る
+    //飛行場から飛行機が飛び立つ演出
+    //トランジションイン
+    //星フェーズ切り替え
+    //トランジションアウト
+    //
+    void ChangeStarPhase()
+    {
+        ////state = State.PLAYER_STATE_IN_CHANGE;
+        //GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        gameObj.PhaseParam = Game.Phase.GAME_PAHSE_STAR;
+        starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+        var emission = ChargeMaxEffectObj.emission;
+        emission.enabled = false;
+        emission = ChargeEffectObj.emission;
+        emission.enabled = false;
+
+        IsStopped = false;
+
+        cityPhaseMoveObj.IsEnable = false;
+        starPhaseMoveObj.IsEnable = true;
+    }
+
+    /// <summary>
+    /// 状態設定処理。自己遷移できない状態の時のみ利用。
+    /// </summary>
+    /// <param name="state">設定する状態。</param>
+    private void SetState( State state )
+    {
+        stateParam = state;
+
+        // 各状態ごとに個別にしたい処理
+        switch( state )
+        {
+            case State.PLAYER_STATE_FREE:
+                break;
+
+            case State.PLAYER_STATE_TAKE_READY:
+                // HACK: 乗車待機時間を与える
+                //       タイムライン側からデータ抽出をするべきか否かで悩む。のちに判断。
+                //       2017/11/30現在はマジックナンバーで。
+                StateTimer = 5.0f;
+                MoveEnable( false );
+                break;
+
+            case State.PLAYER_STATE_TAKE:
+                break;
+
+            case State.PLAYER_STATE_GET_OFF:
+                // HACK: 下車時間を与える
+                //       タイムライン側からデータ抽出をするべきか否かで悩む。のちに判断。
+                //       2017/11/30現在はマジックナンバーで。
+                StateTimer = 5.0f;
+                MoveEnable( false );
+                break;
+
+            case State.PLAYER_STATE_IN_CHANGE:
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 乗車待機時の処理
+    /// </summary>
+    private void TakeRady()
+    {
+        StateTimer -= Time.deltaTime;
+
+        if( StateTimer < 0.0f )
+        {
+            StateTimer = 0.0f;
+            StateParam = State.PLAYER_STATE_TAKE;
+
+            MoveEnable( true );
+        }
+    }
+
+    /// <summary>
+    /// 下車動作中に行う動作処理
+    /// </summary>
+    private void GetOff()
+    {
+        StateTimer -= Time.deltaTime;
+
+        if( StateTimer < 0.0f )
+        {
+            StateTimer = 0.0f;
+            StateParam = State.PLAYER_STATE_FREE;
+
+            MoveEnable( true );
+
+            // HACK: 乗り物変更処理
+            //       後に関数化する。
+            // 〇変身条件
+            //    初期        : バイク
+            //    ＋1ポイント : 車
+            //    ＋4ポイント : 大型車( バス )
+            //    ＋8ポイント : 飛行機
+            if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
+            {
+                VehicleChangeStart();
+            }
+            else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS )
+            {
+                VehicleChangeStart();
+            }
+            else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE )
+            {
+                //星フェーズへの移行開始
+                ChangeStarPhase();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 乗客乗車チェック処理
+    /// </summary>
+    /// <returns>判定結果</returns>
+    private bool RideEnableCheck()
+    {
+        // 停車判定
+        if( IsStopped == false ) return false;
+
+        // 自己状態に応じて乗せるか判断
+        bool flags = false;
+
+        switch( StateParam )
+        {
+            case State.PLAYER_STATE_FREE:       flags = true;  break;
+            case State.PLAYER_STATE_TAKE_READY: flags = false; break;
+            case State.PLAYER_STATE_TAKE:       flags = true;  break;
+            case State.PLAYER_STATE_GET_OFF:    flags = false; break;
+            case State.PLAYER_STATE_IN_CHANGE:  flags = false; break;
+
+            default: break;
+        }
+
+        return flags;
+    }
+
+    /// <summary>
+    /// 移動処理有効化処理
+    /// </summary>
+    /// <param name="flags">フラグ</param>
+    private void MoveEnable( bool flags )
+    {
+        // 現在状態からどれに設定にするか判断
+        switch( gameObj.PhaseParam )
+        {
+            case Game.Phase.GAME_PAHSE_READY:
+                break;
+
+            case Game.Phase.GAME_PAHSE_CITY:
+                if( cityPhaseMoveObj == null )
+                {
+                    cityPhaseMoveObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CityPhaseMove>();
+                }
+
+                cityPhaseMoveObj.IsEnable = flags;
+                break;
+
+            case Game.Phase.GAME_PAHSE_STAR:
+                if( starPhaseMoveObj == null )
+                {
+                    starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
+                }
+
+                starPhaseMoveObj.IsEnable = flags;
+                break;
         }
     }
 
@@ -742,8 +869,8 @@ public class Player : MonoBehaviour
             guiStyle.fontSize = 48;
             guiStyle.normal = styleState;
 
-            string str = "";
-            //str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + velocity;
+            string str = "現在状態:" + StateParam;
+            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }

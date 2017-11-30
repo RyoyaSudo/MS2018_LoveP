@@ -68,7 +68,7 @@ public class StarPhaseMove : MonoBehaviour {
         int layerMask = LayerMask.GetMask( new string[] { "earth" } );
         RaycastHit hitInfo;
 
-        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 10.0f , layerMask ) )
+        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 100.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;
@@ -138,6 +138,48 @@ public class StarPhaseMove : MonoBehaviour {
         }
     }
 
+    public void StarPhaseStart()
+    {
+        // シーン内から必要なオブジェクトを取得
+        earthObj = GameObject.Find(earthObjPath);
+    }
+
+    /// <summary>
+    /// フェイズ突入時の初期化処理。星フェイズに入る場合必ず呼び出すこと！
+    /// </summary>
+    public void Initialize()
+    {
+        // シーン内から必要なオブジェクトを取得
+        earthObj = GameObject.Find( earthObjPath );
+
+        // HACK: 初期姿勢を決める
+        // 星オブジェクトの中心に向かうベクトルを生成し、プレイヤーから直近の面の法線方向を取得
+        int layerMask = LayerMask.GetMask( new string[] { "earth" } );
+        RaycastHit hitInfo;
+        Vector3 castPos = transform.position;
+        Vector3 castDir = Vector3.Normalize( earthObj.transform.position - transform.position );
+
+        if( Physics.Raycast( castPos , castDir , out hitInfo , 300.0f , layerMask ) )
+        {
+            // 接した場合
+            upV = hitInfo.normal;
+        }
+        else
+        {
+            // 接しない場合。基本は無いはず。あればバグなため修正
+            upV = Vector3.up;
+            Debug.LogError( "星移動の初期化ミス。適切な姿勢が設定されていない可能性有り。" );
+        }
+
+        // 進行方向を取得
+        Vector3 afterForwardV = Vector3.ProjectOnPlane( transform.forward , upV );
+
+        Quaternion forwardQ = Quaternion.LookRotation( afterForwardV , upV );
+
+        // 姿勢決定
+        this.transform.rotation = forwardQ;
+    }
+
     /// <summary>
     /// OnGUI処理
     /// 主にデバッグ情報を出す
@@ -155,7 +197,7 @@ public class StarPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            str = "上方向:" + upV + "\n位置:" + transform.position + "\n姿勢:" + transform.rotation.eulerAngles;
+            //str = "上方向:" + upV + "\n位置:" + transform.position + "\n姿勢:" + transform.rotation.eulerAngles;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }

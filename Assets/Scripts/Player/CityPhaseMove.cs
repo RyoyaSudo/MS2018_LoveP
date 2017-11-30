@@ -44,8 +44,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 速度限界値
     /// </summary>
-    [SerializeField]
-    float velocityMax;
+    [SerializeField] float velocityMax;
 
     /// <summary>
     /// 移動量ベクトル
@@ -60,33 +59,28 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 初速
     /// </summary>
-    [SerializeField]
-    float initialVelocity;
+    [SerializeField] float initialVelocity;
 
     /// <summary>
     /// 加速度
     /// </summary>
-    [SerializeField]
-    float acceleration;
+    [SerializeField] float acceleration;
 
     /// <summary>
     /// 停車までの予定時間(単位:秒)
     /// </summary>
-    [SerializeField]
-    float stoppingTime;
+    [SerializeField] float stoppingTime;
 
     /// <summary>
     /// 停車にかける力の倍率
     /// </summary>
-    [SerializeField]
-    float stoppingRate;
+    [SerializeField] float stoppingRate;
 
     /// <summary>
     /// 停車時のデッドゾーンの値。
     /// この値以下になった場合、完全停車 = 移動量を0 にする
     /// </summary>
-    [SerializeField]
-    float stoppingDeadZone;
+    [SerializeField] float stoppingDeadZone;
 
     /// <summary>
     /// 停車力。初期化時に算出する。
@@ -101,8 +95,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// チャージ限界量
     /// </summary>
-    [SerializeField]
-    private float chargeMax;
+    [SerializeField] private float chargeMax;
 
     /// <summary>
     /// チャージマックス状態の判定フラグ
@@ -112,8 +105,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// チャージブースト継続時間
     /// </summary>
-    [SerializeField]
-    float boostDuration;
+    [SerializeField] float boostDuration;
 
     /// <summary>
     /// チャージブースト時間計測変数
@@ -123,14 +115,12 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// チャージブースト時の速度倍率
     /// </summary>
-    [SerializeField]
-    float boostVelocityRate;
+    [SerializeField] float boostVelocityRate;
 
     /// <summary>
     /// 通常時の速度倍率
     /// </summary>
-    [SerializeField]
-    float defaultVelocityRate;
+    [SerializeField] float defaultVelocityRate;
 
     /// <summary>
     /// 現在の速度倍率
@@ -140,8 +130,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 重力量。Playerは個別に設定する。
     /// </summary>
-    [SerializeField]
-    Vector3 gravity;
+    [SerializeField] Vector3 gravity;
 
     /// <summary>
     /// 現在の重力量の累計
@@ -204,6 +193,13 @@ public class CityPhaseMove : MonoBehaviour {
         {
             CityMoveCharcterController();
         }
+        else
+        {
+            // HACK: 移動無効化時に行うべきこと
+            //       CharcterControllerを利用している場合、移動ベクトルを0にしなくてはならないらしい(検証不十分)
+            //       それに伴い、重力値が反映されているか怪しいため、あとでキチンと調査すること。
+            controller.Move( Vector3.zero );
+        }
     }
 
     /// <summary>
@@ -225,12 +221,17 @@ public class CityPhaseMove : MonoBehaviour {
             moveH *= turnPower;
         }
 
+        // TODO: バイク旋回
+        //       Z軸回転させるため
+        //float radZ = -moveH * 45.0f;
+        float radZ = 0.0f;
+
         // 旋回処理
         if( Mathf.Abs( moveH ) > 0.2f )
         {
             moveRadY += moveH * 180.0f * Time.deltaTime;
 
-            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
+            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z + radZ );
         }
 
         // HACK: 地上の速度演算
@@ -249,7 +250,7 @@ public class CityPhaseMove : MonoBehaviour {
             if( Velocity < stoppingDeadZone )
             {
                 Velocity = 0.0f;
-                playerObj.StateParam = Player.State.PLAYER_STATE_STOP;
+                playerObj.IsStopped = true;
             }
 
             //チャージエフェクト再生
@@ -318,6 +319,7 @@ public class CityPhaseMove : MonoBehaviour {
             }
 
             pushCharge = 0;
+            playerObj.IsStopped = false;
         }
 
         // 今回の速度加算
@@ -381,7 +383,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
