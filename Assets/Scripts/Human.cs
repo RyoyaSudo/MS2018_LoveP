@@ -10,6 +10,15 @@ using UnityEngine;
 /// </remarks>
 public class Human : MonoBehaviour
 {
+    private GameObject playerObj;                    //プレイヤーオブジェ
+    [SerializeField] private string playerPath;      //プレイヤーパス
+
+    public float rideTime;                           //乗車するまでの時間
+    private float rideCnt;                           //乗車カウント
+    private Vector3 rideStartPos;                    //乗車の最初の位置
+    private Vector3 rideEndPos;                      //乗車の最後の位置
+    private float rideMoveRate;                      //乗車するときの移動割合
+
     //乗客がどのグループなのかUI
     public GameObject passengerGroupUIEnptyPrefab;   //空プレファブ
     public GameObject passengerGroupUIPlanePrefab;   //プレーンプレファブ
@@ -109,30 +118,10 @@ public class Human : MonoBehaviour
     void Start()
     {
         //状態を「生成」に
-        stateType = STATETYPE.CREATE;
+        SetStateType(STATETYPE.CREATE);
 
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
-
-
-        ////乗車させる人数を設定
-        //switch (groupType)
-        //{
-        //    //ペア
-        //    case GROUPTYPE.PEAR:
-        //        maxPassengerNum = pearPassengerNum;
-        //        break;
-
-        //    //小グループ
-        //    case GROUPTYPE.SMAlLL:
-        //        maxPassengerNum = smallPassengerNum;
-        //        break;
-
-        //    //大グループ
-        //    case GROUPTYPE.BIG:
-        //        maxPassengerNum = bigPassengerNum;
-        //        break;
-        //}
     }
 
     /// <summary>
@@ -146,12 +135,11 @@ public class Human : MonoBehaviour
             //生成
             case STATETYPE.CREATE:
                 //状態を「待機」に
-                stateType = STATETYPE.READY;
+                SetStateType(STATETYPE.READY);
                 break;
 
             //待機
             case STATETYPE.READY:
-
                 break;
 
             //回避
@@ -161,6 +149,23 @@ public class Human : MonoBehaviour
 
             //乗車
             case STATETYPE.RIDE:
+                //乗車アニメーションをさせる
+                modelObj.GetComponent<test>().RideAnimON();
+
+                //指定時間がたつと
+                if (rideCnt >= rideTime)
+                {
+                    //「運搬」状態に
+                    //SetStateType(STATETYPE.TRANSPORT);
+                }
+                else
+                {
+                    //プレイヤー位置まで移動
+                    rideCnt += Time.deltaTime;
+                    this.transform.position = Vector3.Lerp(rideStartPos, rideEndPos, rideMoveRate * rideCnt);
+                }
+                break;
+
             //下車
             case STATETYPE.GETOFF:
                 stateType = STATETYPE.RELEASE;      // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
@@ -179,8 +184,6 @@ public class Human : MonoBehaviour
                     PassengerGroupUIDestroy();
                 }
 
-                //乗車アニメーションをさせる
-                modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
                 //運搬アニメーションをさせる
                 modelObj.GetComponent<test>().TransportAnimON();   
 
@@ -203,20 +206,6 @@ public class Human : MonoBehaviour
                 break;
         }
     }
-
-    /*****************************************************************************
-    * 関数名:SetPassengerNum
-    * 引数：passengerNum:乗客人数
-    * 戻り値:0
-    * 説明:乗客人数をセット
-     *****************************************************************************/
-    //public void SetPassengerNum ( int passengerNum )
-    //{
-    //    currentPassengerNum = passengerNum;
-
-    //    //状態を「運搬」に
-    //    stateType = STATETYPE.TRANSPORT;
-    //}
 
     /*****************************************************************************
     * 関数名:GetStateType
@@ -253,15 +242,33 @@ public class Human : MonoBehaviour
         return 0;
     }
 
-    /*****************************************************************************
-    * 関数名:SetStateType
-    * 引数：type:状態
-    * 戻り値:0
-    * 説明:状態をセット
-     *****************************************************************************/
+    /// <summary>
+    /// 状態をセット
+    /// </summary>
+    /// <param name="type">
+    /// 状態
+    /// </param>
     public void SetStateType( STATETYPE type )
     {
         stateType = type;
+
+        //状態
+        switch (stateType)
+        {
+            //乗車
+            case STATETYPE.RIDE:
+                rideStartPos = this.transform.position;       //スタート位置
+                rideEndPos = playerObj.transform.position;    //終了位置
+                rideMoveRate = 1.0f / rideTime;               //移動割合
+                transform.LookAt(playerObj.transform);        //プレイヤーの位置を向かせる
+                break;
+
+            //運搬
+            case STATETYPE.TRANSPORT:
+                //親をプレイヤーにする
+                gameObject.transform.parent = playerObj.transform;
+                break;
+        }
     }
 
     /*****************************************************************************

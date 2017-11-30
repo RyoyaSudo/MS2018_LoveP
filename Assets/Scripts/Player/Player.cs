@@ -511,9 +511,13 @@ public class Player : MonoBehaviour
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
                         }
 
+                        //　TODO : 田口　2017/11/30
+                        //乗客を子にするのはHuman.csでやります
                         //乗客を子にする
-                        human.gameObject.transform.position = transform.position;
-                        human.transform.parent = transform;
+                        //human.gameObject.transform.position = transform.position;
+                        //human.transform.parent = transform;
+
+                        //乗客の状態を「運搬」に
                         human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
                         Debug.Log( "Ride" );
                         passengerObj[ rideCount ] = human;
@@ -586,6 +590,10 @@ public class Player : MonoBehaviour
                         {
                             // 乗客はまだ1人以上残っているため、乗車待機状態に
                             StateParam = State.PLAYER_STATE_TAKE_READY;
+
+                            // TODO : 田口　2017/11/30
+                            //乗客の状態を「乗車」に
+                            human.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.RIDE);
                         }
                     }
                     break;
