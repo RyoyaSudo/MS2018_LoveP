@@ -517,6 +517,8 @@ public class Player : MonoBehaviour
                         //human.gameObject.transform.position = transform.position;
                         //human.transform.parent = transform;
 
+                        // TODO : 田口　2017/11/30
+                        //Human.csで運搬状態にしました
                         //乗客の状態を「運搬」に
                         //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
                         Debug.Log( "Ride" );

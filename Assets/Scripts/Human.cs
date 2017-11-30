@@ -265,15 +265,13 @@ public class Human : MonoBehaviour
                 rideStartPos = this.transform.position;       //スタート位置
                 rideEndPos = playerObj.transform.position;    //終了位置
                 rideMoveRate = 1.0f / rideTime;               //移動割合
-                this.transform.LookAt(playerObj.transform);        //プレイヤーの位置を向かせる
-                Debug.Log("あ");
+                this.transform.LookAt(playerObj.transform);   //プレイヤーの位置を向かせる
                 break;
 
             //運搬
             case STATETYPE.TRANSPORT:
                 //親をプレイヤーにする
                 gameObject.transform.parent = playerObj.transform;
-                Debug.Log("い");
 
                 break;
         }
