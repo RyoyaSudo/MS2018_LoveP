@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VirtualCamera:
     exposedName: 
-    defaultValue: {fileID: 114175287364726844, guid: 97c97239fa73f4748b16a454259ab626,
+    defaultValue: {fileID: 114569782192749936, guid: 107ebb8691d4f244084d83ed76727bdb,
       type: 2}
 --- !u!114 &114328352293090652
 MonoBehaviour:
