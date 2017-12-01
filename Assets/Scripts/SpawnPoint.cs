@@ -9,28 +9,35 @@ public class SpawnPoint : MonoBehaviour {
     /// </summary>
     public enum PASSENGER_ORDER
     {
-        FIRST=0,     //最初
-        DEFOULT      //それ以外
+        FIRST = 0,       //最初
+        DEFOULT          //それ以外
     }
 
-    //人プレファブアタッチ
-    public GameObject humanPrefab;
+    /// <summary>
+    /// 乗客プレハブ
+    /// </summary>
+    [SerializeField] GameObject humanPrefab;
 
-    //人プレファブ
-   // GameObject humanPrefab;
+    /// <summary>
+    /// 生成した乗客を子にさせるオブジェクト
+    /// </summary>
+    private Transform passengersObj;
 
+    [SerializeField] string passengersObjPath;
 
-    //初期化
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        passengersObj = GameObject.Find( passengersObjPath ).GetComponent<Transform>();
+    }
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     void Start()
     {
-
-    }
-
-    // 更新
-    void Update()
-    {
-        //回転
-        //transform.Rotate(new Vector3(0, 20, 0) * Time.deltaTime);
     }
 
     /// <summary>
@@ -45,23 +52,17 @@ public class SpawnPoint : MonoBehaviour {
     /// <param name="passengerOrder">
     /// 乗客の乗車順番
     /// </param>
-    public void HumanSpawn(int spawnPointNum ,Human.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder)
+    public void HumanSpawn( int spawnPointNum , Human.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder )
     {
         //生成
-        GameObject human = Instantiate(humanPrefab,                                 //ゲームオブジェクト
-                                               this.transform.position,             //位置
-                                               Quaternion.identity) as GameObject;  //回転
+        Human human = Instantiate( humanPrefab , transform.position , Quaternion.identity ).GetComponent<Human>();
 
-        //モデル生成
-        human.GetComponent<Human>().ModelCreate(groupType);
+        human.ModelCreate( groupType );         //モデル生成
+        human.groupType = groupType;            //グループタイプを設定
+        human.spawnPlace = spawnPointNum;       //スポーンの場所を設定
+        human.pasengerOrder = passengerOrder;   //乗客の乗車順番
 
-        //グループタイプを設定
-        human.GetComponent<Human>().groupType = groupType;
-
-        //スポーンの場所を設定
-        human.GetComponent<Human>().spawnPlace = spawnPointNum;
-
-        //乗客の乗車順番
-        human.GetComponent<Human>().pasengerOrder = passengerOrder;
+        // 子にする
+        human.gameObject.transform.parent = passengersObj;
     }
 }
