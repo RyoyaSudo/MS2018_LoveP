@@ -27,7 +27,6 @@ public class Human : MonoBehaviour
     public Material passengerGroupUISmallMat;        //小グループマテリアル
     public Material passengerGroupUIBigMat;          //大グループマテリアル
     public Material passengerGroupUIHeartMat;        //ハートマテリアル
-    private bool bPassengerUI = false;               //表示してるかどうか
     private GameObject passengerGroupUIEnptyObj;     //空オブジェ
 
     /// <summary>
@@ -35,10 +34,10 @@ public class Human : MonoBehaviour
     /// </summary>
     public enum GROUPTYPE
     {
-        PEAR = 0,       // ペア
+        PEAR = 0,      // ペア
         SMAlLL,        // 小グループ
-        BIG,            // 大グループ
-        TYPE_MAX        // グループ総数
+        BIG,           // 大グループ
+        TYPE_MAX       // グループ総数
     };
 
     /// <summary>
@@ -71,7 +70,8 @@ public class Human : MonoBehaviour
         GETOFF,    // 下車
         TRANSPORT, // 運搬
         RELEASE,   // 解散
-        DESTROY     // 消去
+        AWAIT ,    // 待ち受け
+        DESTROY    // 消去
     };
 
     //宣言
@@ -87,7 +87,6 @@ public class Human : MonoBehaviour
     /// 待機時間用カウンタ。
     /// 10/24現在、この時間を元にオブジェクト消去判定を行うこともある。
     /// </summary>
-    float destroyTimeCounter;
     public float destroyTime;
 
     /// <summary>
@@ -108,7 +107,6 @@ public class Human : MonoBehaviour
     private void Awake()
     {
         modelID = -1;   // 不定のタイプとして初期値を負の値に設定
-        destroyTimeCounter = 0.0f;
         isProtect = false;
     }
 
@@ -125,7 +123,6 @@ public class Human : MonoBehaviour
 
         //プレイヤーオブジェクト取得
         playerObj = GameObject.Find(playerPath);
-
     }
 
     /// <summary>
@@ -138,75 +135,47 @@ public class Human : MonoBehaviour
         {
             //生成
             case STATETYPE.CREATE:
-                //状態を「待機」に
-                SetStateType(STATETYPE.READY);
+                Create();
                 break;
 
             //待機
             case STATETYPE.READY:
+                Ready();
                 break;
 
             //回避
             case STATETYPE.EVADE:
-                //
+                Evade();
                 break;
 
             //乗車
             case STATETYPE.RIDE:
-                //乗車アニメーションをさせる
-                modelObj.GetComponent<test>().RideAnimON();
-
-                //指定時間がたつと
-                if (rideCnt >= rideTime)
-                {
-                    //「運搬」状態に
-                    SetStateType(STATETYPE.TRANSPORT);
-                }
-                else
-                {
-                    //プレイヤー位置まで移動
-                    rideCnt += Time.deltaTime;
-                    this.transform.position = Vector3.Lerp(rideStartPos, rideEndPos, rideMoveRate * rideCnt);
-                }
+                Ride();
                 break;
 
             //下車
             case STATETYPE.GETOFF:
-                stateType = STATETYPE.RELEASE;      // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
-
-                //下車アニメーションをさせる
-                modelObj.GetComponent<test>().GetoffAnimON();
-                //解散アニメーションをさせる
-                modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+                GetOff();
                 break;
 
             //運搬
-            case STATETYPE.TRANSPORT:
-                //乗客がどのグループなのかUI削除
-                if (bPassengerUI)
-                {
-                    PassengerGroupUIDestroy();
-                }
-
-                //運搬アニメーションをさせる
-                modelObj.GetComponent<test>().TransportAnimON();   
-
+            case STATETYPE.TRANSPORT: 
+                Transport();
                 break;
 
             //解散
             case STATETYPE.RELEASE:
-                // 消去判定を行う
-                destroyTimeCounter += Time.deltaTime;
+                Release();
+                break;
 
-                if( DestoroyCheck() )
-                {
-                    stateType = STATETYPE.DESTROY;
-                }
+            //待ち受け
+            case STATETYPE.AWAIT:
+                Await();
                 break;
 
             //消去
             case STATETYPE.DESTROY:
-                Destroy( this.gameObject );
+                Destroy();
                 break;
         }
     }
@@ -261,28 +230,137 @@ public class Human : MonoBehaviour
         {
             //乗車
             case STATETYPE.RIDE:
-
                 rideStartPos = this.transform.position;       //スタート位置
                 rideEndPos = playerObj.transform.position;    //終了位置
                 rideMoveRate = 1.0f / rideTime;               //移動割合
                 this.transform.LookAt(playerObj.transform);   //プレイヤーの位置を向かせる
+
+                Destroy(passengerGroupUIEnptyObj);            //乗客がどのグループなのかUI削除
                 break;
 
             //運搬
             case STATETYPE.TRANSPORT:
                 //親をプレイヤーにする
                 gameObject.transform.parent = playerObj.transform;
+                break;
 
+            //待ち受け
+            case STATETYPE.AWAIT:
+                Destroy(passengerGroupUIEnptyObj);            //乗客がどのグループなのかUI削除
                 break;
         }
     }
 
-    /*****************************************************************************
-    * 関数名:ModelCreate
-    * 引数：type:状態
-    * 戻り値:0
-    * 説明:生成
-     *****************************************************************************/
+    /// <summary>
+    /// 生成
+    /// </summary>
+    private void Create ()
+    {
+        //状態を「待機」に
+        SetStateType(STATETYPE.READY);
+    }
+
+    /// <summary>
+    /// 待機
+    /// </summary>
+    private void Ready()
+    {
+    }
+
+    /// <summary>
+    /// 回避
+    /// </summary>
+    private void Evade()
+    {
+    }
+
+    /// <summary>
+    /// 乗車
+    /// </summary>
+    private void Ride()
+    {
+        //乗車アニメーションをさせる
+        modelObj.GetComponent<test>().RideAnimON();
+
+        //指定時間がたつと
+        if (rideCnt >= rideTime)
+        {
+            //「運搬」状態に
+            SetStateType(STATETYPE.TRANSPORT);
+        }
+        else
+        {
+            //プレイヤー位置まで移動
+            rideCnt += Time.deltaTime;
+            this.transform.position = Vector3.Lerp(rideStartPos, rideEndPos, rideMoveRate * rideCnt);
+        }
+    }
+
+    /// <summary>
+    /// 下車
+    /// </summary>
+    private void GetOff()
+    {
+        //「解散」状態に
+        SetStateType(STATETYPE.RELEASE);  // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
+
+        //下車アニメーションをさせる
+        modelObj.GetComponent<test>().GetoffAnimON();
+        //解散アニメーションをさせる
+        modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+    }
+
+    /// <summary>
+    /// 運搬
+    /// </summary>
+    private void Transport()
+    {
+        //運搬アニメーションをさせる
+        modelObj.GetComponent<test>().TransportAnimON();
+    }
+
+    /// <summary>
+    /// 解散
+    /// </summary>
+    private void Release ()
+    {
+        destroyTime -= Time.deltaTime;
+
+        if (destroyTime < 0.0f)
+        {
+            destroyTime = 0.0f;
+            SetStateType(STATETYPE.DESTROY);
+        }
+    }
+
+    /// <summary>
+    /// 待ち受け
+    /// </summary>
+    private void Await()
+    {
+        destroyTime -= Time.deltaTime;
+
+        if (destroyTime < 0.0f)
+        {
+            destroyTime = 0.0f;
+            SetStateType(STATETYPE.DESTROY);
+        }
+    }
+
+    /// <summary>
+    /// 消去
+    /// </summary>
+    private void Destroy()
+    {
+        Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// モデル生成
+    /// </summary>
+    /// <param name="groupType">
+    /// グループの種類
+    /// </param>
     public void ModelCreate( Human.GROUPTYPE groupType )
     {
 
@@ -331,26 +409,6 @@ public class Human : MonoBehaviour
         Collider collider = obj.GetComponent<Collider>();
         return collider;
     }
-
-    /// <summary>
-    /// 消去判定処理。
-    /// </summary>
-    /// <returns>
-    /// 判定結果
-    /// </returns>
-    public bool DestoroyCheck()
-    {
-        bool flags = false;
-
-        // TODO: 10/24現在、乗客消去は乗せ終わってからの時間に依存
-        if( destroyTimeCounter > destroyTime )
-        {
-            flags = true;
-        }
-
-        return flags;
-    }
-
 
     /// <summary>
     /// 乗客がどのグループなのかUI生成
@@ -410,18 +468,6 @@ public class Human : MonoBehaviour
                 passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIHeartMat;
                 break;
         }
-
-        bPassengerUI = true;
     }
-
-    /// <summary>
-    /// 乗客がどのグループなのかUI削除
-    /// </summary>
-   void PassengerGroupUIDestroy()
-    {
-        Destroy(passengerGroupUIEnptyObj);
-        bPassengerUI = false;
-    }
-
 }
 

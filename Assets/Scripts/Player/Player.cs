@@ -534,12 +534,23 @@ public class Player : MonoBehaviour
                         //最後の人なら降ろす
                         if( rideCount >= rideGroupNum )
                         {
-                            for( int i = 0 ; i < rideCount ; i++ )
+                            for ( int i = 0 ; i < rideCount ; i++ )
                             {
                                 passengerObj[ i ].transform.parent = null;
-                                passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
                                 passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
+
+                                // TODO : 田口　2017/11/30
+                                //最後の人だけ状態を「待ち受け」に
+                                if (i == rideCount-1)
+                                {
+                                    passengerObj[i].GetComponent<Human>().SetStateType(Human.STATETYPE.AWAIT);
+                                }
+                                else //それ以外の状態は「下車」に
+                                {
+                                    passengerObj[i].GetComponent<Human>().SetStateType(Human.STATETYPE.GETOFF);
+                                }
                             }
+
                             // HACK: スコア加算処理の場所
                             //       現状プレイヤークラス内だが、後に変更の可能性有り。
                             scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
