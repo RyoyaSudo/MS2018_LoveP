@@ -1943,6 +1943,7 @@ MonoBehaviour:
   earthObjPath: Earth
   speedMax: 30
   turboRatio: 2
+  inputObjPath: LoveP_Input
 --- !u!114 &114377122876851530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1988,6 +1989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObjPath: Player
+  gameObjPath: Game
   turnPower: 0.9
   turnPowerPush: 0.8
   velocityMax: 30
@@ -2002,6 +2004,7 @@ MonoBehaviour:
   defaultVelocityRate: 1
   gravity: {x: 0, y: -9.81, z: 0}
   controllerPath: Player
+  inputObjPath: LoveP_Input
 --- !u!143 &143571668409644224
 CharacterController:
   m_ObjectHideFlags: 1

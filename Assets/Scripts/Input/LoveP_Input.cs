@@ -13,8 +13,19 @@ public class LoveP_Input : MonoBehaviour {
     /// </summary>
     [SerializeField] bool isDefaultInputUse;
 
-	// Use this for initialization
+	/// <summary>
+    /// 初期化処理
+    /// </summary>
 	void Start () {
+        // 現在のデバイス状態を確認する
+        if( isDefaultInputUse )
+        {
+            Debug.LogAssertion( "入力モード:Unity標準" );
+        }
+        else
+        {
+            Debug.Log( "入力モード:独自デバイス" );
+        }
 	}
 
     /// <summary>
