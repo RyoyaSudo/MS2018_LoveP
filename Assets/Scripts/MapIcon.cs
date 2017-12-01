@@ -18,7 +18,9 @@ public class MapIcon : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         // 親オブジェクトを取得
-        human = transform.root.gameObject;
+        // 2017/12/01 数藤
+        //   オブジェクト取得方法をrootからparentに変更
+        human = transform.parent.gameObject;
 
         // マップカメラ
         mapCamera = GameObject.Find("MapCamera");

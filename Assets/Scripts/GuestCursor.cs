@@ -11,8 +11,10 @@ public class GuestCursor : MonoBehaviour {
 	void Start () {
 
         // プレイヤーオブジェクトと親オブジェクトを取得
+        // 2017/12/01 数藤
+        //   ・親オブジェクトの取得の仕方を『root』から『parent』に変更しました。
         player = GameObject.Find("Player");
-        parent = transform.root.gameObject;
+        parent = transform.parent.gameObject;
         parent.transform.position = new Vector3(parent.transform.position.x, 0.0f, parent.transform.position.z);
     }
 	
