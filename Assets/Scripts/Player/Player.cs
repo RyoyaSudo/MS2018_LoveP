@@ -114,20 +114,12 @@ public class Player : MonoBehaviour
     /// 街フェイズ時の挙動管理オブジェクト
     /// </summary>
     CityPhaseMove cityPhaseMoveObj;
-
-    /// <summary>
-    /// 街フェイズ時の挙動管理オブジェクトのパス
-    /// </summary>
     [SerializeField] string cityPhaseMoveObjPath;
 
     /// <summary>
     /// 星フェイズ時の挙動管理オブジェクト
     /// </summary>
     StarPhaseMove starPhaseMoveObj;
-
-    /// <summary>
-    /// 星フェイズ時の挙動管理オブジェクトのパス
-    /// </summary>
     [SerializeField] string starPhaseMoveObjPath;
 
     bool changeFade;
@@ -173,6 +165,7 @@ public class Player : MonoBehaviour
         scoreObj = GameObject.Find( "Score" );
 
         gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
+
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
 
         //サウンド用//////////////////////////////////////

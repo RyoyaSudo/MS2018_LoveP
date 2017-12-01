@@ -254,10 +254,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
-      propertyPath: passengersPrefab
-      value: 
-      objectReference: {fileID: 1752864648799638, guid: ba2f7bcf4c0ed734e977e531ef91057f,
-        type: 2}
+      propertyPath: phaseParam
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
   m_IsPrefabParent: 0
