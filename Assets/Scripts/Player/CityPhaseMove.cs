@@ -222,7 +222,7 @@ public class CityPhaseMove : MonoBehaviour {
     {
         float moveV = inputObj.GetAxis( "Vertical" );
         float moveH = inputObj.GetAxis( "Horizontal" );
-        bool isPush = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );  // プッシュボタンを押したか判定するフラグ
+        bool isPush = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
 
         //プッシュ時と通常時で旋回力を分ける
         if( isPush )

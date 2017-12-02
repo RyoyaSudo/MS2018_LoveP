@@ -55,7 +55,7 @@ public class TimelineManager : MonoBehaviour {
                 if (timelineObj[nCnt].name == riedPath)
                 {
                     //再生
-                    timelineObj[nCnt].TimelineStart();
+                    timelineObj[nCnt].Play();
                 }
             }
         }
@@ -67,7 +67,7 @@ public class TimelineManager : MonoBehaviour {
                 if (timelineObj[nCnt].name == getoffPath)
                 {
                     //再生
-                    timelineObj[nCnt].TimelineStart();
+                    timelineObj[nCnt].Play();
                 }
             }
         }

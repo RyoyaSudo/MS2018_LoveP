@@ -9,17 +9,6 @@ public class Timeline : MonoBehaviour
     //PlayableDirector
     private PlayableDirector director;
 
-    // 初期化
-    void Start()
-    {
-    }
-
-    // 更新
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// Trackにバインド
     /// </summary>
@@ -29,7 +18,7 @@ public class Timeline : MonoBehaviour
     /// <param name="path">
     /// Track名
     /// </param>
-    public void BindTrack(GameObject obj, string path)
+    public void BindTrack( GameObject obj , string path )
     {
         //PlayableDirector取得
         director = GetComponent<PlayableDirector>();
@@ -38,14 +27,30 @@ public class Timeline : MonoBehaviour
         var binding = director.playableAsset.outputs.First(c => c.streamName == path);
 
         //そこにオブジェクトをバインドする
-        director.SetGenericBinding(binding.sourceObject, obj);
+        director.SetGenericBinding( binding.sourceObject , obj );
     }
 
     /// <summary>
-    /// タイムライン開始
+    /// 開始処理
     /// </summary>
-    public void TimelineStart ()
+    public void Play()
     {
         director.Play();
+    }
+
+    /// <summary>
+    /// 停止処理
+    /// </summary>
+    public void Stop()
+    {
+        director.Stop();
+    }
+
+    /// <summary>
+    /// 一時停止処理
+    /// </summary>
+    public void Pause()
+    {
+        director.Pause();
     }
 }
