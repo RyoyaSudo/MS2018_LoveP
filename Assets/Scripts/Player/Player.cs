@@ -847,6 +847,14 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// 乗客降車処理
+    /// </summary>
+    private void PassengerGetOff()
+    {
+
+    }
+
+    /// <summary>
     /// OnGUI処理
     /// 主にデバッグ情報を出す
     /// </summary>
