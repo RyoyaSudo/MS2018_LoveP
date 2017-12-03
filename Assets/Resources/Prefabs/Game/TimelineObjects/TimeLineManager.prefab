@@ -51,12 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7eff3d7a1f767e4690e0b026c6538b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timelinePrefab:
-  - {fileID: 1891614324779174, guid: cf5d09ef530416f4b9f15869cb8f82d9, type: 2}
-  - {fileID: 1575238000907782, guid: ca04eb7f6906211489933bbf9686aaab, type: 2}
+  timelinePrefabArray:
+  - {fileID: 114822497336982076, guid: cf5d09ef530416f4b9f15869cb8f82d9, type: 2}
   riedPath: RideTimeline
-  getoffPath: GetOffTimeline
-  playerPath: Player
-  cameraPath: Game_Main Camera
-  animationTrackPath: Animation Track
-  cinemachineTrackPath: Cinemachine Track

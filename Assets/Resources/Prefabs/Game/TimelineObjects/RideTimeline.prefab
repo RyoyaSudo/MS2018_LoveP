@@ -9,18 +9,18 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1891614324779174}
+  m_RootGameObject: {fileID: 1033914723935156}
   m_IsPrefabParent: 1
---- !u!1 &1891614324779174
+--- !u!1 &1033914723935156
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4918990323315282}
-  - component: {fileID: 320030868161596812}
-  - component: {fileID: 114488371810987048}
+  - component: {fileID: 4969718858789652}
+  - component: {fileID: 320780674244601612}
+  - component: {fileID: 114822497336982076}
   m_Layer: 0
   m_Name: RideTimeline
   m_TagString: Untagged
@@ -28,12 +28,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4918990323315282
+--- !u!4 &4969718858789652
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1891614324779174}
+  m_GameObject: {fileID: 1033914723935156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,23 +41,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114488371810987048
+--- !u!114 &114822497336982076
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1891614324779174}
+  m_GameObject: {fileID: 1033914723935156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368565d7e1f5a5a408e13cbeac152f2d, type: 3}
+  m_Script: {fileID: 11500000, guid: ea526e60e94564d41bcb5db4a969f86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!320 &320030868161596812
+  animationTrackPath: Animation Track
+  cinemachineTrackPath: Cinemachine Track
+  playerPath: Player
+  cameraPath: Game_Main Camera
+--- !u!320 &320780674244601612
 PlayableDirector:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1891614324779174}
+  m_GameObject: {fileID: 1033914723935156}
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: d5ca0553d26dfdc4eb63e65f3b84889f, type: 2}
