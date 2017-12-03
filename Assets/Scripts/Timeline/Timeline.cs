@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.Playables;
 using System.Linq;
 
-public class Timeline : MonoBehaviour
+public abstract class Timeline : MonoBehaviour
 {
     //PlayableDirector
     private PlayableDirector director;
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
+    private void Start()
+    {
+        Bind();
+    }
 
     /// <summary>
     /// Trackにバインド
@@ -18,7 +26,7 @@ public class Timeline : MonoBehaviour
     /// <param name="path">
     /// Track名
     /// </param>
-    public void BindTrack( GameObject obj , string path )
+    protected void BindTrack( GameObject obj , string path )
     {
         //PlayableDirector取得
         director = GetComponent<PlayableDirector>();
@@ -29,6 +37,12 @@ public class Timeline : MonoBehaviour
         //そこにオブジェクトをバインドする
         director.SetGenericBinding( binding.sourceObject , obj );
     }
+
+    /// <summary>
+    /// 各トラックにオブジェクトをバインドする処理。
+    /// 必ず派生先初期化時に呼び出すこと！
+    /// </summary>
+    public abstract void Bind();
 
     /// <summary>
     /// 開始処理
