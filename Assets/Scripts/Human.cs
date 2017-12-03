@@ -114,7 +114,6 @@ public class Human : MonoBehaviour
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
 
-
         ////乗車させる人数を設定
         //switch (groupType)
         //{
@@ -177,6 +176,7 @@ public class Human : MonoBehaviour
                 if (bPassengerUI)
                 {
                     PassengerGroupUIDestroy();
+                    
                 }
 
                 //乗車アニメーションをさせる
@@ -409,6 +409,5 @@ public class Human : MonoBehaviour
         Destroy(passengerGroupUIEnptyObj);
         bPassengerUI = false;
     }
-
 }
 
