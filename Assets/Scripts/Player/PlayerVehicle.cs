@@ -38,6 +38,11 @@ public class PlayerVehicle : MonoBehaviour {
     Type vehicleType;
 
     /// <summary>
+    /// 昔の乗り物のタイプ
+    /// </summary>
+    Type oldVehicleType;
+
+    /// <summary>
     /// 乗り物モデル
     /// </summary>
     [SerializeField] GameObject[] vehicleModel;
@@ -72,6 +77,7 @@ public class PlayerVehicle : MonoBehaviour {
     private void Awake()
     {
         VehicleType = Type.BIKE;
+        oldVehicleType = Type.BIKE;
         VehicleScore = 0;
 
         vehicleModel[ ( int )vehicleType ].SetActive( true );
@@ -130,12 +136,13 @@ public class PlayerVehicle : MonoBehaviour {
         {
             Vector3 scale;
 
-            scale = new Vector3( vehicleModel[ ( int )vehicleType ].transform.localScale.x - Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.y - Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.z - Time.deltaTime );
-            vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
-            if( vehicleModel[ ( int )vehicleType ].transform.localScale.x < 0.0f )
+            scale = new Vector3( vehicleModel[ ( int )oldVehicleType ].transform.localScale.x - Time.deltaTime , vehicleModel[ ( int )oldVehicleType ].transform.localScale.y - Time.deltaTime , vehicleModel[ ( int )oldVehicleType ].transform.localScale.z - Time.deltaTime );
+            vehicleModel[ ( int )oldVehicleType ].transform.localScale = scale;
+
+            if( vehicleModel[ ( int )oldVehicleType ].transform.localScale.x < 0.0f )
             {
                 scale = new Vector3( 0.0f , 0.0f , 0.0f );
-                vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
+                vehicleModel[ ( int )oldVehicleType ].transform.localScale = scale;
 
                 isChange = false;
 
@@ -148,6 +155,7 @@ public class PlayerVehicle : MonoBehaviour {
             Vector3 scale;
             scale = new Vector3( vehicleModel[ ( int )vehicleType ].transform.localScale.x + Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.y + Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.z + Time.deltaTime );
             vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
+
             if( vehicleModel[ ( int )vehicleType ].transform.localScale.x > 1.0f )
             {
                 scale = new Vector3( 1.0f , 1.0f , 1.0f );
@@ -174,6 +182,7 @@ public class PlayerVehicle : MonoBehaviour {
             // 飛行機
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.AIRPLANE;
         }
         else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BUS ] && VehicleScore < vehicleScoreLimit[ ( int )Type.AIRPLANE ] && vehicleType != Type.BUS )
@@ -181,6 +190,7 @@ public class PlayerVehicle : MonoBehaviour {
             // 大型車
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.BUS;
         }
         else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.CAR ] && VehicleScore < vehicleScoreLimit[ ( int )Type.BUS ] && vehicleType != Type.CAR )
@@ -188,6 +198,7 @@ public class PlayerVehicle : MonoBehaviour {
             // 車
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.CAR;
         }
         else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BIKE ] && VehicleScore < vehicleScoreLimit[ ( int )Type.CAR ] && vehicleType != Type.BIKE )
@@ -195,6 +206,7 @@ public class PlayerVehicle : MonoBehaviour {
             // バイク
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.BIKE;
         }
         else if( VehicleScore < vehicleScoreLimit[ ( int )Type.BIKE ] && vehicleType != Type.BIKE )
@@ -202,6 +214,7 @@ public class PlayerVehicle : MonoBehaviour {
             // バイク
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.BIKE;
         }
 

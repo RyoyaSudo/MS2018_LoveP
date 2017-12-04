@@ -856,17 +856,69 @@ public class Player : MonoBehaviour
     void DebugFunc()
     {
         // 乗り物変更( バイク )
-        if( Input.GetKeyDown( KeyCode.G ) )
+        if( Input.GetKeyDown( KeyCode.T ) )
         {
-            StateParam = State.PLAYER_STATE_IN_CHANGE;
+            // 変化
+            vehicleControllerObj.VehicleScore = vehicleControllerObj.VehicleScoreLimit[ ( int )PlayerVehicle.Type.BIKE ];
+            vehicleControllerObj.ChangeCheck();
 
-            int ignorePlace = lastRideHuman.spawnPlace;
+            // 再配置
+            int ignorePlace = 0;
+
+            if( lastRideHuman != null )
+            {
+                ignorePlace = lastRideHuman.spawnPlace;
+            }
 
             PassengerDeleteAll();
             HumanCreateGroup( ignorePlace );
 
-            vehicleControllerObj.VehicleType = PlayerVehicle.Type.BIKE;
-            //vehicleScore;
+            // 状態設定
+            StateParam = State.PLAYER_STATE_IN_CHANGE;
+        }
+
+        // 乗り物変更( 車 )
+        if( Input.GetKeyDown( KeyCode.Y ) )
+        {
+            // 変化
+            vehicleControllerObj.VehicleScore = vehicleControllerObj.VehicleScoreLimit[ ( int )PlayerVehicle.Type.CAR ];
+            vehicleControllerObj.ChangeCheck();
+
+            // 再配置
+            int ignorePlace = 0;
+
+            if( lastRideHuman != null )
+            {
+                ignorePlace = lastRideHuman.spawnPlace;
+            }
+
+            PassengerDeleteAll();
+            HumanCreateGroup( ignorePlace );
+
+            // 状態設定
+            StateParam = State.PLAYER_STATE_IN_CHANGE;
+        }
+
+        // 乗り物変更( 大型車 )
+        if( Input.GetKeyDown( KeyCode.U ) )
+        {
+            // 変化
+            vehicleControllerObj.VehicleScore = vehicleControllerObj.VehicleScoreLimit[ ( int )PlayerVehicle.Type.BUS ];
+            vehicleControllerObj.ChangeCheck();
+
+            // 再配置
+            int ignorePlace = 0;
+
+            if( lastRideHuman != null )
+            {
+                ignorePlace = lastRideHuman.spawnPlace;
+            }
+
+            PassengerDeleteAll();
+            HumanCreateGroup( ignorePlace );
+
+            // 状態設定
+            StateParam = State.PLAYER_STATE_IN_CHANGE;
         }
     }
 
