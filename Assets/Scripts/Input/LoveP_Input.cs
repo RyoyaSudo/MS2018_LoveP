@@ -20,7 +20,7 @@ public class LoveP_Input : MonoBehaviour {
         // 現在のデバイス状態を確認する
         if( isDefaultInputUse )
         {
-            Debug.LogAssertion( "入力モード:Unity標準" );
+            Debug.LogWarning( "入力モード:Unity標準" );
         }
         else
         {
