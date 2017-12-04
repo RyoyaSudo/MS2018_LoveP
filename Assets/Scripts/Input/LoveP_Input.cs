@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AppKit;
 
 /// <summary>
 /// 本プロジェクトの入力処理クラス
@@ -12,6 +13,19 @@ public class LoveP_Input : MonoBehaviour {
     /// 独自デバイスを利用する場合、アタッチされたオブジェクトのInspector内でfalseに設定する。
     /// </summary>
     [SerializeField] bool isDefaultInputUse;
+
+    // シリアル通信用スクリプト
+    ArduinoSerial serial;
+
+    // シリアル用ポート番号（USBポートによって変化、Inspectorでの記載例：COM4　）
+    public string portNum;
+
+    // 水平軸、垂直軸
+    private float device_H = 0.0f;
+    private float device_V = 0.0f;
+
+    // ボタン
+    private bool pushA = false;
 
 	/// <summary>
     /// 初期化処理
@@ -25,8 +39,119 @@ public class LoveP_Input : MonoBehaviour {
         else
         {
             Debug.Log( "入力モード:独自デバイス" );
+
+            // 以下、シリアルポートが通信可能か否かのコード
+            serial = ArduinoSerial.Instance;
+
+            bool success = serial.Open(portNum, ArduinoSerial.Baudrate.B_115200);
+            if (!success)
+            {
+                return;
+            }
+
+            // OnDaraReceivedに関数を追加することで、ArduinoSerial.csから呼ばれるようになる
+            serial.OnDataReceived += SerialCallBack;
         }
 	}
+
+    void SerialCallBack(string m)
+    {
+        objRotation(m);
+        objBrake(m);
+        objPush(m);
+    }
+
+    // シリアル通信の終了処理
+    void OnDisable()
+    {
+        serial.Close();
+        serial.OnDataReceived -= SerialCallBack;
+    }
+
+    // 水平軸をシリアル通信から読み取る
+    void objRotation(string message)
+    {
+        string[] a;
+
+        a = message.Split("="[0]);
+        if (a.Length != 2)
+        {
+            print("Out of Length : " + a.Length);
+            return;
+        }
+
+        if (a[0] == "y")
+        {
+            float v = float.Parse(a[1].Trim());
+
+            v = (v / 1024.0f) * 5.0f;
+
+            // 細かいブレは弾く
+            if (Mathf.Abs(v) <= 0.1f)
+            {
+                v = 0;
+            }
+
+            // このコードで正しく動く
+            //transform.eulerAngles += new Vector3(0f, v, 0f);
+
+            device_H = v;
+        }
+    }
+
+    // 垂直軸をシリアル通信から読み取る
+    void objBrake(string message)
+    {
+        string[] a;
+
+        a = message.Split("="[0]);
+        if (a.Length != 2)
+        {
+            print("Out of Length : " + a.Length);
+            return;
+        }
+
+        if (a[0] == "x")
+        {
+            float v = float.Parse(a[1].Trim());
+
+            v = (v / 1024.0f) * 5.0f;
+
+            // 細かいブレは弾く
+            //if (Mathf.Abs(v) <= 0.4f)
+            //{
+            //    v = 0;
+            //}
+
+            device_V = v;
+        }
+    }
+
+    // ボタン押下をシリアル通信から読み取る
+    void objPush(string message)
+    {
+        string[] a;
+
+        a = message.Split("="[0]);
+
+        if (a.Length != 2)
+        {
+            print("Out of Length : " + a.Length);
+            return;
+        }
+
+        if (a[0] == "button")
+        {
+            if (a[1].Trim() == "true")
+            {
+                pushA = true;
+            }
+            if (a[1].Trim() == "false")
+            {
+                pushA = false;
+            }
+        }
+    }
 
     /// <summary>
     /// ボタン入力状況取得処理
@@ -101,8 +226,10 @@ public class LoveP_Input : MonoBehaviour {
         else
         {
             // ここに独自デバイスの垂直軸取得処理を追加して！！
-        }
 
+            value = device_V;
+        }
+        print(device_V);
         return value;
     }
 
@@ -121,6 +248,7 @@ public class LoveP_Input : MonoBehaviour {
         else
         {
             // ここに独自デバイスの水平軸取得処理を追加して！！
+            value += device_H * 0.3f;
         }
 
         return value;
@@ -141,6 +269,7 @@ public class LoveP_Input : MonoBehaviour {
         else
         {
             // ここに独自デバイスのハンドル右ボタン取得処理を追加して！！
+            value = pushA;
         }
 
         return value;

@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 114377122876851530}
   - component: {fileID: 114860307667817136}
   - component: {fileID: 114189476377578114}
+  - component: {fileID: 114409502778120566}
   - component: {fileID: 82244802205648336}
   - component: {fileID: 143571668409644224}
   m_Layer: 8
@@ -1957,15 +1958,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   citySpawnManagerPath: CitySpawnManager
   starSpawnManagerPath: StarSpawnManager
-  vehicleModel:
-  - {fileID: 1570656652911158}
-  - {fileID: 1350160768310600}
-  - {fileID: 1272711428009452}
-  - {fileID: 1621866775314600}
   passengerTogetherUIObjPath: GUI Camera/PassengerTogetherUI
   gamectrlObjPath: Game
   cityPhaseMoveObjPath: Player
   starPhaseMoveObjPath: Player
+  vehicleControllerObjPath: Player
+--- !u!114 &114409502778120566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931795237704324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7824fb7b60fa977468ebe03ef461751b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleNum: 4
+  vehicleModel:
+  - {fileID: 1570656652911158}
+  - {fileID: 1272711428009452}
+  - {fileID: 1350160768310600}
+  - {fileID: 1621866775314600}
+  vehicleScoreLimit: 01000000020000000400000008000000
 --- !u!114 &114814756618038432
 MonoBehaviour:
   m_ObjectHideFlags: 1
