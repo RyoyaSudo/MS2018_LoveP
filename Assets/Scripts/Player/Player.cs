@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region 変数宣言
+
     int rideCount; //現在乗車人数
     int rideGroupNum; //グループ乗車人数
     private Human[] passengerObj;
@@ -20,9 +22,52 @@ public class Player : MonoBehaviour
     private StarSpawnManager starSpawnManagerObj;
     public string starSpawnManagerPath;
 
-    public GameObject[] vehicleModel;//乗り物モデル
-    int vehicleScore;//乗車スコア
+    /// <summary>
+    /// 乗り物数。
+    /// この数をInspectorで宣言し、他の乗り物関連の変数のチェックなどに利用する。
+    /// </summary>
+    [SerializeField] int vehicleNum;
+
+    /// <summary>
+    /// 乗り物種類列挙値
+    /// </summary>
+    public enum VehicleType
+    {
+        VEHICLE_TYPE_BIKE = 0,
+        VEHICLE_TYPE_CAR,
+        VEHICLE_TYPE_BUS,
+        VEHICLE_TYPE_AIRPLANE,
+        VEHICLE_TYPE_MAX,
+    }
+
+    /// <summary>
+    /// 現時点の乗り物タイプ
+    /// </summary>
+    VehicleType vehicleType;
+
+    /// <summary>
+    /// 乗り物モデル
+    /// </summary>
+    [SerializeField] GameObject[] vehicleModel;
+
+    /// <summary>
+    /// 乗り物スコア上限値
+    /// </summary>
+    [SerializeField] int[] viecleScoreLimit;
+
+    /// <summary>
+    /// 乗り物変化に利用
+    /// 上記定義値を上回った際に乗り物を別の物に変化させる
+    /// </summary>
+    int vehicleScore;
+
     Human.GROUPTYPE passengerType;//乗客タイプ
+
+    /// <summary>
+    /// 最後に乗車した乗客オブジェクト。
+    /// 主にデバッグ処理に用いる
+    /// </summary>
+    private Human lastRideHuman;
 
     /// <summary>
     /// 乗客乗車人数を示すUIオブジェクト。
@@ -101,15 +146,6 @@ public class Player : MonoBehaviour
     /// </summary>
     public float StateTimer { get; private set; }
 
-    public enum VehicleType
-    {
-        VEHICLE_TYPE_BIKE = 0,
-        VEHICLE_TYPE_CAR,
-        VEHICLE_TYPE_BUS,
-        VEHICLE_TYPE_AIRPLANE,
-    }
-    VehicleType vehicleType;
-
     /// <summary>
     /// 街フェイズ時の挙動管理オブジェクト
     /// </summary>
@@ -123,6 +159,8 @@ public class Player : MonoBehaviour
     [SerializeField] string starPhaseMoveObjPath;
 
     bool changeFade;
+
+    #endregion 変数宣言
 
     /// <summary>
     /// 生成時処理
@@ -145,6 +183,8 @@ public class Player : MonoBehaviour
         IsStopped = false;
 
         StateTimer = 0.0f;
+
+        lastRideHuman = null;
     }
 
     /// <summary>
@@ -205,6 +245,12 @@ public class Player : MonoBehaviour
             default:
                 Debug.LogError( "プレイヤー状態で不定のタイプが設定されました。適切な挙動を割り当てて下さい。" );
                 break;
+        }
+
+        // デバッグ時処理
+        if( Game.IsDebug )
+        {
+            DebugFunc();
         }
     }
 
@@ -398,32 +444,32 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 乗り物に応じでスポーンマネージャを分ける(相方用）
     /// </summary>
-    public void HumanCreateGroup( Human human )
+    public void HumanCreateGroup( int ignoreSpanwPlace )
     {
         switch( vehicleType )
         {
             case VehicleType.VEHICLE_TYPE_BIKE:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_CAR:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_BUS:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
                     break;
                 }
             case VehicleType.VEHICLE_TYPE_AIRPLANE:
                 {
                     //乗物によって生成する人を設定
-                    starSpawnManagerObj.HumanCreateByVehicleType( vehicleType , human.spawnPlace , 2 , 2 , 2 );
+                    starSpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
                     //citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
                     break;
                 }
@@ -440,11 +486,16 @@ public class Player : MonoBehaviour
             // 乗車エリアに関する処理
             case "RideArea":
                 {
-                    Human human = other.transform.parent.GetComponent<Human>();
-
                     // 可否を確認し、乗車処理を実行
                     if( RideEnableCheck() )
                     {
+                        // HACK: 乗車エリアオブジェクトの親となっている乗客オブジェクトを取得しておく
+                        //       構造が変わった時バグになるため気を付ける！
+                        Human human = other.transform.parent.GetComponent<Human>();
+
+                        // 乗車オブジェクト更新
+                        lastRideHuman = human;
+
                         //乗車待機状態じゃないならbreak;
                         if( human.stateType != Human.STATETYPE.READY ) break;
 
@@ -455,16 +506,8 @@ public class Player : MonoBehaviour
                             //       10/24現在では他の乗客はFindして消してしまうやり方をする。
                             human.IsProtect = true;
 
-                            GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Human" );
-
-                            foreach( GameObject deleteHuman in humanAll )
-                            {
-                                if( deleteHuman.GetComponent<Human>().IsProtect == false )
-                                {
-                                    Destroy( deleteHuman.gameObject );
-                                }
-                            }
-
+                            PassengerDeleteAll();
+                            
                             passengerType = human.groupType;
 
                             // 乗客数の確認
@@ -521,59 +564,10 @@ public class Player : MonoBehaviour
                         //最後の人なら降ろす
                         if( rideCount >= rideGroupNum )
                         {
-                            for( int i = 0 ; i < rideCount ; i++ )
-                            {
-                                passengerObj[ i ].transform.parent = null;
-                                passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
-                                passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
-                            }
-                            // HACK: スコア加算処理の場所
-                            //       現状プレイヤークラス内だが、後に変更の可能性有り。
-                            scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
-                            rideCount = 0;
+                            PassengerGetOff( human );
 
-                            //乗客のタイプに応じで乗り物変更用のスコアを加算する
-                            switch( passengerType )
-                            {
-                                case Human.GROUPTYPE.PEAR:
-                                    {
-                                        //ペア作成時のSE再生///////////////////////////////////////////////
-                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                                        vehicleScore += 1;
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.SMAlLL:
-                                    {
-                                        vehicleScore += 2;
-                                        //ペア作成時のSE再生///////////////////////////////////////////////
-                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.BIG:
-                                    {
-                                        //ペア作成時のSE再生///////////////////////////////////////////////
-                                        playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                                        vehicleScore += 4;
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
-                                        break;
-                                    }
-                            }
-
-                            // HACK: 下車状態へ移行
-                            //       下車状態時実行処理内で乗り物変化判定を行わなければならない。
-                            StateParam = State.PLAYER_STATE_GET_OFF;
-
-                            // HACK: 次の乗客を生成。
-                            //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
-                            //乗物によって生成する人を設定
-                            HumanCreateGroup( human );
-
-                            //何人乗せるかUIの表示を終了
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+                            // 降車するのでnullに
+                            lastRideHuman = null;
                         }
                         else
                         {
@@ -619,6 +613,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 乗り物変化開始前準備処理
+    /// </summary>
     void VehicleChangeStart()
     {
         // チェンジエフェクト
@@ -629,7 +626,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 車両変化処理
+    /// 車両変化状態時の処理
     /// </summary>
     void VehicleChange()
     {
@@ -646,7 +643,7 @@ public class Player : MonoBehaviour
                 scale = new Vector3(0.0f, 0.0f, 0.0f);
                 vehicleModel[(int)vehicleType].transform.localScale = scale;
                 changeFade = false;
-                SetVehicle(vehicleType + 1);
+                SetVehicle( vehicleType + 1 );
                 scale = new Vector3(0.0f, 0.0f, 0.0f);
                 vehicleModel[(int)vehicleType].transform.localScale = scale;
             }
@@ -695,7 +692,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 状態設定処理。自己遷移できない状態の時のみ利用。
+    /// 状態設定処理
     /// </summary>
     /// <param name="state">設定する状態。</param>
     private void SetState( State state )
@@ -849,9 +846,97 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 乗客降車処理
     /// </summary>
-    private void PassengerGetOff()
+    private void PassengerGetOff( Human human )
     {
+        for( int i = 0 ; i < rideCount ; i++ )
+        {
+            passengerObj[ i ].transform.parent = null;
+            passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
+            passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
+        }
+        // HACK: スコア加算処理の場所
+        //       現状プレイヤークラス内だが、後に変更の可能性有り。
+        scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
+        rideCount = 0;
 
+        //乗客のタイプに応じて乗り物変更用のスコアを加算する
+        switch( passengerType )
+        {
+            case Human.GROUPTYPE.PEAR:
+                {
+                    //ペア作成時のSE再生///////////////////////////////////////////////
+                    playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                    vehicleScore += 1;
+                    break;
+                }
+            case Human.GROUPTYPE.SMAlLL:
+                {
+                    //ペア作成時のSE再生///////////////////////////////////////////////
+                    playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                    vehicleScore += 2;
+                    break;
+                }
+            case Human.GROUPTYPE.BIG:
+                {
+                    //ペア作成時のSE再生///////////////////////////////////////////////
+                    playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                    vehicleScore += 4;
+                    break;
+                }
+            default:
+                {
+                    Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
+                    break;
+                }
+        }
+
+        // HACK: 下車状態へ移行
+        //       下車状態時実行処理内で乗り物変化判定を行わなければならない。
+        StateParam = State.PLAYER_STATE_GET_OFF;
+
+        // HACK: 次の乗客を生成。
+        //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
+        //乗物によって生成する人を設定
+        HumanCreateGroup( human.spawnPlace );
+
+        //何人乗せるかUIの表示を終了
+        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
+    }
+
+    /// <summary>
+    /// 乗客消去処理
+    /// </summary>
+    void PassengerDeleteAll()
+    {
+        GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Human" );
+
+        foreach( GameObject deleteHuman in humanAll )
+        {
+            if( deleteHuman.GetComponent<Human>().IsProtect == false )
+            {
+                Destroy( deleteHuman.gameObject );
+            }
+        }
+    }
+
+    /// <summary>
+    /// デバッグ時処理
+    /// </summary>
+    void DebugFunc()
+    {
+        // 乗り物変更( バイク )
+        if( Input.GetKeyDown( KeyCode.G ) )
+        {
+            StateParam = State.PLAYER_STATE_IN_CHANGE;
+
+            int ignorePlace = lastRideHuman.spawnPlace;
+
+            PassengerDeleteAll();
+            HumanCreateGroup( ignorePlace );
+
+            SetVehicle( VehicleType.VEHICLE_TYPE_BIKE );
+            //vehicleScore;
+        }
     }
 
     /// <summary>
