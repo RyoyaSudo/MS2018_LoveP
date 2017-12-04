@@ -201,7 +201,7 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="BigGroubNum">
     /// 大グループを何人生成するか
     /// </param>
-    public void HumanCreateByVehicleType(Player.VehicleType vehicleType,int lastHumanSpawnPlace,int pearNum,int smallGroupNum,int BigGroubNum)
+    public void HumanCreateByVehicleType(PlayerVehicle.Type vehicleType,int lastHumanSpawnPlace,int pearNum,int smallGroupNum,int BigGroubNum)
     {
         List<int> posList = new List<int>();
         posList.Add(lastHumanSpawnPlace);
@@ -211,7 +211,7 @@ public class CitySpawnManager : MonoBehaviour {
         switch(vehicleType)
         {
             //バイクのとき
-            case Player.VehicleType.VEHICLE_TYPE_BIKE:
+            case PlayerVehicle.Type.BIKE:
                 //ペア生成
                 for ( int nCnt=0; nCnt < pearNum; nCnt++ )
                 {
@@ -232,7 +232,7 @@ public class CitySpawnManager : MonoBehaviour {
                 break;
 
             //車のとき
-            case Player.VehicleType.VEHICLE_TYPE_CAR:
+            case PlayerVehicle.Type.CAR:
                 //ペア生成
                 for (int nCnt = 0; nCnt < pearNum; nCnt++)
                 {
@@ -270,7 +270,7 @@ public class CitySpawnManager : MonoBehaviour {
                 break;
 
             //バスのとき
-            case Player.VehicleType.VEHICLE_TYPE_BUS:
+            case PlayerVehicle.Type.BUS:
                 //ペア生成
                 for (int nCnt = 0; nCnt < pearNum; nCnt++)
                 {

@@ -22,45 +22,6 @@ public class Player : MonoBehaviour
     private StarSpawnManager starSpawnManagerObj;
     public string starSpawnManagerPath;
 
-    /// <summary>
-    /// 乗り物数。
-    /// この数をInspectorで宣言し、他の乗り物関連の変数のチェックなどに利用する。
-    /// </summary>
-    [SerializeField] int vehicleNum;
-
-    /// <summary>
-    /// 乗り物種類列挙値
-    /// </summary>
-    public enum VehicleType
-    {
-        VEHICLE_TYPE_BIKE = 0,
-        VEHICLE_TYPE_CAR,
-        VEHICLE_TYPE_BUS,
-        VEHICLE_TYPE_AIRPLANE,
-        VEHICLE_TYPE_MAX,
-    }
-
-    /// <summary>
-    /// 現時点の乗り物タイプ
-    /// </summary>
-    VehicleType vehicleType;
-
-    /// <summary>
-    /// 乗り物モデル
-    /// </summary>
-    [SerializeField] GameObject[] vehicleModel;
-
-    /// <summary>
-    /// 乗り物スコア上限値
-    /// </summary>
-    [SerializeField] int[] viecleScoreLimit;
-
-    /// <summary>
-    /// 乗り物変化に利用
-    /// 上記定義値を上回った際に乗り物を別の物に変化させる
-    /// </summary>
-    int vehicleScore;
-
     Human.GROUPTYPE passengerType;//乗客タイプ
 
     /// <summary>
@@ -160,6 +121,12 @@ public class Player : MonoBehaviour
 
     bool changeFade;
 
+    /// <summary>
+    /// 乗り物管理オブジェクト
+    /// </summary>
+    PlayerVehicle vehicleControllerObj;
+    [SerializeField] string vehicleControllerObjPath;
+
     #endregion 変数宣言
 
     /// <summary>
@@ -168,9 +135,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         // 初期化系
-        vehicleType = VehicleType.VEHICLE_TYPE_BIKE;
-        vehicleModel[ ( int )vehicleType ].SetActive( true );
-        vehicleScore = 0;
         Velocity = 0.0f;
         VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
@@ -207,6 +171,8 @@ public class Player : MonoBehaviour
         gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
 
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
+
+        vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
 
         //サウンド用//////////////////////////////////////
         playerSoundCtrl = GameObject.Find( "SoundManager" ).GetComponent<SoundController>();
@@ -289,8 +255,8 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StarPhaseInit()
     {
-        vehicleScore = 13;
-        SetVehicle( VehicleType.VEHICLE_TYPE_AIRPLANE );
+        vehicleControllerObj.VehicleScore = vehicleControllerObj.VehicleScoreLimit[ ( int )PlayerVehicle.Type.AIRPLANE ];
+        vehicleControllerObj.VehicleType = PlayerVehicle.Type.AIRPLANE;
         starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
 
         if( cityPhaseMoveObj != null )
@@ -311,39 +277,6 @@ public class Player : MonoBehaviour
         StateParam = State.PLAYER_STATE_FREE;
 
         Debug.Log( "星フェイズ開始" );
-    }
-
-    /// <summary>
-    /// 乗り物設定関数
-    /// </summary>
-    public void SetVehicle( VehicleType setVehicleType )
-    {
-        //SE再生/////////////////////////////////////////////////////////////
-        // TODO オブジェクトが見つからなかったため一時コメントアウトしました
-        //playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.TYPE_CHANGE));
-
-        vehicleModel[ ( int )vehicleType ].SetActive( false );
-        vehicleType = setVehicleType;
-        vehicleModel[ ( int )vehicleType ].SetActive( true );
-
-        switch ( setVehicleType )
-        {
-            case VehicleType.VEHICLE_TYPE_BIKE:
-                break;
-
-            case VehicleType.VEHICLE_TYPE_CAR:
-                break;
-
-            case VehicleType.VEHICLE_TYPE_BUS:
-                break;
-
-            case VehicleType.VEHICLE_TYPE_AIRPLANE:
-                break;
-
-            default:
-                Debug.LogError( "未確定の乗り物タイプが指定されました。" );
-                break;
-        }
     }
 
     /// <summary>
@@ -411,27 +344,27 @@ public class Player : MonoBehaviour
     /// </summary>
     public void HumanCreate( Human human )
     {
-        switch( vehicleType )
+        switch( vehicleControllerObj.VehicleType )
         {
-            case VehicleType.VEHICLE_TYPE_BIKE:
+            case PlayerVehicle.Type.BIKE:
                 {
                     //乗物によって生成する人を設定
                     citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_CAR:
+            case PlayerVehicle.Type.CAR:
                 {
                     //乗物によって生成する人を設定
                     citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_BUS:
+            case PlayerVehicle.Type.BUS:
                 {
                     //乗物によって生成する人を設定
                     citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+            case PlayerVehicle.Type.AIRPLANE:
                 {
                     //乗物によって生成する人を設定
                     starSpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
@@ -446,30 +379,32 @@ public class Player : MonoBehaviour
     /// </summary>
     public void HumanCreateGroup( int ignoreSpanwPlace )
     {
-        switch( vehicleType )
+        PlayerVehicle.Type type = vehicleControllerObj.VehicleType;
+
+        switch( type )
         {
-            case VehicleType.VEHICLE_TYPE_BIKE:
+            case PlayerVehicle.Type.BIKE:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_CAR:
+            case PlayerVehicle.Type.CAR:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_BUS:
+            case PlayerVehicle.Type.BUS:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+            case PlayerVehicle.Type.AIRPLANE:
                 {
                     //乗物によって生成する人を設定
-                    starSpawnManagerObj.HumanCreateByVehicleType( vehicleType , ignoreSpanwPlace , 2 , 2 , 2 );
+                    starSpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
                     //citySpawnManagerObj.HumanCreateByVehicleType(vehicleType, human.spawnPlace, 2, 2, 2);
                     break;
                 }
@@ -585,27 +520,27 @@ public class Player : MonoBehaviour
     /// </summary>
     void VehicleMove()
     {
-        switch (vehicleType)
+        switch( vehicleControllerObj.VehicleType )
         {
-            case VehicleType.VEHICLE_TYPE_BIKE:
+            case PlayerVehicle.Type.BIKE:
                 {
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_CAR:
+            case PlayerVehicle.Type.CAR:
                 {
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_BUS:
+            case PlayerVehicle.Type.BUS:
                 {
                     Velocity = cityPhaseMoveObj.Velocity;
                     playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
-            case VehicleType.VEHICLE_TYPE_AIRPLANE:
+            case PlayerVehicle.Type.AIRPLANE:
                 {
                     playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
@@ -618,11 +553,43 @@ public class Player : MonoBehaviour
     /// </summary>
     void VehicleChangeStart()
     {
-        // チェンジエフェクト
-        changeEffectObj.Play();
-        MoveEnable( false );
-        StateParam = State.PLAYER_STATE_IN_CHANGE;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        // 変化するかチェック
+        if( vehicleControllerObj.ChangeCheck() )
+        {
+            // 内部変数の変化後に、それに応じた処理を実行
+            switch( vehicleControllerObj.VehicleType )
+            {
+                case PlayerVehicle.Type.BIKE:
+                    changeEffectObj.Play();
+                    MoveEnable( false );
+                    StateParam = State.PLAYER_STATE_IN_CHANGE;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    break;
+
+                case PlayerVehicle.Type.CAR:
+                    changeEffectObj.Play();
+                    MoveEnable( false );
+                    StateParam = State.PLAYER_STATE_IN_CHANGE;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    break;
+
+                case PlayerVehicle.Type.BUS:
+                    changeEffectObj.Play();
+                    MoveEnable( false );
+                    StateParam = State.PLAYER_STATE_IN_CHANGE;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    break;
+
+                case PlayerVehicle.Type.AIRPLANE:
+                    //星フェーズへの移行開始
+                    ChangeStarPhase();
+                    break;
+
+                default:
+                    Debug.LogError( "未確定の乗り物タイプが指定されました。" );
+                    break;
+            }
+        }
     }
 
     /// <summary>
@@ -632,35 +599,18 @@ public class Player : MonoBehaviour
     {
         // HACK: 車両変化時の演出に関する部分
         //       煙エフェクトを出しつつスケール値を段々小さくしたあとに段々大きくなって現れる感じにしたい。
-        if (changeFade)
+        if( changeFade )
         {
-            Vector3 scale;
-
-            scale = new Vector3(vehicleModel[(int)vehicleType].transform.localScale.x - Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.y - Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.z - Time.deltaTime);
-            vehicleModel[(int)vehicleType].transform.localScale = scale;
-            if (vehicleModel[(int)vehicleType].transform.localScale.x < 0.0f)
-            {
-                scale = new Vector3(0.0f, 0.0f, 0.0f);
-                vehicleModel[(int)vehicleType].transform.localScale = scale;
-                changeFade = false;
-                SetVehicle( vehicleType + 1 );
-                scale = new Vector3(0.0f, 0.0f, 0.0f);
-                vehicleModel[(int)vehicleType].transform.localScale = scale;
-            }
+            // HACK: 乗り物変化演出に関して
+            //       2017/12/04にPlayerVehicle.csに処理を分けた際、問題が発生する恐れあり。
+            //       Morphing関数の呼び出し方を工夫する必要がありそうか？
+            changeFade = false;
         }
         else
         {
-            Vector3 scale;
-            scale = new Vector3(vehicleModel[(int)vehicleType].transform.localScale.x + Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.y + Time.deltaTime, vehicleModel[(int)vehicleType].transform.localScale.z + Time.deltaTime);
-            vehicleModel[(int)vehicleType].transform.localScale = scale;
-            if (vehicleModel[(int)vehicleType].transform.localScale.x > 1.0f)
-            {
-                scale = new Vector3(1.0f, 1.0f, 1.0f);
-                vehicleModel[(int)vehicleType].transform.localScale = scale;
-                StateParam = State.PLAYER_STATE_FREE;
-                MoveEnable( true );
-                changeFade = true;
-            }
+            StateParam = State.PLAYER_STATE_FREE;
+            MoveEnable( true );
+            changeFade = true;
         }
     }
 
@@ -674,12 +624,10 @@ public class Player : MonoBehaviour
     //
     void ChangeStarPhase()
     {
-        ////state = State.PLAYER_STATE_IN_CHANGE;
-        //GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-        SetVehicle(VehicleType.VEHICLE_TYPE_AIRPLANE);
+        vehicleControllerObj.VehicleType = PlayerVehicle.Type.AIRPLANE;
         gameObj.PhaseParam = Game.Phase.GAME_PAHSE_STAR;
         starSpawnManagerObj = GameObject.Find(starSpawnManagerPath).GetComponent<StarSpawnManager>();
+
         var emission = ChargeMaxEffectObj.emission;
         emission.enabled = false;
         emission = ChargeEffectObj.emission;
@@ -762,26 +710,8 @@ public class Player : MonoBehaviour
 
             MoveEnable( true );
 
-            // HACK: 乗り物変更処理
-            //       後に関数化する。
-            // 〇変身条件
-            //    初期        : バイク
-            //    ＋1ポイント : 車
-            //    ＋4ポイント : 大型車( バス )
-            //    ＋8ポイント : 飛行機
-            if( vehicleScore >= 1 && vehicleScore < 5 && vehicleType != VehicleType.VEHICLE_TYPE_CAR )
-            {
-                VehicleChangeStart();
-            }
-            else if( vehicleScore >= 5 && vehicleScore < 13 && vehicleType != VehicleType.VEHICLE_TYPE_BUS )
-            {
-                VehicleChangeStart();
-            }
-            else if( vehicleScore >= 13 && vehicleType != VehicleType.VEHICLE_TYPE_AIRPLANE )
-            {
-                //星フェーズへの移行開始
-                ChangeStarPhase();
-            }
+            // 乗り物変化開始
+            VehicleChangeStart();
         }
     }
 
@@ -859,28 +789,29 @@ public class Player : MonoBehaviour
         scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
         rideCount = 0;
 
-        //乗客のタイプに応じて乗り物変更用のスコアを加算する
+        // HACK: 乗客のタイプに応じて乗り物変更用のスコアを加算する
+        //       決め打ちの数値のため、定数で定めるなどの工夫が必要かと
         switch( passengerType )
         {
             case Human.GROUPTYPE.PEAR:
                 {
                     //ペア作成時のSE再生///////////////////////////////////////////////
                     playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                    vehicleScore += 1;
+                    vehicleControllerObj.VehicleScore += 1;
                     break;
                 }
             case Human.GROUPTYPE.SMAlLL:
                 {
                     //ペア作成時のSE再生///////////////////////////////////////////////
                     playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                    vehicleScore += 2;
+                    vehicleControllerObj.VehicleScore += 2;
                     break;
                 }
             case Human.GROUPTYPE.BIG:
                 {
                     //ペア作成時のSE再生///////////////////////////////////////////////
                     playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                    vehicleScore += 4;
+                    vehicleControllerObj.VehicleScore += 4;
                     break;
                 }
             default:
@@ -934,7 +865,7 @@ public class Player : MonoBehaviour
             PassengerDeleteAll();
             HumanCreateGroup( ignorePlace );
 
-            SetVehicle( VehicleType.VEHICLE_TYPE_BIKE );
+            vehicleControllerObj.VehicleType = PlayerVehicle.Type.BIKE;
             //vehicleScore;
         }
     }
