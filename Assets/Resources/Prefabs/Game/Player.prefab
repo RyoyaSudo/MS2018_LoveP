@@ -584,8 +584,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4828974510578224}
-  - {fileID: 4900287008867702}
   - {fileID: 4767118402284162}
+  - {fileID: 4900287008867702}
   - {fileID: 4236936590949504}
   m_Father: {fileID: 4541990154489586}
   m_RootOrder: 1
@@ -918,7 +918,7 @@ Transform:
   - {fileID: 4919133896767050}
   - {fileID: 4521333248132378}
   m_Father: {fileID: 4029538733851014}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4804490304195340
 Transform:
@@ -1016,7 +1016,7 @@ Transform:
   - {fileID: 4537159205266066}
   - {fileID: 4287038404294540}
   m_Father: {fileID: 4029538733851014}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4919133896767050
 Transform:
@@ -1977,10 +1977,10 @@ MonoBehaviour:
   vehicleNum: 4
   vehicleModel:
   - {fileID: 1570656652911158}
-  - {fileID: 1272711428009452}
   - {fileID: 1350160768310600}
+  - {fileID: 1272711428009452}
   - {fileID: 1621866775314600}
-  vehicleScoreLimit: 01000000020000000400000008000000
+  vehicleScoreLimit: 00000000010000000400000008000000
 --- !u!114 &114814756618038432
 MonoBehaviour:
   m_ObjectHideFlags: 1

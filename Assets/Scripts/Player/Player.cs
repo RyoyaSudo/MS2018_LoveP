@@ -886,7 +886,7 @@ public class Player : MonoBehaviour
             guiStyle.fontSize = 48;
             guiStyle.normal = styleState;
 
-            string str = "現在状態:" + StateParam;
+            string str = "";
             //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
