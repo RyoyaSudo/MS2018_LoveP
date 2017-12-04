@@ -182,8 +182,8 @@ public class Human : MonoBehaviour
                 //乗車アニメーションをさせる
                 modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
                 //運搬アニメーションをさせる
-                modelObj.GetComponent<test>().TransportAnimON();   
-
+                modelObj.GetComponent<test>().TransportAnimON();
+                //GetComponent<FaceController>().ChangeFace(FaceController.FaceType.FACE_TYPE_SMILE);
                 break;
 
             //解散
