@@ -38,6 +38,11 @@ public class PlayerVehicle : MonoBehaviour {
     Type vehicleType;
 
     /// <summary>
+    /// 昔の乗り物のタイプ
+    /// </summary>
+    Type oldVehicleType;
+
+    /// <summary>
     /// 乗り物モデル
     /// </summary>
     [SerializeField] GameObject[] vehicleModel;
@@ -72,6 +77,7 @@ public class PlayerVehicle : MonoBehaviour {
     private void Awake()
     {
         VehicleType = Type.BIKE;
+        oldVehicleType = Type.BIKE;
         VehicleScore = 0;
 
         vehicleModel[ ( int )vehicleType ].SetActive( true );
@@ -130,16 +136,14 @@ public class PlayerVehicle : MonoBehaviour {
         {
             Vector3 scale;
 
-            scale = new Vector3( vehicleModel[ ( int )vehicleType ].transform.localScale.x - Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.y - Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.z - Time.deltaTime );
-            vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
-            if( vehicleModel[ ( int )vehicleType ].transform.localScale.x < 0.0f )
+            scale = new Vector3( vehicleModel[ ( int )oldVehicleType ].transform.localScale.x - Time.deltaTime , vehicleModel[ ( int )oldVehicleType ].transform.localScale.y - Time.deltaTime , vehicleModel[ ( int )oldVehicleType ].transform.localScale.z - Time.deltaTime );
+            vehicleModel[ ( int )oldVehicleType ].transform.localScale = scale;
+
+            if( vehicleModel[ ( int )oldVehicleType ].transform.localScale.x < 0.0f )
             {
                 scale = new Vector3( 0.0f , 0.0f , 0.0f );
-                vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
+                vehicleModel[ ( int )oldVehicleType ].transform.localScale = scale;
 
-                // HACK: 新しい乗り物タイプの設定
-                //       列挙値に+1して入れるやり方には汎用性に著しく欠けるため、後に修正する必要有り。
-                VehicleType = vehicleType + 1;
                 isChange = false;
 
                 scale = new Vector3( 0.0f , 0.0f , 0.0f );
@@ -151,6 +155,7 @@ public class PlayerVehicle : MonoBehaviour {
             Vector3 scale;
             scale = new Vector3( vehicleModel[ ( int )vehicleType ].transform.localScale.x + Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.y + Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.z + Time.deltaTime );
             vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
+
             if( vehicleModel[ ( int )vehicleType ].transform.localScale.x > 1.0f )
             {
                 scale = new Vector3( 1.0f , 1.0f , 1.0f );
@@ -177,34 +182,66 @@ public class PlayerVehicle : MonoBehaviour {
             // 飛行機
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.AIRPLANE;
         }
-        else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.CAR ] && VehicleScore < vehicleScoreLimit[ ( int )Type.BUS ] && vehicleType != Type.AIRPLANE )
+        else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BUS ] && VehicleScore < vehicleScoreLimit[ ( int )Type.AIRPLANE ] && vehicleType != Type.BUS )
         {
             // 大型車
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.BUS;
         }
-        else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BIKE ] && VehicleScore < vehicleScoreLimit[ ( int )Type.CAR ] && vehicleType != Type.AIRPLANE )
+        else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.CAR ] && VehicleScore < vehicleScoreLimit[ ( int )Type.BUS ] && vehicleType != Type.CAR )
         {
             // 車
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.CAR;
+        }
+        else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BIKE ] && VehicleScore < vehicleScoreLimit[ ( int )Type.CAR ] && vehicleType != Type.BIKE )
+        {
+            // バイク
+            flags = true;
+
+            oldVehicleType = vehicleType;
+            VehicleType = Type.BIKE;
         }
         else if( VehicleScore < vehicleScoreLimit[ ( int )Type.BIKE ] && vehicleType != Type.BIKE )
         {
             // バイク
             flags = true;
 
+            oldVehicleType = vehicleType;
             VehicleType = Type.BIKE;
         }
-        else
-        {
-            Debug.LogError( "乗り物変化時に不定の動作が発生" );
-        }
+
+        Debug.Log( "乗り物スコア:" + VehicleScore );
 
         return flags;
+    }
+
+    /// <summary>
+    /// OnGUI処理
+    /// 主にデバッグ情報を出す
+    /// </summary>
+    private void OnGUI()
+    {
+        if( Game.IsOnGUIEnable )
+        {
+            GUIStyleState styleState;
+            styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
+
+            GUIStyle guiStyle = new GUIStyle();
+            guiStyle.fontSize = 48;
+            guiStyle.normal = styleState;
+
+            string str = "現在乗り物状態:" + VehicleType + "\n乗り物スコア:" + VehicleScore;
+
+            GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+        }
     }
 }

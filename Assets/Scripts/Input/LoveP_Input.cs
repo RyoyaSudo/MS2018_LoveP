@@ -27,23 +27,32 @@ public class LoveP_Input : MonoBehaviour {
     // ボタン
     private bool pushA = false;
 
-	/// <summary>
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        serial = null;
+    }
+
+    /// <summary>
     /// 初期化処理
     /// </summary>
-	void Start () {
+    void Start () {
         // 現在のデバイス状態を確認する
         if( isDefaultInputUse )
         {
-            Debug.LogAssertion( "入力モード:Unity標準" );
+            Debug.LogWarning( "入力モード:Unity標準" );
         }
         else
         {
-            Debug.Log( "入力モード:独自デバイス" );
+            Debug.LogWarning( "入力モード:独自デバイス" );
 
             // 以下、シリアルポートが通信可能か否かのコード
             serial = ArduinoSerial.Instance;
 
             bool success = serial.Open(portNum, ArduinoSerial.Baudrate.B_115200);
+
             if (!success)
             {
                 return;
@@ -64,8 +73,11 @@ public class LoveP_Input : MonoBehaviour {
     // シリアル通信の終了処理
     void OnDisable()
     {
-        serial.Close();
-        serial.OnDataReceived -= SerialCallBack;
+        if( serial != null )
+        {
+            serial.Close();
+            serial.OnDataReceived -= SerialCallBack;
+        }
     }
 
     // 水平軸をシリアル通信から読み取る
@@ -82,18 +94,11 @@ public class LoveP_Input : MonoBehaviour {
 
         if (a[0] == "y")
         {
-            float v = float.Parse(a[1].Trim());
+            float v = float.Parse( a[1].Trim() );
 
-            v = (v / 1024.0f) * 5.0f;
-
-            // 細かいブレは弾く
-            if (Mathf.Abs(v) <= 0.1f)
-            {
-                v = 0;
-            }
-
-            // このコードで正しく動く
-            //transform.eulerAngles += new Vector3(0f, v, 0f);
+            // 水平軸分解能に関して
+            // -1024～1024の間のため、1024で割って-1～1の範囲に収める
+            v = ( v / 1024.0f );
 
             device_H = v;
         }
@@ -115,13 +120,9 @@ public class LoveP_Input : MonoBehaviour {
         {
             float v = float.Parse(a[1].Trim());
 
-            v = (v / 1024.0f) * 5.0f;
-
-            // 細かいブレは弾く
-            //if (Mathf.Abs(v) <= 0.4f)
-            //{
-            //    v = 0;
-            //}
+            // 垂直軸分解能に関して
+            // -1024～1024の間のため、1024で割って-1～1の範囲に収める
+            v = ( v / 1024.0f );
 
             device_V = v;
         }
@@ -225,11 +226,9 @@ public class LoveP_Input : MonoBehaviour {
         }
         else
         {
-            // ここに独自デバイスの垂直軸取得処理を追加して！！
-
             value = device_V;
         }
-        print(device_V);
+
         return value;
     }
 
@@ -247,8 +246,7 @@ public class LoveP_Input : MonoBehaviour {
         }
         else
         {
-            // ここに独自デバイスの水平軸取得処理を追加して！！
-            value += device_H * 0.3f;
+            value += device_H;
         }
 
         return value;
@@ -268,7 +266,6 @@ public class LoveP_Input : MonoBehaviour {
         }
         else
         {
-            // ここに独自デバイスのハンドル右ボタン取得処理を追加して！！
             value = pushA;
         }
 
