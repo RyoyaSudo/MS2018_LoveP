@@ -137,6 +137,12 @@ public class FaceController : MonoBehaviour {
                 }
         }
     }
+
+    private void OnDestroy()
+    {
+        //初期顔に戻す
+        ChangeFace(FaceType.FACE_TYPE_NORMAL);
+    }
 }
 
 // HACK: ウインクから戻る表情はfaceTypeに設定されている表情
