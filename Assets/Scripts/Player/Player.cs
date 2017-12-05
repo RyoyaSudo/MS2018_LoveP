@@ -482,10 +482,16 @@ public class Player : MonoBehaviour
                             passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
                         }
 
+                        //　TODO : 田口　2017/11/30
+                        //乗客を子にするのはHuman.csでやります
                         //乗客を子にする
-                        human.gameObject.transform.position = transform.position;
-                        human.transform.parent = transform;
-                        human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
+                        //human.gameObject.transform.position = transform.position;
+                        //human.transform.parent = transform;
+
+                        // TODO : 田口　2017/11/30
+                        //Human.csで運搬状態にしました
+                        //乗客の状態を「運搬」に
+                        //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
                         Debug.Log( "Ride" );
                         passengerObj[ rideCount ] = human;
                         rideCount++;
@@ -508,6 +514,10 @@ public class Player : MonoBehaviour
                         {
                             // 乗客はまだ1人以上残っているため、乗車待機状態に
                             StateParam = State.PLAYER_STATE_TAKE_READY;
+
+                            // TODO : 田口　2017/11/30
+                            //乗客の状態を「乗車」に
+                            human.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.RIDE);
                         }
                     }
                     break;
@@ -781,9 +791,20 @@ public class Player : MonoBehaviour
         for( int i = 0 ; i < rideCount ; i++ )
         {
             passengerObj[ i ].transform.parent = null;
-            passengerObj[ i ].GetComponent<Human>().stateType = Human.STATETYPE.GETOFF;
             passengerObj[ i ].GetHumanModelCollider().isTrigger = false;
+
+            // TODO : 田口　2017/11/30
+            //最後の人だけ状態を「待ち受け」に
+            if( i == rideCount - 1 )
+            {
+                passengerObj[ i ].GetComponent<Human>().SetStateType( Human.STATETYPE.AWAIT );
+            }
+            else //それ以外の状態は「下車」に
+            {
+                passengerObj[ i ].GetComponent<Human>().SetStateType( Human.STATETYPE.GETOFF );
+            }
         }
+
         // HACK: スコア加算処理の場所
         //       現状プレイヤークラス内だが、後に変更の可能性有り。
         scoreObj.gameObject.GetComponent<ScoreCtrl>().AddScore( ( int )passengerType );
