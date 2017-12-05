@@ -43,6 +43,8 @@ public class FaceController : MonoBehaviour {
     }
     public FaceState faceState;
 
+    float winkCount;
+
     private void Awake()
     {
         faceMaterial = faceObj.GetComponent<SkinnedMeshRenderer>().materials[0];
@@ -54,6 +56,7 @@ public class FaceController : MonoBehaviour {
         info.atlas.height = atlasSize.y;
         info.vNum = (int)(info.textureSize.y / info.atlas.height);
         info.hNum = (int)(info.textureSize.x / info.atlas.width);
+        winkCount = 0;
     }
 
     ///<summary>
@@ -79,17 +82,61 @@ public class FaceController : MonoBehaviour {
         info.mat.SetTextureOffset("_MainTex", offset);
     }
 
+    /// <summary>
+    /// ウインク用関数
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
+    public void Wink(FaceType type)
+    {
+        //info.type = (int)type;
+
+        //座標を求める
+        info.atlas.x = ((int)type / info.vNum);
+        info.atlas.y = ((int)type - (info.atlas.x * info.vNum));
+        info.atlas.x *= info.atlas.width;
+        info.atlas.y *= info.atlas.height;
+
+        //UV座標計算
+        Vector2 offset;
+        offset = new Vector2(info.atlas.x / info.textureSize.x,
+                            1.0f - (info.atlas.y / info.textureSize.y));
+
+        //適用
+        info.mat.SetTextureOffset("_MainTex", offset);
+    }
+
 
     // Use this for initialization
     void Start()
     {
         ChangeFace(faceType);
-        Debug.Log("faceChange");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        switch( faceState )
+        {
+            case FaceState.FACE_STATE_NORMAL:
+                {
+                    break;
+                }
+            case FaceState.FACE_STATE_WINK:
+                {
+                    winkCount += Time.deltaTime;
+                    if (winkCount % 3 > 2.7f)
+                    {
+                        Wink(FaceType.FACE_TYPE_CLOSE_EYE);
+                    }
+                    else
+                    {
+                        ChangeFace(faceType);
+                    }
+                    break;
+                }
+        }
     }
 }
+
+// HACK: ウインクから戻る表情はfaceTypeに設定されている表情
