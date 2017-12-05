@@ -12,12 +12,14 @@ public class CityPhaseMove : MonoBehaviour {
     /// Player.csで管理しているものを処理する際に利用。
     /// </summary>
     Player playerObj;
+    [SerializeField] string playerObjPath;
 
     /// <summary>
-    /// プレイヤーオブジェクトのHierarchy上のパス
+    /// ゲームシーン管理オブジェクト。
+    /// 状態を確認し、それに応じた処理をするために利用。
     /// </summary>
-    [SerializeField]
-    string playerObjPath;
+    Game gameObj;
+    [SerializeField] string gameObjPath;
 
     /// <summary>
     /// 移動処理有効化フラグ。Player.csで制御してもらう。
@@ -153,6 +155,12 @@ public class CityPhaseMove : MonoBehaviour {
     public string controllerPath;
 
     /// <summary>
+    /// 独自デバイス入力処理オブジェクト
+    /// </summary>
+    private LoveP_Input inputObj;
+    [SerializeField] string inputObjPath;
+
+    /// <summary>
     /// 生成時処理
     /// </summary>
     private void Awake()
@@ -166,6 +174,8 @@ public class CityPhaseMove : MonoBehaviour {
         IsEnable = false;
         VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
+        inputObj = null;
+        gameObj = null;
 
         // 算出系
         stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
@@ -180,9 +190,9 @@ public class CityPhaseMove : MonoBehaviour {
 
         // シーン内から必要なオブジェクトを取得
         controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
-        playerObj = GameObject.Find( playerObjPath ).GetComponent<Player>();
-
-        //isEnable = true;
+        playerObj  = GameObject.Find( playerObjPath ).GetComponent<Player>();
+        inputObj   = GameObject.Find( inputObjPath ).GetComponent<LoveP_Input>();
+        gameObj    = GameObject.Find( gameObjPath ).GetComponent<Game>();
     }
 
     /// <summary>
@@ -195,10 +205,13 @@ public class CityPhaseMove : MonoBehaviour {
         }
         else
         {
-            // HACK: 移動無効化時に行うべきこと
-            //       CharcterControllerを利用している場合、移動ベクトルを0にしなくてはならないらしい(検証不十分)
-            //       それに伴い、重力値が反映されているか怪しいため、あとでキチンと調査すること。
-            controller.Move( Vector3.zero );
+            if( gameObj.PhaseParam == Game.Phase.GAME_PAHSE_CITY )
+            {
+                // HACK: 移動無効化時に行うべきこと
+                //       CharcterControllerを利用している場合、移動ベクトルを0にしなくてはならないらしい(検証不十分)
+                //       それに伴い、重力値が反映されているか怪しいため、あとでキチンと調査すること。
+                controller.Move( Vector3.zero );
+            }
         }
     }
 
@@ -207,9 +220,9 @@ public class CityPhaseMove : MonoBehaviour {
     /// </summary>
     public void CityMoveCharcterController()
     {
-        float moveV = Input.GetAxis("Vertical");
-        float moveH = Input.GetAxis("Horizontal");
-        bool isPush = Input.GetKey( KeyCode.Space ) || Input.GetButton( "Fire1" );  // プッシュボタンを押したか判定するフラグ
+        float moveV = inputObj.GetAxis( "Vertical" );
+        float moveH = inputObj.GetAxis( "Horizontal" );
+        bool isPush = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
 
         //プッシュ時と通常時で旋回力を分ける
         if( isPush )
@@ -383,7 +396,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
