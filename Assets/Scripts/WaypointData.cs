@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaypointData : MonoBehaviour {
-
+public class WaypointData : MonoBehaviour
+{
     public List<Transform> wayPointsTransform;
 
     public int pointsTransformNum;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Awake()
+    {
         //Listを初期化
         wayPointsTransform = new List<Transform>();
 
@@ -25,5 +26,6 @@ public class WaypointData : MonoBehaviour {
         }
         Debug.Log(log);
         pointsTransformNum = Count;
-	}
+    }
 }
+

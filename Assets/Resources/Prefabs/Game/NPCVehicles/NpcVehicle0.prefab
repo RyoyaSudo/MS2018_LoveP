@@ -37,8 +37,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4138743235914104}
-  - component: {fileID: 114431969628948142}
   - component: {fileID: 195656794963516816}
+  - component: {fileID: 114328563428270210}
   m_Layer: 0
   m_Name: NpcVehicle0
   m_TagString: Untagged
@@ -367,7 +367,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!64 &64682198889337228
 MeshCollider:
@@ -383,7 +383,7 @@ MeshCollider:
   m_InflateMesh: 1
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 68c23fca8428ef14983e6a32443c5386, type: 3}
---- !u!114 &114431969628948142
+--- !u!114 &114328563428270210
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -391,16 +391,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489710804023658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc1f4bce8f50745639343b94fa168b72, type: 3}
+  m_Script: {fileID: 11500000, guid: 99516034c3b3244c982e19c81bf15487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waytPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  currentRoot: 0
-  npcPrefab: {fileID: 1329548052180850, guid: bb5962b72d4a34d149ff1bcd88cb4e0c, type: 2}
 --- !u!146 &146217909568420236
 WheelCollider:
   m_ObjectHideFlags: 1
