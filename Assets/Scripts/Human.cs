@@ -272,19 +272,20 @@ public class Human : MonoBehaviour
      *****************************************************************************/
     public void ModelCreate( Human.GROUPTYPE groupType )
     {
-
+        // HACK: 乗客モデル生成処理
+        //       見た目をどれにするか決める部分。法則を上手くつけて何とかしたい。
         switch( groupType )
         {
             case Human.GROUPTYPE.PEAR:
-                modelID = 0;                          // TODO: 暫定 0 = ペアのため。後に乱数にかけるなどして変更。
+                modelID = 0;                          // 暫定 0 = ペアのため。後に乱数にかけるなどして変更。
                 break;
 
             case Human.GROUPTYPE.SMAlLL:
-                modelID = 1;                          // TODO: 暫定 1 = グループ小のため。後に乱数にかけるなどして変更。
+                modelID = 1;                          // 暫定 1 = グループ小のため。後に乱数にかけるなどして変更。
                 break;
 
             case Human.GROUPTYPE.BIG:
-                modelID = 2;                          // TODO: 暫定 2 = グループ大のため。後に乱数にかけるなどして変更。
+                modelID = 2;                          // 暫定 2 = グループ大のため。後に乱数にかけるなどして変更。
                 break;
 
             default:
