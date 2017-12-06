@@ -358,6 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8e771138c642c438b9551e3106843b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPath: Player
+  rideTime: 0
   passengerGroupUIEnptyPrefab: {fileID: 1727667008595502, guid: 91ce169bab77377488d17150e465cfa5,
     type: 2}
   passengerGroupUIPlanePrefab: {fileID: 1340392640901240, guid: 59aa84ac6dcb3b1468ba15f584b377f7,

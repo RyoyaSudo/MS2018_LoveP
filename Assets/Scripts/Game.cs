@@ -70,7 +70,9 @@ public class Game : MonoBehaviour {
     /// デバッグ用フラグ変数
     /// デバッグ時にしたくない処理を除外する時などに使うこと
     /// </summary>
-    [SerializeField] bool debugFlags;
+    public static bool IsDebug;
+
+    [SerializeField] bool isDebug;
 
     /// <summary>
     /// OnGUI有効化フラグ
@@ -116,12 +118,12 @@ public class Game : MonoBehaviour {
             case Phase.GAME_PAHSE_CITY:
                 {
                     //デバッグ用
-                    if( debugFlags && Input.GetKeyUp( KeyCode.P ) )
+                    if( isDebug && Input.GetKeyUp( KeyCode.P ) )
                     {
                         PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
 
-                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
+                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -130,7 +132,7 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_STAR:
                 {
-                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
+                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -139,7 +141,7 @@ public class Game : MonoBehaviour {
         }
 
         //デバッグ用
-        if( debugFlags && Input.GetKeyUp( KeyCode.O ) )
+        if( isDebug && Input.GetKeyUp( KeyCode.O ) )
         {
             transitionObj.GetComponent<Transition>().StartTransition("Result");
         }
@@ -147,6 +149,7 @@ public class Game : MonoBehaviour {
         // HACK: OnGUIデバッグ時On・Off処理
         //       もっといい方法がありそうだけど現状これで
         IsOnGUIEnable = isOnGUIEnable;
+        IsDebug = isDebug;
     }
 
     /// <summary>

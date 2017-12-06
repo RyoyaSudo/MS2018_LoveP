@@ -9,105 +9,84 @@ using System.Linq;
 /// </summary>
 public class TimelineManager : MonoBehaviour {
 
-    public GameObject[] timelinePrefab;                     //タイムラインプレファブ
-    private Timeline [] timelineObj;                        //タイムラインオブジェ
+    private Timeline[] timelineObjArray;
+
+    [SerializeField] Timeline[] timelinePrefabArray;
 
     //タイムラインのプレファブと同じ名前を入力
     [SerializeField] private string riedPath;               //乗車プレファブのパス
-    [SerializeField] private string getoffPath;             //下車プレファブのパス
-
-    private GameObject playerObj;                           //プレイヤーオブジェ
-    [SerializeField] private string playerPath;             //プレイヤーパス
-
-    private GameObject cameraObj;                           //カメラオブジェ
-    [SerializeField] private string cameraPath;             //カメラパス
-
-    [SerializeField] private string animationTrackPath;     //アニメーショントラックパス
-    [SerializeField] private string cinemachineTrackPath;   //シネマシーントラックパス
 
     // 初期化
     void Start ()
     {
-        timelineObj = new Timeline[timelinePrefab.Length];
-
-        //プレイヤーオブジェクト取得
-        playerObj = GameObject.Find(playerPath);
-
-        //カメラオブジェクト取得
-        cameraObj = GameObject.Find(cameraPath);
-
-        //生成
-        for ( int nCnt = 0; nCnt < timelinePrefab.Length; nCnt++ )
-        {
-            TimelineCreate(nCnt);
-        }
+        // 生成
+        TimelineCreate();
     }
 
     //更新
     void Update()
     {
-        //タイムラインテスト用
-        if (Input.GetKeyDown("9"))
+        // HACK: タイムラインテスト用コード
+        //       あとで消してください。
+        if( Game.IsDebug )
         {
-            for (int nCnt = 0; nCnt < timelinePrefab.Length; nCnt++)
+            if( Input.GetKeyDown( "9" ) )
             {
-                //乗車
-                if (timelineObj[nCnt].name == riedPath)
+                for( int nCnt = 0 ; nCnt < timelineObjArray.Length ; nCnt++ )
                 {
-                    //再生
-                    timelineObj[nCnt].TimelineStart();
-                }
-            }
-        }
-        if (Input.GetKeyDown("8"))
-        {
-            for (int nCnt = 0; nCnt < timelinePrefab.Length; nCnt++)
-            {
-                //下車
-                if (timelineObj[nCnt].name == getoffPath)
-                {
-                    //再生
-                    timelineObj[nCnt].TimelineStart();
+                    //乗車
+                    if( timelineObjArray[ nCnt ].name == riedPath )
+                    {
+                        //再生
+                        timelineObjArray[ nCnt ].Play();
+                    }
                 }
             }
         }
     }
 
     /// <summary>
-    /// タイムライン生成
+    /// タイムライン生成処理d
     /// </summary>
-    /// <param name="num">
-    /// 生成順番
-    /// </param>
-    void TimelineCreate ( int num )
+    private void TimelineCreate()
     {
-        //生成
-        GameObject timeline = Instantiate(timelinePrefab[num]);
-        
-        //自分の親を自分にする
-        timeline.transform.parent = transform;
+        // 格納先生成
+        int timelineNum = timelinePrefabArray.Length;
 
-        //表示名
-        timeline.name =timelinePrefab[num].name;
+        timelineObjArray = new Timeline[ timelineNum ];
 
-        //バインド
-        //乗車
-        if ( timeline.name == riedPath )
+        // 各々の生成
+        for( int i = 0 ; i < timelineNum ; i++ )
         {
-            timeline.GetComponent<Timeline>().BindTrack(playerObj,animationTrackPath);
-            timeline.GetComponent<Timeline>().BindTrack(cameraObj, cinemachineTrackPath);
+            Timeline timeline = Instantiate( timelinePrefabArray[ i ] );
+
+            timeline.transform.parent = transform;           // 検索を容易にするため、自身の子として追加
+            timeline.name = timelinePrefabArray[ i ].name;   // 名前を元の物にする
+            timelineObjArray[ i ] = timeline;                // 生成物を保存
         }
-        //下車
-        else if ( timeline.name == getoffPath )
+    }
+
+    /// <summary>
+    /// タイムラインオブジェクト取得処理
+    /// </summary>
+    /// <param name="name">オブジェクト名。対象物のプレハブ名と同様。</param>
+    /// <returns>対象のオブジェクト</returns>
+    public Timeline Get( string name )
+    {
+        int num = timelineObjArray.Length;
+
+        for( int i = 0 ; i < num ; i++ )
         {
-            timeline.GetComponent<Timeline>().BindTrack(cameraObj, cinemachineTrackPath);
-        }
-        else
-        {
-            Debug.Log("パスがないです");
+            Timeline obj = timelineObjArray[ i ];
+
+            if( obj.name == name )
+            {
+                return obj;
+            }
         }
 
-        //生成したタイムラインを保存
-        timelineObj[num] = timeline.GetComponent<Timeline>();
+        Debug.LogError( "タイムラインオブジェクト取得に失敗しました。\n名前:" + name );
+
+        return null;
     }
 }
