@@ -26,7 +26,7 @@ public abstract class Timeline : MonoBehaviour
     /// <param name="path">
     /// Track名
     /// </param>
-    protected void BindTrack( GameObject obj , string path )
+    public void BindTrack( GameObject obj , string path )
     {
         //PlayableDirector取得
         director = GetComponent<PlayableDirector>();

@@ -52,5 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timelinePrefabArray:
-  - {fileID: 114822497336982076, guid: cf5d09ef530416f4b9f15869cb8f82d9, type: 2}
-  riedPath: RideTimeline
+  - {fileID: 114246067529461602, guid: cf5d09ef530416f4b9f15869cb8f82d9, type: 2}
+  - {fileID: 114974117692728100, guid: ca04eb7f6906211489933bbf9686aaab, type: 2}

@@ -13,36 +13,11 @@ public class TimelineManager : MonoBehaviour {
 
     [SerializeField] Timeline[] timelinePrefabArray;
 
-    //タイムラインのプレファブと同じ名前を入力
-    [SerializeField] private string riedPath;               //乗車プレファブのパス
-
     // 初期化
     void Start ()
     {
         // 生成
         TimelineCreate();
-    }
-
-    //更新
-    void Update()
-    {
-        // HACK: タイムラインテスト用コード
-        //       あとで消してください。
-        if( Game.IsDebug )
-        {
-            if( Input.GetKeyDown( "9" ) )
-            {
-                for( int nCnt = 0 ; nCnt < timelineObjArray.Length ; nCnt++ )
-                {
-                    //乗車
-                    if( timelineObjArray[ nCnt ].name == riedPath )
-                    {
-                        //再生
-                        timelineObjArray[ nCnt ].Play();
-                    }
-                }
-            }
-        }
     }
 
     /// <summary>
