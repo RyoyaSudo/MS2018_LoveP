@@ -304,6 +304,9 @@ public class Human : MonoBehaviour
         //指定時間がたつと
         if (rideCnt >= rideTime)
         {
+            // 乗車位置に移動
+            transform.position = rideEndPos;
+
             //「運搬」状態に
             SetStateType(STATETYPE.TRANSPORT);
         }
@@ -334,14 +337,6 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Transport()
     {
-        // HACK: 乗客がどのグループなのかUI削除
-        //       結合時にエラーとなったのでコメントアウト。
-        //       後に判断
-        //if( bPassengerUI )
-        //{
-        //    PassengerGroupUIDestroy();
-        //}
-
         //乗車アニメーションをさせる
         modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
 
@@ -499,15 +494,6 @@ public class Human : MonoBehaviour
                 passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIHeartMat;
                 break;
         }
-    }
-
-    /// <summary>
-    /// 乗客がどのグループなのかUI削除
-    /// </summary>
-   void PassengerGroupUIDestroy()
-    {
-        Destroy(passengerGroupUIEnptyObj);
-        //bPassengerUI = false;
     }
 
 }
