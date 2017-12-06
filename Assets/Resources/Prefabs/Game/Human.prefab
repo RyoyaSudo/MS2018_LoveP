@@ -373,6 +373,7 @@ MonoBehaviour:
     type: 2}
   passengerGroupUIHeartMat: {fileID: 2100000, guid: 495a322513779064a93f8c0731187171,
     type: 2}
+  timelineMangerPath: TimeLineManager
   humanModelArray:
   - {fileID: 1167692189014702, guid: aba614d213f717f4e938361aca0ed2e4, type: 2}
   - {fileID: 1228520313325140, guid: e2419b9fa7c87bc468f1944a766cf382, type: 2}

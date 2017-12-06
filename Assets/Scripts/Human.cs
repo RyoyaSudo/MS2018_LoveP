@@ -29,6 +29,10 @@ public class Human : MonoBehaviour
     public Material passengerGroupUIHeartMat;        //ハートマテリアル
     private GameObject passengerGroupUIEnptyObj;     //空オブジェ
 
+    //タイムラインマネージャー
+    [SerializeField] private string timelineMangerPath ;    //パス
+    private TimelineManager timelineManager;                //オブジェクト
+    
     /// <summary>
     /// グループ種類。
     /// </summary>
@@ -121,27 +125,11 @@ public class Human : MonoBehaviour
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
 
-        ////乗車させる人数を設定
-        //switch (groupType)
-        //{
-        //    //ペア
-        //    case GROUPTYPE.PEAR:
-        //        maxPassengerNum = pearPassengerNum;
-        //        break;
-
-        //    //小グループ
-        //    case GROUPTYPE.SMAlLL:
-        //        maxPassengerNum = smallPassengerNum;
-        //        break;
-
-        //    //大グループ
-        //    case GROUPTYPE.BIG:
-        //        maxPassengerNum = bigPassengerNum;
-        //        break;
-        //}
-
         //プレイヤーオブジェクト取得
         playerObj = GameObject.Find(playerPath);
+
+        //タイムラインマネージャー取得
+        timelineManager = GameObject.Find(timelineMangerPath).GetComponent<TimelineManager>();
     }
 
     /// <summary>
