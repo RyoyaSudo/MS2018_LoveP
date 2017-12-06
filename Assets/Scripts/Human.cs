@@ -121,6 +121,25 @@ public class Human : MonoBehaviour
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
 
+        ////乗車させる人数を設定
+        //switch (groupType)
+        //{
+        //    //ペア
+        //    case GROUPTYPE.PEAR:
+        //        maxPassengerNum = pearPassengerNum;
+        //        break;
+
+        //    //小グループ
+        //    case GROUPTYPE.SMAlLL:
+        //        maxPassengerNum = smallPassengerNum;
+        //        break;
+
+        //    //大グループ
+        //    case GROUPTYPE.BIG:
+        //        maxPassengerNum = bigPassengerNum;
+        //        break;
+        //}
+
         //プレイヤーオブジェクト取得
         playerObj = GameObject.Find(playerPath);
     }
@@ -481,5 +500,15 @@ public class Human : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// 乗客がどのグループなのかUI削除
+    /// </summary>
+   void PassengerGroupUIDestroy()
+    {
+        Destroy(passengerGroupUIEnptyObj);
+        //bPassengerUI = false;
+    }
+
 }
 

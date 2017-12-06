@@ -33,17 +33,17 @@ public class GuestCursor : MonoBehaviour {
 
         float dis = Vector3.Distance(transform.position, iti);
 
-        if(dis >=  45.0f)
+        if(dis >=  140.0f)
         {
             // Y座標を上に上げる
             transform.position = new Vector3(player.transform.position.x, 3.0f, player.transform.position.z);
         }
         else
         {
-            // Y座標を上に上げる
+            // Y座標を上に上げる0.37
             transform.position = new Vector3(player.transform.position.x, -1130.0f, player.transform.position.z);
         }
 
-        transform.Translate(new Vector3(0.0f, 0.0f, 23.4f));
+        transform.Translate(new Vector3(0.0f, 0.0f, 31.4f));
     }
 }
