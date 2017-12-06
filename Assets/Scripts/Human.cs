@@ -19,6 +19,10 @@ public class Human : MonoBehaviour
     private Vector3 rideEndPos;                      //乗車の最後の位置
     private float rideMoveRate;                      //乗車するときの移動割合
 
+    public float getOffTime;                         //下車するまでの時間
+    private float getOffCnt;                         //下車カウント
+
+
     //乗客がどのグループなのかUI
     public GameObject passengerGroupUIEnptyPrefab;   //空プレファブ
     public GameObject passengerGroupUIPlanePrefab;   //プレーンプレファブ
@@ -130,6 +134,9 @@ public class Human : MonoBehaviour
 
         //タイムラインマネージャー取得
         timelineManager = GameObject.Find(timelineMangerPath).GetComponent<TimelineManager>();
+
+        rideCnt = 0;
+        getOffCnt = 0;
     }
 
     /// <summary>
@@ -243,6 +250,15 @@ public class Human : MonoBehaviour
                 transform.LookAt( playerObj.transform );      //プレイヤーの位置を向かせる
 
                 Destroy( passengerGroupUIEnptyObj );         //乗客がどのグループなのかUI削除
+
+                //乗車タイムライン開始
+                timelineManager.Get("RideTimeline").Play();
+                break;
+
+            //下車
+            case STATETYPE.GETOFF:
+                //下車タイムライン開始
+                timelineManager.Get("GetOffTimeline").Play();
                 break;
 
             //運搬
@@ -311,13 +327,20 @@ public class Human : MonoBehaviour
     /// </summary>
     private void GetOff()
     {
-        //「解散」状態に
-        SetStateType(STATETYPE.RELEASE);  // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
-
         //下車アニメーションをさせる
         modelObj.GetComponent<test>().GetoffAnimON();
-        //解散アニメーションをさせる
-        modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+
+        //指定時間がたつと
+        if (getOffCnt >= getOffTime)
+        {
+            //「解散」状態に
+            SetStateType(STATETYPE.RELEASE);
+        }
+        else
+        {
+            getOffCnt += Time.deltaTime;
+        }
+
     }
 
     /// <summary>
@@ -325,9 +348,6 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Transport()
     {
-        //乗車アニメーションをさせる
-        modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
-
         //運搬アニメーションをさせる
         modelObj.GetComponent<test>().TransportAnimON();
     }
@@ -337,6 +357,9 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Release ()
     {
+        //解散アニメーションをさせる
+        modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+
         destroyTime -= Time.deltaTime;
 
         if (destroyTime < 0.0f)

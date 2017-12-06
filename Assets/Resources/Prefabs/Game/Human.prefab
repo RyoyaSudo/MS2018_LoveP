@@ -360,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPath: Player
   rideTime: 2
+  getOffTime: 5
   passengerGroupUIEnptyPrefab: {fileID: 1727667008595502, guid: 91ce169bab77377488d17150e465cfa5,
     type: 2}
   passengerGroupUIPlanePrefab: {fileID: 1340392640901240, guid: 59aa84ac6dcb3b1468ba15f584b377f7,
