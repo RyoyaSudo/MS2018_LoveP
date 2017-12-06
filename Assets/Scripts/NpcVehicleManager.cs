@@ -5,8 +5,6 @@ using UnityEngine;
 public class NpcVehicleManager : MonoBehaviour
 {
 
-    public NpcVehicle NpcVehicle;
-
     private int points; //wayPointsNumの受け皿
     private int pointsPos;  //モブ車の湧き位置
 
@@ -41,7 +39,6 @@ public class NpcVehicleManager : MonoBehaviour
         {
             WaypointData obj = child.GetComponent<WaypointData>();
             wayPointsData.Add(obj);
-            Debug.Log(wayPointsData[count]);
             count++;
         }
         pointsDataNum = count;
@@ -50,7 +47,7 @@ public class NpcVehicleManager : MonoBehaviour
 
         for (int nCnt = 0; nCnt < pointsDataNum; nCnt++)
         {
-            NpcVehicleSet(npcPrefab[0], nCnt);
+            NpcVehicleSet(npcPrefab[0], nCnt, 0);
         }
 
         //UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -59,10 +56,10 @@ public class NpcVehicleManager : MonoBehaviour
     }
 
     //Npcvehicleを生成
-    void NpcVehicleSet(GameObject prefab, int pointNum)
+    void NpcVehicleSet(GameObject prefab, int pointNum, int spawnNum)
     {
         npcObj[pointNum] = Instantiate(prefab).GetComponent<NpcVehicle>();
-        npcObj[pointNum].GetComponent<Transform>().parent = transform;   //親子関係を紐づけする
-        npcObj[pointNum].Initialize(wayPointsData[pointNum].wayPointsTransform, wayPointsData[pointNum].pointsTransformNum,0);
+        npcObj[pointNum].transform.parent = transform;   //親子関係を紐づけする
+        npcObj[pointNum].Initialize(wayPointsData[pointNum].wayPointsTransform, wayPointsData[pointNum].pointsTransformNum, spawnNum);
     }
 }

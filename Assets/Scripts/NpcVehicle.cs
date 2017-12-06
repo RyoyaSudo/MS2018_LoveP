@@ -16,7 +16,7 @@ public class NpcVehicle : MonoBehaviour {
     void Start()
     {
         UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        agent.speed = 30;//このようにスクリプトからNavMeshのプロパティをいじれる。
+        agent.speed = 10;//このようにスクリプトからNavMeshのプロパティをいじれる。
         agent.autoBraking = true;  //目標地点に近づいても減速しないようにOffにする
     }
 
@@ -24,8 +24,7 @@ public class NpcVehicle : MonoBehaviour {
     void Update()
     {
         Vector3 pos = wayPoints[currentRoot].position;
-
-        if (Vector3.Distance(wayPoints[currentRoot].position, pos) < 1.0f)
+        if (Vector3.Distance(transform.position, pos) < 1.0f)
         {
             currentRoot = (currentRoot < length - 1) ? currentRoot + 1 : 0;
         }

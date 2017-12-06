@@ -19,7 +19,7 @@ public class WaypointManager : MonoBehaviour {
         {
             WaypointData obj = child.GetComponent<WaypointData>();
             wayPointsData.Add(obj);
-            Debug.Log(wayPointsData[count]);
+            //Debug.Log(wayPointsData[count]);
             count++;
         }
         pointsDataNum = count;

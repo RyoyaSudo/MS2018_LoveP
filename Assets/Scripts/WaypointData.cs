@@ -16,15 +16,15 @@ public class WaypointData : MonoBehaviour
 
         int Count = 0;
         pointsTransformNum = 0;
-        string log = "";
+        //string log = "";
 
         foreach (Transform child in transform)
         {
             wayPointsTransform.Add(child);
-            log += "Transform[ + Count +  ]" + wayPointsTransform[Count].ToString() + "¥n";
+            //log += "Transform[ + Count +  ]" + wayPointsTransform[Count].ToString() + "¥n";
             Count++;
         }
-        Debug.Log(log);
+        //Debug.Log(log);
         pointsTransformNum = Count;
     }
 }
