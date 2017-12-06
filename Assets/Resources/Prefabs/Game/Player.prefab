@@ -1978,8 +1978,8 @@ MonoBehaviour:
   vehicleModel:
   - {fileID: 1570656652911158}
   - {fileID: 1350160768310600}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1230459036741786}
+  - {fileID: 1154998567238022}
   vehicleScoreLimit: 00000000010000000400000008000000
 --- !u!114 &114814756618038432
 MonoBehaviour:
