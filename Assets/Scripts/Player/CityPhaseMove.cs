@@ -358,7 +358,7 @@ public class CityPhaseMove : MonoBehaviour {
         if( transform.position.y == oldPos.y )
         {
             curGravity = Vector3.zero;
-            Debug.Log( "Gravity Reset" );
+            //Debug.Log( "Gravity Reset" );
         }
 
         // TODO: ジャンプ処理

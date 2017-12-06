@@ -67,7 +67,8 @@ public class FaceController : MonoBehaviour {
     {
         info.type = (int)type;
 
-        //座標を求める
+        // HACK: 座標を求める
+        //       2017/12/06現在、0除算が発生したため、今後も同様のエラーが起きたときに気を付けること！
         info.atlas.x = ((int)type / info.vNum);
         info.atlas.y = ((int)type - (info.atlas.x * info.vNum));
         info.atlas.x *= info.atlas.width;
