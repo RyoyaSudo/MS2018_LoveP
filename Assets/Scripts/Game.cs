@@ -26,6 +26,8 @@ public class Game : MonoBehaviour {
     public GameObject soundManagerPrefab;
     public GameObject skyboxManagerPrefab;
     public GameObject transitionPrefab;
+    public GameObject timelinePrefab;
+    public GameObject inputPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -42,6 +44,8 @@ public class Game : MonoBehaviour {
     GameObject soundManagerObj;
     GameObject skyboxManagerObj;
     GameObject transitionObj;
+    GameObject timelineObj;
+    GameObject inputObj;
 
     int readyCount;
 
@@ -52,12 +56,15 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_STAR
     }
 
-    public Phase phase;
+    /// <summary>
+    /// ゲームシーンフェーズ変数
+    /// </summary>
+    public Phase PhaseParam { get { return phaseParam; } set { SetPhase( value ); } }
 
-    private void Awake()
-    {
-        InitCreateObjects();
-    }
+    /// <summary>
+    /// ゲームシーンフェーズ変数のバッキングストア。値を変更するときはプロパティ側を基本利用。
+    /// </summary>
+    [SerializeField] Phase phaseParam;
 
     /// <summary>
     /// デバッグ用フラグ変数
@@ -73,36 +80,54 @@ public class Game : MonoBehaviour {
 
     [SerializeField] bool isOnGUIEnable;
 
-    // Use this for initialization
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        InitCreateObjects();
+    }
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     void Start () {
         // フェイズステータス設定
         // Hierarchy上でフェイズを設定できるように依存した処理はできるだけかかない
-        SetPhase(phase);
+        PhaseParam = phaseParam;
     }
 	
-	// Update is called once per frame
+	/// <summary>
+    /// 更新処理
+    /// </summary>
 	void Update () {
-		switch( phase )
+		switch( phaseParam )
         {
             case Phase.GAME_PAHSE_READY:
                 {
                     readyCount++;
                     if( readyCount > 180 )
                     {
-                        SetPhase(Phase.GAME_PAHSE_CITY);
+                        PhaseParam = Phase.GAME_PAHSE_CITY;
                     }
                     break;
                 }
+
             case Phase.GAME_PAHSE_CITY:
                 {
                     //デバッグ用
-                    if (debugFlags && Input.GetKeyUp(KeyCode.P))SetPhase(Phase.GAME_PAHSE_STAR);
+                    if( debugFlags && Input.GetKeyUp( KeyCode.P ) )
+                    {
+                        PhaseParam = Phase.GAME_PAHSE_STAR;
+                    }
+
                     if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
                     {
                         SceneManager.LoadScene("Result");
                     }
                     break;
                 }
+
             case Phase.GAME_PAHSE_STAR:
                 {
                     if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !debugFlags )
@@ -114,36 +139,37 @@ public class Game : MonoBehaviour {
         }
 
         //デバッグ用
-        if (debugFlags && Input.GetKeyUp(KeyCode.O))
+        if( debugFlags && Input.GetKeyUp( KeyCode.O ) )
         {
             transitionObj.GetComponent<Transition>().StartTransition("Result");
         }
-
+        
         // HACK: OnGUIデバッグ時On・Off処理
         //       もっといい方法がありそうだけど現状これで
         IsOnGUIEnable = isOnGUIEnable;
     }
 
-    public void SetPhase( Game.Phase SetPhase )
+    /// <summary>
+    /// フェーズ設定諸処理
+    /// </summary>
+    /// <param name="phase">設定値</param>
+    private void SetPhase( Phase phase )
     {
-        phase = SetPhase;
-        switch( phase )
+        phaseParam = phase;
+
+        switch( phaseParam )
         {
             case Phase.GAME_PAHSE_READY:
-                {
-                    PhaseReadyStart();
-                    break;
-                }
+                PhaseReadyStart();
+                break;
+
             case Phase.GAME_PAHSE_CITY:
-                {
-                    PhaseCityStart();
-                    break;
-                }
+                PhaseCityStart();
+                break;
+
             case Phase.GAME_PAHSE_STAR:
-                {
-                    PhaseStarStart();
-                    break;
-                }
+                PhaseStarStart();
+                break;
         }
     }
 
@@ -152,7 +178,6 @@ public class Game : MonoBehaviour {
     void PhaseReadyStart()
     {
         //SetPhase(Phase.GAME_PAHSE_CITY);
-        PlayerObj.GetComponent<Player>().SetState(Player.State.PLAYER_STATE_IN_CHANGE);
         TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_STOP);
         readyCount = 0;
     }
@@ -177,9 +202,8 @@ public class Game : MonoBehaviour {
         SpawnManagerObj.SetActive(false);
         starSpawnManagerObj.SetActive(true);
         starSpawnManagerObj.GetComponent<StarSpawnManager>().Init();
-        //PlayerObj.transform.position = new Vector3(250.0f, 290.0f, -300.0f);
-        //PlayerObj.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         PlayerObj.GetComponent<Player>().StarPhaseInit();
+        TimeObj.GetComponent<TimeCtrl>().SetState( TimeCtrl.State.TIME_STATE_RUN );
         mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
@@ -222,17 +246,19 @@ public class Game : MonoBehaviour {
         // 各オブジェクトの生成
         CityObj = Create( CityPrefab );
         StarObj = Create( StarPrefab );
-        
-        mainCameraObj = Create( mainCameraPrefab );
-        guiCameraObj = Create( guiCameraPrefab );
-        SpawnManagerObj = Create( SpawnManagerPrefab );
-        starSpawnManagerObj = Create(starSpawnPrefab);
-        MiniMapObj = Create( MiniMapPrefab );
-        effectManagerObj = Create( effectManagerPrefab );
-        soundManagerObj = Create( soundManagerPrefab );
-        PlayerObj = Create( PlayerPrefab );
-        skyboxManagerObj = Create( skyboxManagerPrefab );
-        transitionObj = Create(transitionPrefab);
+
+        mainCameraObj       = Create( mainCameraPrefab );
+        guiCameraObj        = Create( guiCameraPrefab );
+        SpawnManagerObj     = Create( SpawnManagerPrefab );
+        starSpawnManagerObj = Create( starSpawnPrefab );
+        MiniMapObj          = Create( MiniMapPrefab );
+        effectManagerObj    = Create( effectManagerPrefab );
+        soundManagerObj     = Create( soundManagerPrefab );
+        PlayerObj           = Create( PlayerPrefab );
+        skyboxManagerObj    = Create( skyboxManagerPrefab );
+        transitionObj       = Create( transitionPrefab );
+        timelineObj         = Create( timelinePrefab );
+        inputObj            = Create( inputPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？

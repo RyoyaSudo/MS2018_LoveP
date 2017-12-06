@@ -35,6 +35,21 @@ public class StarPhaseMove : MonoBehaviour {
     public bool IsEnable { get; set; }
 
     /// <summary>
+    /// 独自デバイス入力処理オブジェクト
+    /// </summary>
+    private LoveP_Input inputObj;
+    [SerializeField] string inputObjPath;
+
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        inputObj = null;
+        IsEnable = false;
+    }
+
+    /// <summary>
     /// 初期化処理
     /// </summary>
     void Start () {
@@ -46,7 +61,9 @@ public class StarPhaseMove : MonoBehaviour {
 
         // シーン内から必要なオブジェクトを取得
         earthObj = GameObject.Find( earthObjPath );
+        inputObj = GameObject.Find( inputObjPath ).GetComponent<LoveP_Input>();
         rb = GetComponent<Rigidbody>();
+
     }
 
     /// <summary>
@@ -68,7 +85,7 @@ public class StarPhaseMove : MonoBehaviour {
         int layerMask = LayerMask.GetMask( new string[] { "earth" } );
         RaycastHit hitInfo;
 
-        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 10.0f , layerMask ) )
+        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 100.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;
@@ -83,8 +100,8 @@ public class StarPhaseMove : MonoBehaviour {
 
         Quaternion forwardQ = Quaternion.LookRotation( afterForwardV , upV );
 
-        float moveV = Input.GetAxis("Vertical");
-        float moveH = Input.GetAxis("Horizontal");
+        float moveV = inputObj.GetAxis("Vertical");
+        float moveH = inputObj.GetAxis("Horizontal");
         Vector3 gravityVec = -upV;
         gravityVec.Normalize();
         rb.AddForce( 9.8f * gravityVec * ( 60.0f * Time.deltaTime ) , ForceMode.Acceleration );
@@ -157,9 +174,9 @@ public class StarPhaseMove : MonoBehaviour {
         int layerMask = LayerMask.GetMask( new string[] { "earth" } );
         RaycastHit hitInfo;
         Vector3 castPos = transform.position;
-        Vector3 castDir = Vector3.Normalize( transform.position - earthObj.transform.position );
+        Vector3 castDir = Vector3.Normalize( earthObj.transform.position - transform.position );
 
-        if( Physics.Raycast( castPos , castDir , out hitInfo , 50.0f , layerMask ) )
+        if( Physics.Raycast( castPos , castDir , out hitInfo , 300.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;
@@ -197,7 +214,7 @@ public class StarPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            str = "上方向:" + upV + "\n位置:" + transform.position + "\n姿勢:" + transform.rotation.eulerAngles;
+            //str = "上方向:" + upV + "\n位置:" + transform.position + "\n姿勢:" + transform.rotation.eulerAngles;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }

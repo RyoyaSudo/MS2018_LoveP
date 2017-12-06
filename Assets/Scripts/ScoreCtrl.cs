@@ -200,7 +200,7 @@ public class ScoreCtrl : MonoBehaviour
         int result = 0;
 
         // 計算部分
-        switch( gameCtrl.phase )
+        switch( gameCtrl.PhaseParam )
         {
             case Game.Phase.GAME_PAHSE_CITY:
                 result = CityPhaseScoreCal( groupNo );

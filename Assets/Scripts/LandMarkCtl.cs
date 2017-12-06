@@ -8,7 +8,7 @@ public class LandMarkCtl : MonoBehaviour {
     float angle = 0;
     float range = 40f;
     float yspeed = 0.001f;
-    float yurehaba = 3;
+    float yurehaba = 5;
 
     // Use this for initialization
     void Start () {
