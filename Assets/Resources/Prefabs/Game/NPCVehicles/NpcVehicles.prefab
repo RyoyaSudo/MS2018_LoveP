@@ -51,3 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12659a73e2b1446586e231833d77631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcPrefab:
+  - {fileID: 1489710804023658, guid: 8b9ae62597dfe42ea902f82858a44492, type: 2}
+  wayPointsPath: PointsList
+  wayPointsData: []

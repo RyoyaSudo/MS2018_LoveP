@@ -24,7 +24,7 @@ public class WaypointData : MonoBehaviour
             log += "Transform[ + Count +  ]" + wayPointsTransform[Count].ToString() + "¥n";
             Count++;
         }
-        Debug.Log(log);
+
         pointsTransformNum = Count;
     }
 }

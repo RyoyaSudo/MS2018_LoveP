@@ -73,6 +73,10 @@ MonoBehaviour:
     type: 2}
   transitionPrefab: {fileID: 1605810942692100, guid: cefb8cc64b20a5b49a45108118c56814,
     type: 2}
+  npcVehiclesPrefab: {fileID: 1606167270987240, guid: 498775658ddf44311badf49bd03893bf,
+    type: 2}
+  pointsListPrefab: {fileID: 1062564235458278, guid: 9ecdcd9cc63f649659d7dfb9a3c5f677,
+    type: 2}
   phaseParam: 1
   debugFlags: 1
   isOnGUIEnable: 1

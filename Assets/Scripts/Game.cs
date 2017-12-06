@@ -26,6 +26,8 @@ public class Game : MonoBehaviour {
     public GameObject soundManagerPrefab;
     public GameObject skyboxManagerPrefab;
     public GameObject transitionPrefab;
+    public GameObject npcVehiclesPrefab;
+    public GameObject pointsListPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -42,6 +44,8 @@ public class Game : MonoBehaviour {
     GameObject soundManagerObj;
     GameObject skyboxManagerObj;
     GameObject transitionObj;
+    GameObject npcVehiclesObj;
+    GameObject pointsListObj;
 
     int readyCount;
 
@@ -253,7 +257,9 @@ public class Game : MonoBehaviour {
         soundManagerObj = Create( soundManagerPrefab );
         PlayerObj = Create( PlayerPrefab );
         skyboxManagerObj = Create( skyboxManagerPrefab );
-        transitionObj = Create(transitionPrefab);
+        transitionObj = Create( transitionPrefab );
+        npcVehiclesObj = Create( npcVehiclesPrefab );
+        pointsListObj = Create( pointsListPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？

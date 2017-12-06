@@ -30,7 +30,6 @@ public class MoveObstacle : MonoBehaviour {
             float playerVelocity = playerObj.Velocity;
             Vector3 playerVelocityVec = playerObj.VelocityVec;
 
-            Debug.Log("ぶつかったぜ");
             //velocity.y += velocity.y * addPower;
             velocity = playerVelocityVec.normalized * playerVelocity * addPower;
             //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);

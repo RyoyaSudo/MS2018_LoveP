@@ -11,6 +11,7 @@ public class WaypointManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         pointsDataNum = 0;
+
         //Listを初期化
         wayPointsData = new List<WaypointData>();
         int count = 0;

@@ -12,24 +12,32 @@ public class NpcVehicle : MonoBehaviour {
     //WayPoints.Length nokawari
     private int length;
 
+    private UnityEngine.AI.NavMeshAgent agent;
+
+    private void Awake()
+    {
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent.speed = 10;//このようにスクリプトからNavMeshのプロパティをいじれる。
+        agent.autoBraking = true;  //目標地点に近づいても減速しないようにOffにする
+    }
+
     // Use this for initialization
     void Start()
     {
-        UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        agent.speed = 10;//このようにスクリプトからNavMeshのプロパティをいじれる。
-        agent.autoBraking = true;  //目標地点に近づいても減速しないようにOffにする
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 pos = wayPoints[currentRoot].position;
-        if (Vector3.Distance(transform.position, pos) < 1.0f)
+
+        if( Vector3.Distance( transform.position , pos ) < 1.0f )
         {
-            currentRoot = (currentRoot < length - 1) ? currentRoot + 1 : 0;
+            currentRoot = ( currentRoot < length - 1 ) ? currentRoot + 1 : 0;
         }
 
-        GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(pos);
+        agent.SetDestination( pos );
     }
 
     public void Initialize(List<Transform> data, int size, int spawnIndex)
@@ -37,7 +45,8 @@ public class NpcVehicle : MonoBehaviour {
         wayPoints = data;
         length = size;
         transform.position = data[ spawnIndex ].position;
-        //Debug.Log("Index:" + spawnIndex + "Position:" + transform.position);
+        currentRoot = spawnIndex;
+        agent.SetDestination( data[ spawnIndex ].position );
     }
 }
     

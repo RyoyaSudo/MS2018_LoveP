@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NpcVehicleManager : MonoBehaviour
 {
-
     private int points; //wayPointsNumの受け皿
     private int pointsPos;  //モブ車の湧き位置
 
@@ -28,8 +27,8 @@ public class NpcVehicleManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         pointsDataNum = 0;
+
         //Listを初期化
         wayPointsData = new List<WaypointData>();
         int count = 0;
@@ -48,7 +47,6 @@ public class NpcVehicleManager : MonoBehaviour
         for (int nCnt = 0; nCnt < pointsDataNum; nCnt++)
         {
             NpcVehicleSet(npcPrefab[0], nCnt);
-            Debug.Log(pointsDataNum);
         }
 
         //UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
