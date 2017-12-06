@@ -47,7 +47,8 @@ public class NpcVehicleManager : MonoBehaviour
 
         for (int nCnt = 0; nCnt < pointsDataNum; nCnt++)
         {
-            NpcVehicleSet(npcPrefab[0], nCnt, 0);
+            NpcVehicleSet(npcPrefab[0], nCnt);
+            Debug.Log(pointsDataNum);
         }
 
         //UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -56,10 +57,15 @@ public class NpcVehicleManager : MonoBehaviour
     }
 
     //Npcvehicleを生成
-    void NpcVehicleSet(GameObject prefab, int pointNum, int spawnNum)
+    void NpcVehicleSet(GameObject prefab, int pointNum )
     {
         npcObj[pointNum] = Instantiate(prefab).GetComponent<NpcVehicle>();
+        //Debug.Log(wayPointsData[pointNum].transform.GetChild(0).transform.name);
+        //Debug.Log(wayPointsData[pointNum].transform.GetChild(0).transform.position);
+        //Debug.Log(npcObj[pointNum].transform.position);
+
+        npcObj[pointNum].Initialize(wayPointsData[pointNum].wayPointsTransform, wayPointsData[pointNum].pointsTransformNum, 0);
         npcObj[pointNum].transform.parent = transform;   //親子関係を紐づけする
-        npcObj[pointNum].Initialize(wayPointsData[pointNum].wayPointsTransform, wayPointsData[pointNum].pointsTransformNum, spawnNum);
+
     }
 }

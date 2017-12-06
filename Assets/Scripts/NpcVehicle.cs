@@ -36,6 +36,8 @@ public class NpcVehicle : MonoBehaviour {
     {
         wayPoints = data;
         length = size;
-        transform.position = wayPoints[ spawnIndex ].position;
+        transform.position = data[ spawnIndex ].position;
+        //Debug.Log("Index:" + spawnIndex + "Position:" + transform.position);
     }
 }
+    
