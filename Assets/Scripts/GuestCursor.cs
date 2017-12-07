@@ -44,6 +44,6 @@ public class GuestCursor : MonoBehaviour {
             transform.position = new Vector3(player.transform.position.x, -1130.0f, player.transform.position.z);
         }
 
-        transform.Translate(new Vector3(0.0f, 0.0f, 31.4f));
+        transform.Translate(new Vector3(0.0f, 0.0f, 65.4f));
     }
 }
