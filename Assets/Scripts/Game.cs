@@ -30,6 +30,8 @@ public class Game : MonoBehaviour {
     public GameObject pointsListPrefab;
     public GameObject timelinePrefab;
     public GameObject inputPrefab;
+    public GameObject scoutShipPrefab;
+    public GameObject shipPointsPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -50,6 +52,8 @@ public class Game : MonoBehaviour {
     GameObject pointsListObj;
     GameObject timelineObj;
     GameObject inputObj;
+    GameObject scoutShipObj;
+    GameObject shipPointsObj;
 
     int readyCount;
 
@@ -268,6 +272,8 @@ public class Game : MonoBehaviour {
         inputObj            = Create( inputPrefab );
         npcVehiclesObj      = Create( npcVehiclesPrefab );
         pointsListObj       = Create( pointsListPrefab );
+        scoutShipObj        = Create( scoutShipPrefab );
+        shipPointsObj       = Create( shipPointsPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
