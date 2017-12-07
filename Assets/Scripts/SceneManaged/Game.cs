@@ -251,9 +251,8 @@ public class Game : MonoBehaviour {
         };
 
         // 各オブジェクトの生成
-        CityObj = Create( CityPrefab );
-        StarObj = Create( StarPrefab );
-
+        CityObj             = Create( CityPrefab );
+        StarObj             = Create( StarPrefab );
         mainCameraObj       = Create( mainCameraPrefab );
         guiCameraObj        = Create( guiCameraPrefab );
         SpawnManagerObj     = Create( SpawnManagerPrefab );
