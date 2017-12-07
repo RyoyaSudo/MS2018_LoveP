@@ -127,6 +127,12 @@ public class Player : MonoBehaviour
     PlayerVehicle vehicleControllerObj;
     [SerializeField] string vehicleControllerObjPath;
 
+    /// <summary>
+    /// タイムラインマネージャー
+    /// </summary>
+    private TimelineManager timelineManagerObj;
+    [SerializeField] private string timelineManagerPath;
+
     #endregion 変数宣言
 
     /// <summary>
@@ -173,6 +179,8 @@ public class Player : MonoBehaviour
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
 
         vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
+
+        timelineManagerObj = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();
 
         //サウンド用//////////////////////////////////////
         playerSoundCtrl = GameObject.Find( "SoundManager" ).GetComponent<SoundController>();
@@ -664,10 +672,8 @@ public class Player : MonoBehaviour
                 break;
 
             case State.PLAYER_STATE_TAKE_READY:
-                // HACK: 乗車待機時間を与える
-                //       タイムライン側からデータ抽出をするべきか否かで悩む。のちに判断。
-                //       2017/11/30現在はマジックナンバーで。
-                StateTimer = 5.0f;
+                //乗車タイムラインの時間を取得
+                StateTimer = timelineManagerObj.Get("RideTimeline").Duration();
                 MoveEnable( false );
                 break;
 
@@ -675,10 +681,8 @@ public class Player : MonoBehaviour
                 break;
 
             case State.PLAYER_STATE_GET_OFF:
-                // HACK: 下車時間を与える
-                //       タイムライン側からデータ抽出をするべきか否かで悩む。のちに判断。
-                //       2017/11/30現在はマジックナンバーで。
-                StateTimer = 5.0f;
+                //下車タイムラインの時間を取得
+                StateTimer = timelineManagerObj.Get("GetOffTimeline").Duration(); ;
                 MoveEnable( false );
                 break;
 

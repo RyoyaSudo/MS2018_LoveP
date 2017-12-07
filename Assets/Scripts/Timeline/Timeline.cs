@@ -67,4 +67,15 @@ public abstract class Timeline : MonoBehaviour
     {
         director.Pause();
     }
+
+    /// <summary>
+    /// 再生期間
+    /// </summary>
+    public float Duration()
+    {
+        // HACK : floatにキャスト
+        return (float)director.duration;
+    }
+
+
 }

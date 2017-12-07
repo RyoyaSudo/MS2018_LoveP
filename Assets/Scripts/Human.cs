@@ -319,6 +319,8 @@ public class Human : MonoBehaviour
             //プレイヤー位置まで移動
             rideCnt += Time.deltaTime;
             transform.position = Vector3.Lerp( rideStartPos , rideEndPos , rideMoveRate * rideCnt );
+
+
         }
     }
 

@@ -7,7 +7,7 @@ using UnityEngine.Playables;
 public class GetOffPlayableAsset : PlayableAsset
 {
     public Cinemachine.CinemachineVirtualCamera getOffvcam1;  //バーチャルカメラ1
-    public GameObject getOffDolly;                             //ドリー
+    public GameObject getOffDolly;                            //ドリー
 
     public string playerPath;                           //プレイヤーパス
     public string mainCameraPath;                       //メインカメラパス

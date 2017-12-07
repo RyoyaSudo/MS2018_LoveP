@@ -1963,6 +1963,7 @@ MonoBehaviour:
   cityPhaseMoveObjPath: Player
   starPhaseMoveObjPath: Player
   vehicleControllerObjPath: Player
+  timelineManagerPath: TimeLineManager
 --- !u!114 &114409502778120566
 MonoBehaviour:
   m_ObjectHideFlags: 1

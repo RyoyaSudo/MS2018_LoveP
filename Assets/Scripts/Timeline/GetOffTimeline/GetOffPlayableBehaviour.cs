@@ -44,7 +44,7 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
         Vector3 pos;
         pos = playerObj.transform.position;
         pos += playerObj.transform.forward * 0.5f;
-        pos.y += 2.0f;
+        //pos.y += 2.0f;
         getOffDolly.transform.position = pos;
 
         Quaternion rotation;
