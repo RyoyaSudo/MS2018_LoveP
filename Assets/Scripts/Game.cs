@@ -15,20 +15,24 @@ public class Game : MonoBehaviour {
 
     // プレハブ系
     // Hierarchy上から設定する
-    [SerializeField] private GameObject CityPrefab;
-    [SerializeField] private GameObject StarPrefab;
-    [SerializeField] private GameObject PlayerPrefab;
-    [SerializeField] private GameObject mainCameraPrefab;
-    [SerializeField] private GameObject guiCameraPrefab;
-    [SerializeField] private GameObject SpawnManagerPrefab;
-    [SerializeField] private GameObject starSpawnPrefab;
-    [SerializeField] private GameObject MiniMapPrefab;
-    [SerializeField] private GameObject effectManagerPrefab;
-    [SerializeField] private GameObject soundManagerPrefab;
-    [SerializeField] private GameObject skyboxManagerPrefab;
-    [SerializeField] private GameObject transitionPrefab;
-    [SerializeField] private GameObject timelinePrefab;
-    [SerializeField] private GameObject inputPrefab;
+    [SerializeField] GameObject CityPrefab;
+    [SerializeField] GameObject StarPrefab;
+    [SerializeField] GameObject PlayerPrefab;
+    [SerializeField] GameObject mainCameraPrefab;
+    [SerializeField] GameObject guiCameraPrefab;
+    [SerializeField] GameObject SpawnManagerPrefab;
+    [SerializeField] GameObject starSpawnPrefab;
+    [SerializeField] GameObject MiniMapPrefab;
+    [SerializeField] GameObject effectManagerPrefab;
+    [SerializeField] GameObject soundManagerPrefab;
+    [SerializeField] GameObject skyboxManagerPrefab;
+    [SerializeField] GameObject transitionPrefab;
+    [SerializeField] GameObject timelinePrefab;
+    [SerializeField] GameObject inputPrefab;
+    [SerializeField] GameObject npcVehiclesPrefab;
+    [SerializeField] GameObject pointsListPrefab;
+    [SerializeField] GameObject scoutShipPrefab;
+    [SerializeField] GameObject shipPointsPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -45,6 +49,11 @@ public class Game : MonoBehaviour {
     GameObject soundManagerObj;
     GameObject skyboxManagerObj;
     GameObject transitionObj;
+    GameObject npcVehiclesObj;
+    GameObject pointsListObj;
+    GameObject scoutShipObj;
+    GameObject shipPointsObj;
+    
     TimelineManager timelineObj;
     LoveP_Input inputObj;
 
@@ -309,6 +318,10 @@ public class Game : MonoBehaviour {
         transitionObj       = Create( transitionPrefab );
         timelineObj         = Create( timelinePrefab ).GetComponent<TimelineManager>();
         inputObj            = Create( inputPrefab ).GetComponent<LoveP_Input>();
+        npcVehiclesObj      = Create( npcVehiclesPrefab );
+        pointsListObj       = Create( pointsListPrefab );
+        scoutShipObj        = Create( scoutShipPrefab );
+        shipPointsObj       = Create( shipPointsPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
