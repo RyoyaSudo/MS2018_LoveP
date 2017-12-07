@@ -13,11 +13,29 @@ public class Human : MonoBehaviour
     private GameObject playerObj;                    //プレイヤーオブジェ
     [SerializeField] private string playerPath;      //プレイヤーパス
 
-    public float rideTime;                           //乗車するまでの時間
-    private float rideCnt;                           //乗車カウント
-    private Vector3 rideStartPos;                    //乗車の最初の位置
-    private Vector3 rideEndPos;                      //乗車の最後の位置
-    private float rideMoveRate;                      //乗車するときの移動割合
+    /// <summary>
+    /// 乗車
+    /// </summary>
+    public float rideRunTime;                        //走る時間
+    public float rideWaitTime;                       //待つ時間
+    public float rideJumpTime;                       //ジャンプ時間
+    private float rideCnt;                           //カウント
+    private Vector3 rideStartPos;                    //最初の位置
+    private Vector3 rideEndPos;                      //最後の位置
+    private Vector3 rideMiddlePos;                   //中間の位置
+    private float rideMoveRate;                      //移動割合
+    private float rideJumpRate;                      //ジャンプ割合
+    private enum RideType                            //状態
+    {
+        RUN ,
+        WAIT ,
+        JUMP
+    };
+    private RideType rideType;
+
+    public float getOffTime;                         //下車するまでの時間
+    private float getOffCnt;                         //下車カウント
+
 
     //乗客がどのグループなのかUI
     public GameObject passengerGroupUIEnptyPrefab;   //空プレファブ
@@ -29,6 +47,10 @@ public class Human : MonoBehaviour
     public Material passengerGroupUIHeartMat;        //ハートマテリアル
     private GameObject passengerGroupUIEnptyObj;     //空オブジェ
 
+    //タイムラインマネージャー
+    [SerializeField] private string timelineMangerPath ;    //パス
+    private TimelineManager timelineManager;                //オブジェクト
+    
     /// <summary>
     /// グループ種類。
     /// </summary>
@@ -121,27 +143,11 @@ public class Human : MonoBehaviour
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
 
-        ////乗車させる人数を設定
-        //switch (groupType)
-        //{
-        //    //ペア
-        //    case GROUPTYPE.PEAR:
-        //        maxPassengerNum = pearPassengerNum;
-        //        break;
-
-        //    //小グループ
-        //    case GROUPTYPE.SMAlLL:
-        //        maxPassengerNum = smallPassengerNum;
-        //        break;
-
-        //    //大グループ
-        //    case GROUPTYPE.BIG:
-        //        maxPassengerNum = bigPassengerNum;
-        //        break;
-        //}
-
         //プレイヤーオブジェクト取得
         playerObj = GameObject.Find(playerPath);
+
+        //タイムラインマネージャー取得
+        timelineManager = GameObject.Find(timelineMangerPath).GetComponent<TimelineManager>();
     }
 
     /// <summary>
@@ -249,12 +255,32 @@ public class Human : MonoBehaviour
         {
             //乗車
             case STATETYPE.RIDE:
-                rideStartPos = transform.position;            //スタート位置
-                rideEndPos = playerObj.transform.position;    //終了位置
-                rideMoveRate = 1.0f / rideTime;               //移動割合
-                transform.LookAt( playerObj.transform );      //プレイヤーの位置を向かせる
+                rideType = RideType.RUN;
+                rideCnt = 0;
 
-                Destroy( passengerGroupUIEnptyObj );         //乗客がどのグループなのかUI削除
+                rideStartPos = transform.position;                                   //スタート位置
+                rideEndPos = playerObj.transform.position;                           //終了位置
+
+                Vector3 direction = rideStartPos - rideEndPos;
+                direction = direction.normalized;
+                rideMiddlePos = playerObj.transform.position + direction * 2.0f;    //中間位置
+
+                rideMoveRate = 1.0f / rideRunTime;                                  //移動割合
+                rideJumpRate = Mathf.PI / rideJumpTime;                             //ジャンプ割合
+                transform.LookAt( playerObj.transform );                            //プレイヤーの位置を向かせる
+
+                Destroy( passengerGroupUIEnptyObj );                                //乗客がどのグループなのかUI削除
+
+                //乗車タイムライン開始
+                timelineManager.Get("RideTimeline").Play();
+                break;
+
+            //下車
+            case STATETYPE.GETOFF:
+                getOffCnt = 0;
+
+                //下車タイムライン開始
+                timelineManager.Get("GetOffTimeline").Play();
                 break;
 
             //運搬
@@ -298,23 +324,70 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Ride()
     {
-        //乗車アニメーションをさせる
-        modelObj.GetComponent<test>().RideAnimON();
-
-        //指定時間がたつと
-        if (rideCnt >= rideTime)
+        switch (rideType)
         {
-            // 乗車位置に移動
-            transform.position = rideEndPos;
+            case RideType.RUN:
+                //指定時間がたつと
+                if (rideCnt >= rideRunTime)
+                {
+                    //中間位置に移動
+                    transform.position = rideMiddlePos;
+                    rideType = RideType.WAIT;
+                    rideCnt = 0;
+                    Debug.Log("Run");
+                }
+                else
+                {
+                    //乗車アニメーションをさせる
+                    modelObj.GetComponent<test>().RideAnimON();
 
-            //「運搬」状態に
-            SetStateType(STATETYPE.TRANSPORT);
-        }
-        else
-        {
-            //プレイヤー位置まで移動
-            rideCnt += Time.deltaTime;
-            transform.position = Vector3.Lerp( rideStartPos , rideEndPos , rideMoveRate * rideCnt );
+                    //プレイヤー位置まで移動
+                    rideCnt += Time.deltaTime;
+                    transform.position = Vector3.Lerp(rideStartPos, rideMiddlePos, rideMoveRate * rideCnt);
+                }
+                break;
+
+            case RideType.WAIT:
+                if (rideCnt >= rideWaitTime)
+                {
+                    //乗車ジャンプアニメーションをさせる
+                    modelObj.GetComponent<test>().RideJumpAnimOn();
+
+                    rideType = RideType.JUMP;
+                    rideCnt = 0;
+                    rideMoveRate = 1.0f / rideJumpTime;  //移動割合
+                    Debug.Log("Wait");
+
+                }
+                else
+                {
+                    rideCnt += Time.deltaTime;
+                }
+                break;
+
+            case RideType.JUMP:
+                if (rideCnt >= rideJumpTime)
+                {
+                    //中間位置に移動
+                    transform.position = rideEndPos;
+
+                    //「運搬」状態に
+                    SetStateType(STATETYPE.TRANSPORT);
+                    Debug.Log("Jump");
+
+                }
+                else
+                {
+                    //プレイヤー位置まで移動
+                    rideCnt += Time.deltaTime;
+                    transform.position = Vector3.Lerp(rideMiddlePos, rideEndPos, rideMoveRate * rideCnt);
+
+                    Vector3 pos;
+                    pos = transform.position;
+                    pos.y += Mathf.Sin(rideJumpRate * rideCnt)*2.0f;
+                    transform.position = pos;
+                }
+                break;
         }
     }
 
@@ -323,13 +396,20 @@ public class Human : MonoBehaviour
     /// </summary>
     private void GetOff()
     {
-        //「解散」状態に
-        SetStateType(STATETYPE.RELEASE);  // TODO: 10/24現在すぐに解散状態に遷移。後にマネージャー系クラスで制御予定。
-
         //下車アニメーションをさせる
         modelObj.GetComponent<test>().GetoffAnimON();
-        //解散アニメーションをさせる
-        modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+
+        //指定時間がたつと
+        if (getOffCnt >= getOffTime)
+        {
+            //「解散」状態に
+            SetStateType(STATETYPE.RELEASE);
+        }
+        else
+        {
+            getOffCnt += Time.deltaTime;
+        }
+
     }
 
     /// <summary>
@@ -337,9 +417,6 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Transport()
     {
-        //乗車アニメーションをさせる
-        modelObj.GetComponent<test>().RideAnimON(); // TODO: 11/8現在。乗客の状態に乗車状態が設定されることがないためここで乗車アニメーションをしている
-
         //運搬アニメーションをさせる
         modelObj.GetComponent<test>().TransportAnimON();
     }
@@ -349,6 +426,9 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Release ()
     {
+        //解散アニメーションをさせる
+        modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+
         destroyTime -= Time.deltaTime;
 
         if (destroyTime < 0.0f)

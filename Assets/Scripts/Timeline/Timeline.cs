@@ -26,7 +26,7 @@ public abstract class Timeline : MonoBehaviour
     /// <param name="path">
     /// Track名
     /// </param>
-    protected void BindTrack( GameObject obj , string path )
+    public void BindTrack( GameObject obj , string path )
     {
         //PlayableDirector取得
         director = GetComponent<PlayableDirector>();
@@ -67,4 +67,22 @@ public abstract class Timeline : MonoBehaviour
     {
         director.Pause();
     }
+
+    /// <summary>
+    /// 再生期間
+    /// </summary>
+    public float Duration()
+    {
+        // HACK : floatにキャスト
+        return (float)director.duration;
+    }
+
+    /// <summary>
+    /// 状態
+    /// </summary>
+    public PlayState State()
+    {
+        return director.state;
+    }
+
 }
