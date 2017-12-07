@@ -26,6 +26,8 @@ public class Game : MonoBehaviour {
     public GameObject soundManagerPrefab;
     public GameObject skyboxManagerPrefab;
     public GameObject transitionPrefab;
+    public GameObject npcVehiclesPrefab;
+    public GameObject pointsListPrefab;
     public GameObject timelinePrefab;
     public GameObject inputPrefab;
 
@@ -44,6 +46,8 @@ public class Game : MonoBehaviour {
     GameObject soundManagerObj;
     GameObject skyboxManagerObj;
     GameObject transitionObj;
+    GameObject npcVehiclesObj;
+    GameObject pointsListObj;
     GameObject timelineObj;
     GameObject inputObj;
 
@@ -262,6 +266,8 @@ public class Game : MonoBehaviour {
         transitionObj       = Create( transitionPrefab );
         timelineObj         = Create( timelinePrefab );
         inputObj            = Create( inputPrefab );
+        npcVehiclesObj      = Create( npcVehiclesPrefab );
+        pointsListObj       = Create( pointsListPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？

@@ -11,6 +11,7 @@ public class WaypointManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         pointsDataNum = 0;
+
         //Listを初期化
         wayPointsData = new List<WaypointData>();
         int count = 0;
@@ -19,7 +20,7 @@ public class WaypointManager : MonoBehaviour {
         {
             WaypointData obj = child.GetComponent<WaypointData>();
             wayPointsData.Add(obj);
-            Debug.Log(wayPointsData[count]);
+            //Debug.Log(wayPointsData[count]);
             count++;
         }
         pointsDataNum = count;

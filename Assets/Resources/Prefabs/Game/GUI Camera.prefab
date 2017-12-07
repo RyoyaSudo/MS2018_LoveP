@@ -154,7 +154,6 @@ GameObject:
   - component: {fileID: 114214260806050398}
   - component: {fileID: 124039726884039586}
   - component: {fileID: 92966851853646444}
-  - component: {fileID: 81773227328025392}
   m_Layer: 1
   m_Name: GUI Camera
   m_TagString: Untagged
@@ -810,13 +809,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704677547483216}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!81 &81773227328025392
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1477520057521798}
-  m_Enabled: 1
 --- !u!92 &92966851853646444
 Behaviour:
   m_ObjectHideFlags: 1
