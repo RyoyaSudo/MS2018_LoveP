@@ -35,14 +35,4 @@ public class MapIcon : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
-
-    public Quaternion GetCursorRot()
-    {
-        Quaternion rot = new Quaternion();
-        foreach (Transform child in transform)
-        {
-            rot = child.transform.rotation;
-        }
-        return rot;
-    }
 }
