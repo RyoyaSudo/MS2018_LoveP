@@ -77,5 +77,12 @@ public abstract class Timeline : MonoBehaviour
         return (float)director.duration;
     }
 
+    /// <summary>
+    /// 状態
+    /// </summary>
+    public PlayState State()
+    {
+        return director.state;
+    }
 
 }

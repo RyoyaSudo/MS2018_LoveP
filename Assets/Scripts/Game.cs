@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;  //画面遷移を可能にする
 using UnityEngine;
+using UnityEngine.Playables;
 using System;
 
 /// <summary>
@@ -14,20 +15,20 @@ public class Game : MonoBehaviour {
 
     // プレハブ系
     // Hierarchy上から設定する
-    public GameObject CityPrefab;
-    public GameObject StarPrefab;
-    public GameObject PlayerPrefab;
-    public GameObject mainCameraPrefab;
-    public GameObject guiCameraPrefab;
-    public GameObject SpawnManagerPrefab;
-    public GameObject starSpawnPrefab;
-    public GameObject MiniMapPrefab;
-    public GameObject effectManagerPrefab;
-    public GameObject soundManagerPrefab;
-    public GameObject skyboxManagerPrefab;
-    public GameObject transitionPrefab;
-    public GameObject timelinePrefab;
-    public GameObject inputPrefab;
+    [SerializeField] private GameObject CityPrefab;
+    [SerializeField] private GameObject StarPrefab;
+    [SerializeField] private GameObject PlayerPrefab;
+    [SerializeField] private GameObject mainCameraPrefab;
+    [SerializeField] private GameObject guiCameraPrefab;
+    [SerializeField] private GameObject SpawnManagerPrefab;
+    [SerializeField] private GameObject starSpawnPrefab;
+    [SerializeField] private GameObject MiniMapPrefab;
+    [SerializeField] private GameObject effectManagerPrefab;
+    [SerializeField] private GameObject soundManagerPrefab;
+    [SerializeField] private GameObject skyboxManagerPrefab;
+    [SerializeField] private GameObject transitionPrefab;
+    [SerializeField] private GameObject timelinePrefab;
+    [SerializeField] private GameObject inputPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -44,8 +45,8 @@ public class Game : MonoBehaviour {
     GameObject soundManagerObj;
     GameObject skyboxManagerObj;
     GameObject transitionObj;
-    GameObject timelineObj;
-    GameObject inputObj;
+    TimelineManager timelineObj;
+    LoveP_Input inputObj;
 
     int readyCount;
 
@@ -53,7 +54,9 @@ public class Game : MonoBehaviour {
     {
         GAME_PAHSE_READY = 0,
         GAME_PAHSE_CITY,
-        GAME_PAHSE_STAR
+        GAME_PAHSE_STAR_SHIFT,
+        GAME_PAHSE_STAR,
+        GAME_PAHSE_END
     }
 
     /// <summary>
@@ -122,10 +125,26 @@ public class Game : MonoBehaviour {
                     {
                         PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
+                    if (isDebug && Input.GetKeyUp(KeyCode.I))
+                    {
+                        PhaseParam = Phase.GAME_PAHSE_STAR_SHIFT;
+                    }
 
                     if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
                         SceneManager.LoadScene("Result");
+                    }
+                    break;
+                }
+
+            case Phase.GAME_PAHSE_STAR_SHIFT:
+                {
+                    // HACK : 田口　2017/12/7
+                    //タイムラインが終了するとフェーズ移行
+                    //ただこの場合タイムラインを途中で止めてもフェーズ移行する
+                    if (PlayState.Paused == timelineObj.Get("StarShiftTimeline").State())
+                    {
+                        PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
                     break;
                 }
@@ -138,6 +157,15 @@ public class Game : MonoBehaviour {
                     }
                     break;
                 }
+
+            case Phase.GAME_PAHSE_END:
+                {
+                    if (inputObj.GetButton("Fire1"))
+                    {
+                        SceneManager.LoadScene("Result");
+                    }
+                }
+                break;
         }
 
         //デバッグ用
@@ -170,8 +198,16 @@ public class Game : MonoBehaviour {
                 PhaseCityStart();
                 break;
 
+            case Phase.GAME_PAHSE_STAR_SHIFT:
+                PhaseStarShiftStart();
+                break;
+
             case Phase.GAME_PAHSE_STAR:
                 PhaseStarStart();
+                break;
+
+            case Phase.GAME_PAHSE_END:
+                PhaseEndStart();
                 break;
         }
     }
@@ -198,6 +234,12 @@ public class Game : MonoBehaviour {
         skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
     }
 
+    void PhaseStarShiftStart()
+    {
+        //タイムライン開始
+        timelineObj.Get("StarShiftTimeline").Play();
+    }
+
     void PhaseStarStart()
     {
         CityObj.SetActive(false);
@@ -212,6 +254,11 @@ public class Game : MonoBehaviour {
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
         skyboxManagerObj.GetComponent<SkyboxManager>().SetStarSkyBox();
+    }
+
+    void PhaseEndStart()
+    {
+
     }
 
     //タイトルシーンから移行
@@ -260,8 +307,8 @@ public class Game : MonoBehaviour {
         PlayerObj           = Create( PlayerPrefab );
         skyboxManagerObj    = Create( skyboxManagerPrefab );
         transitionObj       = Create( transitionPrefab );
-        timelineObj         = Create( timelinePrefab );
-        inputObj            = Create( inputPrefab );
+        timelineObj         = Create( timelinePrefab ).GetComponent<TimelineManager>();
+        inputObj            = Create( inputPrefab ).GetComponent<LoveP_Input>();
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？

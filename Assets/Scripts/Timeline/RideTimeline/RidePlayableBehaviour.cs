@@ -6,8 +6,9 @@ using UnityEngine.Playables;
 // A behaviour that is attached to a playable
 public class RidePlayableBehaviour : PlayableBehaviour
 {
-    private GameObject playerObj;       //プレイヤーオブジェ
-    public string playerPath;           //プレイヤーパス
+    private GameObject playerObj;           //プレイヤーオブジェ
+    public string playerPath;               //プレイヤーパス
+    private PlayerVehicle playerVehicle;    //プレイヤー車両オブジェクト
 
     private GameObject mainCameraObj;   //メインカメラオブジェ
     public string mainCameraPath;       //メインカメラパス
@@ -22,6 +23,9 @@ public class RidePlayableBehaviour : PlayableBehaviour
     {
         //プレイヤーオブジェクト取得
         playerObj = GameObject.Find(playerPath);
+
+        //プレイヤー車両オブジェクト取得
+        playerVehicle = playerObj.GetComponent<PlayerVehicle>();
 
         //カメラオブジェクト取得
         mainCameraObj = GameObject.Find(mainCameraPath);
@@ -42,16 +46,30 @@ public class RidePlayableBehaviour : PlayableBehaviour
         rideCamera2.transform.position = mainCameraObj.transform.position;
         rideCamera2.transform.rotation = mainCameraObj.transform.rotation;
 
+        //LookAt設定
+        rideCamera1.LookAt = passengerObj.transform;
+
         Vector3 pos;
         pos = playerObj.transform.position;
 
-        pos.y += 2;
+        switch (playerVehicle.VehicleType)
+        {
+            case PlayerVehicle.Type.BIKE:
+                pos.y += 2;
+                break;
+
+            case PlayerVehicle.Type.CAR:
+                pos.y += 4;
+                break;
+
+            case PlayerVehicle.Type.BUS:
+                pos.y += 4;
+                break;
+
+        }
+
         rideCamera1.transform.position = pos;
-
         rideCamera1.transform.position += passengerObj.transform.forward * 6.0f;
-
-        rideCamera1.LookAt = passengerObj.transform;
-
     }
 
     // タイムライン停止実行

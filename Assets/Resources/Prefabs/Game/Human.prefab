@@ -359,7 +359,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPath: Player
-  rideTime: 2
+  rideRunTime: 2
+  rideWaitTime: 0.01
+  rideJumpTime: 1
   getOffTime: 5
   passengerGroupUIEnptyPrefab: {fileID: 1727667008595502, guid: 91ce169bab77377488d17150e465cfa5,
     type: 2}
