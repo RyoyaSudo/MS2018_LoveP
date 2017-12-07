@@ -48,7 +48,6 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
 				fixed4 col2 = tex2D(_AlphaTex, i.uv);
 				return fixed4(col.r, col.g, col.b, col2.b);
-				//return col;
 			}
 			ENDCG
 		}

@@ -30,7 +30,7 @@ public class GuestCursor : MonoBehaviour {
 
         // 自分の向きをプレイヤーに向ける
         transform.LookAt(iti);
-
+        transform.rotation = new Quaternion(0.0f,transform.rotation.y,0.0f,transform.rotation.w);
         float dis = Vector3.Distance(transform.position, iti);
 
         if(dis >=  140.0f)
