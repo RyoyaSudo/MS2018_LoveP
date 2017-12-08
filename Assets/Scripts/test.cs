@@ -11,7 +11,7 @@ public class test : MonoBehaviour {
     void Start ()
     {
         anim = GetComponent<Animator>();
-	}
+    }
 	
 	// 更新
 	void Update ()
@@ -24,6 +24,22 @@ public class test : MonoBehaviour {
     public void RideAnimON ()
     {
          anim.SetBool("Ride", true);
+    }
+
+    /// <summary>
+    ///  乗車するときのアニメーションをON
+    /// </summary>
+    public void RideAnimOFF()
+    {
+        anim.SetBool("Ride", false);
+    }
+
+    /// <summary>
+    ///  乗車ジャンプするときのアニメーションをON
+    /// </summary>
+    public void RideJumpAnimOn()
+    {
+        anim.SetBool("RideJump", true);
     }
 
     /// <summary>

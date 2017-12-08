@@ -81,6 +81,10 @@ MonoBehaviour:
     type: 2}
   inputPrefab: {fileID: 1904816495504462, guid: c07b19223dafe2848bb036032e5c08c2,
     type: 2}
+  scoutShipPrefab: {fileID: 1870985785382972, guid: 69d81fcbced1b4eeba87e600c85ee8aa,
+    type: 2}
+  shipPointsPrefab: {fileID: 1816083764674900, guid: d05409dac17e6412e9c0561b4f0144a8,
+    type: 2}
   phaseParam: 1
   isDebug: 1
   isOnGUIEnable: 1
