@@ -262,14 +262,21 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StarPhaseInit()
     {
+        if( vehicleControllerObj == null )
+        {
+            vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
+        }
+
         vehicleControllerObj.VehicleScore = vehicleControllerObj.VehicleScoreLimit[ ( int )PlayerVehicle.Type.AIRPLANE ];
         vehicleControllerObj.VehicleType = PlayerVehicle.Type.AIRPLANE;
         starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
 
-        if( cityPhaseMoveObj != null )
+        if( cityPhaseMoveObj == null )
         {
-            cityPhaseMoveObj.IsEnable = false;
+            cityPhaseMoveObj = GameObject.Find( cityPhaseMoveObjPath ).GetComponent<CityPhaseMove>();
         }
+
+        cityPhaseMoveObj.IsEnable = false;
 
         // TODO: 星フェイズ開始時のプレイヤー初期位置設定
         //       Earthオブジェクトにプレイヤー初期位置のスポーンポイントを仕込んでおいて、そこから設定する形に変更したほうがよさそう

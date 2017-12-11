@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleMainLogo : MonoBehaviour {
+public class TitleLogo_Rocket : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
