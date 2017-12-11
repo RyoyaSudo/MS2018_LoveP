@@ -155,6 +155,10 @@ public class Player : MonoBehaviour
         StateTimer = 0.0f;
 
         lastRideHuman = null;
+
+        // シーン内から必要なオブジェクトを取得
+        gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
+
     }
 
     /// <summary>
@@ -173,13 +177,8 @@ public class Player : MonoBehaviour
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-
-        gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
-
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
-
         vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
-
         timelineManagerObj = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();
 
         //サウンド用//////////////////////////////////////
@@ -759,12 +758,18 @@ public class Player : MonoBehaviour
     /// 移動処理有効化処理
     /// </summary>
     /// <param name="flags">フラグ</param>
-    private void MoveEnable( bool flags )
+    public void MoveEnable( bool flags )
     {
         // 現在状態からどれに設定にするか判断
         switch( gameObj.PhaseParam )
         {
             case Game.Phase.GAME_PAHSE_READY:
+                if( cityPhaseMoveObj == null )
+                {
+                    cityPhaseMoveObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CityPhaseMove>();
+                }
+
+                cityPhaseMoveObj.IsEnable = flags;
                 break;
 
             case Game.Phase.GAME_PAHSE_CITY:
@@ -776,7 +781,25 @@ public class Player : MonoBehaviour
                 cityPhaseMoveObj.IsEnable = flags;
                 break;
 
+            case Game.Phase.GAME_PAHSE_STAR_SHIFT:
+                if( cityPhaseMoveObj == null )
+                {
+                    cityPhaseMoveObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CityPhaseMove>();
+                }
+
+                cityPhaseMoveObj.IsEnable = flags;
+                break;
+
             case Game.Phase.GAME_PAHSE_STAR:
+                if( starPhaseMoveObj == null )
+                {
+                    starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
+                }
+
+                starPhaseMoveObj.IsEnable = flags;
+                break;
+
+            case Game.Phase.GAME_PAHSE_END:
                 if( starPhaseMoveObj == null )
                 {
                     starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
