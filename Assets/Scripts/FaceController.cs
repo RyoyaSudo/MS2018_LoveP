@@ -48,6 +48,12 @@ public class FaceController : MonoBehaviour {
     private void Awake()
     {
         faceMaterial = faceObj.GetComponent<SkinnedMeshRenderer>().materials[0];
+
+        if( faceMaterial == null )
+        {
+            Debug.LogError( "顔マテリアル取得失敗" );
+        }
+
         info.mat = faceMaterial;
         Texture texture = info.mat.mainTexture;
         info.textureSize.x = texture.width;
