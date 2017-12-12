@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 人クラス
+/// 乗客クラス
 /// </summary>
 /// <remarks>
 /// 乗客と街人もこのクラスで生成。内部で振る舞いを決めさせる。
 /// </remarks>
-public class Human : MonoBehaviour
+public class PassengerController : MonoBehaviour
 {
     private GameObject playerObj;                    //プレイヤーオブジェ
     [SerializeField] private string playerPath;      //プレイヤーパス
@@ -62,46 +62,9 @@ public class Human : MonoBehaviour
         TYPE_MAX       // グループ総数
     };
 
-    /// <summary>
-    /// 人モデル配列。
-    /// Inspector上で設定を忘れないこと！！
-    /// </summary>
-    public GameObject[] humanModelArray;
-
-    /// <summary>
-    /// 使用しているモデルのID。
-    /// 他のクラスで乗客オブジェクトの子になっているモデルを参照する際に利用する。
-    /// </summary>
-    /// <remarks>
-    /// 参照する際利用するのは、humanModelArray[ ModelID ].nameから得られる文字列。
-    /// </remarks>
-    public int ModelID
-    {
-        get { return modelID; }
-    }
-
-    int modelID;
-
-    //状態
-    public enum STATETYPE
-    {
-        CREATE,    // 生成
-        READY,     // 待機
-        EVADE,     // 回避
-        RIDE,      // 乗車
-        GETOFF,    // 下車
-        TRANSPORT, // 運搬
-        RELEASE,   // 解散
-        AWAIT ,    // 待ち受け
-        DESTROY    // 消去
-    };
-
     //宣言
     public GROUPTYPE groupType;     // 所属するグループを示す変数
-    public STATETYPE stateType;     // 自身の状態管理要変数
     public int spawnPlace;          //スポーン場所
-
-    private GameObject modelObj;    //モデルオブジェクト
 
     public SpawnPoint.PASSENGER_ORDER pasengerOrder;    //乗客の乗車順番
 
@@ -112,24 +75,17 @@ public class Human : MonoBehaviour
     public float destroyTime;
 
     /// <summary>
-    /// 保護用フラグ変数。
-    /// trueの時には無闇にDestoroyしないようにすること。
+    /// 人オブジェクト
+    /// 状態参照用に利用
     /// </summary>
-    public bool IsProtect
-    {
-        get { return isProtect; }
-        set { isProtect = value; }
-    } 
-
-    bool isProtect;
+    private Human humanObj;
 
     /// <summary>
     /// Awake時処理
     /// </summary>
     private void Awake()
     {
-        modelID = -1;   // 不定のタイプとして初期値を負の値に設定
-        isProtect = false;
+        humanObj = gameObject.GetComponent<Human>();
     }
 
     /// <summary>
@@ -138,7 +94,7 @@ public class Human : MonoBehaviour
     void Start()
     {
         //状態を「生成」に
-        SetStateType(STATETYPE.CREATE);
+        SetStateType( Human.STATETYPE.CREATE );
 
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
@@ -156,88 +112,53 @@ public class Human : MonoBehaviour
     void Update()
     {
         //状態
-        switch( stateType )
+        switch( humanObj.CurrentStateType )
         {
             //生成
-            case STATETYPE.CREATE:
+            case Human.STATETYPE.CREATE:
                 Create();
                 break;
 
             //待機
-            case STATETYPE.READY:
+            case Human.STATETYPE.READY:
                 Ready();
                 break;
 
             //回避
-            case STATETYPE.EVADE:
+            case Human.STATETYPE.EVADE:
                 Evade();
                 break;
 
             //乗車
-            case STATETYPE.RIDE:
+            case Human.STATETYPE.RIDE:
                 Ride();
                 break;
 
             //下車
-            case STATETYPE.GETOFF:
+            case Human.STATETYPE.GETOFF:
                 GetOff();
                 break;
 
             //運搬
-            case STATETYPE.TRANSPORT: 
+            case Human.STATETYPE.TRANSPORT: 
                 Transport();
                 break;
 
             //解散
-            case STATETYPE.RELEASE:
+            case Human.STATETYPE.RELEASE:
                 Release();
                 break;
 
             //待ち受け
-            case STATETYPE.AWAIT:
+            case Human.STATETYPE.AWAIT:
                 Await();
                 break;
 
             //消去
-            case STATETYPE.DESTROY:
+            case Human.STATETYPE.DESTROY:
                 Destroy();
                 break;
         }
-    }
-
-    /*****************************************************************************
-    * 関数名:GetStateType
-    * 引数：なし
-    * 戻り値:状態を表す変数
-    * 説明:状態を返す
-    ******************************************************************************
-    * 2017年11月1日
-    * 佐藤峻一　がこの関数を付け加えました
-    * ****************************************************************************/
-    
-    public int GetStateType()
-    {
-        switch (stateType)
-        {
-            //生成
-            case STATETYPE.CREATE:
-                return 0;
-            case STATETYPE.READY:
-                return 1;
-            case STATETYPE.EVADE:
-                return 2;
-            case STATETYPE.RIDE:
-                return 3;
-            case STATETYPE.GETOFF:
-                return 4;
-            case STATETYPE.TRANSPORT:
-                return 5;
-            case STATETYPE.RELEASE:
-                return 6;
-            case STATETYPE.DESTROY:
-                return 7;
-        }
-        return 0;
     }
 
     /// <summary>
@@ -246,15 +167,17 @@ public class Human : MonoBehaviour
     /// <param name="type">
     /// 状態
     /// </param>
-    public void SetStateType( STATETYPE type )
+    public void SetStateType( Human.STATETYPE type )
     {
-        stateType = type;
+        // HACK: 乗客の状態設定に関して
+        //       状態設定はHuman.csで、参照をここで行うほうがいいような感じがする。
+        //       現状はここからHuman.csに対して状態をセット。
+        humanObj.CurrentStateType = type;
 
-        //状態
-        switch (stateType)
+        switch( type )
         {
             //乗車
-            case STATETYPE.RIDE:
+            case Human.STATETYPE.RIDE:
                 rideType = RideType.RUN;
                 rideCnt = 0;
 
@@ -276,7 +199,7 @@ public class Human : MonoBehaviour
                 break;
 
             //下車
-            case STATETYPE.GETOFF:
+            case Human.STATETYPE.GETOFF:
                 getOffCnt = 0;
 
                 //下車タイムライン開始
@@ -284,13 +207,13 @@ public class Human : MonoBehaviour
                 break;
 
             //運搬
-            case STATETYPE.TRANSPORT:
+            case Human.STATETYPE.TRANSPORT:
                 //親をプレイヤーにする
                 gameObject.transform.parent = playerObj.transform;
                 break;
 
             //待ち受け
-            case STATETYPE.AWAIT:
+            case Human.STATETYPE.AWAIT:
                 Destroy(passengerGroupUIEnptyObj);            //乗客がどのグループなのかUI削除
                 break;
         }
@@ -302,7 +225,7 @@ public class Human : MonoBehaviour
     private void Create ()
     {
         //状態を「待機」に
-        SetStateType(STATETYPE.READY);
+        SetStateType( Human.STATETYPE.READY );
     }
 
     /// <summary>
@@ -324,7 +247,7 @@ public class Human : MonoBehaviour
     /// </summary>
     private void Ride()
     {
-        switch (rideType)
+        switch( rideType )
         {
             case RideType.RUN:
                 //指定時間がたつと
@@ -339,7 +262,7 @@ public class Human : MonoBehaviour
                 else
                 {
                     //乗車アニメーションをさせる
-                    modelObj.GetComponent<test>().RideAnimON();
+                    humanObj.ModelObj.GetComponent<HumanAnim>().RideAnimON();
 
                     //プレイヤー位置まで移動
                     rideCnt += Time.deltaTime;
@@ -351,7 +274,7 @@ public class Human : MonoBehaviour
                 if (rideCnt >= rideWaitTime)
                 {
                     //乗車ジャンプアニメーションをさせる
-                    modelObj.GetComponent<test>().RideJumpAnimOn();
+                    humanObj.ModelObj.GetComponent<HumanAnim>().RideJumpAnimOn();
 
                     rideType = RideType.JUMP;
                     rideCnt = 0;
@@ -372,7 +295,7 @@ public class Human : MonoBehaviour
                     transform.position = rideEndPos;
 
                     //「運搬」状態に
-                    SetStateType(STATETYPE.TRANSPORT);
+                    SetStateType( Human.STATETYPE.TRANSPORT );
                     Debug.Log("Jump");
 
                 }
@@ -397,13 +320,13 @@ public class Human : MonoBehaviour
     private void GetOff()
     {
         //下車アニメーションをさせる
-        modelObj.GetComponent<test>().GetoffAnimON();
+        humanObj.ModelObj.GetComponent<HumanAnim>().GetoffAnimON();
 
         //指定時間がたつと
         if (getOffCnt >= getOffTime)
         {
             //「解散」状態に
-            SetStateType(STATETYPE.RELEASE);
+            SetStateType( Human.STATETYPE.RELEASE );
         }
         else
         {
@@ -418,7 +341,7 @@ public class Human : MonoBehaviour
     private void Transport()
     {
         //運搬アニメーションをさせる
-        modelObj.GetComponent<test>().TransportAnimON();
+        humanObj.ModelObj.GetComponent<HumanAnim>().TransportAnimON();
     }
 
     /// <summary>
@@ -427,14 +350,14 @@ public class Human : MonoBehaviour
     private void Release ()
     {
         //解散アニメーションをさせる
-        modelObj.GetComponent<test>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
+        humanObj.ModelObj.GetComponent<HumanAnim>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
 
         destroyTime -= Time.deltaTime;
 
         if (destroyTime < 0.0f)
         {
             destroyTime = 0.0f;
-            SetStateType(STATETYPE.DESTROY);
+            SetStateType( Human.STATETYPE.DESTROY );
         }
     }
 
@@ -448,7 +371,7 @@ public class Human : MonoBehaviour
         if (destroyTime < 0.0f)
         {
             destroyTime = 0.0f;
-            SetStateType(STATETYPE.DESTROY);
+            SetStateType( Human.STATETYPE.DESTROY );
         }
     }
 
@@ -458,62 +381,6 @@ public class Human : MonoBehaviour
     private void Destroy()
     {
         Destroy(this.gameObject);
-    }
-
-    /// <summary>
-    /// モデル生成
-    /// </summary>
-    /// <param name="groupType">
-    /// グループの種類
-    /// </param>
-    public void ModelCreate( Human.GROUPTYPE groupType )
-    {
-        // HACK: 乗客モデル生成処理
-        //       見た目をどれにするか決める部分。法則を上手くつけて何とかしたい。
-        switch( groupType )
-        {
-            case Human.GROUPTYPE.PEAR:
-                modelID = 0;                          // 暫定 0 = ペアのため。後に乱数にかけるなどして変更。
-                break;
-
-            case Human.GROUPTYPE.SMAlLL:
-                modelID = 1;                          // 暫定 1 = グループ小のため。後に乱数にかけるなどして変更。
-                break;
-
-            case Human.GROUPTYPE.BIG:
-                modelID = 2;                          // 暫定 2 = グループ大のため。後に乱数にかけるなどして変更。
-                break;
-
-            default:
-                modelID = -1;
-                Debug.LogError( "人生成時に不定なタイプが指定されました。" );
-                break;
-        }
-
-        // 生成
-        modelObj = Instantiate(humanModelArray[ modelID ],                              //ゲームオブジェクト
-                                               this.transform.position,                 //位置
-                                               Quaternion.identity) as GameObject;      //回転
-
-        // 自分の親を自分にする
-        modelObj.transform.parent = transform;
-
-        // 名前変更
-        modelObj.name = humanModelArray[ modelID ].name;
-    }
-
-    /// <summary>
-    /// 自身の子となっている表示用モデルの当たり判定取得処理。
-    /// </summary>
-    /// <remarks>
-    /// 判定の消去などに利用すると良い。
-    /// </remarks>
-    public Collider GetHumanModelCollider()
-    {
-        string childName = humanModelArray[ modelID ].name;
-        GameObject obj = transform.Find( childName ).gameObject;
-        Collider collider = obj.GetComponent<Collider>();
-        return collider;
     }
 
     /// <summary>

@@ -28,7 +28,7 @@ public class MapIcon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        int state = human.GetComponent<Human>().GetStateType(); // 親オブジェクトの状態を取得
+        int state = ( int )human.GetComponent<Human>().CurrentStateType; // 親オブジェクトの状態を取得
         
         if(state != 2 && state != 1 && state != 0)
         {// もし表示する必要のない状態なら消す。

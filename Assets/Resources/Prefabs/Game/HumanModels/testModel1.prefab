@@ -50,7 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4726307237114970}
   - component: {fileID: 95792727835758364}
-  - component: {fileID: 114046613967179382}
+  - component: {fileID: 114621756599486496}
   - component: {fileID: 136403366116462638}
   - component: {fileID: 114886807646236940}
   m_Layer: 0
@@ -699,7 +699,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114046613967179382
+--- !u!114 &114621756599486496
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1228520313325140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d09a239cf4af2a4db15bbed30bf4e4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 990e776412384f4498f3871fc823360d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114886807646236940
@@ -743,6 +743,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -758,6 +759,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

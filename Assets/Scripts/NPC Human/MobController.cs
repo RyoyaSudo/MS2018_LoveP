@@ -45,7 +45,7 @@ public class MobController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        int zyoutai = this.GetComponent<Human>().GetStateType();
+        int zyoutai = ( int )GetComponent<Human>().CurrentStateType;
         if(zyoutai != 0 && zyoutai != 1 && zyoutai != 2)
         {// 乗車状態にする
             ride = true;
@@ -69,9 +69,10 @@ public class MobController : MonoBehaviour
                 foreach (Transform child in transform)
                 {
                     if (child.name == "testModel2" || child.name == "testModel1" || child.name == "testModel0" || child.name == "ModelMob0")
-                        child.GetComponent<test>().EvadeAnimON();
+                        child.GetComponent<HumanAnim>().EvadeAnimON();
                 }
-                this.GetComponent<Human>().SetStateType(Human.STATETYPE.EVADE); // 回避状態にセット
+
+                GetComponent<Human>().CurrentStateType = Human.STATETYPE.EVADE; // 回避状態にセット
                 status = STATUS.ESCAPE;     // 逃げ状態にする
 
                 if (btk == 0)
@@ -104,7 +105,7 @@ public class MobController : MonoBehaviour
                     btk = 0;
                     oldRot = transform.rotation.y;
                     escapeRot = 0.0f;
-                    this.GetComponent<Human>().SetStateType(Human.STATETYPE.READY);
+                    GetComponent<Human>().CurrentStateType = Human.STATETYPE.READY;
                 }
             }
         }

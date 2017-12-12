@@ -37,7 +37,7 @@ public class RidePlayableBehaviour : PlayableBehaviour
         //乗車の人オブジェクトを探す
         for ( int nCnt = 0; nCnt < humanObj.Length; nCnt++ )
         {
-            if (humanObj[nCnt].GetComponent<Human>().stateType == Human.STATETYPE.RIDE)
+            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.RIDE)
             {
                 passengerObj = humanObj[nCnt];
             }
