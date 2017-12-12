@@ -34,13 +34,6 @@ public class SpawnPoint : MonoBehaviour {
     }
 
     /// <summary>
-    /// 初期化処理
-    /// </summary>
-    void Start()
-    {
-    }
-
-    /// <summary>
     /// 人を生成
     /// </summary>
     /// <param name="spawnPointNum">

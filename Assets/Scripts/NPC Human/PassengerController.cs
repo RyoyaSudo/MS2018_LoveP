@@ -27,8 +27,8 @@ public class PassengerController : MonoBehaviour
     private float rideJumpRate;                      //ジャンプ割合
     private enum RideType                            //状態
     {
-        RUN ,
-        WAIT ,
+        RUN,
+        WAIT,
         JUMP
     };
     private RideType rideType;
@@ -50,6 +50,11 @@ public class PassengerController : MonoBehaviour
     //タイムラインマネージャー
     [SerializeField] private string timelineMangerPath ;    //パス
     private TimelineManager timelineManager;                //オブジェクト
+
+    /// <summary>
+    /// 有効化フラグ
+    /// </summary>
+    public bool IsEnable{ get; set; }
     
     /// <summary>
     /// グループ種類。
@@ -86,6 +91,7 @@ public class PassengerController : MonoBehaviour
     private void Awake()
     {
         humanObj = gameObject.GetComponent<Human>();
+        IsEnable = false;
     }
 
     /// <summary>
@@ -111,6 +117,11 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if( IsEnable == false )
+        {
+            return;
+        }
+
         //状態
         switch( humanObj.CurrentStateType )
         {
