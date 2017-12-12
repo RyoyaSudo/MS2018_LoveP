@@ -8,6 +8,7 @@ public class Tutorial : MonoBehaviour
     public GameObject transition;
     public GameObject nowObj;
     private AsyncOperation async;
+    private bool loadingFlag;
     ////サウンド用/////////////////////////////
     //public SoundController.Sounds titleSoundType;
     //private AudioSource titleAudioS;
@@ -16,6 +17,7 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
+        loadingFlag = false;
         ////サウンド用
         //titleSoundCtrl = GameObject.Find("SoundManager").GetComponent<SoundController>();
         ////オブジェクトについているAudioSourceを取得する
@@ -38,6 +40,8 @@ public class Tutorial : MonoBehaviour
             // Spaceキーで次のシーン
             // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
             // transition.SetActive(true);
+            if (loadingFlag == true) return;
+            loadingFlag = true;
             StartCoroutine(Nowloading());
             transition.GetComponent<Transition>().StartTransition(null);
             //SceneManager.LoadScene("Game");
