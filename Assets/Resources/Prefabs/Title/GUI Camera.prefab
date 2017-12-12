@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4535891232662170}
   - component: {fileID: 212493118272360590}
+  - component: {fileID: 114224469609128994}
   m_Layer: 1
   m_Name: Airplane
   m_TagString: Untagged
@@ -52,6 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4483715628795066}
   - component: {fileID: 212059631783852070}
+  - component: {fileID: 114284017283575554}
   m_Layer: 1
   m_Name: Rocket
   m_TagString: Untagged
@@ -117,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4548652391706776}
   - component: {fileID: 212768398857861688}
+  - component: {fileID: 114684887776710220}
   m_Layer: 1
   m_Name: Logo
   m_TagString: Untagged
@@ -132,6 +135,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4028852053975976}
+  - component: {fileID: 114174707895983618}
   m_Layer: 1
   m_Name: Clouds
   m_TagString: Untagged
@@ -148,6 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4874995753564832}
   - component: {fileID: 212720305308172982}
+  - component: {fileID: 114388344579986130}
   m_Layer: 1
   m_Name: Earth
   m_TagString: Untagged
@@ -231,6 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4230762856399654}
   - component: {fileID: 212519861798269194}
+  - component: {fileID: 114307844344286710}
   m_Layer: 1
   m_Name: PushStartLogo
   m_TagString: Untagged
@@ -369,13 +375,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1001545062631182}
-  m_LocalRotation: {x: 0, y: 0, z: -0.971342, w: 0.237686}
-  m_LocalPosition: {x: 100, y: 125, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.9848078, w: 0.17364825}
+  m_LocalPosition: {x: -802, y: -208, z: 1}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 4706415759677734}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -152.5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -160}
 --- !u!4 &4548652391706776
 Transform:
   m_ObjectHideFlags: 1
@@ -486,14 +492,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d6a9bd50211dc4ebc0238d62898393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airplaneObj: {fileID: 1001545062631182}
-  rocketObj: {fileID: 1074173350840812}
-  earthObj: {fileID: 1393323703016622}
-  cloudRightTopObj: {fileID: 1745723223987532}
-  cloudLeftTopObj: {fileID: 1190250249062122}
-  cloudLeftBottomObj: {fileID: 1113943092066098}
-  logoMainObj: {fileID: 1271469647219420}
-  logoPushStartObj: {fileID: 1997727743898562}
+  airplaneObj: {fileID: 114224469609128994}
+  rocketObj: {fileID: 0}
+  earthObj: {fileID: 0}
+  cloudRightTopObj: {fileID: 0}
+  cloudLeftTopObj: {fileID: 0}
+  cloudLeftBottomObj: {fileID: 0}
+  logoMainObj: {fileID: 0}
+  logoPushStartObj: {fileID: 0}
 --- !u!114 &114111415813375570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -506,6 +512,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiCamera: {fileID: 20674138839732490}
+--- !u!114 &114174707895983618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352250314303682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b426232cca32a62459bbc66c392aea55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114224469609128994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001545062631182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a892f1f14bbfc4b4c93e9ee26882319a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114284017283575554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074173350840812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11777e264eeb1e46880dab8ad86cb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114307844344286710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997727743898562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a10fcd911aa3b9459b2fb7530aa097a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114388344579986130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393323703016622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e98f46cfc500ba4dbf0e38568c318e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114684887776710220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271469647219420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43f4937d859c214e8e0151228feda48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114895064293068018
 MonoBehaviour:
   m_ObjectHideFlags: 1

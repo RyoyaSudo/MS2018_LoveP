@@ -30,16 +30,6 @@ public class Tutorial : MonoBehaviour
         //_____フェード関連_____________
         if (Input.GetKeyDown(KeyCode.O))
         {
-            ///<summary>
-            ///トランジションをStartCoroutine
-            ///GameSceneの非同期読み込み開始
-            ///GameSceneのAwakeが呼ばれる
-            ///
-            ///</summary>
-
-            // Spaceキーで次のシーン
-            // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
-            // transition.SetActive(true);
             if (loadingFlag == true) return;
             loadingFlag = true;
             StartCoroutine(Nowloading());
@@ -52,12 +42,6 @@ public class Tutorial : MonoBehaviour
             //titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
         }
         //______________
-    }
-
-    IEnumerator trans()
-    {
-        //async = SceneManager.LoadSceneAsync("Game");
-        yield return null;
     }
 
     IEnumerator Nowloading()
