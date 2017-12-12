@@ -41,6 +41,13 @@ public class StarPhaseMove : MonoBehaviour {
     [SerializeField] string inputObjPath;
 
     /// <summary>
+    /// 星フェイズ開始位置。
+    /// 星オブジェクトに付属しているスポーンポイントを取得する
+    /// </summary>
+    Vector3 playerSpawnPoint;
+    [SerializeField] string playerSpawnPointObjPath;
+
+    /// <summary>
     /// 生成時処理
     /// </summary>
     private void Awake()
@@ -63,7 +70,6 @@ public class StarPhaseMove : MonoBehaviour {
         earthObj = GameObject.Find( earthObjPath );
         inputObj = GameObject.Find( inputObjPath ).GetComponent<LoveP_Input>();
         rb = GetComponent<Rigidbody>();
-
     }
 
     /// <summary>
@@ -82,7 +88,7 @@ public class StarPhaseMove : MonoBehaviour {
     void StarMove()
     {
         // 面の法線方向を取得
-        int layerMask = LayerMask.GetMask( new string[] { "earth" } );
+        int layerMask = LayerMask.GetMask( new string[] { "Earth" } );
         RaycastHit hitInfo;
 
         if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 100.0f , layerMask ) )
@@ -168,15 +174,16 @@ public class StarPhaseMove : MonoBehaviour {
     {
         // シーン内から必要なオブジェクトを取得
         earthObj = GameObject.Find( earthObjPath );
+        playerSpawnPoint = GameObject.Find( playerSpawnPointObjPath ).GetComponent<Transform>().position;
 
         // HACK: 初期姿勢を決める
         // 星オブジェクトの中心に向かうベクトルを生成し、プレイヤーから直近の面の法線方向を取得
-        int layerMask = LayerMask.GetMask( new string[] { "earth" } );
+        int layerMask = LayerMask.GetMask( new string[] { "Earth" } );
         RaycastHit hitInfo;
-        Vector3 castPos = transform.position;
-        Vector3 castDir = Vector3.Normalize( earthObj.transform.position - transform.position );
+        Vector3 castPos = playerSpawnPoint;
+        Vector3 castDir = Vector3.Normalize( earthObj.transform.position - playerSpawnPoint );
 
-        if( Physics.Raycast( castPos , castDir , out hitInfo , 300.0f , layerMask ) )
+        if( Physics.Raycast( castPos , castDir , out hitInfo , 1000.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;
@@ -194,7 +201,8 @@ public class StarPhaseMove : MonoBehaviour {
         Quaternion forwardQ = Quaternion.LookRotation( afterForwardV , upV );
 
         // 姿勢決定
-        this.transform.rotation = forwardQ;
+        transform.rotation = forwardQ;
+        transform.position = playerSpawnPoint;
     }
 
     /// <summary>

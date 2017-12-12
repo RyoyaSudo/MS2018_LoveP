@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class CityPhaseMove : MonoBehaviour {
 
+    #region 変数宣言
+
     /// <summary>
     /// プレイヤーオブジェクト。
     /// Player.csで管理しているものを処理する際に利用。
@@ -160,6 +162,8 @@ public class CityPhaseMove : MonoBehaviour {
     private LoveP_Input inputObj;
     [SerializeField] string inputObjPath;
 
+    #endregion
+
     /// <summary>
     /// 生成時処理
     /// </summary>
@@ -193,6 +197,11 @@ public class CityPhaseMove : MonoBehaviour {
         playerObj  = GameObject.Find( playerObjPath ).GetComponent<Player>();
         inputObj   = GameObject.Find( inputObjPath ).GetComponent<LoveP_Input>();
         gameObj    = GameObject.Find( gameObjPath ).GetComponent<Game>();
+
+        // HACK: 初期化時に移動しておく
+        //       移動しないと開始時に埋まった状態になってしまうため、少し移動してCharcterControllerで所定の高さに移動してもらう
+        controller.Move( Vector3.forward );
+        controller.Move( Vector3.zero );
     }
 
     /// <summary>

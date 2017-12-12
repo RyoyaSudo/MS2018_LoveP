@@ -38,12 +38,10 @@ public class Game : MonoBehaviour {
     // シーン中シーン管理上操作したい場合に保持しておく
     GameObject CityObj;
     GameObject StarObj;
-    GameObject PlayerObj;
     GameObject mainCameraObj;
     GameObject guiCameraObj;
     GameObject SpawnManagerObj;
     GameObject starSpawnManagerObj;
-    GameObject TimeObj;
     GameObject MiniMapObj;
     GameObject effectManagerObj;
     GameObject soundManagerObj;
@@ -53,12 +51,20 @@ public class Game : MonoBehaviour {
     GameObject pointsListObj;
     GameObject scoutShipObj;
     GameObject shipPointsObj;
-    
+
+    Player playerObj;
+    TimeCtrl timeObj;
     TimelineManager timelineObj;
     LoveP_Input inputObj;
 
-    int readyCount;
+    /// <summary>
+    /// ゲームが開始するまでの時間
+    /// </summary>
+    [SerializeField] float gameStartWaitTime;
 
+    /// <summary>
+    /// ゲームシーン状態の列挙値
+    /// </summary>
     public enum Phase
     {
         GAME_PAHSE_READY = 0,
@@ -67,6 +73,11 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_STAR,
         GAME_PAHSE_END
     }
+
+    /// <summary>
+    /// 状態に応じた汎用タイマー変数
+    /// </summary>
+    float phaseTimer;
 
     /// <summary>
     /// ゲームシーンフェーズ変数
@@ -99,6 +110,10 @@ public class Game : MonoBehaviour {
     /// </summary>
     private void Awake()
     {
+        // 変数初期化
+        phaseTimer = 0.0f;
+
+        // オブジェクト生成処理など
         InitCreateObjects();
     }
 
@@ -119,10 +134,12 @@ public class Game : MonoBehaviour {
         {
             case Phase.GAME_PAHSE_READY:
                 {
-                    readyCount++;
-                    if( readyCount > 180 )
+                    phaseTimer += Time.deltaTime;
+
+                    if( phaseTimer > gameStartWaitTime )
                     {
                         PhaseParam = Phase.GAME_PAHSE_CITY;
+                        phaseTimer = 0.0f;
                     }
                     break;
                 }
@@ -139,7 +156,7 @@ public class Game : MonoBehaviour {
                         PhaseParam = Phase.GAME_PAHSE_STAR_SHIFT;
                     }
 
-                    if ( TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
+                    if ( timeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -160,7 +177,7 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_STAR:
                 {
-                    if (TimeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
+                    if (timeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
                         SceneManager.LoadScene("Result");
                     }
@@ -225,21 +242,30 @@ public class Game : MonoBehaviour {
     // TODO: 各フェイズ初期化処理。あとで確実に問題が生じるので、何か不都合が生じたら優先して見る！
     void PhaseReadyStart()
     {
-        //SetPhase(Phase.GAME_PAHSE_CITY);
-        TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_STOP);
-        readyCount = 0;
+        CityObj.SetActive( true );
+        StarObj.SetActive( false );
+        SpawnManagerObj.SetActive( true );
+        starSpawnManagerObj.SetActive( false );
+        timeObj.SetState(TimeCtrl.State.TIME_STATE_STOP);
+        playerObj.CityPhaseInit();
+        playerObj.MoveEnable( false );
+        mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
+        mainCameraObj.GetComponent<StarCameraController>().enabled = false;
+        skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
+        phaseTimer = 0;
     }
 
     void PhaseCityStart()
     {
-        CityObj.SetActive(true);
-        StarObj.SetActive(false);
-        SpawnManagerObj.SetActive(true);
-        starSpawnManagerObj.SetActive(false);
+        CityObj.SetActive( true );
+        StarObj.SetActive( false );
+        SpawnManagerObj.SetActive( true );
+        starSpawnManagerObj.SetActive( false );
+        timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
+        playerObj.CityPhaseInit();
+        playerObj.MoveEnable( true );
         mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
-        PlayerObj.GetComponent<Player>().CityPhaseInit();
-        TimeObj.GetComponent<TimeCtrl>().SetState(TimeCtrl.State.TIME_STATE_RUN);
-        //SpawnManagerObj.GetComponent<CitySpawnManager>().HumanCreate(1, Human.GROUPTYPE.PEAR);
+        mainCameraObj.GetComponent<StarCameraController>().enabled = false;
         skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
     }
 
@@ -247,6 +273,7 @@ public class Game : MonoBehaviour {
     {
         //タイムライン開始
         timelineObj.Get("StarShiftTimeline").Play();
+        playerObj.MoveEnable( false );
     }
 
     void PhaseStarStart()
@@ -256,8 +283,9 @@ public class Game : MonoBehaviour {
         SpawnManagerObj.SetActive(false);
         starSpawnManagerObj.SetActive(true);
         starSpawnManagerObj.GetComponent<StarSpawnManager>().Init();
-        PlayerObj.GetComponent<Player>().StarPhaseInit();
-        TimeObj.GetComponent<TimeCtrl>().SetState( TimeCtrl.State.TIME_STATE_RUN );
+        playerObj.StarPhaseInit();
+        playerObj.MoveEnable( true );
+        timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
         mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
@@ -267,7 +295,7 @@ public class Game : MonoBehaviour {
 
     void PhaseEndStart()
     {
-
+        playerObj.MoveEnable( false );
     }
 
     //タイトルシーンから移行
@@ -312,7 +340,7 @@ public class Game : MonoBehaviour {
         MiniMapObj          = Create( MiniMapPrefab );
         effectManagerObj    = Create( effectManagerPrefab );
         soundManagerObj     = Create( soundManagerPrefab );
-        PlayerObj           = Create( PlayerPrefab );
+        playerObj           = Create( PlayerPrefab ).GetComponent<Player>();
         skyboxManagerObj    = Create( skyboxManagerPrefab );
         transitionObj       = Create( transitionPrefab );
         timelineObj         = Create( timelinePrefab ).GetComponent<TimelineManager>();
@@ -324,7 +352,7 @@ public class Game : MonoBehaviour {
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
-        TimeObj = GameObject.Find( "Time" );
+        timeObj = GameObject.Find( "Time" ).GetComponent<TimeCtrl>();
     }
 
 }

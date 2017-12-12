@@ -33,6 +33,7 @@ public class CitySpawnManager : MonoBehaviour {
     void Start()
     {
 		spawnNum = spawnPoint.Length;
+
         //スポーンポイント生成
         spawnPointObject = new SpawnPoint[spawnNum];
 
@@ -40,8 +41,9 @@ public class CitySpawnManager : MonoBehaviour {
         {
             SpawnPointCreate(i, spawnPoint[i]);
         }
+
         //初回スポーン
-        HumanCreate(1, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+        HumanCreate(1, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     // 更新
@@ -49,19 +51,19 @@ public class CitySpawnManager : MonoBehaviour {
     {
         if (Input.GetKeyDown("0"))
         {
-            HumanCreate(0,Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(0, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("1"))
         {
-            HumanCreate(1,Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(1, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("2"))
         {
-            HumanCreate(2,Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(2, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("5"))
         {
-            SpawnHumanGroup(0, Human.GROUPTYPE.BIG);
+            SpawnHumanGroup(0, PassengerController.GROUPTYPE.BIG);
         }
     }
 
@@ -101,7 +103,7 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="passengerOrder">
     /// 乗客の乗車順番
     /// </param>
-    public void HumanCreate(int spawnPointNum , Human.GROUPTYPE groupType , SpawnPoint.PASSENGER_ORDER passengerOrder)
+    public void HumanCreate(int spawnPointNum , PassengerController.GROUPTYPE groupType , SpawnPoint.PASSENGER_ORDER passengerOrder)
     {
         spawnPointObject[spawnPointNum].HumanSpawn( spawnPointNum , groupType , passengerOrder);
     }
@@ -115,7 +117,7 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="groupType">
     /// 生成する乗客の所属グループタイプ
     /// </param>
-    public void SpawnHumanGroup ( int spawnPlace , Human.GROUPTYPE groupType)
+    public void SpawnHumanGroup ( int spawnPlace , PassengerController.GROUPTYPE groupType)
     {
         //相方たちの人数
         int passengerNum=0;
@@ -124,17 +126,17 @@ public class CitySpawnManager : MonoBehaviour {
         switch ( groupType )
         {
             //ペア
-            case Human.GROUPTYPE.PEAR:
+            case PassengerController.GROUPTYPE.PEAR:
                 passengerNum = pearPassengerNum - 1;
                 break;
 
             //小グループ
-            case Human.GROUPTYPE.SMAlLL:
+            case PassengerController.GROUPTYPE.SMAlLL:
                 passengerNum = smallPassengerNum - 1;
                 break;
 
             //大グループ
-            case Human.GROUPTYPE.BIG:
+            case PassengerController.GROUPTYPE.BIG:
                 passengerNum = bigPassengerNum - 1;
                 break;
         }
@@ -227,7 +229,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos,Human.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 break;
 
@@ -248,7 +250,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -265,7 +267,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 break;
 
@@ -286,7 +288,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -303,7 +305,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
@@ -320,7 +322,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, Human.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
 
                 break;

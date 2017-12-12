@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private StarSpawnManager starSpawnManagerObj;
     public string starSpawnManagerPath;
 
-    Human.GROUPTYPE passengerType;//乗客タイプ
+    PassengerController.GROUPTYPE passengerType;//乗客タイプ
 
     /// <summary>
     /// 最後に乗車した乗客オブジェクト。
@@ -155,6 +155,10 @@ public class Player : MonoBehaviour
         StateTimer = 0.0f;
 
         lastRideHuman = null;
+
+        // シーン内から必要なオブジェクトを取得
+        gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
+
     }
 
     /// <summary>
@@ -173,13 +177,8 @@ public class Player : MonoBehaviour
 
         // シーン内から必要なオブジェクトを取得
         scoreObj = GameObject.Find( "Score" );
-
-        gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
-
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
-
         vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
-
         timelineManagerObj = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();
 
         //サウンド用//////////////////////////////////////
@@ -263,14 +262,21 @@ public class Player : MonoBehaviour
     /// </summary>
     public void StarPhaseInit()
     {
+        if( vehicleControllerObj == null )
+        {
+            vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
+        }
+
         vehicleControllerObj.VehicleScore = vehicleControllerObj.VehicleScoreLimit[ ( int )PlayerVehicle.Type.AIRPLANE ];
         vehicleControllerObj.VehicleType = PlayerVehicle.Type.AIRPLANE;
         starSpawnManagerObj = GameObject.Find( starSpawnManagerPath ).GetComponent<StarSpawnManager>();
 
-        if( cityPhaseMoveObj != null )
+        if( cityPhaseMoveObj == null )
         {
-            cityPhaseMoveObj.IsEnable = false;
+            cityPhaseMoveObj = GameObject.Find( cityPhaseMoveObjPath ).GetComponent<CityPhaseMove>();
         }
+
+        cityPhaseMoveObj.IsEnable = false;
 
         // TODO: 星フェイズ開始時のプレイヤー初期位置設定
         //       Earthオブジェクトにプレイヤー初期位置のスポーンポイントを仕込んでおいて、そこから設定する形に変更したほうがよさそう
@@ -357,25 +363,25 @@ public class Player : MonoBehaviour
             case PlayerVehicle.Type.BIKE:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
                     break;
                 }
             case PlayerVehicle.Type.CAR:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
                     break;
                 }
             case PlayerVehicle.Type.BUS:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
                     break;
                 }
             case PlayerVehicle.Type.AIRPLANE:
                 {
                     //乗物によって生成する人を設定
-                    starSpawnManagerObj.SpawnHumanGroup( human.spawnPlace , human.groupType );
+                    starSpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
                     //citySpawnManagerObj.SpawnHumanGroup(human.spawnPlace, human.groupType);
                     break;
                 }
@@ -440,7 +446,7 @@ public class Player : MonoBehaviour
                         lastRideHuman = human;
 
                         //乗車待機状態じゃないならbreak;
-                        if( human.stateType != Human.STATETYPE.READY ) break;
+                        if( human.CurrentStateType != Human.STATETYPE.READY ) break;
 
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )
@@ -451,34 +457,29 @@ public class Player : MonoBehaviour
 
                             PassengerDeleteAll();
                             
-                            passengerType = human.groupType;
+                            passengerType = human.PassengerControllerObj.groupType;
 
                             // 乗客数の確認
-                            switch( human.groupType )
+                            switch( human.PassengerControllerObj.groupType )
                             {
-                                case Human.GROUPTYPE.PEAR:
-                                    {
-                                        rideGroupNum = 2;
-                                        Debug.Log( "PEAR" );
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.SMAlLL:
-                                    {
-                                        rideGroupNum = 3;
-                                        Debug.Log( "SMALL" );
-                                        break;
-                                    }
-                                case Human.GROUPTYPE.BIG:
-                                    {
-                                        rideGroupNum = 5;
-                                        Debug.Log( "BIG" );
-                                        break;
-                                    }
+                                case PassengerController.GROUPTYPE.PEAR:
+                                    rideGroupNum = 2;
+                                    Debug.Log( "PEAR" );
+                                    break;
+
+                                case PassengerController.GROUPTYPE.SMAlLL:
+                                    rideGroupNum = 3;
+                                    Debug.Log( "SMALL" );
+                                    break;
+
+                                case PassengerController.GROUPTYPE.BIG:
+                                    rideGroupNum = 5;
+                                    Debug.Log( "BIG" );
+                                    break;
+
                                 default:
-                                    {
-                                        Debug.LogError( "エラー:設定謎の乗客タイプが設定されています" );
-                                        break;
-                                    }
+                                    Debug.LogError( "エラー:設定謎の乗客タイプが設定されています" );
+                                    break;
                             }
 
                             HumanCreate( human );
@@ -525,7 +526,7 @@ public class Player : MonoBehaviour
 
                             // TODO : 田口　2017/11/30
                             //乗客の状態を「乗車」に
-                            human.gameObject.GetComponent<Human>().SetStateType(Human.STATETYPE.RIDE);
+                            human.CurrentStateType = Human.STATETYPE.RIDE;
                         }
                     }
                     break;
@@ -759,12 +760,18 @@ public class Player : MonoBehaviour
     /// 移動処理有効化処理
     /// </summary>
     /// <param name="flags">フラグ</param>
-    private void MoveEnable( bool flags )
+    public void MoveEnable( bool flags )
     {
         // 現在状態からどれに設定にするか判断
         switch( gameObj.PhaseParam )
         {
             case Game.Phase.GAME_PAHSE_READY:
+                if( cityPhaseMoveObj == null )
+                {
+                    cityPhaseMoveObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CityPhaseMove>();
+                }
+
+                cityPhaseMoveObj.IsEnable = flags;
                 break;
 
             case Game.Phase.GAME_PAHSE_CITY:
@@ -776,7 +783,25 @@ public class Player : MonoBehaviour
                 cityPhaseMoveObj.IsEnable = flags;
                 break;
 
+            case Game.Phase.GAME_PAHSE_STAR_SHIFT:
+                if( cityPhaseMoveObj == null )
+                {
+                    cityPhaseMoveObj = GameObject.Find( citySpawnManagerPath ).GetComponent<CityPhaseMove>();
+                }
+
+                cityPhaseMoveObj.IsEnable = flags;
+                break;
+
             case Game.Phase.GAME_PAHSE_STAR:
+                if( starPhaseMoveObj == null )
+                {
+                    starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
+                }
+
+                starPhaseMoveObj.IsEnable = flags;
+                break;
+
+            case Game.Phase.GAME_PAHSE_END:
                 if( starPhaseMoveObj == null )
                 {
                     starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
@@ -801,11 +826,11 @@ public class Player : MonoBehaviour
             //最後の人だけ状態を「待ち受け」に
             if( i == rideCount - 1 )
             {
-                passengerObj[ i ].GetComponent<Human>().SetStateType( Human.STATETYPE.AWAIT );
+                passengerObj[ i ].GetComponent<Human>().CurrentStateType = Human.STATETYPE.AWAIT;
             }
             else //それ以外の状態は「下車」に
             {
-                passengerObj[ i ].GetComponent<Human>().SetStateType( Human.STATETYPE.GETOFF );
+                passengerObj[ i ].GetComponent<Human>().CurrentStateType = Human.STATETYPE.GETOFF;
             }
         }
 
@@ -818,32 +843,27 @@ public class Player : MonoBehaviour
         //       決め打ちの数値のため、定数で定めるなどの工夫が必要かと
         switch( passengerType )
         {
-            case Human.GROUPTYPE.PEAR:
-                {
-                    //ペア作成時のSE再生///////////////////////////////////////////////
-                    playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                    vehicleControllerObj.VehicleScore += 1;
-                    break;
-                }
-            case Human.GROUPTYPE.SMAlLL:
-                {
-                    //ペア作成時のSE再生///////////////////////////////////////////////
-                    playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                    vehicleControllerObj.VehicleScore += 2;
-                    break;
-                }
-            case Human.GROUPTYPE.BIG:
-                {
-                    //ペア作成時のSE再生///////////////////////////////////////////////
-                    playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
-                    vehicleControllerObj.VehicleScore += 4;
-                    break;
-                }
+            case PassengerController.GROUPTYPE.PEAR:
+                //ペア作成時のSE再生///////////////////////////////////////////////
+                playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                vehicleControllerObj.VehicleScore += 1;
+                break;
+
+            case PassengerController.GROUPTYPE.SMAlLL:
+                //ペア作成時のSE再生///////////////////////////////////////////////
+                playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                vehicleControllerObj.VehicleScore += 2;
+                break;
+
+            case PassengerController.GROUPTYPE.BIG:
+                //ペア作成時のSE再生///////////////////////////////////////////////
+                playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.CREATING_PEAR ) );
+                vehicleControllerObj.VehicleScore += 4;
+                break;
+
             default:
-                {
-                    Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
-                    break;
-                }
+                Debug.Log( "エラー:設定謎の乗客タイプが設定されています" );
+                break;
         }
 
         // HACK: 下車状態へ移行
@@ -853,7 +873,7 @@ public class Player : MonoBehaviour
         // HACK: 次の乗客を生成。
         //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
         //乗物によって生成する人を設定
-        HumanCreateGroup( human.spawnPlace );
+        HumanCreateGroup( human.PassengerControllerObj.spawnPlace );
 
         //何人乗せるかUIの表示を終了
         passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
@@ -892,7 +912,7 @@ public class Player : MonoBehaviour
 
             if( lastRideHuman != null )
             {
-                ignorePlace = lastRideHuman.spawnPlace;
+                ignorePlace = lastRideHuman.PassengerControllerObj.spawnPlace;
             }
 
             PassengerDeleteAll();
@@ -914,7 +934,7 @@ public class Player : MonoBehaviour
 
             if( lastRideHuman != null )
             {
-                ignorePlace = lastRideHuman.spawnPlace;
+                ignorePlace = lastRideHuman.PassengerControllerObj.spawnPlace;
             }
 
             PassengerDeleteAll();
@@ -936,7 +956,7 @@ public class Player : MonoBehaviour
 
             if( lastRideHuman != null )
             {
-                ignorePlace = lastRideHuman.spawnPlace;
+                ignorePlace = lastRideHuman.PassengerControllerObj.spawnPlace;
             }
 
             PassengerDeleteAll();

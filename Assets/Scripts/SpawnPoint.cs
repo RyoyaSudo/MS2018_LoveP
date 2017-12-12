@@ -52,15 +52,41 @@ public class SpawnPoint : MonoBehaviour {
     /// <param name="passengerOrder">
     /// 乗客の乗車順番
     /// </param>
-    public void HumanSpawn( int spawnPointNum , Human.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder )
+    public void HumanSpawn( int spawnPointNum , PassengerController.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder )
     {
-        //生成
+        // 生成
         Human human = Instantiate( humanPrefab , transform.position , Quaternion.identity ).GetComponent<Human>();
 
-        human.ModelCreate( groupType );         //モデル生成
-        human.groupType = groupType;            //グループタイプを設定
-        human.spawnPlace = spawnPointNum;       //スポーンの場所を設定
-        human.pasengerOrder = passengerOrder;   //乗客の乗車順番
+        // HACK: 人モデル生成
+        //       ここでいい具合にランダムなどやりたい
+        Human.ModelType createType = Human.ModelType.Unknown;
+
+        switch( groupType )
+        {
+            case PassengerController.GROUPTYPE.PEAR:
+                createType = Human.ModelType.Girl;
+                break;
+
+            case PassengerController.GROUPTYPE.SMAlLL:
+                createType = Human.ModelType.Boy;
+                break;
+
+            case PassengerController.GROUPTYPE.BIG:
+                createType = ( Human.ModelType )( Random.Range( 0 , 1 ) );
+                break;
+
+            default:
+                break;
+        }
+
+        human.ModelCreate( createType );
+
+        // 乗客設定
+        PassengerController passengerObj = human.PassengerControllerObj;
+
+        passengerObj.groupType = groupType;            //グループタイプを設定
+        passengerObj.spawnPlace = spawnPointNum;       //スポーンの場所を設定
+        passengerObj.pasengerOrder = passengerOrder;   //乗客の乗車順番
 
         // 子にする
         human.gameObject.transform.parent = passengersObj;

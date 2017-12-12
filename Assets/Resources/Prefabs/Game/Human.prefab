@@ -54,6 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4097605556175534}
+  - component: {fileID: 114597728669192000}
   - component: {fileID: 114571908584615214}
   - component: {fileID: 114445120566314776}
   m_Layer: 10
@@ -204,6 +205,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -219,6 +221,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -236,6 +239,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -251,6 +255,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -268,6 +273,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -283,6 +289,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -377,15 +384,24 @@ MonoBehaviour:
   passengerGroupUIHeartMat: {fileID: 2100000, guid: 495a322513779064a93f8c0731187171,
     type: 2}
   timelineMangerPath: TimeLineManager
-  humanModelArray:
-  - {fileID: 1167692189014702, guid: aba614d213f717f4e938361aca0ed2e4, type: 2}
-  - {fileID: 1787178622762782, guid: 3640f0619bfe9b24abddc811c49017fb, type: 2}
-  - {fileID: 1766544041889998, guid: de122af578c24314386b956dae868edc, type: 2}
   groupType: 0
-  stateType: 0
   spawnPlace: 0
   pasengerOrder: 0
   destroyTime: 3
+--- !u!114 &114597728669192000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1486784004988574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2dd9dd9f7c86c4dbee2ab7bed0ee4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelArray:
+  - {fileID: 1167692189014702, guid: aba614d213f717f4e938361aca0ed2e4, type: 2}
+  - {fileID: 1787178622762782, guid: 3640f0619bfe9b24abddc811c49017fb, type: 2}
 --- !u!136 &136016218072901752
 CapsuleCollider:
   m_ObjectHideFlags: 1
