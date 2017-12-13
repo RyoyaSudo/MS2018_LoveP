@@ -183,7 +183,7 @@ public class StarPhaseMove : MonoBehaviour {
         Vector3 castPos = playerSpawnPoint;
         Vector3 castDir = Vector3.Normalize( earthObj.transform.position - playerSpawnPoint );
 
-        if( Physics.Raycast( castPos , castDir , out hitInfo , 1000.0f , layerMask ) )
+        if( Physics.Raycast( castPos , castDir , out hitInfo , 10000.0f , layerMask ) )
         {
             // 接した場合
             upV = hitInfo.normal;
