@@ -139,7 +139,7 @@ public class StarSpawnManager : MonoBehaviour
     /// </param>
     public void HumanCreate(int spawnPointNum, PassengerController.GROUPTYPE groupType,SpawnPoint.PASSENGER_ORDER passengerOrder )
     {
-        spawnPointObject[spawnPointNum].HumanSpawn(spawnPointNum, groupType , passengerOrder);
+        spawnPointObject[spawnPointNum].PassengerSpawn( spawnPointNum, groupType , passengerOrder);
     }
 
     /// <summary>

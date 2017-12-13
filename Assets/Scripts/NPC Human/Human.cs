@@ -197,7 +197,17 @@ public class Human : MonoBehaviour {
 
             case STATETYPE.DESTROY:
                 break;
+        }
 
+        // HACK: 乗客側にも状態をセット
+        //       もっと良い処理順があったかも
+        //       2017/12/13現在はここで処理
+        if( PassengerControllerObj != null )
+        {
+            if( PassengerControllerObj.IsEnable )
+            {
+                PassengerControllerObj.SetStateType( type );
+            }
         }
 
         if( Game.IsDebug )

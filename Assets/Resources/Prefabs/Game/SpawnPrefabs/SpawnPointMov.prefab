@@ -53,4 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanPrefab: {fileID: 1130660743715892, guid: b052253e56318944d8fa404de23d3d30,
     type: 2}
+  passengersObj: {fileID: 0}
   passengersObjPath: MovManager

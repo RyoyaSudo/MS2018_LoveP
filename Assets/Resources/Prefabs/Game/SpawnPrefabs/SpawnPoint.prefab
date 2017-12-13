@@ -212,7 +212,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanPrefab: {fileID: 1486784004988574, guid: 715560ab072acbb48830440ec40d761c,
     type: 2}
-  passengersObjPath: Passengers
+  passengerParentObjPath: Passengers
+  mobParentObjPath: Mobs
 --- !u!198 &198059291673644916
 ParticleSystem:
   m_ObjectHideFlags: 1
