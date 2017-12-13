@@ -71,7 +71,9 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR_SHIFT,
         GAME_PAHSE_STAR,
-        GAME_PAHSE_END
+        GAME_PAHSE_END,
+
+        GAME_PAHSE_NUM,
     }
 
     /// <summary>
@@ -198,6 +200,11 @@ public class Game : MonoBehaviour {
         if( isDebug && Input.GetKeyUp( KeyCode.O ) )
         {
             transitionObj.GetComponent<Transition>().StartTransition("Result");
+        }
+
+        if( Input.GetKeyDown( KeyCode.L ) )
+        {
+            PhaseParam = ( Phase )Mathf.Min( ( ( int )PhaseParam + 1 ) , ( ( int )Phase.GAME_PAHSE_NUM - 1 ) );
         }
         
         // HACK: OnGUIデバッグ時On・Off処理

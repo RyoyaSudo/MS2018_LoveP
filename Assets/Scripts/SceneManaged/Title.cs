@@ -10,12 +10,15 @@ public class Title : MonoBehaviour {
     [SerializeField] GameObject mainCameraPrefab;
     [SerializeField] GameObject guiCameraPrefab;
     [SerializeField] GameObject soundManagerPrefab;
+    [SerializeField] GameObject inputPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
     GameObject mainCameraObj;
     GameObject guiCameraObj;
     GameObject soundManagerObj;
+
+    LoveP_Input inputObj;
 
     GameObject fadePanel;   // フェードパネル
     public int fadeNum;     // 遷移先の番号
@@ -57,9 +60,8 @@ public class Title : MonoBehaviour {
     void Update()
     {
         //_____フェード関連_____________
-        if (Input.GetKey(KeyCode.O))
+        if( inputObj.GetButton( "Fire1" ) || Input.GetKey( KeyCode.O ) )
         {
-            // Spaceキーで次のシーン
             // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
             transition.SetActive(true);
             transition.GetComponent<Transition>().StartTransition("Tutorial");
@@ -98,5 +100,6 @@ public class Title : MonoBehaviour {
         mainCameraObj       = Create( mainCameraPrefab );
         guiCameraObj        = Create( guiCameraPrefab );
         soundManagerObj     = Create( soundManagerPrefab );
+        inputObj            = Create( inputPrefab ).GetComponent<LoveP_Input>();
     }
 }
