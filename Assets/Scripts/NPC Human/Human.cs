@@ -103,23 +103,13 @@ public class Human : MonoBehaviour {
     {
         // 初期値設定
         CurrentModelType = ModelType.Unknown;
-        CurrentStateType = STATETYPE.READY;
+        CurrentStateType = STATETYPE.CREATE;
         IsProtect = false;
 
         // 必要なゲームオブジェクト取得
         PassengerControllerObj = gameObject.GetComponent<PassengerController>();
         MobControllerObj = gameObject.GetComponent<MobController>();
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     /// <summary>
     /// モデル生成

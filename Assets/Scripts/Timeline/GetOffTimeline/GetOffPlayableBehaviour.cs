@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using Cinemachine;
 
 // A behaviour that is attached to a playable
 public class GetOffPlayableBehaviour : PlayableBehaviour
@@ -14,8 +15,8 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
 
     public GameObject getOffDolly;      //ドリー
 
-    public Cinemachine.CinemachineVirtualCamera getOffvcam1;  //バーチャルカメラ1
-    private Cinemachine.CinemachineTrackedDolly trackDolly1;  //トラックドリー1
+    public CinemachineVirtualCamera getOffvcam1;  //バーチャルカメラ1
+    private CinemachineTrackedDolly trackDolly1;  //トラックドリー1
 
     public float dollyIntervalTime;    //ドリーの刻む時間
     public float dollyIntervalPos;     //ドリーの刻む位置
@@ -31,8 +32,7 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
         mainCameraObj = GameObject.Find(mainCameraPath);
 
         //BodyのCinemachineTrackedDolly取得
-        trackDolly1 = getOffvcam1.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>();
-
+        trackDolly1 = getOffvcam1.GetCinemachineComponent<CinemachineTrackedDolly>();
 
         //LookAt設定
         getOffvcam1.LookAt = playerObj.transform;

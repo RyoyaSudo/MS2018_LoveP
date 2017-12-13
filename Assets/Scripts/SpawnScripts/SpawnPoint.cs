@@ -84,6 +84,7 @@ public class SpawnPoint : MonoBehaviour {
         human.PassengerControllerObj.groupType = groupType;            //グループタイプを設定
         human.PassengerControllerObj.spawnPlace = spawnPointNum;       //スポーンの場所を設定
         human.PassengerControllerObj.pasengerOrder = passengerOrder;   //乗客の乗車順番
+        human.PassengerControllerObj.IsEnable = true;
 
         // 子にする
         human.gameObject.transform.parent = passengerParentObj;
@@ -116,7 +117,7 @@ public class SpawnPoint : MonoBehaviour {
 
         // HACK: モブパラメータ設定
         //       モブパラメータ追加したらここで設定してください
-        //human.MobControllerObj;
+        human.MobControllerObj.IsEnable = true;
 
         // 子にする
         human.gameObject.transform.parent = mobParentObj;

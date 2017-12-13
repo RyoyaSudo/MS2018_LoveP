@@ -31,26 +31,30 @@ public class MoveObstacle : MonoBehaviour {
 	
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Player")
+        // HACK: 障害物吹き飛ばし処理に関して
+        //       プレイヤーが当たった時のみ処理する
+        if( col.gameObject.name != "Player" )
         {
-            // 吹き飛ばせるか判定
-            PlayerVehicle.Type currentType = col.gameObject.GetComponent<PlayerVehicle>().VehicleType;
+            return;
+        }
 
-            if( currentType >= enableMoveType )
-            {
-                // 吹き飛ばす処理
-                obstacleRb.constraints = RigidbodyConstraints.None;
+        // 吹き飛ばせるか判定
+        PlayerVehicle.Type currentType = col.gameObject.GetComponent<PlayerVehicle>().VehicleType;
 
-                Player playerObj = col.gameObject.GetComponent<Player>();
-                float playerVelocity = playerObj.Velocity;
-                Vector3 playerVelocityVec = playerObj.VelocityVec;
+        if( currentType >= enableMoveType )
+        {
+            // 吹き飛ばす処理
+            obstacleRb.constraints = RigidbodyConstraints.None;
 
-                //velocity.y += velocity.y * addPower;
-                velocity = playerVelocityVec.normalized * playerVelocity * addPower;
-                //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
-                obstacleRb.AddForce( transform.forward * addPower , ForceMode.Impulse );
-                obstacleRb.AddForce( velocity * impactRate , ForceMode.Impulse );
-            }
+            Player playerObj = col.gameObject.GetComponent<Player>();
+            float playerVelocity = playerObj.Velocity;
+            Vector3 playerVelocityVec = playerObj.VelocityVec;
+
+            //velocity.y += velocity.y * addPower;
+            velocity = playerVelocityVec.normalized * playerVelocity * addPower;
+            //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
+            obstacleRb.AddForce( transform.forward * addPower , ForceMode.Impulse );
+            obstacleRb.AddForce( velocity * impactRate , ForceMode.Impulse );
         }
     }
 }
