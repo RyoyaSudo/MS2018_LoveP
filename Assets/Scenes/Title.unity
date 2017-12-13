@@ -169,7 +169,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1232344089298900, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4535891232662170, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
       propertyPath: m_LocalPosition.y
@@ -196,7 +196,19 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -160
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 92093235566815362, guid: d45f8aee520e3c345b2e56e34576ff25,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 124726967062144604, guid: d45f8aee520e3c345b2e56e34576ff25,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 92093235566815362, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
+    - {fileID: 124726967062144604, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d45f8aee520e3c345b2e56e34576ff25, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &788665939
@@ -381,29 +393,6 @@ Prefab:
     - target: {fileID: 4126439318721914, guid: 37a552620f687524d8c62a9150abb475, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114387821579181984, guid: 37a552620f687524d8c62a9150abb475,
-        type: 2}
-      propertyPath: mainCameraPrefab
-      value: 
-      objectReference: {fileID: 1521949075883808, guid: 4c12ee88b34ac6643b22cc198fb383ea,
-        type: 2}
-    - target: {fileID: 114387821579181984, guid: 37a552620f687524d8c62a9150abb475,
-        type: 2}
-      propertyPath: guiCameraPrefab
-      value: 
-      objectReference: {fileID: 1569637311275474, guid: d45f8aee520e3c345b2e56e34576ff25,
-        type: 2}
-    - target: {fileID: 114387821579181984, guid: 37a552620f687524d8c62a9150abb475,
-        type: 2}
-      propertyPath: soundManagerPrefab
-      value: 
-      objectReference: {fileID: 1749989383240858, guid: 720734e1365c3a94083d6ce360a3b8ad,
-        type: 2}
-    - target: {fileID: 114387821579181984, guid: 37a552620f687524d8c62a9150abb475,
-        type: 2}
-      propertyPath: transition
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37a552620f687524d8c62a9150abb475, type: 2}
