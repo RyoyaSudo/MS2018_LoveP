@@ -47,6 +47,10 @@ public class StarPhaseMove : MonoBehaviour {
     Vector3 playerSpawnPoint;
     [SerializeField] string playerSpawnPointObjPath;
 
+    Vector3 oldForce;
+
+    Vector3 velocity;
+
     /// <summary>
     /// 生成時処理
     /// </summary>
@@ -60,8 +64,6 @@ public class StarPhaseMove : MonoBehaviour {
     /// 初期化処理
     /// </summary>
     void Start () {
-        speedMax = 60.0f;
-        speed = 1800f;
         moveRadY = 0.0f;
 
         upV = Vector3.zero;
@@ -110,26 +112,21 @@ public class StarPhaseMove : MonoBehaviour {
         float moveH = inputObj.GetAxis("Horizontal");
         Vector3 gravityVec = -upV;
         gravityVec.Normalize();
-        rb.AddForce( 9.8f * gravityVec * ( 60.0f * Time.deltaTime ) , ForceMode.Acceleration );
-        transform.up = -gravityVec.normalized;
+        rb.AddForce( 9.81f * gravityVec , ForceMode.Acceleration );
 
-        Vector3 direction = new Vector3(moveH, 0.0f, moveV);
-
-        //Debug.Log( "Horizontal:" + moveH );
-        Vector3 axis = transform.up;// 回転軸
-                                    //float angle = 90f * Time.deltaTime; // 回転の角度
-
-        //this.transform.rotation = q * this.transform.rotation; // クォータニオンで回転させる
+        Vector3 axis = upV;    // 回転軸
+        
         moveRadY = moveH * 180.0f * Time.deltaTime;
-        //transform.rotation = Quaternion.Euler(0, moveRadY, 0);
-        Quaternion q = Quaternion.AngleAxis(moveRadY, axis); // 軸axisの周りにangle回転させるクォータニオン
-        this.transform.rotation = q * forwardQ; // クォータニオンで回転させる
+
+        Quaternion q = Quaternion.AngleAxis( moveRadY , axis ); // 軸axisの周りにangle回転させるクォータニオン
+        transform.rotation = q * forwardQ; // クォータニオンで回転させる
         if( Mathf.Abs( moveH ) > 0.2f )
         {
 
         }
 
         Vector3 force = transform.forward * speed;
+        //force = forwardQ * force;
 
         // プッシュ動作
         if( Input.GetKey( KeyCode.Space ) )
@@ -148,17 +145,19 @@ public class StarPhaseMove : MonoBehaviour {
         if( Input.GetKeyUp( KeyCode.Space ) )
         {
             rb.velocity = new Vector3( 0.0f , 0.0f , 0.0f );
-            //force *= ( 30.0f * rb.mass );
             rb.AddForce( force * turboRatio * Time.deltaTime , ForceMode.VelocityChange );
         }
 
         // 今回の速度加算
-        rb.AddForce( force * Time.deltaTime , ForceMode.Acceleration );
+        velocity = force * Time.deltaTime;
+        rb.AddForce( velocity , ForceMode.Acceleration );
 
-        if( rb.velocity.magnitude > speedMax )
+        if( velocity.magnitude > speedMax )
         {
-            rb.velocity = rb.velocity.normalized * speedMax;
+            velocity = velocity.normalized * speedMax;
         }
+
+        oldForce = force * Time.deltaTime;
     }
 
     public void StarPhaseStart()
@@ -222,7 +221,7 @@ public class StarPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "上方向:" + upV + "\n位置:" + transform.position + "\n姿勢:" + transform.rotation.eulerAngles;
+            str = "上方向:" + upV + "\n速度:" + oldForce + "\n姿勢:" + transform.rotation.eulerAngles;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }

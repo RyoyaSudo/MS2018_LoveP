@@ -285,11 +285,20 @@ public class Game : MonoBehaviour {
         starSpawnManagerObj.GetComponent<StarSpawnManager>().Init();
         playerObj.StarPhaseInit();
         playerObj.MoveEnable( true );
+
         timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
+
         mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
+
         MiniMapObj.GetComponent<MiniMap>().enabled = false;
         MiniMapObj.GetComponent<StarMiniMap>().enabled = true;
+
+        npcVehiclesObj.SetActive( false );
+        pointsListObj.SetActive( false );
+        scoutShipObj.SetActive( false );
+        shipPointsObj.SetActive( false );
+
         skyboxManagerObj.GetComponent<SkyboxManager>().SetStarSkyBox();
     }
 
@@ -297,13 +306,6 @@ public class Game : MonoBehaviour {
     {
         playerObj.MoveEnable( false );
     }
-
-    //タイトルシーンから移行
-    //初期設定を行う（Playerの位置、GameStateの設定、初期乗客スポーン）
-    //ゲーム開始準備（Ready,Playerの操作を受け付けない）
-    //ゲーム開始（Playerを動けるようにする、タイムの動作開始）
-    //ゲーム中
-    //時間切れでリザルトに遷移
 
     /// <summary>
     /// 初期化時オブジェクト生成処理
