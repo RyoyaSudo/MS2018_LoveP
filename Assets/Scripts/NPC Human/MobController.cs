@@ -6,8 +6,8 @@ public class MobController : MonoBehaviour
 {
 
     const float ESCAPE_AREA = 90.0f;   // この中に入ったら逃げる（半径）
-    const int ESCAPE_TIME = 40;         // 逃げるのに使う時間
-    const float ESCAPE_SPEED = -0.75f;   // プレイヤーから逃げるスピード
+    const int ESCAPE_TIME = 20;         // 逃げるのに使う時間
+    public float ESCAPE_SPEED;          // プレイヤーから逃げるスピード
     enum STATUS { NORMAL = 0, ESCAPE, ESCAPE2 }; // 状態の種類(普通、逃げる,逃げる時に方向転換)  
     STATUS status;                      // 状態 
     float escapeRot;                    // プレイヤーから逃げる時の向き
@@ -33,8 +33,7 @@ public class MobController : MonoBehaviour
             {
                 if (child.name == "testModel2" || child.name == "testModel1" || child.name == "testModel0" || child.name == "ModelMob0")
                     child.transform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
-            }
-           
+            }          
         }
         status = STATUS.NORMAL;                 // ふつう状態
         stateTime = 0;                          // 逃げた時間を０にする
@@ -49,21 +48,33 @@ public class MobController : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         // 有効化確認
         if( IsEnable == false )
         {
-            return;
+   //         return;
         }
 
-        int zyoutai = ( int )GetComponent<Human>().CurrentStateType;
-        if(zyoutai != 0 && zyoutai != 1 && zyoutai != 2)
-        {// 乗車状態にする
-            ride = true;
+        if(slash == 0)
+        {
+            ride = false;
+        }
+        else
+        {
+            Human.STATETYPE a = GetComponent<Human>().CurrentStateType;
+            //int zyoutai = ( int )GetComponent<Human>().CurrentStateType;
+            if (a == Human.STATETYPE.RIDE || a == Human.STATETYPE.TRANSPORT || a == Human.STATETYPE.RELEASE && slash != 0)
+            {// 乗車状態にする
+                ride = true;
+            }
         }        
 
-        if (!ride)
+        if (ride)
+        {
+            return;
+        }
+        else
         {// 車の上に乗っているときなどは実行しない
 
             // プレイヤーキャラとモブキャラの位置
@@ -76,15 +87,8 @@ public class MobController : MonoBehaviour
             {// プレイヤーキャラが近いと逃げる
 
                 //♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪
-                // 逃げる音
+                // 逃げる音、逃げるアニメーションに設定
                 //♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪
-                foreach (Transform child in transform)
-                {
-                    if (child.name == "testModel2" || child.name == "testModel1" || child.name == "testModel0" || child.name == "ModelMob0")
-                        child.GetComponent<HumanAnim>().EvadeAnimON();
-                }
-
-                GetComponent<Human>().CurrentStateType = Human.STATETYPE.EVADE; // 回避状態にセット
                 status = STATUS.ESCAPE;     // 逃げ状態にする
 
                 if (btk == 0)
@@ -99,7 +103,7 @@ public class MobController : MonoBehaviour
                 // 普通以外状態の時間をカウント
                 stateTime++;
 
-                if (stateTime <= ESCAPE_TIME / slash)
+                if (stateTime <= ESCAPE_TIME / ( 1 + slash))
                 {// 逃げる時間を過ぎていないときは逃げる
 
                     if (stateTime <= 3)
@@ -107,7 +111,7 @@ public class MobController : MonoBehaviour
                         transform.Rotate(new Vector3(0.0f, escapeRot - oldRot / 3, 0.0f));
                     }
 
-                    // 移動
+                    /// 移動
                     transform.Translate(new Vector3(ESCAPE_SPEED, 0.0f, 0.0f));
                 }
                 else
@@ -117,7 +121,6 @@ public class MobController : MonoBehaviour
                     btk = 0;
                     oldRot = transform.rotation.y;
                     escapeRot = 0.0f;
-                    GetComponent<Human>().CurrentStateType = Human.STATETYPE.READY;
                 }
             }
         }
