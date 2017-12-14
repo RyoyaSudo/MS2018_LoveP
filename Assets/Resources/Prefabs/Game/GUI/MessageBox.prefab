@@ -192,7 +192,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 21129068913098608, guid: b41a80b92bbe7414eb43ba7f19764273, type: 2}
+  - {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,9 +281,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "\u30C6\u30B9\u30C8\u3067\u3059\uFF01\uFF01\naaaaaaaaaaa"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b41a80b92bbe7414eb43ba7f19764273, type: 2}
-  m_sharedMaterial: {fileID: 21129068913098608, guid: b41a80b92bbe7414eb43ba7f19764273,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -415,7 +414,7 @@ SpriteRenderer:
   m_Size: {x: 800, y: 200}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!222 &222588307156639612
 CanvasRenderer:
