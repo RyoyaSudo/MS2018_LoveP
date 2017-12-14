@@ -163,6 +163,11 @@ public class CityPhaseMove : MonoBehaviour {
     private LoveP_Input inputObj;
     [SerializeField] string inputObjPath;
 
+    /// <summary>
+    /// 当たり判定
+    /// </summary>
+    private Rigidbody rb;
+
     #endregion
 
     /// <summary>
@@ -199,12 +204,15 @@ public class CityPhaseMove : MonoBehaviour {
         gameObj    = GameObject.Find( gameObjPath ).GetComponent<Game>();
         controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
 
+        rb = gameObject.GetComponent<Rigidbody>();
+        rb.WakeUp();
+
         // HACK: 初期化時に移動しておく
         //       移動しないと開始時に埋まった状態になってしまうため、少し移動してCharcterControllerで所定の高さに移動してもらう
         controller.Move( Vector3.forward );
         controller.Move( Vector3.zero );
         controller.enabled = isEnable;
-        //controller.detectCollisions = false;
+        controller.detectCollisions = false;
     }
 
     /// <summary>
@@ -214,6 +222,8 @@ public class CityPhaseMove : MonoBehaviour {
         if( IsEnable )
         {
             CityMoveCharcterController();
+
+            rb.position = transform.position;
         }
         else
         {

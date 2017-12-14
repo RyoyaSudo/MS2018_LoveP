@@ -18,9 +18,11 @@ public class Transition : MonoBehaviour
     private UnityEvent OnComplete;
 
     private string transitionScene;
+    private bool transitionFlag;//トランジション中か否かのフラグ
 
     private void Awake()
     {
+        transitionFlag = false;
     }
 
     void Start()
@@ -72,6 +74,8 @@ public class Transition : MonoBehaviour
 
     public void StartTransition( string sceneName )
     {
+        if ( transitionFlag == true ) return;
+        transitionFlag = true;
         transitionScene = sceneName;
         StartCoroutine(BeginTransition());
     }

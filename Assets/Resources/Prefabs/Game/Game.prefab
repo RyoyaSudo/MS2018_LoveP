@@ -86,6 +86,6 @@ MonoBehaviour:
   shipPointsPrefab: {fileID: 1816083764674900, guid: d05409dac17e6412e9c0561b4f0144a8,
     type: 2}
   gameStartWaitTime: 5
-  phaseParam: 0
+  phaseParam: 1
   isDebug: 1
   isOnGUIEnable: 1

@@ -18,6 +18,7 @@ public class Tutorial : MonoBehaviour
     LoveP_Input inputObj;
 
     private AsyncOperation async;
+    private bool loadingFlag;
     ////サウンド用/////////////////////////////
     //public SoundController.Sounds titleSoundType;
     //private AudioSource titleAudioS;
@@ -26,6 +27,7 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
+        loadingFlag = false;
         ////サウンド用
         //titleSoundCtrl = GameObject.Find("SoundManager").GetComponent<SoundController>();
         ////オブジェクトについているAudioSourceを取得する
@@ -46,16 +48,8 @@ public class Tutorial : MonoBehaviour
         //_____フェード関連_____________
         if( inputObj.GetButton( "Fire1" ) || Input.GetKey( KeyCode.O ) )
         {
-            ///<summary>
-            ///トランジションをStartCoroutine
-            ///GameSceneの非同期読み込み開始
-            ///GameSceneのAwakeが呼ばれる
-            ///
-            ///</summary>
-
-            // Spaceキーで次のシーン
-            // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
-            // transition.SetActive(true);
+            if (loadingFlag == true) return;
+            loadingFlag = true;
             StartCoroutine(Nowloading());
             transition.GetComponent<Transition>().StartTransition(null);
             //SceneManager.LoadScene("Game");
@@ -66,12 +60,6 @@ public class Tutorial : MonoBehaviour
             //titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
         }
         //______________
-    }
-
-    IEnumerator trans()
-    {
-        //async = SceneManager.LoadSceneAsync("Game");
-        yield return null;
     }
 
     IEnumerator Nowloading()
