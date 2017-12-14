@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveObstacle : MonoBehaviour {
+public class NpcVehicleCollision : MonoBehaviour {
 
+    [SerializeField]
     private Rigidbody obstacleRb;
 
     // 加える力
-    [SerializeField] float addPower; 
+    [SerializeField] float addPower;
 
     // Velocity（向き）の力
     [SerializeField] float impactRate;
@@ -21,24 +22,27 @@ public class MoveObstacle : MonoBehaviour {
     private Vector3 velocity;
 
     private Vector3 pos;
-	// Use this for initialization
-	void Start () {
-        obstacleRb = GetComponent<Rigidbody>();
+    // Use this for initialization
+    void Start()
+    {
         pos = GetComponent<Transform>().position;
         velocity = obstacleRb.velocity;
         obstacleRb.constraints = RigidbodyConstraints.FreezeAll;
         obstacleRb.WakeUp();
     }
-	
+
     void OnCollisionEnter(Collision col)
     {
+        Debug.Log("はいったやつ" + col.transform.root.gameObject.name);
         if (col.transform.root.gameObject.name == "Player")
         {
+            Debug.Log("はいったよ");
             // 吹き飛ばせるか判定
             PlayerVehicle.Type currentType = col.transform.root.gameObject.GetComponent<PlayerVehicle>().VehicleType;
 
-            if( currentType >= enableMoveType )
+            if (currentType >= enableMoveType)
             {
+                Debug.Log("はいったよ１");
                 // 吹き飛ばす処理
                 obstacleRb.constraints = RigidbodyConstraints.None;
 
@@ -49,8 +53,8 @@ public class MoveObstacle : MonoBehaviour {
                 //velocity.y += velocity.y * addPower;
                 velocity = playerVelocityVec.normalized * playerVelocity * addPower;
                 //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
-                obstacleRb.AddForce( transform.forward * addPower , ForceMode.Impulse );
-                obstacleRb.AddForce( velocity * impactRate , ForceMode.Impulse );
+                obstacleRb.AddForce(transform.forward * addPower, ForceMode.Impulse);
+                obstacleRb.AddForce(velocity * impactRate, ForceMode.Impulse);
             }
         }
     }
