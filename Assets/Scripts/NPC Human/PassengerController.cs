@@ -27,8 +27,8 @@ public class PassengerController : MonoBehaviour
     private float rideJumpRate;                      //ジャンプ割合
     private enum RideType                            //状態
     {
-        RUN ,
-        WAIT ,
+        RUN,
+        WAIT,
         JUMP
     };
     private RideType rideType;
@@ -50,6 +50,11 @@ public class PassengerController : MonoBehaviour
     //タイムラインマネージャー
     [SerializeField] private string timelineMangerPath ;    //パス
     private TimelineManager timelineManager;                //オブジェクト
+
+    /// <summary>
+    /// 有効化フラグ
+    /// </summary>
+    public bool IsEnable{ get; set; }
     
     /// <summary>
     /// グループ種類。
@@ -86,6 +91,7 @@ public class PassengerController : MonoBehaviour
     private void Awake()
     {
         humanObj = gameObject.GetComponent<Human>();
+        IsEnable = false;
     }
 
     /// <summary>
@@ -94,7 +100,7 @@ public class PassengerController : MonoBehaviour
     void Start()
     {
         //状態を「生成」に
-        SetStateType( Human.STATETYPE.CREATE );
+        humanObj.CurrentStateType = Human.STATETYPE.CREATE;
 
         //乗客がどのグループかUI生成
         PassengerGroupUICreate();
@@ -111,6 +117,11 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if( IsEnable == false )
+        {
+            return;
+        }
+
         //状態
         switch( humanObj.CurrentStateType )
         {
@@ -169,11 +180,6 @@ public class PassengerController : MonoBehaviour
     /// </param>
     public void SetStateType( Human.STATETYPE type )
     {
-        // HACK: 乗客の状態設定に関して
-        //       状態設定はHuman.csで、参照をここで行うほうがいいような感じがする。
-        //       現状はここからHuman.csに対して状態をセット。
-        humanObj.CurrentStateType = type;
-
         switch( type )
         {
             //乗車
@@ -225,7 +231,7 @@ public class PassengerController : MonoBehaviour
     private void Create ()
     {
         //状態を「待機」に
-        SetStateType( Human.STATETYPE.READY );
+        humanObj.CurrentStateType = Human.STATETYPE.READY;
     }
 
     /// <summary>
@@ -295,7 +301,7 @@ public class PassengerController : MonoBehaviour
                     transform.position = rideEndPos;
 
                     //「運搬」状態に
-                    SetStateType( Human.STATETYPE.TRANSPORT );
+                    humanObj.CurrentStateType = Human.STATETYPE.TRANSPORT;
                     Debug.Log("Jump");
 
                 }
@@ -326,7 +332,7 @@ public class PassengerController : MonoBehaviour
         if (getOffCnt >= getOffTime)
         {
             //「解散」状態に
-            SetStateType( Human.STATETYPE.RELEASE );
+            humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
         }
         else
         {
@@ -357,7 +363,7 @@ public class PassengerController : MonoBehaviour
         if (destroyTime < 0.0f)
         {
             destroyTime = 0.0f;
-            SetStateType( Human.STATETYPE.DESTROY );
+            humanObj.CurrentStateType = Human.STATETYPE.DESTROY;
         }
     }
 
@@ -371,7 +377,7 @@ public class PassengerController : MonoBehaviour
         if (destroyTime < 0.0f)
         {
             destroyTime = 0.0f;
-            SetStateType( Human.STATETYPE.DESTROY );
+            humanObj.CurrentStateType = Human.STATETYPE.DESTROY;
         }
     }
 
@@ -380,7 +386,7 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     private void Destroy()
     {
-        Destroy(this.gameObject);
+        Destroy( gameObject );
     }
 
     /// <summary>

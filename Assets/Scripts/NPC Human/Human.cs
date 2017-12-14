@@ -103,23 +103,13 @@ public class Human : MonoBehaviour {
     {
         // 初期値設定
         CurrentModelType = ModelType.Unknown;
-        CurrentStateType = STATETYPE.READY;
+        CurrentStateType = STATETYPE.CREATE;
         IsProtect = false;
 
         // 必要なゲームオブジェクト取得
         PassengerControllerObj = gameObject.GetComponent<PassengerController>();
         MobControllerObj = gameObject.GetComponent<MobController>();
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     /// <summary>
     /// モデル生成
@@ -197,7 +187,17 @@ public class Human : MonoBehaviour {
 
             case STATETYPE.DESTROY:
                 break;
+        }
 
+        // HACK: 乗客側にも状態をセット
+        //       もっと良い処理順があったかも
+        //       2017/12/13現在はここで処理
+        if( PassengerControllerObj != null )
+        {
+            if( PassengerControllerObj.IsEnable )
+            {
+                PassengerControllerObj.SetStateType( type );
+            }
         }
 
         if( Game.IsDebug )

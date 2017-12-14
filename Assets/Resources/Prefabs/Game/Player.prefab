@@ -1859,9 +1859,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ee33c3aded6cf48b29e77cd6951d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 1000
   earthObjPath: Earth
-  speedMax: 30
+  speedMax: 300
   turboRatio: 2
   inputObjPath: LoveP_Input
   playerSpawnPointObjPath: Earth/PlayerSpawnPoint
@@ -1878,6 +1878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   citySpawnManagerPath: CitySpawnManager
   starSpawnManagerPath: StarSpawnManager
+  lastRideHuman: {fileID: 0}
   passengerTogetherUIObjPath: GUI Camera/PassengerTogetherUI
   gamectrlObjPath: Game
   cityPhaseMoveObjPath: Player

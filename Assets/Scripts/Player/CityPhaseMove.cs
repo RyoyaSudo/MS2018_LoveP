@@ -26,7 +26,8 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 移動処理有効化フラグ。Player.csで制御してもらう。
     /// </summary>
-    public bool IsEnable { get; set; }
+    public bool IsEnable { get { return isEnable; } set { SetEnable( value ); } }
+    private bool isEnable;
 
     /// <summary>
     /// 旋回力
@@ -175,7 +176,7 @@ public class CityPhaseMove : MonoBehaviour {
         isChargeMax = false;
         velocityRate = defaultVelocityRate;
         boostTimer = 0.0f;
-        IsEnable = false;
+        isEnable = false;
         VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
         inputObj = null;
@@ -193,15 +194,17 @@ public class CityPhaseMove : MonoBehaviour {
         oldPos = transform.position;
 
         // シーン内から必要なオブジェクトを取得
-        controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
         playerObj  = GameObject.Find( playerObjPath ).GetComponent<Player>();
         inputObj   = GameObject.Find( inputObjPath ).GetComponent<LoveP_Input>();
         gameObj    = GameObject.Find( gameObjPath ).GetComponent<Game>();
+        controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
 
         // HACK: 初期化時に移動しておく
         //       移動しないと開始時に埋まった状態になってしまうため、少し移動してCharcterControllerで所定の高さに移動してもらう
         controller.Move( Vector3.forward );
         controller.Move( Vector3.zero );
+        controller.enabled = isEnable;
+        //controller.detectCollisions = false;
     }
 
     /// <summary>
@@ -386,6 +389,17 @@ public class CityPhaseMove : MonoBehaviour {
 
         // 過去位置を保存しておく
         oldPos = transform.position;
+    }
+
+    /// <summary>
+    /// 有効化フラグ設定時の諸処理
+    /// </summary>
+    /// <param name="flags"></param>
+    private void SetEnable( bool flags )
+    {
+        isEnable = flags;
+
+        if( controller != null ) controller.enabled = flags;
     }
 
     /// <summary>

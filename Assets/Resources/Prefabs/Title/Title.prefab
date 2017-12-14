@@ -132,9 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beaef997c2f13704bbd433424915ce5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCameraPrefab: {fileID: 0}
-  guiCameraPrefab: {fileID: 0}
-  soundManagerPrefab: {fileID: 0}
+  mainCameraPrefab: {fileID: 1521949075883808, guid: 4c12ee88b34ac6643b22cc198fb383ea,
+    type: 2}
+  guiCameraPrefab: {fileID: 1569637311275474, guid: d45f8aee520e3c345b2e56e34576ff25,
+    type: 2}
+  soundManagerPrefab: {fileID: 1749989383240858, guid: 720734e1365c3a94083d6ce360a3b8ad,
+    type: 2}
+  inputPrefab: {fileID: 1904816495504462, guid: c07b19223dafe2848bb036032e5c08c2,
+    type: 2}
   fadeNum: 4
-  transition: {fileID: 0}
   titleSoundType: 0
