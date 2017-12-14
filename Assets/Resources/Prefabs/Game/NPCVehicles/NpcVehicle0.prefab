@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 195656794963516816}
   - component: {fileID: 114328563428270210}
   - component: {fileID: 114562618505349868}
+  - component: {fileID: 54332732661143720}
   m_Layer: 0
   m_Name: NpcVehicle0
   m_TagString: Untagged
@@ -107,7 +108,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4987247139426448}
-  - component: {fileID: 54247009957353674}
   - component: {fileID: 65705246083332202}
   m_Layer: 0
   m_Name: Car
@@ -363,12 +363,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1556217766699146}
   m_Mesh: {fileID: 4300002, guid: 2a841bb987553de48a27b96e8962386f, type: 3}
---- !u!54 &54247009957353674
+--- !u!54 &54332732661143720
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1686284941991512}
+  m_GameObject: {fileID: 1489710804023658}
   serializedVersion: 2
   m_Mass: 50
   m_Drag: 0
@@ -412,10 +412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e8462611fe147ae83f822338bd5acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleRb: {fileID: 54247009957353674}
+  obstacleRb: {fileID: 54332732661143720}
   addPower: 35
-  impactRate: 5
+  impactRate: 10
   enableMoveType: 0
+  vehicle: {fileID: 114328563428270210}
 --- !u!146 &146217909568420236
 WheelCollider:
   m_ObjectHideFlags: 1

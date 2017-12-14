@@ -14,8 +14,12 @@ public class NpcVehicle : MonoBehaviour {
 
     private UnityEngine.AI.NavMeshAgent agent;
 
+    public bool IsMoveEnable { get { return isMoveEnable; } set { SetMoveEnable( value ); } }
+    private bool isMoveEnable;
+
     private void Awake()
     {
+        isMoveEnable = true;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         agent.speed = 10;//このようにスクリプトからNavMeshのプロパティをいじれる。
         agent.autoBraking = true;  //目標地点に近づいても減速しないようにOffにする
@@ -30,6 +34,11 @@ public class NpcVehicle : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if( isMoveEnable == false )
+        {
+            return;
+        }
+
         Vector3 pos = wayPoints[currentRoot].position;
 
         if( Vector3.Distance( transform.position , pos ) < 1.0f )
@@ -47,6 +56,12 @@ public class NpcVehicle : MonoBehaviour {
         transform.position = data[ spawnIndex ].position;
         currentRoot = spawnIndex;
         agent.SetDestination( data[ spawnIndex ].position );
+    }
+
+    private void SetMoveEnable( bool flags )
+    {
+        isMoveEnable = flags;
+        agent.enabled = flags;
     }
 }
     
