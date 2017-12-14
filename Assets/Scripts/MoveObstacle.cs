@@ -27,34 +27,31 @@ public class MoveObstacle : MonoBehaviour {
         pos = GetComponent<Transform>().position;
         velocity = obstacleRb.velocity;
         obstacleRb.constraints = RigidbodyConstraints.FreezeAll;
+        obstacleRb.WakeUp();
     }
 	
     void OnCollisionEnter(Collision col)
     {
-        // HACK: 障害物吹き飛ばし処理に関して
-        //       プレイヤーが当たった時のみ処理する
-        if( col.gameObject.name != "Player" )
+        if (col.transform.root.gameObject.name == "Player")
         {
-            return;
-        }
+            // 吹き飛ばせるか判定
+            PlayerVehicle.Type currentType = col.transform.root.gameObject.GetComponent<PlayerVehicle>().VehicleType;
 
-        // 吹き飛ばせるか判定
-        PlayerVehicle.Type currentType = col.gameObject.GetComponent<PlayerVehicle>().VehicleType;
+            if( currentType >= enableMoveType )
+            {
+                // 吹き飛ばす処理
+                obstacleRb.constraints = RigidbodyConstraints.None;
 
-        if( currentType >= enableMoveType )
-        {
-            // 吹き飛ばす処理
-            obstacleRb.constraints = RigidbodyConstraints.None;
+                Player playerObj = col.gameObject.GetComponent<Player>();
+                float playerVelocity = playerObj.Velocity;
+                Vector3 playerVelocityVec = playerObj.VelocityVec;
 
-            Player playerObj = col.gameObject.GetComponent<Player>();
-            float playerVelocity = playerObj.Velocity;
-            Vector3 playerVelocityVec = playerObj.VelocityVec;
-
-            //velocity.y += velocity.y * addPower;
-            velocity = playerVelocityVec.normalized * playerVelocity * addPower;
-            //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
-            obstacleRb.AddForce( transform.forward * addPower , ForceMode.Impulse );
-            obstacleRb.AddForce( velocity * impactRate , ForceMode.Impulse );
+                //velocity.y += velocity.y * addPower;
+                velocity = playerVelocityVec.normalized * playerVelocity * addPower;
+                //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
+                obstacleRb.AddForce( transform.forward * addPower , ForceMode.Impulse );
+                obstacleRb.AddForce( velocity * impactRate , ForceMode.Impulse );
+            }
         }
     }
 }
