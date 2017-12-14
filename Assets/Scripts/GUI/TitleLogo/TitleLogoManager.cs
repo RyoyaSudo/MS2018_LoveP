@@ -13,12 +13,20 @@ public class TitleLogoManager : MonoBehaviour {
     [SerializeField] TweenAnimation cloudLeftBottomObj;
     [SerializeField] TweenAnimation logoMainObj;
     [SerializeField] TweenAnimation logoPushStartObj;
+    [SerializeField] TweenAnimation planetObj;
 
     /// <summary>
     /// 初期化処理
     /// </summary>
     void Start () {
-        airplaneObj.Play();
+        //airplaneObj.Play();
+        //rocketObj.Play();
+        //cloudRightTopObj.Play();
+        //cloudLeftTopObj.Play();
+        //cloudLeftBottomObj.Play();
+        //earthObj.Play();
+        logoMainObj.Play();
+        planetObj.Play();
     }
 
     /// <summary>

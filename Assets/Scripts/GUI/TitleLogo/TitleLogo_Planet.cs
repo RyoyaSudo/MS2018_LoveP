@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleLogo_Logo : TweenAnimation
+public class TitleLogo_Planet : TweenAnimation
 {
 
     [SerializeField] float moveTime;
+    [SerializeField] float delayTime;
+
+    [SerializeField] TweenAnimation airplaneObj;
+    [SerializeField] TweenAnimation rocketObj;
+    [SerializeField] TweenAnimation earthObj;
+    [SerializeField] TweenAnimation cloudRightTopObj;
+    [SerializeField] TweenAnimation cloudLeftTopObj;
+    [SerializeField] TweenAnimation cloudLeftBottomObj;
 
     // 状態変数の列挙値
     enum State
     {
         Stop,
         Pause,
-        Start
+        Start,
+        PlanetPlay
     }
 
     // iTween用のハッシュテーブル各種
@@ -31,11 +40,12 @@ public class TitleLogo_Logo : TweenAnimation
             { "x" , 1.0f } ,
             { "y" , 1.0f } ,
             { "time", moveTime },
+            { "delay", delayTime },
             { "easetype" , iTween.EaseType.easeInOutBack },
             { "loopType" , iTween.LoopType.none },
-            //{ "oncompletetarget" , gameObject },
-            //{ "oncomplete" , "SetState" },
-            //{ "oncompleteparams" , State.MoveLeft },
+            { "oncompletetarget" , gameObject },
+            { "oncomplete" , "SetState" },
+            { "oncompleteparams" , State.PlanetPlay },
         };
     }
 
@@ -91,8 +101,19 @@ public class TitleLogo_Logo : TweenAnimation
                 break;
 
             case State.Start:
-                iTween.PunchScale(gameObject, startHash);
+                iTween.ScaleTo(gameObject, startHash);
+                //iTween.PunchScale(gameObject, startHash);
                 break;
+            case State.PlanetPlay:
+                {
+                    airplaneObj.Play();
+                    rocketObj.Play();
+                    cloudRightTopObj.Play();
+                    cloudLeftTopObj.Play();
+                    cloudLeftBottomObj.Play();
+                    earthObj.Play();
+                    break;
+                }
         }
     }
 }

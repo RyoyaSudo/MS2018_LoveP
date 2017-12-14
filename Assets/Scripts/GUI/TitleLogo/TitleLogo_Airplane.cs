@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class TitleLogo_Airplane : TweenAnimation
 {
+    [SerializeField] float moveTime;
+    [SerializeField] float rotateTime;
+
     // 状態変数の列挙値
     enum State
     {
@@ -39,9 +42,9 @@ public class TitleLogo_Airplane : TweenAnimation
         // 各ハッシュの初期化
         moveFrontHash = new Hashtable()
         {
-            { "x" , -640.0f } ,
-            { "y" , -360.0f },
-            { "time", 8.0f },
+            { "x" , -540.0f } ,
+            { "y" , -260.0f },
+            { "time", moveTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
@@ -52,7 +55,7 @@ public class TitleLogo_Airplane : TweenAnimation
         scaleBackHash = new Hashtable()
         {
             { "x" , -1.0f },
-            { "time" , 1.0f },
+            { "time" , rotateTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
@@ -63,15 +66,15 @@ public class TitleLogo_Airplane : TweenAnimation
         rotateBackHash = new Hashtable()
         {
             { "z" , 4.0f },
-            { "time" , 1.0f },
+            { "time" , rotateTime },
             { "easetype" , iTween.EaseType.linear },
         };
 
         moveBackHash = new Hashtable()
         {
-            { "x" , 640.0f } ,
-            { "y" , 360.0f },
-            { "time", 8.0f },
+            { "x" , 540.0f } ,
+            { "y" , 260.0f },
+            { "time", moveTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
@@ -82,7 +85,7 @@ public class TitleLogo_Airplane : TweenAnimation
         scaleFrontHash = new Hashtable()
         {
             { "x" , -1.0f },
-            { "time" , 1.0f },
+            { "time" , rotateTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
@@ -93,7 +96,7 @@ public class TitleLogo_Airplane : TweenAnimation
         rotateFrontHash = new Hashtable()
         {
             { "z" , -4.0f },
-            { "time" , 1.0f },
+            { "time" , rotateTime },
             { "easetype" , iTween.EaseType.linear },
         };
     }
@@ -167,21 +170,5 @@ public class TitleLogo_Airplane : TweenAnimation
                 iTween.MoveBy( gameObject , rotateFrontHash );
                 break;
         }
-    }
-
-    /// <summary>
-    /// 地球表面移動
-    /// </summary>
-    void MoveFront()
-    {
-        iTween.MoveTo( gameObject , moveFrontHash );
-    }
-
-    /// <summary>
-    /// 裏面に向けてスケーリングしつつZ軸移動
-    /// </summary>
-    void RotateToBack()
-    {
-        iTween.ScaleBy( gameObject , scaleBackHash );
     }
 }
