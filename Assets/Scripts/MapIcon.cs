@@ -30,6 +30,8 @@ public class MapIcon : MonoBehaviour {
 	void Update () {
         int state = ( int )human.GetComponent<Human>().CurrentStateType; // 親オブジェクトの状態を取得
         
+        // HACK: マップアイコン消す処理
+        //       ガバガバなので後に修正
         if(state != 2 && state != 1 && state != 0)
         {// もし表示する必要のない状態なら消す。
             Destroy(gameObject);

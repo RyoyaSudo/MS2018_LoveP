@@ -19,6 +19,11 @@ public class MobController : MonoBehaviour
     public short slash;                        // 逃げる時間などを設定
     bool ride;                          // 乗せている状態かどうか
 
+    /// <summary>
+    /// 有効化フラグ
+    /// </summary>
+    public bool IsEnable { get; set; }
+
     // Use this for initialization                          
     void Start()
     {
@@ -39,12 +44,19 @@ public class MobController : MonoBehaviour
         btk = 0;                                // ぶつかっていない
         oldRot = transform.rotation.y;          // 古い向きを設定
         ride = false;                           // 乗せていない
-        
+
+        IsEnable = false;
     }
 
     // Update is called once per frame
     public void Update()
     {
+        // 有効化確認
+        if( IsEnable == false )
+        {
+            return;
+        }
+
         int zyoutai = ( int )GetComponent<Human>().CurrentStateType;
         if(zyoutai != 0 && zyoutai != 1 && zyoutai != 2)
         {// 乗車状態にする

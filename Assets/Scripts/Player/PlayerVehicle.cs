@@ -229,19 +229,22 @@ public class PlayerVehicle : MonoBehaviour {
     /// </summary>
     private void OnGUI()
     {
-        if( Game.IsOnGUIEnable )
+        if( Game.IsOnGUIEnable == false )
         {
-            GUIStyleState styleState;
-            styleState = new GUIStyleState();
-            styleState.textColor = Color.white;
-
-            GUIStyle guiStyle = new GUIStyle();
-            guiStyle.fontSize = 48;
-            guiStyle.normal = styleState;
-
-            string str = "現在乗り物状態:" + VehicleType + "\n乗り物スコア:" + VehicleScore;
-
-            GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
+            return;
         }
+
+        GUIStyleState styleState;
+        styleState = new GUIStyleState();
+        styleState.textColor = Color.white;
+
+        GUIStyle guiStyle = new GUIStyle();
+        guiStyle.fontSize = 48;
+        guiStyle.normal = styleState;
+
+        string str = "";
+        //str = "現在乗り物状態:" + VehicleType + "\n乗り物スコア:" + VehicleScore;
+
+        GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
     }
 }

@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     /// 最後に乗車した乗客オブジェクト。
     /// 主にデバッグ処理に用いる
     /// </summary>
-    private Human lastRideHuman;
+    public Human lastRideHuman;
 
     /// <summary>
     /// 乗客乗車人数を示すUIオブジェクト。
@@ -442,11 +442,11 @@ public class Player : MonoBehaviour
                         //       構造が変わった時バグになるため気を付ける！
                         Human human = other.transform.parent.GetComponent<Human>();
 
-                        // 乗車オブジェクト更新
-                        lastRideHuman = human;
-
                         //乗車待機状態じゃないならbreak;
                         if( human.CurrentStateType != Human.STATETYPE.READY ) break;
+
+                        // 乗車オブジェクト更新
+                        lastRideHuman = human;
 
                         //最初の乗客の時に他の乗客生成を行う
                         if( rideCount == 0 )

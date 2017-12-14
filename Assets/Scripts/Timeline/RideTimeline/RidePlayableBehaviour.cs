@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 // A behaviour that is attached to a playable
 public class RidePlayableBehaviour : PlayableBehaviour
 {
-    private GameObject playerObj;           //プレイヤーオブジェ
+    private Player playerObj;           //プレイヤーオブジェ
     public string playerPath;               //プレイヤーパス
     private PlayerVehicle playerVehicle;    //プレイヤー車両オブジェクト
 
@@ -22,7 +22,7 @@ public class RidePlayableBehaviour : PlayableBehaviour
     public override void OnGraphStart(Playable playable)
     {
         //プレイヤーオブジェクト取得
-        playerObj = GameObject.Find(playerPath);
+        playerObj = GameObject.Find(playerPath).GetComponent<Player>();
 
         //プレイヤー車両オブジェクト取得
         playerVehicle = playerObj.GetComponent<PlayerVehicle>();
@@ -30,18 +30,21 @@ public class RidePlayableBehaviour : PlayableBehaviour
         //カメラオブジェクト取得
         mainCameraObj = GameObject.Find(mainCameraPath);
 
+        // 乗客取得( テスト )
+        passengerObj = playerObj.lastRideHuman.gameObject;
+
         // HACK : 違う取得の方法を試します
         //今いる人オブジェクト取得
-        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
+        //GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
 
-        //乗車の人オブジェクトを探す
-        for ( int nCnt = 0; nCnt < humanObj.Length; nCnt++ )
-        {
-            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.RIDE)
-            {
-                passengerObj = humanObj[nCnt];
-            }
-        }
+        ////乗車の人オブジェクトを探す
+        //for ( int nCnt = 0; nCnt < humanObj.Length; nCnt++ )
+        //{
+            //if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.RIDE)
+            //{
+                //passengerObj = humanObj[nCnt];
+            //}
+        //}
 
         rideCamera2.transform.position = mainCameraObj.transform.position;
         rideCamera2.transform.rotation = mainCameraObj.transform.rotation;
