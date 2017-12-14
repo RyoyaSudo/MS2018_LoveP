@@ -491,6 +491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 930735267}
   nowObj: {fileID: 1326588133}
+  inputPrefab: {fileID: 1904816495504462, guid: c07b19223dafe2848bb036032e5c08c2,
+    type: 2}
 --- !u!4 &1749100668
 Transform:
   m_ObjectHideFlags: 0
