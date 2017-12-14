@@ -27,16 +27,19 @@ public class MoveObstacle : MonoBehaviour {
         pos = GetComponent<Transform>().position;
         velocity = obstacleRb.velocity;
         obstacleRb.constraints = RigidbodyConstraints.FreezeAll;
+        obstacleRb.WakeUp();
     }
 	
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter( Collision col )
     {
         // HACK: 障害物吹き飛ばし処理に関して
         //       プレイヤーが当たった時のみ処理する
-        if( col.gameObject.name != "Player" )
+        if( col.gameObject.tag != "Player" )
         {
             return;
         }
+
+        Debug.Log( "Hit" );
 
         // 吹き飛ばせるか判定
         PlayerVehicle.Type currentType = col.gameObject.GetComponent<PlayerVehicle>().VehicleType;

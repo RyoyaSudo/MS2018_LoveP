@@ -430,7 +430,7 @@ WheelCollider:
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!146 &146286535627079504
 WheelCollider:
   m_ObjectHideFlags: 1
@@ -459,7 +459,7 @@ WheelCollider:
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!195 &195656794963516816
 NavMeshAgent:
   m_ObjectHideFlags: 1
