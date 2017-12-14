@@ -106,8 +106,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4987247139426448}
-  - component: {fileID: 64682198889337228}
   - component: {fileID: 54247009957353674}
+  - component: {fileID: 65705246083332202}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -377,8 +377,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &64682198889337228
-MeshCollider:
+--- !u!65 &65705246083332202
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -387,10 +387,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 1
-  m_SkinWidth: 0.5
-  m_Mesh: {fileID: 4300000, guid: 68c23fca8428ef14983e6a32443c5386, type: 3}
+  m_Size: {x: 1.98, y: 3.212864, z: 3.51}
+  m_Center: {x: 0, y: 1.546432, z: 0}
 --- !u!114 &114328563428270210
 MonoBehaviour:
   m_ObjectHideFlags: 1
