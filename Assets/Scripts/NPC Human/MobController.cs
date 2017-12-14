@@ -6,9 +6,9 @@ public class MobController : MonoBehaviour
 {
 
     const float ESCAPE_AREA = 90.0f;   // この中に入ったら逃げる（半径）
-    const int ESCAPE_TIME = 25;         // 逃げるのに使う時間
+    public int ESCAPE_TIME;         // 逃げるのに使う時間
     public float ESCAPE_SPEED;          // プレイヤーから逃げるスピード
-    enum STATUS { NORMAL = 0, ESCAPE, ESCAPE2 }; // 状態の種類(普通、逃げる,逃げる時に方向転換)  
+    enum STATUS { NORMAL = 0, ESCAPE, ESCAPE2, TALK, SIT }; // 状態の種類(普通、逃げる,逃げる時に方向転換,おしゃべり、座ってる)  
     STATUS status;                      // 状態 
     float escapeRot;                    // プレイヤーから逃げる時の向き
     int stateTime;                      // 普通以外の状態になっている時間
@@ -31,7 +31,7 @@ public class MobController : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
-                if (child.name == "testModel2" || child.name == "testModel1" || child.name == "testModel0" || child.name == "ModelMob0")
+                if (child.name == "chara_Girl_v6" || child.name == "testModel2" || child.name == "testModel1" || child.name == "testModel0" || child.name == "ModelMob0")
                     child.transform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
             }          
         }
@@ -89,12 +89,14 @@ public class MobController : MonoBehaviour
                 //♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪
                 // 逃げる音、逃げるアニメーションに設定
                 //♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪
+                if (slash == 3)
+                    transform.GetComponent<Human>().CurrentStateType = Human.STATETYPE.EVADE;
                 status = STATUS.ESCAPE;     // 逃げ状態にする
 
                 if (btk == 0)
-                    escapeRot = (-playerRot - Random.Range(-87.0f, -90.0f)); // 逃げる角度決定
+                    escapeRot = (-playerRot - Random.Range(-80.0f, -90.0f)); // 逃げる角度決定
                 else if (btk == 1)
-                    escapeRot = (-playerRot + Random.Range(-87.0f, -90.0f)); btk = 2;
+                    escapeRot = (-playerRot + Random.Range(-80.0f, -90.0f)); btk = 2;
             }
 
             if (status == STATUS.ESCAPE || status == STATUS.ESCAPE2)
@@ -121,6 +123,9 @@ public class MobController : MonoBehaviour
                     btk = 0;
                     oldRot = transform.rotation.y;
                     escapeRot = 0.0f;
+
+                    if(slash == 3)
+                    transform.GetComponent<Human>().CurrentStateType = Human.STATETYPE.READY;
                 }
             }
         }

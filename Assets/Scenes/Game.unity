@@ -199,6 +199,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114367530998141946, guid: b052253e56318944d8fa404de23d3d30,
+        type: 2}
+      propertyPath: ESCAPE_TIME
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b052253e56318944d8fa404de23d3d30, type: 2}
   m_IsPrefabParent: 0

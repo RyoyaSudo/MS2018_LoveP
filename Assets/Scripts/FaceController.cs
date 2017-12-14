@@ -36,14 +36,17 @@ public class FaceController : MonoBehaviour {
     }
     private AnimationInfo info;
 
+    // 一種類追加（FACE_STATE_TEAR）：さとう
     public enum FaceState
     {
         FACE_STATE_NORMAL = 0,
-        FACE_STATE_WINK
+        FACE_STATE_WINK,
+        FACE_STATE_TEAR
     }
     public FaceState faceState;
 
     float winkCount;
+
 
     private void Awake()
     {
@@ -113,6 +116,29 @@ public class FaceController : MonoBehaviour {
         info.mat.SetTextureOffset("_MainTex", offset);
     }
 
+    /// <summary>
+    /// 涙用関数
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
+    public void TEAR(FaceType type)
+    {
+        //info.type = (int)type;
+
+        //座標を求める
+        info.atlas.x = ((int)type / info.vNum);
+        info.atlas.y = ((int)type - (info.atlas.x * info.vNum));
+        info.atlas.x *= info.atlas.width;
+        info.atlas.y *= info.atlas.height;
+
+        //UV座標計算
+        Vector2 offset;
+        offset = new Vector2(info.atlas.x / info.textureSize.x,
+                            1.0f - (info.atlas.y / info.textureSize.y));
+
+        //適用
+        info.mat.SetTextureOffset("_MainTex", offset);
+    }
 
     // Use this for initialization
     void Start()
@@ -123,9 +149,34 @@ public class FaceController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        // 親がどの状態か取得
+        Human.STATETYPE humanState = transform.parent.GetComponent<Human>().CurrentStateType;
+
+        
+        if (humanState == Human.STATETYPE.EVADE)
+        {// 親が逃げ回り状態だと涙状態
+            faceState = FaceState.FACE_STATE_TEAR;
+            faceType = FaceType.FACE_TYPE_TEAR;
+            ChangeFace(FaceType.FACE_TYPE_TEAR);
+        }
+        // ここに順次条件を追加
+        else
+        {// それ以外だとウインク
+            if(faceState == FaceState.FACE_STATE_TEAR)
+            {
+                faceState = FaceState.FACE_STATE_WINK;
+                faceType = FaceType.FACE_TYPE_NORMAL;
+                ChangeFace(FaceType.FACE_TYPE_NORMAL);
+            }
+        }
+
         switch( faceState )
         {
             case FaceState.FACE_STATE_NORMAL:
+                {
+                    break;
+                }
+            case FaceState.FACE_STATE_TEAR:
                 {
                     break;
                 }
