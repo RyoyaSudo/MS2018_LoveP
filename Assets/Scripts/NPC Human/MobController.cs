@@ -6,7 +6,7 @@ public class MobController : MonoBehaviour
 {
 
     const float ESCAPE_AREA = 90.0f;   // この中に入ったら逃げる（半径）
-    const int ESCAPE_TIME = 20;         // 逃げるのに使う時間
+    const int ESCAPE_TIME = 25;         // 逃げるのに使う時間
     public float ESCAPE_SPEED;          // プレイヤーから逃げるスピード
     enum STATUS { NORMAL = 0, ESCAPE, ESCAPE2 }; // 状態の種類(普通、逃げる,逃げる時に方向転換)  
     STATUS status;                      // 状態 
@@ -92,9 +92,9 @@ public class MobController : MonoBehaviour
                 status = STATUS.ESCAPE;     // 逃げ状態にする
 
                 if (btk == 0)
-                    escapeRot = (-playerRot - Random.Range(83.0f, 90.0f)); // 逃げる角度決定
+                    escapeRot = (-playerRot - Random.Range(-87.0f, -90.0f)); // 逃げる角度決定
                 else if (btk == 1)
-                    escapeRot = (-playerRot + Random.Range(83.0f, 90.0f)); btk = 2;
+                    escapeRot = (-playerRot + Random.Range(-87.0f, -90.0f)); btk = 2;
             }
 
             if (status == STATUS.ESCAPE || status == STATUS.ESCAPE2)
@@ -103,7 +103,7 @@ public class MobController : MonoBehaviour
                 // 普通以外状態の時間をカウント
                 stateTime++;
 
-                if (stateTime <= ESCAPE_TIME / ( 1 + slash))
+                if (stateTime <= ESCAPE_TIME)
                 {// 逃げる時間を過ぎていないときは逃げる
 
                     if (stateTime <= 3)
