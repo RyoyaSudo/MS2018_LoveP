@@ -44,8 +44,6 @@ public class Title : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        fadePanel = GameObject.Find("Fade");   //パネルオブジェクトを取得
-
         //サウンド用
         titleSoundCtrl = GameObject.Find("SoundManager").GetComponent<SoundController>();
         //オブジェクトについているAudioSourceを取得する

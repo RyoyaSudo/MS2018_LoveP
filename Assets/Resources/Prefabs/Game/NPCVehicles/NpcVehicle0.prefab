@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 4138743235914104}
   - component: {fileID: 195656794963516816}
   - component: {fileID: 114328563428270210}
+  - component: {fileID: 114562618505349868}
   m_Layer: 0
   m_Name: NpcVehicle0
   m_TagString: Untagged
@@ -106,8 +107,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4987247139426448}
-  - component: {fileID: 64682198889337228}
   - component: {fileID: 54247009957353674}
+  - component: {fileID: 65705246083332202}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -369,16 +370,16 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1686284941991512}
   serializedVersion: 2
-  m_Mass: 1500
+  m_Mass: 50
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &64682198889337228
-MeshCollider:
+--- !u!65 &65705246083332202
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -387,10 +388,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 1
-  m_SkinWidth: 0.5
-  m_Mesh: {fileID: 4300000, guid: 68c23fca8428ef14983e6a32443c5386, type: 3}
+  m_Size: {x: 1.98, y: 3.212864, z: 3.51}
+  m_Center: {x: 0, y: 1.546432, z: 0}
 --- !u!114 &114328563428270210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,6 +401,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99516034c3b3244c982e19c81bf15487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114562618505349868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489710804023658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e8462611fe147ae83f822338bd5acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleRb: {fileID: 54247009957353674}
+  addPower: 35
+  impactRate: 5
+  enableMoveType: 0
 --- !u!146 &146217909568420236
 WheelCollider:
   m_ObjectHideFlags: 1
@@ -468,7 +482,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1489710804023658}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.8
   m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 50
@@ -477,7 +491,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.9
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2

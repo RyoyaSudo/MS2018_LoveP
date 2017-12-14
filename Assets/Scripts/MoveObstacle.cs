@@ -34,22 +34,20 @@ public class MoveObstacle : MonoBehaviour {
     {
         // HACK: 障害物吹き飛ばし処理に関して
         //       プレイヤーが当たった時のみ処理する
-        if( col.gameObject.tag != "Player" )
+        if( col.transform.root.gameObject.name != "Player" )
         {
             return;
         }
 
-        Debug.Log( "Hit" );
-
         // 吹き飛ばせるか判定
-        PlayerVehicle.Type currentType = col.gameObject.GetComponent<PlayerVehicle>().VehicleType;
+        PlayerVehicle.Type currentType = col.transform.root.gameObject.GetComponent<PlayerVehicle>().VehicleType;
 
         if( currentType >= enableMoveType )
         {
             // 吹き飛ばす処理
             obstacleRb.constraints = RigidbodyConstraints.None;
 
-            Player playerObj = col.gameObject.GetComponent<Player>();
+            Player playerObj = col.transform.root.gameObject.GetComponent<Player>();
             float playerVelocity = playerObj.Velocity;
             Vector3 playerVelocityVec = playerObj.VelocityVec;
 
