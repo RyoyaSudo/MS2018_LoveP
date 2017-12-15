@@ -62,7 +62,7 @@ public class NpcVehicleCollision : MonoBehaviour {
             obstacleRb.isKinematic = false;
             obstacleRb.useGravity = true;
 
-            Player playerObj = col.gameObject.GetComponent<Player>();
+            Player playerObj = col.transform.root.gameObject.GetComponent<Player>();
             float playerVelocity = playerObj.Velocity;
             Vector3 playerVelocityVec = playerObj.VelocityVec;
 

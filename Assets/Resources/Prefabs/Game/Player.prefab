@@ -745,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1676584628297970
 GameObject:
   m_ObjectHideFlags: 1
@@ -906,6 +906,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4029538733851014}
+  - component: {fileID: 54673548562777240}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -928,6 +929,7 @@ GameObject:
   - component: {fileID: 114409502778120566}
   - component: {fileID: 82244802205648336}
   - component: {fileID: 143571668409644224}
+  - component: {fileID: 138335203387992546}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3464,6 +3466,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!54 &54673548562777240
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1912075463453346}
+  serializedVersion: 2
+  m_Mass: 1500
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!54 &54931219802038218
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3472,12 +3489,12 @@ Rigidbody:
   m_GameObject: {fileID: 1931795237704324}
   serializedVersion: 2
   m_Mass: 1500
-  m_Drag: 0.5
-  m_AngularDrag: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 1
 --- !u!65 &65032841552409036
 BoxCollider:
@@ -3805,6 +3822,20 @@ MonoBehaviour:
   gravity: {x: 0, y: -9.81, z: 0}
   controllerPath: Player
   inputObjPath: LoveP_Input
+  modelObj: {fileID: 1912075463453346}
+--- !u!138 &138335203387992546
+FixedJoint:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931795237704324}
+  m_ConnectedBody: {fileID: 54673548562777240}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 1
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!138 &138811266502163442
 FixedJoint:
   m_ObjectHideFlags: 1

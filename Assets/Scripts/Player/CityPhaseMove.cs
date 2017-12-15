@@ -168,6 +168,11 @@ public class CityPhaseMove : MonoBehaviour {
     /// </summary>
     private Rigidbody rb;
 
+    /// <summary>
+    /// 当たり判定実体用ゲームオブジェクト
+    /// </summary>
+    [SerializeField] GameObject modelObj;
+
     #endregion
 
     /// <summary>
@@ -374,7 +379,6 @@ public class CityPhaseMove : MonoBehaviour {
         curGravity += ( gravity * Time.deltaTime );
 
         controller.Move( curGravity );
-        //rb.AddForce( curGravity , ForceMode.Acceleration );
 
         if( transform.position.y == oldPos.y )
         {
@@ -390,7 +394,6 @@ public class CityPhaseMove : MonoBehaviour {
 
             Vector3 jumpForce = -gravity * 2.0f;
             controller.Move( jumpForce * Time.deltaTime );
-            //rb.AddForce( jumpForce , ForceMode.Acceleration );
         }
 
         // 移動量の反映
@@ -398,6 +401,15 @@ public class CityPhaseMove : MonoBehaviour {
 
         // 過去位置を保存しておく
         oldPos = transform.position;
+    }
+
+    /// <summary>
+    /// 更新処理(物理系)
+    /// </summary>
+    private void FixedUpdate()
+    {
+        // PhysXによる当たり判定を行った後の位置を制御点のtransformに反映
+        transform.position = modelObj.transform.position;
     }
 
     /// <summary>
