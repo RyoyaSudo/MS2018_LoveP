@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4718471817201200}
-  - component: {fileID: 114526555366987028}
+  - component: {fileID: 114276959377469696}
   m_Layer: 0
   m_Name: NpcVehicles
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114526555366987028
+--- !u!114 &114276959377469696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -52,6 +52,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcPrefab:
-  - {fileID: 1489710804023658, guid: 8b9ae62597dfe42ea902f82858a44492, type: 2}
+  - {fileID: 1236730452977674, guid: 2901650bb07af471b991ce732316dee3, type: 2}
+  - {fileID: 1803535953062650, guid: a5da94ad9ad474bd08cf7f6663d75136, type: 2}
+  - {fileID: 1684257456317392, guid: 6447e86570f884739a18b70016988004, type: 2}
+  - {fileID: 1567484147833800, guid: acc4a83097e9845ada47d917ab23c6d4, type: 2}
+  - {fileID: 1539431841483846, guid: faddc7373389041b598efe328f170aec, type: 2}
+  - {fileID: 1765247843508504, guid: b0459cf51c3aa4c9b8325a3fcc12c5e4, type: 2}
+  - {fileID: 1805661722520506, guid: ca18c52af9e8f40c0b24b7154c3ee844, type: 2}
+  - {fileID: 1102066085497800, guid: aaf6857e1e2644896ae2bd87617edec1, type: 2}
+  - {fileID: 1433279083418294, guid: 5b1e6f99578284bf9ae0c0a49564441d, type: 2}
+  - {fileID: 1487087568035934, guid: a57a26cd39519463fbace07bdd11fd19, type: 2}
+  - {fileID: 1280113477569592, guid: 037303995677e49efab18924f92a1347, type: 2}
+  - {fileID: 1027645199246760, guid: 9358d8a2b834e487eb8f306d34e771fe, type: 2}
+  - {fileID: 1886034135059428, guid: 808c6192e6b9248f59014b159a9145fa, type: 2}
+  - {fileID: 1290060772179906, guid: 34bd8a76b4b9640ccb1c122f7540d4a2, type: 2}
+  - {fileID: 1802052075273554, guid: 1152f358f9f6f4877ada13f13d49f462, type: 2}
+  - {fileID: 1423592670263722, guid: ff58fd721f263459ba1f18587fc05f2c, type: 2}
+  - {fileID: 1857491473404152, guid: a9dcfbf323e214cd6bb7cba0df82ec0d, type: 2}
+  - {fileID: 1451876047099180, guid: b0a910a2bfc7348139e1bacce17ac677, type: 2}
+  - {fileID: 1477075628193588, guid: 65df4227698234e27896d3a03ddfd3bb, type: 2}
   wayPointsPath: PointsList
   wayPointsData: []
