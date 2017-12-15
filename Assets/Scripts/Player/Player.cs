@@ -428,9 +428,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 当たり判定後に行う処理
     /// </summary>
-    private void OnTriggerStay( Collider other )
+    private void OnCollisionStay( Collision collision )
     {
-        switch( other.gameObject.tag )
+        switch( collision.gameObject.tag )
         {
             // 乗車エリアに関する処理
             case "RideArea":
@@ -440,7 +440,7 @@ public class Player : MonoBehaviour
                     {
                         // HACK: 乗車エリアオブジェクトの親となっている乗客オブジェクトを取得しておく
                         //       構造が変わった時バグになるため気を付ける！
-                        Human human = other.transform.parent.GetComponent<Human>();
+                        Human human = collision.transform.parent.GetComponent<Human>();
 
                         //乗車待機状態じゃないならbreak;
                         if( human.CurrentStateType != Human.STATETYPE.READY ) break;
