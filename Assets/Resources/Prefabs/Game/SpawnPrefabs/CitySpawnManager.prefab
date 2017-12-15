@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3626971b0fcdc841bf1a8abad682f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPointListPath: CitySpawnPointList
   spawnPointPrefab: {fileID: 1419229282505804, guid: 90696ef91b711c346b5ab80b425164b5,
     type: 2}
   spawnPoint:

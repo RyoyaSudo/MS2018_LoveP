@@ -4,42 +4,48 @@ using UnityEngine;
 
 public class CitySpawnManager : MonoBehaviour {
 
-    //スポーンポイントアタッチ
-    public GameObject spawnPointPrefab;
-
-    //スポーンポイントの場所
-    public Vector3[] spawnPoint;
+    [SerializeField] string spawnPointListPath;
+    private GameObject spawnPointListObj;
 
     /// <summary>
     /// スポーンポイント数。
     /// 初期化時にスポーンポイントの場所を管理する配列から数を取得。
     /// </summary>
-    public int SpawnNum
-    {
-        get { return spawnNum; }
-    }
-
-    int spawnNum;
+    public int SpawnNum { get; private set; }
 
     //スポーンポイントのゲームオブジェクト保存
-    SpawnPoint[] spawnPointObject;
+    List< SpawnPoint > spawnPointObject;
 
     //乗車人数
     public int pearPassengerNum;
     public int smallPassengerNum;
     public int bigPassengerNum;
 
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        SpawnNum = 0;
+    }
+
     // 初期化
     void Start()
     {
-		spawnNum = spawnPoint.Length;
+        // リストに登録されたスポーンポイントオブジェクトをすべて取得して蓄えておく
+        spawnPointListObj = GameObject.Find( spawnPointListPath );
+        spawnPointObject = new List<SpawnPoint>();
 
-        //スポーンポイント生成
-        spawnPointObject = new SpawnPoint[spawnNum];
-
-        for (int i = 0; i < spawnNum; i++)
+        foreach( Transform child in spawnPointListObj.transform )
         {
-            SpawnPointCreate(i, spawnPoint[i]);
+            SpawnPoint point = child.gameObject.GetComponent<SpawnPoint>();
+            spawnPointObject.Add( point );
+            SpawnNum++;
+        }
+        
+        if( SpawnNum == 0 )
+        {
+            Debug.LogError( "スポーンポイント取得失敗" );
         }
 
         //初回スポーン
@@ -49,46 +55,22 @@ public class CitySpawnManager : MonoBehaviour {
     // 更新
     void Update()
     {
-        if (Input.GetKeyDown("0"))
-        {
-            HumanCreate(0, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
-        }
-        if (Input.GetKeyDown("1"))
-        {
-            HumanCreate(1, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            HumanCreate(2, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
-        }
-        if (Input.GetKeyDown("5"))
-        {
-            SpawnHumanGroup(0, PassengerController.GROUPTYPE.BIG);
-        }
-    }
-
-    /*****************************************************************************
-    * 関数名:SpawnPointCreate
-    * 引数：num:番号
-    * 引数:position:位置
-    * 戻り値:0
-    * 説明:スポーンポイントを生成
-    *****************************************************************************/
-    void SpawnPointCreate(int num, Vector3 position)
-    {
-        //生成
-        GameObject SpawnPoint = Instantiate(spawnPointPrefab,                       //ゲームオブジェクト
-                                               position,                            //位置
-                                               Quaternion.identity) as GameObject;  //回転
-
-        //自分の親を自分にする
-        SpawnPoint.transform.parent = transform;
-
-        //表示
-        SpawnPoint.name = "Spown" + num;
-
-        //生成したブロックを配列に保存
-        spawnPointObject[num] = SpawnPoint.GetComponent<SpawnPoint>();
+        //if (Input.GetKeyDown("0"))
+        //{
+        //    HumanCreate(0, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+        //}
+        //if (Input.GetKeyDown("1"))
+        //{
+        //    HumanCreate(1, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+        //}
+        //if (Input.GetKeyDown("2"))
+        //{
+        //    HumanCreate(2, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+        //}
+        //if (Input.GetKeyDown("5"))
+        //{
+        //    SpawnHumanGroup(0, PassengerController.GROUPTYPE.BIG);
+        //}
     }
 
     /// <summary>
@@ -145,10 +127,10 @@ public class CitySpawnManager : MonoBehaviour {
         int randam;
 
         //スポーンポイントに人が生成されているかどうか
-        bool[] existPlace = new bool[spawnNum];
+        bool[] existPlace = new bool[SpawnNum];
 
         //初期化
-        for (int nCnt = 0; nCnt < spawnNum; nCnt++ )
+        for (int nCnt = 0; nCnt < SpawnNum; nCnt++ )
         {
             existPlace[nCnt] = false;
         }
@@ -162,9 +144,9 @@ public class CitySpawnManager : MonoBehaviour {
             {
 
                 bool bOut = false;
-                randam = Random.Range(0, spawnNum);
+                randam = Random.Range(0, SpawnNum);
 
-                for (int i = 0; i < spawnNum; i++)
+                for (int i = 0; i < SpawnNum; i++)
                 {
                     if (existPlace[i] == false && i == randam)
                     {

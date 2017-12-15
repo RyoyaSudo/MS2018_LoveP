@@ -59,8 +59,6 @@ MonoBehaviour:
     type: 2}
   guiCameraPrefab: {fileID: 1477520057521798, guid: c3f80760529395b4e903dd80343a06dd,
     type: 2}
-  SpawnManagerPrefab: {fileID: 1648512796981284, guid: 05cf89f3cf6fc724896a1edc82eceed4,
-    type: 2}
   starSpawnPrefab: {fileID: 1458502282586436, guid: ac96ab3ef69a00748b9250c00cb21942,
     type: 2}
   MiniMapPrefab: {fileID: 1499832240518992, guid: 9a4a9bde652a5b746b4743d9ce404cc3,
@@ -84,6 +82,10 @@ MonoBehaviour:
   scoutShipPrefab: {fileID: 1870985785382972, guid: 69d81fcbced1b4eeba87e600c85ee8aa,
     type: 2}
   shipPointsPrefab: {fileID: 1816083764674900, guid: d05409dac17e6412e9c0561b4f0144a8,
+    type: 2}
+  citySpawnListPrefab: {fileID: 1471125294781674, guid: d6d0e5ea234d65d4b8d08f3cc7780126,
+    type: 2}
+  citySpawnManagerPrefab: {fileID: 1648512796981284, guid: 05cf89f3cf6fc724896a1edc82eceed4,
     type: 2}
   gameStartWaitTime: 5
   phaseParam: 1

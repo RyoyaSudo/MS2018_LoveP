@@ -48,14 +48,18 @@ public class RidePlayableBehaviour : PlayableBehaviour
 
         rideCamera2.transform.position = mainCameraObj.transform.position;
         rideCamera2.transform.rotation = mainCameraObj.transform.rotation;
+    }
 
+    // タイムライン停止実行
+    public override void OnGraphStop(Playable playable)
+    {
         //LookAt設定
         rideCamera1.LookAt = passengerObj.transform;
 
         Vector3 pos;
         pos = playerObj.transform.position;
 
-        switch (playerVehicle.VehicleType)
+        switch( playerVehicle.VehicleType )
         {
             case PlayerVehicle.Type.BIKE:
                 pos.y += 2;
@@ -73,12 +77,6 @@ public class RidePlayableBehaviour : PlayableBehaviour
 
         rideCamera1.transform.position = pos;
         rideCamera1.transform.position += passengerObj.transform.forward * 6.0f;
-    }
-
-    // タイムライン停止実行
-    public override void OnGraphStop(Playable playable)
-    {
-
     }
 
     // PlayableTrack再生実行
