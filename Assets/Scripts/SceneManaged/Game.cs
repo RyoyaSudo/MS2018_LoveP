@@ -20,7 +20,6 @@ public class Game : MonoBehaviour {
     [SerializeField] GameObject PlayerPrefab;
     [SerializeField] GameObject mainCameraPrefab;
     [SerializeField] GameObject guiCameraPrefab;
-    [SerializeField] GameObject SpawnManagerPrefab;
     [SerializeField] GameObject starSpawnPrefab;
     [SerializeField] GameObject MiniMapPrefab;
     [SerializeField] GameObject effectManagerPrefab;
@@ -33,6 +32,8 @@ public class Game : MonoBehaviour {
     [SerializeField] GameObject pointsListPrefab;
     [SerializeField] GameObject scoutShipPrefab;
     [SerializeField] GameObject shipPointsPrefab;
+    [SerializeField] GameObject citySpawnListPrefab;
+    [SerializeField] GameObject citySpawnManagerPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -40,7 +41,6 @@ public class Game : MonoBehaviour {
     GameObject StarObj;
     GameObject mainCameraObj;
     GameObject guiCameraObj;
-    GameObject SpawnManagerObj;
     GameObject starSpawnManagerObj;
     GameObject MiniMapObj;
     GameObject effectManagerObj;
@@ -51,6 +51,8 @@ public class Game : MonoBehaviour {
     GameObject pointsListObj;
     GameObject scoutShipObj;
     GameObject shipPointsObj;
+    GameObject citySpawnListObj;
+    GameObject citySpawnManagerObj;
 
     Player playerObj;
     TimeCtrl timeObj;
@@ -251,7 +253,7 @@ public class Game : MonoBehaviour {
     {
         CityObj.SetActive( true );
         StarObj.SetActive( false );
-        SpawnManagerObj.SetActive( true );
+        citySpawnManagerObj.SetActive( true );
         starSpawnManagerObj.SetActive( false );
         timeObj.SetState(TimeCtrl.State.TIME_STATE_STOP);
         playerObj.CityPhaseInit();
@@ -266,7 +268,7 @@ public class Game : MonoBehaviour {
     {
         CityObj.SetActive( true );
         StarObj.SetActive( false );
-        SpawnManagerObj.SetActive( true );
+        citySpawnManagerObj.SetActive( true );
         starSpawnManagerObj.SetActive( false );
         timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
         playerObj.CityPhaseInit();
@@ -287,7 +289,7 @@ public class Game : MonoBehaviour {
     {
         CityObj.SetActive(false);
         StarObj.SetActive(true);
-        SpawnManagerObj.SetActive(false);
+        citySpawnManagerObj.SetActive(false);
         starSpawnManagerObj.SetActive(true);
         starSpawnManagerObj.GetComponent<StarSpawnManager>().Init();
         playerObj.StarPhaseInit();
@@ -344,7 +346,6 @@ public class Game : MonoBehaviour {
         StarObj             = Create( StarPrefab );
         mainCameraObj       = Create( mainCameraPrefab );
         guiCameraObj        = Create( guiCameraPrefab );
-        SpawnManagerObj     = Create( SpawnManagerPrefab );
         starSpawnManagerObj = Create( starSpawnPrefab );
         MiniMapObj          = Create( MiniMapPrefab );
         effectManagerObj    = Create( effectManagerPrefab );
@@ -358,6 +359,8 @@ public class Game : MonoBehaviour {
         pointsListObj       = Create( pointsListPrefab );
         scoutShipObj        = Create( scoutShipPrefab );
         shipPointsObj       = Create( shipPointsPrefab );
+        citySpawnManagerObj = Create( citySpawnManagerPrefab );
+        citySpawnListObj    = Create( citySpawnListPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？

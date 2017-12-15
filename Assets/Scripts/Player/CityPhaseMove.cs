@@ -229,7 +229,7 @@ public class CityPhaseMove : MonoBehaviour {
                 // HACK: 移動無効化時に行うべきこと
                 //       CharcterControllerを利用している場合、移動ベクトルを0にしなくてはならないらしい(検証不十分)
                 //       それに伴い、重力値が反映されているか怪しいため、あとでキチンと調査すること。
-                controller.Move( Vector3.zero );
+                if( controller.enabled ) controller.Move( Vector3.zero );
             }
         }
 

@@ -31,8 +31,6 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
         //カメラオブジェクト取得
         mainCameraObj = GameObject.Find(mainCameraPath);
 
-        //BodyのCinemachineTrackedDolly取得
-        trackDolly1 = getOffvcam1.GetCinemachineComponent<CinemachineTrackedDolly>();
 
         //LookAt設定
         getOffvcam1.LookAt = playerObj.transform;
@@ -51,10 +49,6 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
         rotation = playerObj.transform.rotation;
         //rotation.y += 70.0f;
         getOffDolly.transform.rotation = rotation;
-
-        //パス位置の設定
-        trackDolly1.m_PathPosition = 0;
-        pathPosCnt = 0;
     }
 
     // タイムライン停止実行
@@ -66,6 +60,15 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
     // PlayableTrack再生実行
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
+        //BodyのCinemachineTrackedDolly取得
+        trackDolly1 = getOffvcam1.GetCinemachineComponent<CinemachineTrackedDolly>();
+
+        //パス位置の設定
+        if( trackDolly1 != null )
+        {
+            trackDolly1.m_PathPosition = 0;
+            pathPosCnt = 0;
+        }
     }
 
     // PlayableTrack停止時実行
@@ -76,6 +79,10 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
     // PlayableTrack再生時毎フレーム実行
     public override void PrepareFrame(Playable playable, FrameData info)
     {
+        if( trackDolly1 == null )
+        {
+            return;
+        }
 
         if( pathPosCnt >= dollyIntervalTime)
         {
