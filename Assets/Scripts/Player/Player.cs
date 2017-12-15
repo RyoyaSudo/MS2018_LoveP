@@ -428,7 +428,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 当たり判定後に行う処理
     /// </summary>
-    private void OnTriggerStay( Collider other )
+    private void OnCollisionStay( Collider other )
     {
         switch( other.gameObject.tag )
         {
