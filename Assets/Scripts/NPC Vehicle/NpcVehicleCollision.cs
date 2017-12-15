@@ -22,12 +22,19 @@ public class NpcVehicleCollision : MonoBehaviour {
     private Vector3 velocity;
 
     private Vector3 pos;
+
+    [SerializeField] NpcVehicle vehicle;
+
     // Use this for initialization
     void Start()
     {
         pos = GetComponent<Transform>().position;
         velocity = obstacleRb.velocity;
         obstacleRb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    private void Update()
+    {
         obstacleRb.WakeUp();
     }
 
@@ -47,8 +54,13 @@ public class NpcVehicleCollision : MonoBehaviour {
 
         if( currentType >= enableMoveType )
         {
+            // 吹き飛ばす際に、移動をさせなくする
+            vehicle.IsMoveEnable = false;
+
             // 吹き飛ばす処理
             obstacleRb.constraints = RigidbodyConstraints.None;
+            obstacleRb.isKinematic = false;
+            obstacleRb.useGravity = true;
 
             Player playerObj = col.gameObject.GetComponent<Player>();
             float playerVelocity = playerObj.Velocity;

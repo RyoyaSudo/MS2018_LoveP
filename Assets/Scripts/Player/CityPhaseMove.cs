@@ -205,7 +205,6 @@ public class CityPhaseMove : MonoBehaviour {
         controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
 
         rb = gameObject.GetComponent<Rigidbody>();
-        rb.WakeUp();
 
         // HACK: 初期化時に移動しておく
         //       移動しないと開始時に埋まった状態になってしまうため、少し移動してCharcterControllerで所定の高さに移動してもらう
@@ -222,8 +221,6 @@ public class CityPhaseMove : MonoBehaviour {
         if( IsEnable )
         {
             CityMoveCharcterController();
-
-            rb.position = transform.position;
         }
         else
         {
@@ -235,6 +232,8 @@ public class CityPhaseMove : MonoBehaviour {
                 controller.Move( Vector3.zero );
             }
         }
+
+        rb.WakeUp();
     }
 
     /// <summary>
