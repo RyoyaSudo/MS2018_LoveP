@@ -15,7 +15,6 @@ public class NpcVehicleManager : MonoBehaviour
     [SerializeField]
     private string wayPointsPath;
 
-    //
     public List<WaypointData> wayPointsData;
 
     //Points0~の総数
@@ -32,6 +31,7 @@ public class NpcVehicleManager : MonoBehaviour
         //Listを初期化
         wayPointsData = new List<WaypointData>();
         int count = 0;
+        int randVehicleType = 0;
 
         wayPointsDataList = GameObject.Find(wayPointsPath).GetComponent<Transform>();
         foreach (Transform child in wayPointsDataList)
@@ -46,7 +46,8 @@ public class NpcVehicleManager : MonoBehaviour
 
         for (int nCnt = 0; nCnt < pointsDataNum; nCnt++)
         {
-            NpcVehicleSet(npcPrefab[0], nCnt);
+            randVehicleType = Random.Range(0, npcPrefab.Length - 1);
+            NpcVehicleSet(npcPrefab[randVehicleType], nCnt);
         }
 
         //UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
