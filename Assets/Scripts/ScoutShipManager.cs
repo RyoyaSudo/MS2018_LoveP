@@ -39,6 +39,7 @@ public class ScoutShipManager : MonoBehaviour {
         if( Vector3.SqrMagnitude( posV ) < wayPointChangeDistanceSq )
         {
             currentRoot = ( currentRoot + 1 ) % wayPointsNum;
+            wayPointPos = wayPoints[ currentRoot ].position;
         }
 
         agent.SetDestination( wayPointPos );

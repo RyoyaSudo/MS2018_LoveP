@@ -907,6 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4029538733851014}
   - component: {fileID: 54673548562777240}
+  - component: {fileID: 114590571157684596}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -3783,6 +3784,18 @@ MonoBehaviour:
   - {fileID: 1350686003954198}
   - {fileID: 1659219576981430}
   vehicleScoreLimit: 00000000010000000400000008000000
+--- !u!114 &114590571157684596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1912075463453346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cea55ee1c608754f81f66b7b14672ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObj: {fileID: 114377122876851530}
 --- !u!114 &114814756618038432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3823,6 +3836,13 @@ MonoBehaviour:
   controllerPath: Player
   inputObjPath: LoveP_Input
   modelObj: {fileID: 1912075463453346}
+  boostImpactRate: 1.25
+  boostAccelerationRate: 0.25
+  groundCheckRaycastLayerName:
+  - CityGround
+  groundFriction: 0.925
+  defaultHandlingInterpolate: 0.0625
+  boostHandlingInterpolate: 0.005
 --- !u!138 &138335203387992546
 FixedJoint:
   m_ObjectHideFlags: 1
@@ -3832,7 +3852,7 @@ FixedJoint:
   m_ConnectedBody: {fileID: 54673548562777240}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1

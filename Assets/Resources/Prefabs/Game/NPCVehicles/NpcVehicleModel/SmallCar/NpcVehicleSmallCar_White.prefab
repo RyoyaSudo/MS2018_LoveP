@@ -401,6 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99516034c3b3244c982e19c81bf15487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wayPointChangeDistance: 1
 --- !u!114 &114173326114168194
 MonoBehaviour:
   m_ObjectHideFlags: 1

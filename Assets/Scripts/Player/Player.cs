@@ -426,111 +426,100 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 当たり判定後に行う処理
+    /// 乗客乗車処理
     /// </summary>
-    private void OnCollisionStay( Collision collision )
+    /// <param name="human">対象者</param>
+    public void PassengerRide( Human human )
     {
-        switch( collision.gameObject.tag )
+        // 可否を確認し、乗車処理を実行
+        if( RideEnableCheck() )
         {
-            // 乗車エリアに関する処理
-            case "RideArea":
+            //乗車待機状態じゃないならbreak;
+            if( human.CurrentStateType != Human.STATETYPE.READY ) return;
+
+            // 乗車オブジェクト更新
+            lastRideHuman = human;
+
+            //最初の乗客の時に他の乗客生成を行う
+            if( rideCount == 0 )
+            {
+                // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
+                //       10/24現在では他の乗客はFindして消してしまうやり方をする。
+                human.IsProtect = true;
+
+                PassengerDeleteAll();
+
+                passengerType = human.PassengerControllerObj.groupType;
+
+                // 乗客数の確認
+                switch( human.PassengerControllerObj.groupType )
                 {
-                    // 可否を確認し、乗車処理を実行
-                    if( RideEnableCheck() )
-                    {
-                        // HACK: 乗車エリアオブジェクトの親となっている乗客オブジェクトを取得しておく
-                        //       構造が変わった時バグになるため気を付ける！
-                        Human human = collision.transform.parent.GetComponent<Human>();
+                    case PassengerController.GROUPTYPE.PEAR:
+                        rideGroupNum = 2;
+                        Debug.Log( "PEAR" );
+                        break;
 
-                        //乗車待機状態じゃないならbreak;
-                        if( human.CurrentStateType != Human.STATETYPE.READY ) break;
+                    case PassengerController.GROUPTYPE.SMAlLL:
+                        rideGroupNum = 3;
+                        Debug.Log( "SMALL" );
+                        break;
 
-                        // 乗車オブジェクト更新
-                        lastRideHuman = human;
+                    case PassengerController.GROUPTYPE.BIG:
+                        rideGroupNum = 5;
+                        Debug.Log( "BIG" );
+                        break;
 
-                        //最初の乗客の時に他の乗客生成を行う
-                        if( rideCount == 0 )
-                        {
-                            // HACK: 最初の乗客を乗せた際、他の乗客を街人に変える処理
-                            //       10/24現在では他の乗客はFindして消してしまうやり方をする。
-                            human.IsProtect = true;
-
-                            PassengerDeleteAll();
-                            
-                            passengerType = human.PassengerControllerObj.groupType;
-
-                            // 乗客数の確認
-                            switch( human.PassengerControllerObj.groupType )
-                            {
-                                case PassengerController.GROUPTYPE.PEAR:
-                                    rideGroupNum = 2;
-                                    Debug.Log( "PEAR" );
-                                    break;
-
-                                case PassengerController.GROUPTYPE.SMAlLL:
-                                    rideGroupNum = 3;
-                                    Debug.Log( "SMALL" );
-                                    break;
-
-                                case PassengerController.GROUPTYPE.BIG:
-                                    rideGroupNum = 5;
-                                    Debug.Log( "BIG" );
-                                    break;
-
-                                default:
-                                    Debug.LogError( "エラー:設定謎の乗客タイプが設定されています" );
-                                    break;
-                            }
-
-                            HumanCreate( human );
-
-                            //グループの大きさ分確保する
-                            passengerObj = new Human[ rideGroupNum ];
-
-                            //何人乗せるかUIを表示させる
-                            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
-                        }
-
-                        //　TODO : 田口　2017/11/30
-                        //乗客を子にするのはHuman.csでやります
-                        //乗客を子にする
-                        //human.gameObject.transform.position = transform.position;
-                        //human.transform.parent = transform;
-
-                        // TODO : 田口　2017/11/30
-                        //Human.csで運搬状態にしました
-                        //乗客の状態を「運搬」に
-                        //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
-                        Debug.Log( "Ride" );
-                        passengerObj[ rideCount ] = human;
-                        rideCount++;
-
-                        //フェイスUIをONにする
-                        passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount );
-
-                        // 乗客の当たり判定を消す
-                        human.GetHumanModelCollider().isTrigger = true;
-
-                        //最後の人なら降ろす
-                        if( rideCount >= rideGroupNum )
-                        {
-                            PassengerGetOff( human );
-
-                            // 降車するのでnullに
-                            lastRideHuman = null;
-                        }
-                        else
-                        {
-                            // 乗客はまだ1人以上残っているため、乗車待機状態に
-                            StateParam = State.PLAYER_STATE_TAKE_READY;
-
-                            // TODO : 田口　2017/11/30
-                            //乗客の状態を「乗車」に
-                            human.CurrentStateType = Human.STATETYPE.RIDE;
-                        }
-                    }
-                    break;
+                    default:
+                        Debug.LogError( "エラー:設定謎の乗客タイプが設定されています" );
+                        break;
                 }
+
+                HumanCreate( human );
+
+                //グループの大きさ分確保する
+                passengerObj = new Human[ rideGroupNum ];
+
+                //何人乗せるかUIを表示させる
+                passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
+            }
+
+            //　TODO : 田口　2017/11/30
+            //乗客を子にするのはHuman.csでやります
+            //乗客を子にする
+            //human.gameObject.transform.position = transform.position;
+            //human.transform.parent = transform;
+
+            // TODO : 田口　2017/11/30
+            //Human.csで運搬状態にしました
+            //乗客の状態を「運搬」に
+            //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
+            Debug.Log( "Ride" );
+            passengerObj[ rideCount ] = human;
+            rideCount++;
+
+            //フェイスUIをONにする
+            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount );
+
+            // 乗客の当たり判定を消す
+            human.GetHumanModelCollider().isTrigger = true;
+
+            //最後の人なら降ろす
+            if( rideCount >= rideGroupNum )
+            {
+                PassengerGetOff( human );
+
+                // 降車するのでnullに
+                lastRideHuman = null;
+            }
+            else
+            {
+                // 乗客はまだ1人以上残っているため、乗車待機状態に
+                StateParam = State.PLAYER_STATE_TAKE_READY;
+
+                // TODO : 田口　2017/11/30
+                //乗客の状態を「乗車」に
+                human.CurrentStateType = Human.STATETYPE.RIDE;
+            }
         }
     }
 
