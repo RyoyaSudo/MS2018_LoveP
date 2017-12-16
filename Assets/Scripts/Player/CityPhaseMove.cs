@@ -173,7 +173,15 @@ public class CityPhaseMove : MonoBehaviour {
     /// </summary>
     [SerializeField] GameObject modelObj;
 
-    bool isPushOld;
+    /// <summary>
+    /// 前回フレームでブースト動作を行ったか
+    /// </summary>
+    bool isBoostOld;
+
+    /// <summary>
+    /// 重力速度ベクトル
+    /// </summary>
+    Vector3 gravityVec;
 
     #endregion
 
@@ -193,7 +201,8 @@ public class CityPhaseMove : MonoBehaviour {
         velocityVecOld = Vector3.zero;
         inputObj = null;
         gameObj = null;
-        isPushOld = false;
+        isBoostOld = false;
+        gravityVec = Vector3.zero;
 
         // 算出系
         stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
@@ -254,16 +263,31 @@ public class CityPhaseMove : MonoBehaviour {
         // 入力情報取得
         float moveV  = inputObj.GetAxis( "Vertical" );
         float moveH  = inputObj.GetAxis( "Horizontal" );
-        bool isPush  = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+        bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
         bool isBrake = Mathf.Abs( moveV ) > 0.5f ? true : false;
+        bool isGround = false;
 
         // 旋回処理
         Vector3 euler = transform.eulerAngles;
         moveRadY += moveH * 180.0f * Time.deltaTime;
         transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
 
-        // 
+        // HACK: 地面との当たり判定
+        //       地面用オブジェクトにレイヤーを付けてレイヤーマスクすれば処理速度向上
+        int layerMask = LayerMask.GetMask( new string[] { "CityGround" } );
+        RaycastHit hitInfo;
+        Vector3 upV = Vector3.up;
 
+        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 1.0f , layerMask ) )
+        {
+            // 接した場合
+            upV = hitInfo.normal;
+            isGround = true;
+
+            Debug.Log( "Hit!!\nName:" + hitInfo.collider.gameObject.name );
+        }
+
+        transform.rotation = Quaternion.LookRotation( transform.forward , upV );
 
         // 加速度演算
         Vector3 accV = transform.rotation * Vector3.forward;
@@ -282,15 +306,15 @@ public class CityPhaseMove : MonoBehaviour {
         // ハンドリングに合わせて速度ベクトルを補正
         Vector3 targetVel = transform.rotation * Vector3.forward;
 
-        float t = isPush ? 0.0f : 0.0625f;
+        float t = isBoost ? 0.0f : 0.0625f;
 
         velocityVec = Vector3.Lerp( velocityVec.normalized , targetVel , t ) * velocityVec.magnitude;
 
         // ブーストON・OFF時の移動ベクトル変換
-        bool isPushTrigger = isPush & !isPushOld;
-        bool isPushRelese  = !isPush & isPushOld;
+        bool isBoostTrigger = isBoost & !isBoostOld;
+        bool isBoostRelese  = !isBoost & isBoostOld;
 
-        if( isPushTrigger || isPushRelese )
+        if( isBoostTrigger || isBoostRelese )
         {
             float force = velocityVec.magnitude;
             velocityVec = transform.rotation * Vector3.forward;
@@ -298,17 +322,30 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // ブースト処理
-        if( isPush )
+        if( isBoostTrigger )
+        {
+            velocityVec *= 1.25f;
+        }
+
+        if( isBoost )
         {
             velocityVec = velocityVec * ( 1.0f + ( 0.25f * Time.deltaTime ) );
         }
 
+        // 重力処理
+        gravityVec += gravity * Time.deltaTime;
+
+        if( isGround )
+        {
+            gravityVec = Vector3.zero;
+        }
+
         // 移動量の反映
-        controller.Move( velocityVec * Time.deltaTime );
+        controller.Move( ( velocityVec + gravityVec ) * Time.deltaTime );
 
         // 過去情報を保存しておく
         oldPos = transform.position;
-        isPushOld = isPush;
+        isBoostOld = isBoost;
     }
 
     /// <summary>
@@ -319,10 +356,10 @@ public class CityPhaseMove : MonoBehaviour {
         // 入力情報取得
         float moveV = inputObj.GetAxis( "Vertical" );
         float moveH = inputObj.GetAxis( "Horizontal" );
-        bool isPush = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+        bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
 
         //プッシュ時と通常時で旋回力を分ける
-        if( isPush ) moveH *= turnPowerPush;
+        if( isBoost ) moveH *= turnPowerPush;
         else         moveH *= turnPower;
 
         // TODO: バイク旋回
@@ -339,7 +376,7 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // HACK: 地上の速度演算
-        if( !isPush )
+        if( !isBoost )
         {
             // 加速度付与
             Vector3 accV = Vector3.forward * acceleration;
@@ -351,7 +388,7 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // プッシュ動作
-        if( isPush )
+        if( isBoost )
         {
             Velocity += ( ( 0.0f - Velocity ) * stoppingPower * Time.deltaTime );
 
@@ -404,7 +441,7 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // プッシュ解放した後のダッシュ
-        if( !isPush )
+        if( !isBoost )
         {
             if( isChargeMax )
             {

@@ -252,7 +252,7 @@ public class Player : MonoBehaviour
         }
 
         StateParam = State.PLAYER_STATE_FREE;
-        transform.rotation = new Quaternion( 0.0f , 0.0f , 0.0f , 0.0f );
+        transform.rotation = Quaternion.identity;
 
         Debug.Log( "街フェイズ開始" );
     }

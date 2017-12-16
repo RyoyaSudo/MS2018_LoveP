@@ -68,7 +68,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294965981
+    m_Bits: 4294966013
   m_RenderingPath: 0
   m_TargetTexture: {fileID: 8400000, guid: 6225ff611a0966b44a1175d2ad2d52f8, type: 2}
   m_TargetDisplay: 0
@@ -79,7 +79,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!92 &92818641550728214
 Behaviour:
   m_ObjectHideFlags: 1
