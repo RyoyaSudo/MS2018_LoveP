@@ -54,7 +54,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 移動量ベクトル
     /// </summary>
-    public Vector3 VelocityVec { get; private set; }
+    private Vector3 velocityVec;
 
     /// <summary>
     /// 前回フレームの移動量ベクトル
@@ -173,6 +173,8 @@ public class CityPhaseMove : MonoBehaviour {
     /// </summary>
     [SerializeField] GameObject modelObj;
 
+    bool isPushOld;
+
     #endregion
 
     /// <summary>
@@ -187,10 +189,11 @@ public class CityPhaseMove : MonoBehaviour {
         velocityRate = defaultVelocityRate;
         boostTimer = 0.0f;
         isEnable = false;
-        VelocityVec = Vector3.zero;
+        velocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
         inputObj = null;
         gameObj = null;
+        isPushOld = false;
 
         // 算出系
         stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
@@ -225,7 +228,9 @@ public class CityPhaseMove : MonoBehaviour {
     void Update () {
         if( IsEnable )
         {
-            CityMoveCharcterController();
+            //CityMoveCharcterController();
+
+            CityMoveCharcterControllerNew();
         }
         else
         {
@@ -244,21 +249,81 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// CharcterControllerを用いたプレイヤーの移動処理。
     /// </summary>
+    public void CityMoveCharcterControllerNew()
+    {
+        // 入力情報取得
+        float moveV  = inputObj.GetAxis( "Vertical" );
+        float moveH  = inputObj.GetAxis( "Horizontal" );
+        bool isPush  = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+        bool isBrake = Mathf.Abs( moveV ) > 0.5f ? true : false;
+
+        // 旋回処理
+        Vector3 euler = transform.eulerAngles;
+        moveRadY += moveH * 180.0f * Time.deltaTime;
+        transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
+
+        // 
+
+
+        // 加速度演算
+        Vector3 accV = transform.rotation * Vector3.forward;
+        accV *= acceleration;
+
+        // 速度演算
+        velocityVec += accV * Time.deltaTime;
+
+        // 地上摩擦演算
+        if( isBrake ) velocityVec *= 0.925f;
+
+        // 重力演算
+
+        // 空中空気抵抗演算
+
+        // ハンドリングに合わせて速度ベクトルを補正
+        Vector3 targetVel = transform.rotation * Vector3.forward;
+
+        float t = isPush ? 0.0f : 0.0625f;
+
+        velocityVec = Vector3.Lerp( velocityVec.normalized , targetVel , t ) * velocityVec.magnitude;
+
+        // ブーストON・OFF時の移動ベクトル変換
+        bool isPushTrigger = isPush & !isPushOld;
+        bool isPushRelese  = !isPush & isPushOld;
+
+        if( isPushTrigger || isPushRelese )
+        {
+            float force = velocityVec.magnitude;
+            velocityVec = transform.rotation * Vector3.forward;
+            velocityVec *= force;
+        }
+
+        // ブースト処理
+        if( isPush )
+        {
+            velocityVec = velocityVec * ( 1.0f + ( 0.25f * Time.deltaTime ) );
+        }
+
+        // 移動量の反映
+        controller.Move( velocityVec * Time.deltaTime );
+
+        // 過去情報を保存しておく
+        oldPos = transform.position;
+        isPushOld = isPush;
+    }
+
+    /// <summary>
+    /// CharcterControllerを用いたプレイヤーの移動処理。
+    /// </summary>
     public void CityMoveCharcterController()
     {
+        // 入力情報取得
         float moveV = inputObj.GetAxis( "Vertical" );
         float moveH = inputObj.GetAxis( "Horizontal" );
         bool isPush = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
 
         //プッシュ時と通常時で旋回力を分ける
-        if( isPush )
-        {
-            moveH *= turnPowerPush;
-        }
-        else
-        {
-            moveH *= turnPower;
-        }
+        if( isPush ) moveH *= turnPowerPush;
+        else         moveH *= turnPower;
 
         // TODO: バイク旋回
         //       Z軸回転させるため
@@ -276,8 +341,13 @@ public class CityPhaseMove : MonoBehaviour {
         // HACK: 地上の速度演算
         if( !isPush )
         {
+            // 加速度付与
+            Vector3 accV = Vector3.forward * acceleration;
+            accV = transform.rotation * accV;
+
             Velocity = Mathf.Max( Velocity , initialVelocity );
             Velocity += acceleration * Time.deltaTime;
+
         }
 
         // プッシュ動作
@@ -363,7 +433,7 @@ public class CityPhaseMove : MonoBehaviour {
 
         // 今回の速度加算
         Velocity = Mathf.Min( Velocity , velocityMax ) * velocityRate;
-        VelocityVec = Velocity * transform.forward * Time.deltaTime;
+        velocityVec = Velocity * transform.forward * Time.deltaTime;
 
         // TODO: 画面外に落ちたときの処理
         //       仮で追加
@@ -397,7 +467,7 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // 移動量の反映
-        controller.Move( VelocityVec );
+        controller.Move( velocityVec );
 
         // 過去位置を保存しておく
         oldPos = transform.position;
@@ -440,7 +510,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            //str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
