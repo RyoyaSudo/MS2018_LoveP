@@ -54,7 +54,7 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 移動量ベクトル
     /// </summary>
-    public Vector3 VelocityVec { get; private set; }
+    private Vector3 velocityVec;
 
     /// <summary>
     /// 前回フレームの移動量ベクトル
@@ -173,6 +173,42 @@ public class CityPhaseMove : MonoBehaviour {
     /// </summary>
     [SerializeField] GameObject modelObj;
 
+    /// <summary>
+    /// 前回フレームでブースト動作を行ったか
+    /// </summary>
+    bool isBoostOld;
+
+    /// <summary>
+    /// ブースト開始時の初速度倍率
+    /// </summary>
+    [SerializeField] float boostImpactRate;
+
+    /// <summary>
+    /// ブースト起動中の加速度
+    /// </summary>
+    [SerializeField] float boostAccelerationRate;
+
+    /// <summary>
+    /// 重力速度ベクトル
+    /// </summary>
+    Vector3 gravityVec;
+
+    /// <summary>
+    /// 地面判断の際にレイキャストする対象のレイヤー群
+    /// </summary>
+    [SerializeField] string[] groundCheckRaycastLayerName;
+
+    /// <summary>
+    /// 地上の摩擦抵抗値。
+    /// </summary>
+    [SerializeField] [Range( 0f , 1f )] float groundFriction;
+
+    /// <summary>
+    /// 速度ベクトルの補正用補間値
+    /// </summary>
+    [SerializeField] [Range( 0f , 1f )] float defaultHandlingInterpolate;
+    [SerializeField] [Range( 0f , 1f )] float boostHandlingInterpolate;
+
     #endregion
 
     /// <summary>
@@ -187,10 +223,12 @@ public class CityPhaseMove : MonoBehaviour {
         velocityRate = defaultVelocityRate;
         boostTimer = 0.0f;
         isEnable = false;
-        VelocityVec = Vector3.zero;
+        velocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
         inputObj = null;
         gameObj = null;
+        isBoostOld = false;
+        gravityVec = Vector3.zero;
 
         // 算出系
         stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
@@ -225,7 +263,9 @@ public class CityPhaseMove : MonoBehaviour {
     void Update () {
         if( IsEnable )
         {
-            CityMoveCharcterController();
+            //CityMoveCharcterController();
+
+            CityMoveCharcterControllerNew();
         }
         else
         {
@@ -244,164 +284,279 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// CharcterControllerを用いたプレイヤーの移動処理。
     /// </summary>
-    public void CityMoveCharcterController()
+    public void CityMoveCharcterControllerNew()
     {
-        float moveV = inputObj.GetAxis( "Vertical" );
-        float moveH = inputObj.GetAxis( "Horizontal" );
-        bool isPush = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
-
-        //プッシュ時と通常時で旋回力を分ける
-        if( isPush )
-        {
-            moveH *= turnPowerPush;
-        }
-        else
-        {
-            moveH *= turnPower;
-        }
-
-        // TODO: バイク旋回
-        //       Z軸回転させるため
-        //float radZ = -moveH * 45.0f;
-        float radZ = 0.0f;
+        // 入力情報取得
+        float moveV  = inputObj.GetAxis( "Vertical" );
+        float moveH  = inputObj.GetAxis( "Horizontal" );
+        bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+        bool isBoostTrigger = isBoost & !isBoostOld;
+        bool isBoostRelese  = !isBoost & isBoostOld;
+        bool isBrake = Mathf.Abs( moveV ) > 0.5f ? true : false;
+        bool isGround = false;
 
         // 旋回処理
-        if( Mathf.Abs( moveH ) > 0.2f )
-        {
-            moveRadY += moveH * 180.0f * Time.deltaTime;
+        Vector3 euler = transform.eulerAngles;
+        moveRadY += moveH * 180.0f * Time.deltaTime;
+        transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
 
-            transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z + radZ );
+        // 地面との当たり判定
+        int layerMask = LayerMask.GetMask( groundCheckRaycastLayerName );
+        RaycastHit hitInfo;
+        Vector3 upV = Vector3.up;
+
+        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 1.0f , layerMask ) )
+        {
+            // 接した場合
+            upV = hitInfo.normal;
+            isGround = true;
         }
 
-        // HACK: 地上の速度演算
-        if( !isPush )
-        {
-            Velocity = Mathf.Max( Velocity , initialVelocity );
-            Velocity += acceleration * Time.deltaTime;
-        }
+        // HACK: 姿勢修正
+        //       こだわる場合は実装
+        //Quaternion targetQuatanion = Quaternion.FromToRotation( Vector3.up , upV );
+        //float qT = Time.deltaTime * 10.0f;
+        //
+        //transform.rotation = Quaternion.Slerp( targetQuatanion , transform.rotation , qT );
+        //Vector3 afterForwardV = Vector3.ProjectOnPlane( transform.forward , upV );
+        //Quaternion targetQuatanion = Quaternion.LookRotation( afterForwardV , upV );
+        //float qT = Time.deltaTime * 10.0f;
 
-        // プッシュ動作
-        if( isPush )
-        {
-            Velocity += ( ( 0.0f - Velocity ) * stoppingPower * Time.deltaTime );
+        // 加速度演算
+        Vector3 accV = transform.rotation * Vector3.forward;
+        accV *= acceleration;
 
-            // デッドゾーン確認
-            if( Velocity < stoppingDeadZone )
+        // 速度演算
+        velocityVec += accV * Time.deltaTime;
+
+        // ブレーキ処理
+        if( isBrake )
+        {
+            velocityVec *= groundFriction;
+
+            if( velocityVec.magnitude < stoppingDeadZone )
             {
-                Velocity = 0.0f;
+                velocityVec = Vector3.zero;
                 playerObj.IsStopped = true;
             }
-
-            //チャージエフェクト再生
-            if( pushCharge == 0 )
-            {
-                var emission = playerObj.ChargeEffectObj.emission;
-                emission.enabled = true;
-            }
-
-            //チャージがマックスになったら
-            // HACK: チャージマックスの判定式
-            //       もっときれいに、わかりやすく、エレガントに修正
-            if( pushCharge >= chargeMax )
-            {
-                //チャージマックスエフェクト再生
-                if( !isChargeMax )
-                {
-                    //チャージエフェクト停止
-                    var emission = playerObj.ChargeEffectObj.emission;
-                    emission.enabled = false;
-
-                    //チャージマックスエフェクト再生
-                    emission = playerObj.ChargeMaxEffectObj.emission;
-                    emission.enabled = true;
-
-                    isChargeMax = true;
-                }
-            }
-
-            pushCharge += Time.deltaTime;
-        }
-
-        // 速度倍率の変更
-        if( boostTimer > 0.0f )
-        {
-            velocityRate = boostVelocityRate;
-            boostTimer -= Time.deltaTime;
         }
         else
         {
-            velocityRate = defaultVelocityRate;
-        }
-
-        // プッシュ解放した後のダッシュ
-        if( !isPush )
-        {
-            if( isChargeMax )
-            {
-                //チャージマックスエフェクト停止
-                var emission = playerObj.ChargeMaxEffectObj.emission;
-                emission.enabled = false;
-                isChargeMax = false;
-            }
-            else
-            {
-                //チャージエフェクト停止
-                var emissione = playerObj.ChargeEffectObj.emission;
-                emissione.enabled = false;
-
-            }
-
-            // ブースト時間を与える
-            if( pushCharge >= chargeMax )
-            {
-                boostTimer = boostDuration;
-            }
-
-            pushCharge = 0;
             playerObj.IsStopped = false;
         }
 
-        // 今回の速度加算
-        Velocity = Mathf.Min( Velocity , velocityMax ) * velocityRate;
-        VelocityVec = Velocity * transform.forward * Time.deltaTime;
+        // ハンドリングに合わせて速度ベクトルを補正
+        Vector3 targetVel = transform.rotation * Vector3.forward;
+        float t = isBoost ? boostHandlingInterpolate : defaultHandlingInterpolate;
 
-        // TODO: 画面外に落ちたときの処理
-        //       仮で追加
-        if( transform.position.y < -50.0f )
+        velocityVec = Vector3.Lerp( velocityVec.normalized , targetVel , t ) * velocityVec.magnitude;
+
+        // ブーストON・OFF時の移動ベクトル変換
+        if( isBoostTrigger || isBoostRelese )
         {
-            Vector3 newPos = transform.position;
-            newPos.y = 30.0f;
-            transform.position = newPos;
+            float force = velocityVec.magnitude;
+            velocityVec = transform.rotation * Vector3.forward;
+            velocityVec *= force;
         }
 
-        // TODO: 重力計算
-        //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
-        curGravity += ( gravity * Time.deltaTime );
-
-        controller.Move( curGravity );
-
-        if( transform.position.y == oldPos.y )
+        // ブースト処理
+        if( isBoostTrigger )
         {
-            curGravity = Vector3.zero;
-            //Debug.Log( "Gravity Reset" );
+            velocityVec *= boostImpactRate;
+        }
+
+        if( isBoost )
+        {
+            velocityVec = velocityVec * ( 1.0f + ( boostAccelerationRate * Time.deltaTime ) );
+        }
+
+        // 重力処理
+        gravityVec += gravity * Time.deltaTime;
+
+        if( isGround )
+        {
+            gravityVec = Vector3.zero;
         }
 
         // TODO: ジャンプ処理
         //       デバッグ時に活用できそうなので実装
         if( Input.GetKey( KeyCode.J ) )
         {
-            curGravity = Vector3.zero;
-
-            Vector3 jumpForce = -gravity * 2.0f;
-            controller.Move( jumpForce * Time.deltaTime );
+            gravityVec = gravity * 2.0f;
         }
 
         // 移動量の反映
-        controller.Move( VelocityVec );
+        controller.Move( ( velocityVec + gravityVec ) * Time.deltaTime );
 
-        // 過去位置を保存しておく
+        // 過去情報を保存しておく
         oldPos = transform.position;
+        isBoostOld = isBoost;
     }
+
+    /// <summary>
+    /// CharcterControllerを用いたプレイヤーの移動処理。
+    /// </summary>
+    //　HACK: 街フェイズ移動プログラム(旧式)
+    //        この関数は旧式のため使用しない。
+    //        一応残しておく程度
+    //public void CityMoveCharcterController()
+    //{
+    //    // 入力情報取得
+    //    float moveV = inputObj.GetAxis( "Vertical" );
+    //    float moveH = inputObj.GetAxis( "Horizontal" );
+    //    bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+    //
+    //    //プッシュ時と通常時で旋回力を分ける
+    //    if( isBoost ) moveH *= turnPowerPush;
+    //    else         moveH *= turnPower;
+    //
+    //    // TODO: バイク旋回
+    //    //       Z軸回転させるため
+    //    //float radZ = -moveH * 45.0f;
+    //    float radZ = 0.0f;
+    //
+    //    // 旋回処理
+    //    if( Mathf.Abs( moveH ) > 0.2f )
+    //    {
+    //        moveRadY += moveH * 180.0f * Time.deltaTime;
+    //
+    //        transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z + radZ );
+    //    }
+    //
+    //    // HACK: 地上の速度演算
+    //    if( !isBoost )
+    //    {
+    //        // 加速度付与
+    //        Vector3 accV = Vector3.forward * acceleration;
+    //        accV = transform.rotation * accV;
+    //
+    //        Velocity = Mathf.Max( Velocity , initialVelocity );
+    //        Velocity += acceleration * Time.deltaTime;
+    //
+    //    }
+    //
+    //    // プッシュ動作
+    //    if( isBoost )
+    //    {
+    //        Velocity += ( ( 0.0f - Velocity ) * stoppingPower * Time.deltaTime );
+    //
+    //        // デッドゾーン確認
+    //        if( Velocity < stoppingDeadZone )
+    //        {
+    //            Velocity = 0.0f;
+    //            playerObj.IsStopped = true;
+    //        }
+    //
+    //        //チャージエフェクト再生
+    //        if( pushCharge == 0 )
+    //        {
+    //            var emission = playerObj.ChargeEffectObj.emission;
+    //            emission.enabled = true;
+    //        }
+    //
+    //        //チャージがマックスになったら
+    //        // HACK: チャージマックスの判定式
+    //        //       もっときれいに、わかりやすく、エレガントに修正
+    //        if( pushCharge >= chargeMax )
+    //        {
+    //            //チャージマックスエフェクト再生
+    //            if( !isChargeMax )
+    //            {
+    //                //チャージエフェクト停止
+    //                var emission = playerObj.ChargeEffectObj.emission;
+    //                emission.enabled = false;
+    //
+    //                //チャージマックスエフェクト再生
+    //                emission = playerObj.ChargeMaxEffectObj.emission;
+    //                emission.enabled = true;
+    //
+    //                isChargeMax = true;
+    //            }
+    //        }
+    //
+    //        pushCharge += Time.deltaTime;
+    //    }
+    //
+    //    // 速度倍率の変更
+    //    if( boostTimer > 0.0f )
+    //    {
+    //        velocityRate = boostVelocityRate;
+    //        boostTimer -= Time.deltaTime;
+    //    }
+    //    else
+    //    {
+    //        velocityRate = defaultVelocityRate;
+    //    }
+    //
+    //    // プッシュ解放した後のダッシュ
+    //    if( !isBoost )
+    //    {
+    //        if( isChargeMax )
+    //        {
+    //            //チャージマックスエフェクト停止
+    //            var emission = playerObj.ChargeMaxEffectObj.emission;
+    //            emission.enabled = false;
+    //            isChargeMax = false;
+    //        }
+    //        else
+    //        {
+    //            //チャージエフェクト停止
+    //            var emissione = playerObj.ChargeEffectObj.emission;
+    //            emissione.enabled = false;
+    //
+    //        }
+    //
+    //        // ブースト時間を与える
+    //        if( pushCharge >= chargeMax )
+    //        {
+    //            boostTimer = boostDuration;
+    //        }
+    //
+    //        pushCharge = 0;
+    //        playerObj.IsStopped = false;
+    //    }
+    //
+    //    // 今回の速度加算
+    //    Velocity = Mathf.Min( Velocity , velocityMax ) * velocityRate;
+    //    velocityVec = Velocity * transform.forward * Time.deltaTime;
+    //
+    //    // TODO: 画面外に落ちたときの処理
+    //    //       仮で追加
+    //    if( transform.position.y < -50.0f )
+    //    {
+    //        Vector3 newPos = transform.position;
+    //        newPos.y = 30.0f;
+    //        transform.position = newPos;
+    //    }
+    //
+    //    // TODO: 重力計算
+    //    //       Unity内蔵のものだと重力のかかりが弱いので、自前で計算する。
+    //    curGravity += ( gravity * Time.deltaTime );
+    //
+    //    controller.Move( curGravity );
+    //
+    //    if( transform.position.y == oldPos.y )
+    //    {
+    //        curGravity = Vector3.zero;
+    //        //Debug.Log( "Gravity Reset" );
+    //    }
+    //
+    //    // TODO: ジャンプ処理
+    //    //       デバッグ時に活用できそうなので実装
+    //    if( Input.GetKey( KeyCode.J ) )
+    //    {
+    //        curGravity = Vector3.zero;
+    //
+    //        Vector3 jumpForce = -gravity * 2.0f;
+    //        controller.Move( jumpForce * Time.deltaTime );
+    //    }
+    //
+    //    // 移動量の反映
+    //    controller.Move( velocityVec );
+    //
+    //    // 過去位置を保存しておく
+    //    oldPos = transform.position;
+    //}
 
     /// <summary>
     /// 更新処理(物理系)
@@ -440,7 +595,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "速度ベクトル:" + VelocityVec + "\n速度量:" + VelocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            //str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + Velocity;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
