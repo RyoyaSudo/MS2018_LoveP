@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class mobSyoutotu : MonoBehaviour {
-    [SerializeField] MobController mob;   // 親オブジェクトの乗客
+    private MobController mob;   // 親オブジェクトの乗客
 
-    private void Awake()
+    private void Start()
     {
         // 親オブジェクトを取得
         // 2017/12/01 数藤
@@ -15,6 +15,6 @@ public class mobSyoutotu : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        mob.ChangeEscapeRot();
+        if( mob != null ) mob.ChangeEscapeRot();
     }
 }
