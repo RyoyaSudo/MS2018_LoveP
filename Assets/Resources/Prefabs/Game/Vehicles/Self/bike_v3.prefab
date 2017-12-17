@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4683470929734828}
-  - component: {fileID: 95380866347192760}
   m_Layer: 0
   m_Name: bike_v3
   m_TagString: Untagged
@@ -228,20 +227,3 @@ MeshCollider:
   m_InflateMesh: 1
   m_SkinWidth: 0.001
   m_Mesh: {fileID: 4300000, guid: 59758028a1de394459f2bef0bdf78555, type: 3}
---- !u!95 &95380866347192760
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1594585724766896}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 59758028a1de394459f2bef0bdf78555, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1

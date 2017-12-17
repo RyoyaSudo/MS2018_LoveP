@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4903201991192878}
-  - component: {fileID: 95363126169607300}
   m_Layer: 0
   m_Name: roket_v1
   m_TagString: Untagged
@@ -171,7 +170,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1043802149813732}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.02, y: 1.3209667, z: -2.4035058}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4355001692679698}
@@ -400,20 +399,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519627063579666}
   m_Mesh: {fileID: 4300008, guid: 0c6b04d1727b45641a3b54408b44a286, type: 3}
---- !u!95 &95363126169607300
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1043802149813732}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0c6b04d1727b45641a3b54408b44a286, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
