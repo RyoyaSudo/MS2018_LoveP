@@ -51,5 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5f3b8f88b44254098e565f3e5384ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDefaultInputUse: 1
+  isDefaultInputUse: 0
   portNum: COM4
+  device_V_Default: 0

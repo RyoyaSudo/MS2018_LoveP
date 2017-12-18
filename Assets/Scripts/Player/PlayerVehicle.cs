@@ -69,6 +69,8 @@ public class PlayerVehicle : MonoBehaviour {
     /// </summary>
     bool isChange;
 
+    Vector3[] originScaleArray;
+
     #endregion
 
     /// <summary>
@@ -81,6 +83,13 @@ public class PlayerVehicle : MonoBehaviour {
         VehicleScore = 0;
 
         vehicleModel[ ( int )vehicleType ].SetActive( true );
+
+        originScaleArray = new Vector3[ vehicleModel.Length ];
+
+        for( int i = 0 ; i < vehicleModel.Length ; i++ )
+        {
+            originScaleArray[ i ] = vehicleModel[ i ].transform.localScale;
+        }
 
         isChange = false;
     }
@@ -156,10 +165,9 @@ public class PlayerVehicle : MonoBehaviour {
             scale = new Vector3( vehicleModel[ ( int )vehicleType ].transform.localScale.x + Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.y + Time.deltaTime , vehicleModel[ ( int )vehicleType ].transform.localScale.z + Time.deltaTime );
             vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
 
-            if( vehicleModel[ ( int )vehicleType ].transform.localScale.x > 1.0f )
+            if( vehicleModel[ ( int )vehicleType ].transform.localScale.x > originScaleArray[ ( int )vehicleType ].x )
             {
-                scale = new Vector3( 1.0f , 1.0f , 1.0f );
-                vehicleModel[ ( int )vehicleType ].transform.localScale = scale;
+                vehicleModel[ ( int )vehicleType ].transform.localScale = originScaleArray[ ( int )vehicleType ];
             }
         }
     }

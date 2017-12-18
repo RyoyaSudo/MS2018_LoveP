@@ -47,11 +47,6 @@ public class CityPhaseMove : MonoBehaviour {
     public float Velocity { get; private set; }
 
     /// <summary>
-    /// 速度限界値
-    /// </summary>
-    [SerializeField] float velocityMax;
-
-    /// <summary>
     /// 移動量ベクトル
     /// </summary>
     private Vector3 velocityVec;
@@ -151,10 +146,6 @@ public class CityPhaseMove : MonoBehaviour {
     /// プレイヤー移動に用いるUnityコンポーネント
     /// </summary>
     CharacterController controller;
-
-    /// <summary>
-    /// CharacterControllerコンポーネントのHierarchy上のパス
-    /// </summary>
     public string controllerPath;
 
     /// <summary>
@@ -174,14 +165,17 @@ public class CityPhaseMove : MonoBehaviour {
     [SerializeField] GameObject modelObj;
 
     /// <summary>
-    /// 前回フレームでブースト動作を行ったか
+    /// ブースト動作を行ったか
     /// </summary>
+    bool isBoost;
     bool isBoostOld;
+    bool isBoostTrigger;
+    bool isBoostRelese;
 
     /// <summary>
     /// ブースト開始時の初速度倍率
     /// </summary>
-    [SerializeField] float boostImpactRate;
+    [ SerializeField] float boostImpactRate;
 
     /// <summary>
     /// ブースト起動中の加速度
@@ -192,6 +186,12 @@ public class CityPhaseMove : MonoBehaviour {
     /// 重力速度ベクトル
     /// </summary>
     Vector3 gravityVec;
+
+    /// <summary>
+    /// 速度限界値
+    /// </summary>
+    [SerializeField] float velocityMax;
+    [SerializeField] float velocityBoostMax;
 
     /// <summary>
     /// 地面判断の際にレイキャストする対象のレイヤー群
@@ -209,7 +209,16 @@ public class CityPhaseMove : MonoBehaviour {
     [SerializeField] [Range( 0f , 1f )] float defaultHandlingInterpolate;
     [SerializeField] [Range( 0f , 1f )] float boostHandlingInterpolate;
 
-    [SerializeField] [Range(0f,1f)] float brakeBias;
+    /// <summary>
+    /// ブレーキしきい値
+    /// </summary>
+    [SerializeField] [Range( -1.5f , 1.5f )] float brakeBiasMin;
+    [SerializeField] [Range( -1.5f , 1.5f )] float brakeBiasMax;
+
+    /// <summary>
+    /// 地上接地判定
+    /// </summary>
+    private bool isGround;
 
     #endregion
 
@@ -229,8 +238,12 @@ public class CityPhaseMove : MonoBehaviour {
         velocityVecOld = Vector3.zero;
         inputObj = null;
         gameObj = null;
+        isBoost = false;
         isBoostOld = false;
+        isBoostTrigger = false;
+        isBoostRelese = false;
         gravityVec = Vector3.zero;
+        isGround = false;
 
         // 算出系
         stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
@@ -257,6 +270,7 @@ public class CityPhaseMove : MonoBehaviour {
         controller.Move( Vector3.zero );
         controller.enabled = isEnable;
         controller.detectCollisions = false;
+        //controller.enabled = false;
     }
 
     /// <summary>
@@ -291,11 +305,13 @@ public class CityPhaseMove : MonoBehaviour {
         // 入力情報取得
         float moveV  = inputObj.GetAxis( "Vertical" );
         float moveH  = inputObj.GetAxis( "Horizontal" );
-        bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
-        bool isBoostTrigger = isBoost & !isBoostOld;
-        bool isBoostRelese  = !isBoost & isBoostOld;
-        bool isBrake = Mathf.Abs( moveV ) > brakeBias ? true : false;
-        bool isGround = false;
+
+        isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+        isBoostTrigger = isBoost & !isBoostOld;
+        isBoostRelese  = !isBoost & isBoostOld;
+
+        float brakeRate = moveV + inputObj.Device_V_Default;
+        bool isBrake = ( brakeRate > brakeBiasMin ) && ( brakeRate < brakeBiasMax ) ? true : false;
 
         // 旋回処理
         Vector3 euler = transform.eulerAngles;
@@ -303,16 +319,16 @@ public class CityPhaseMove : MonoBehaviour {
         transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
 
         // 地面との当たり判定
-        int layerMask = LayerMask.GetMask( groundCheckRaycastLayerName );
-        RaycastHit hitInfo;
-        Vector3 upV = Vector3.up;
-
-        if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 1.0f , layerMask ) )
-        {
-            // 接した場合
-            upV = hitInfo.normal;
-            isGround = true;
-        }
+        //int layerMask = LayerMask.GetMask( groundCheckRaycastLayerName );
+        //RaycastHit hitInfo;
+        //Vector3 upV = Vector3.up;
+        //
+        //if( Physics.Raycast( transform.position + ( transform.up * 0.1f ) , -transform.up , out hitInfo , 0.5f , layerMask ) )
+        //{
+        //    // 接した場合
+        //    upV = hitInfo.normal;
+        //    isGround = true;
+        //}
 
         // HACK: 姿勢修正
         //       こだわる場合は実装
@@ -330,6 +346,15 @@ public class CityPhaseMove : MonoBehaviour {
 
         // 速度演算
         velocityVec += accV * Time.deltaTime;
+
+        // 初速演算
+        if( isBrake == false )
+        {
+            float velocityForce = velocityVec.magnitude;
+            Vector3 velocityDir = velocityVec.normalized;
+
+            velocityVec = Mathf.Max( velocityForce , initialVelocity ) * velocityDir;
+        }
 
         // ブレーキ処理
         if( isBrake )
@@ -387,9 +412,30 @@ public class CityPhaseMove : MonoBehaviour {
             gravityVec = gravity * 2.0f;
         }
 
+        // 速度制限
+        {
+            float velocityForce = velocityVec.magnitude;
+            float velocityLimit = isBoost ? velocityBoostMax : velocityMax;
+            Vector3 velocityDir = velocityVec.normalized;
+
+            velocityVec = Mathf.Min( velocityForce , velocityLimit ) * velocityDir;
+        }
+
         // 移動量の反映
         controller.Move( ( velocityVec + gravityVec ) * Time.deltaTime );
+        //rb.AddForce( ( velocityVec + gravityVec ) , ForceMode.Acceleration );
+        rb.velocity = ( velocityVec + gravityVec );
+        //rb.AddForce( ( accV + gravityVec ) , ForceMode.Acceleration );
 
+        if( Equals( transform.position.y , oldPos.y ) )
+        {
+            isGround = true;
+        }
+        else
+        {
+            isGround = false;
+        }
+        
         // 過去情報を保存しておく
         oldPos = transform.position;
         isBoostOld = isBoost;
@@ -566,7 +612,31 @@ public class CityPhaseMove : MonoBehaviour {
     private void FixedUpdate()
     {
         // PhysXによる当たり判定を行った後の位置を制御点のtransformに反映
-        transform.position = modelObj.transform.position;
+        transform.position = Vector3.Lerp( modelObj.transform.position , transform.position , 0.25f );
+        //rb.velocity = ( velocityVec + gravityVec );
+
+        //// ハンドリングに合わせて速度ベクトルを補正
+        //Vector3 targetVel = transform.rotation * Vector3.forward;
+        //float t = isBoost ? boostHandlingInterpolate : defaultHandlingInterpolate;
+        //
+        //rb.velocity = Vector3.Lerp( rb.velocity.normalized , targetVel , t ) * rb.velocity.magnitude;
+        //
+        //// ブーストON・OFF時の移動ベクトル変換
+        //if( isBoostTrigger || isBoostRelese )
+        //{
+        //    float force = rb.velocity.magnitude;
+        //    rb.velocity = transform.rotation * Vector3.forward;
+        //    rb.velocity *= force;
+        //}
+        //
+        //// 速度制限
+        //{
+        //    float velocityForce = rb.velocity.magnitude;
+        //    float velocityLimit = isBoost ? velocityBoostMax : velocityMax;
+        //    Vector3 velocityDir = rb.velocity.normalized;
+        //
+        //    rb.velocity = Mathf.Min( velocityForce , velocityLimit ) * velocityDir;
+        //}
     }
 
     /// <summary>
@@ -597,7 +667,7 @@ public class CityPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            //str = "速度ベクトル:" + velocityVec + "\n速度量:" + velocityVec.magnitude + "\nフレーム間速度:" + Velocity;
+            str = "速度ベクトル:" + rb.velocity + "\n重力量:" + gravityVec + "\n速度量:" + velocityVec;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }
