@@ -167,10 +167,10 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// ブースト動作を行ったか
     /// </summary>
-    bool isBoost;
-    bool isBoostOld;
-    bool isBoostTrigger;
-    bool isBoostRelese;
+    public bool IsBoost { get; private set; }
+    public bool IsBoostOld { get; private set; }
+    private bool isBoostTrigger;
+    private bool isBoostRelese;
 
     /// <summary>
     /// ブースト開始時の初速度倍率
@@ -238,8 +238,8 @@ public class CityPhaseMove : MonoBehaviour {
         velocityVecOld = Vector3.zero;
         inputObj = null;
         gameObj = null;
-        isBoost = false;
-        isBoostOld = false;
+        IsBoost = false;
+        IsBoostOld = false;
         isBoostTrigger = false;
         isBoostRelese = false;
         gravityVec = Vector3.zero;
@@ -306,9 +306,9 @@ public class CityPhaseMove : MonoBehaviour {
         float moveV  = inputObj.GetAxis( "Vertical" );
         float moveH  = inputObj.GetAxis( "Horizontal" );
 
-        isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
-        isBoostTrigger = isBoost & !isBoostOld;
-        isBoostRelese  = !isBoost & isBoostOld;
+        IsBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+        isBoostTrigger = IsBoost & !IsBoostOld;
+        isBoostRelese  = !IsBoost & IsBoostOld;
 
         float brakeRate = moveV + inputObj.Device_V_Default;
         bool isBrake = ( brakeRate > brakeBiasMin ) && ( brakeRate < brakeBiasMax ) ? true : false;
@@ -374,7 +374,7 @@ public class CityPhaseMove : MonoBehaviour {
 
         // ハンドリングに合わせて速度ベクトルを補正
         Vector3 targetVel = transform.rotation * Vector3.forward;
-        float t = isBoost ? boostHandlingInterpolate : defaultHandlingInterpolate;
+        float t = IsBoost ? boostHandlingInterpolate : defaultHandlingInterpolate;
 
         velocityVec = Vector3.Lerp( velocityVec.normalized , targetVel , t ) * velocityVec.magnitude;
 
@@ -392,7 +392,7 @@ public class CityPhaseMove : MonoBehaviour {
             velocityVec *= boostImpactRate;
         }
 
-        if( isBoost )
+        if( IsBoost )
         {
             velocityVec = velocityVec * ( 1.0f + ( boostAccelerationRate * Time.deltaTime ) );
         }
@@ -415,7 +415,7 @@ public class CityPhaseMove : MonoBehaviour {
         // 速度制限
         {
             float velocityForce = velocityVec.magnitude;
-            float velocityLimit = isBoost ? velocityBoostMax : velocityMax;
+            float velocityLimit = IsBoost ? velocityBoostMax : velocityMax;
             Vector3 velocityDir = velocityVec.normalized;
 
             velocityVec = Mathf.Min( velocityForce , velocityLimit ) * velocityDir;
@@ -438,7 +438,7 @@ public class CityPhaseMove : MonoBehaviour {
         
         // 過去情報を保存しておく
         oldPos = transform.position;
-        isBoostOld = isBoost;
+        IsBoostOld = IsBoost;
     }
 
     /// <summary>
@@ -452,10 +452,10 @@ public class CityPhaseMove : MonoBehaviour {
     //    // 入力情報取得
     //    float moveV = inputObj.GetAxis( "Vertical" );
     //    float moveH = inputObj.GetAxis( "Horizontal" );
-    //    bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
+    //    bool IsBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
     //
     //    //プッシュ時と通常時で旋回力を分ける
-    //    if( isBoost ) moveH *= turnPowerPush;
+    //    if( IsBoost ) moveH *= turnPowerPush;
     //    else         moveH *= turnPower;
     //
     //    // TODO: バイク旋回
@@ -472,7 +472,7 @@ public class CityPhaseMove : MonoBehaviour {
     //    }
     //
     //    // HACK: 地上の速度演算
-    //    if( !isBoost )
+    //    if( !IsBoost )
     //    {
     //        // 加速度付与
     //        Vector3 accV = Vector3.forward * acceleration;
@@ -484,7 +484,7 @@ public class CityPhaseMove : MonoBehaviour {
     //    }
     //
     //    // プッシュ動作
-    //    if( isBoost )
+    //    if( IsBoost )
     //    {
     //        Velocity += ( ( 0.0f - Velocity ) * stoppingPower * Time.deltaTime );
     //
@@ -537,7 +537,7 @@ public class CityPhaseMove : MonoBehaviour {
     //    }
     //
     //    // プッシュ解放した後のダッシュ
-    //    if( !isBoost )
+    //    if( !IsBoost )
     //    {
     //        if( isChargeMax )
     //        {
@@ -617,7 +617,7 @@ public class CityPhaseMove : MonoBehaviour {
 
         //// ハンドリングに合わせて速度ベクトルを補正
         //Vector3 targetVel = transform.rotation * Vector3.forward;
-        //float t = isBoost ? boostHandlingInterpolate : defaultHandlingInterpolate;
+        //float t = IsBoost ? boostHandlingInterpolate : defaultHandlingInterpolate;
         //
         //rb.velocity = Vector3.Lerp( rb.velocity.normalized , targetVel , t ) * rb.velocity.magnitude;
         //
@@ -632,7 +632,7 @@ public class CityPhaseMove : MonoBehaviour {
         //// 速度制限
         //{
         //    float velocityForce = rb.velocity.magnitude;
-        //    float velocityLimit = isBoost ? velocityBoostMax : velocityMax;
+        //    float velocityLimit = IsBoost ? velocityBoostMax : velocityMax;
         //    Vector3 velocityDir = rb.velocity.normalized;
         //
         //    rb.velocity = Mathf.Min( velocityForce , velocityLimit ) * velocityDir;

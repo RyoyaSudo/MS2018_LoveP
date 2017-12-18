@@ -258,8 +258,8 @@ public class Game : MonoBehaviour {
         timeObj.SetState(TimeCtrl.State.TIME_STATE_STOP);
         playerObj.CityPhaseInit();
         playerObj.MoveEnable( false );
-        mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
-        mainCameraObj.GetComponent<StarCameraController>().enabled = false;
+        //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
+        //mainCameraObj.GetComponent<StarCameraController>().enabled = false;
         skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
         phaseTimer = 0;
     }
@@ -273,8 +273,8 @@ public class Game : MonoBehaviour {
         timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
         playerObj.CityPhaseInit();
         playerObj.MoveEnable( true );
-        mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
-        mainCameraObj.GetComponent<StarCameraController>().enabled = false;
+        //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
+        //mainCameraObj.GetComponent<StarCameraController>().enabled = false;
         skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
     }
 
