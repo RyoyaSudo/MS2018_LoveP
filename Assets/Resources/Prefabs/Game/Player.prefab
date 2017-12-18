@@ -3843,6 +3843,7 @@ MonoBehaviour:
   groundFriction: 0.925
   defaultHandlingInterpolate: 0.0625
   boostHandlingInterpolate: 0.005
+  brakeBias: 0.5
 --- !u!138 &138335203387992546
 FixedJoint:
   m_ObjectHideFlags: 1

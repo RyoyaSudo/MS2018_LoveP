@@ -209,6 +209,8 @@ public class CityPhaseMove : MonoBehaviour {
     [SerializeField] [Range( 0f , 1f )] float defaultHandlingInterpolate;
     [SerializeField] [Range( 0f , 1f )] float boostHandlingInterpolate;
 
+    [SerializeField] [Range(0f,1f)] float brakeBias;
+
     #endregion
 
     /// <summary>
@@ -292,7 +294,7 @@ public class CityPhaseMove : MonoBehaviour {
         bool isBoost = Input.GetKey( KeyCode.Space ) || inputObj.GetButton( "Fire1" );
         bool isBoostTrigger = isBoost & !isBoostOld;
         bool isBoostRelese  = !isBoost & isBoostOld;
-        bool isBrake = Mathf.Abs( moveV ) > 0.5f ? true : false;
+        bool isBrake = Mathf.Abs( moveV ) > brakeBias ? true : false;
         bool isGround = false;
 
         // 旋回処理

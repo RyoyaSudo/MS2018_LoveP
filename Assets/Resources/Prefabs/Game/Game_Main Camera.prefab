@@ -20,13 +20,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4884607358479416}
   - component: {fileID: 20843537532527774}
-  - component: {fileID: 92845416804994714}
   - component: {fileID: 124901876103543742}
   - component: {fileID: 81337300165112624}
   - component: {fileID: 114151821828676100}
   - component: {fileID: 114140046376233724}
   - component: {fileID: 82285844135107676}
   - component: {fileID: 114822309208625316}
+  - component: {fileID: 114440195155854502}
   m_Layer: 0
   m_Name: Game_Main Camera
   m_TagString: MainCamera
@@ -72,7 +72,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967261
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -169,13 +169,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!92 &92845416804994714
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1292214055280866}
-  m_Enabled: 1
 --- !u!114 &114140046376233724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,6 +194,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObjPath: Player
+--- !u!114 &114440195155854502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292214055280866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 0a53ae330c38bf14a9819f6423091a91, type: 2}
 --- !u!114 &114822309208625316
 MonoBehaviour:
   m_ObjectHideFlags: 1
