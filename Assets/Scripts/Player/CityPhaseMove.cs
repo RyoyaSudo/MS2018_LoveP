@@ -220,6 +220,12 @@ public class CityPhaseMove : MonoBehaviour {
     /// </summary>
     private bool isGround;
 
+    /// <summary>
+    /// 開始位置
+    /// </summary>
+    Transform spawnPoint;
+    [SerializeField] string spawnPointPath;
+
     #endregion
 
     /// <summary>
@@ -261,8 +267,17 @@ public class CityPhaseMove : MonoBehaviour {
         inputObj   = GameObject.Find( inputObjPath ).GetComponent<LoveP_Input>();
         gameObj    = GameObject.Find( gameObjPath ).GetComponent<Game>();
         controller = GameObject.Find( controllerPath ).GetComponent<CharacterController>();
+        spawnPoint = GameObject.Find( spawnPointPath ).GetComponent<Transform>();
 
         rb = gameObject.GetComponent<Rigidbody>();
+
+        // 初期位置設定
+        Vector3 eular = spawnPoint.eulerAngles;
+
+        moveRadY = eular.y;
+
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
 
         // HACK: 初期化時に移動しておく
         //       移動しないと開始時に埋まった状態になってしまうため、少し移動してCharcterControllerで所定の高さに移動してもらう
@@ -314,7 +329,6 @@ public class CityPhaseMove : MonoBehaviour {
         bool isBrake = ( brakeRate > brakeBiasMin ) && ( brakeRate < brakeBiasMax ) ? true : false;
 
         // 旋回処理
-        Vector3 euler = transform.eulerAngles;
         moveRadY += moveH * 180.0f * Time.deltaTime;
         transform.rotation = Quaternion.Euler( transform.rotation.x , moveRadY , transform.rotation.z );
 

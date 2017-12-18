@@ -78,6 +78,7 @@ public class LovePAutoCam : AutoCam
         motionBlurSettings.frameBlending = blurBlendingOrigin;
 
         postProcessing.profile.motionBlur.settings = motionBlurSettings;
+        postProcessing.profile.motionBlur.enabled = true;
     }
 
     /// <summary>
@@ -107,5 +108,7 @@ public class LovePAutoCam : AutoCam
         motionBlurSettings.frameBlending = Mathf.Lerp( motionBlurSettings.frameBlending , targetBlending , 2.0f * Time.deltaTime );
 
         postProcessing.profile.motionBlur.settings = motionBlurSettings;
+
+        postProcessing.profile.motionBlur.enabled = isBoost;
     }
 }
