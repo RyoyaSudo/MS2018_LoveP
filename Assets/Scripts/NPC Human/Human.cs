@@ -202,7 +202,7 @@ public class Human : MonoBehaviour {
 
         if( Game.IsDebug )
         {
-            Debug.Log( "人の新規状態:" + type );
+            //Debug.Log( "人の新規状態:" + type );
         }
     }
 }
