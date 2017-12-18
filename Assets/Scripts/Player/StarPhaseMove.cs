@@ -221,7 +221,7 @@ public class StarPhaseMove : MonoBehaviour {
             guiStyle.normal = styleState;
 
             string str = "";
-            str = "上方向:" + upV + "\n速度:" + oldForce + "\n姿勢:" + transform.rotation.eulerAngles;
+            //str = "上方向:" + upV + "\n速度:" + oldForce + "\n姿勢:" + transform.rotation.eulerAngles;
 
             GUI.Label( new Rect( 0 , 200 , 800 , 600 ) , str , guiStyle );
         }

@@ -152,7 +152,6 @@ public class FaceController : MonoBehaviour {
         // 親がどの状態か取得
         Human.STATETYPE humanState = transform.parent.GetComponent<Human>().CurrentStateType;
 
-        
         if (humanState == Human.STATETYPE.EVADE)
         {// 親が逃げ回り状態だと涙状態
             faceState = FaceState.FACE_STATE_TEAR;

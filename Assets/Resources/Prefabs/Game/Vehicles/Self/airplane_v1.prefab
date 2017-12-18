@@ -84,7 +84,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4531055238804328}
-  - component: {fileID: 95695023733829914}
   m_Layer: 0
   m_Name: airplane_v1
   m_TagString: Untagged
@@ -1134,23 +1133,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95695023733829914
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1261912529519002}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b4454968e0571ba47a87714b8cc9f70f, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!138 &138887234739027106
 FixedJoint:
   m_ObjectHideFlags: 1

@@ -252,7 +252,6 @@ public class Player : MonoBehaviour
         }
 
         StateParam = State.PLAYER_STATE_FREE;
-        transform.rotation = Quaternion.identity;
 
         Debug.Log( "街フェイズ開始" );
     }
@@ -280,12 +279,8 @@ public class Player : MonoBehaviour
 
         // TODO: 星フェイズ開始時のプレイヤー初期位置設定
         //       Earthオブジェクトにプレイヤー初期位置のスポーンポイントを仕込んでおいて、そこから設定する形に変更したほうがよさそう
-        transform.position = new Vector3( 250.0f , 290.0f , -350.0f );
-        transform.position = new Vector3( 0.0f , 520.0f , 0.0f );
-
         starPhaseMoveObj = GameObject.Find( starPhaseMoveObjPath ).GetComponent<StarPhaseMove>();
         starPhaseMoveObj.IsEnable = true;
-        //starPhaseMoveObj.StarPhaseStart();
 
         starPhaseMoveObj.Initialize();
         StateParam = State.PLAYER_STATE_FREE;

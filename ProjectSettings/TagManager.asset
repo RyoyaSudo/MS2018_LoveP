@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Human
   - RideArea
+  - CityPlane
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Earth
   - CityGround
   - MoveObstacle
-  - 
-  - 
+  - CityPlane
+  - Player
   - 
   - 
   - 

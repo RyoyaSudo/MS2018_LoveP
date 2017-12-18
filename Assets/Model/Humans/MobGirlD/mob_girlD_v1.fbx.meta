@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: 09f4d61900718eb48a249f0f9df948f9
+timeCreated: 1513496970
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: born8
+    100002: born8 1
+    100004: born9
+    100006: born9 1
+    100008: Chest
+    100010: face
+    100012: face 1
+    100014: hair
+    100016: Hair1
+    100018: hair2
+    100020: hair3
+    100022: Head
+    100024: head
+    100026: Hip
+    100028: joint6
+    100030: joint6 1
+    100032: kahanshin
+    100034: L_born8
+    100036: L_born9
+    100038: L_Hand
+    100040: L_Index_Distal
+    100042: L_Index_Intermediate
+    100044: L_Index_Proximal
+    100046: L_Little_Distal
+    100048: L_Little_Intermediate
+    100050: L_Little_Proximal
+    100052: L_LowerArm
+    100054: L_Middle_Distal
+    100056: L_Middle_Intermediate
+    100058: L_Middle_Proximal
+    100060: L_Ring_Distal
+    100062: L_Ring_Intermediate
+    100064: L_Ring_Proximal
+    100066: L_Shoulder
+    100068: L_suika
+    100070: L_suika 1
+    100072: L_Thumb_Distal
+    100074: L_Thumb_Intermediate
+    100076: L_Thumb_proximal
+    100078: L_UpperArm
+    100080: L_zyake
+    100082: Left_Foot
+    100084: Left_LowerLeg
+    100086: Left_Toes1
+    100088: Left_Toes2
+    100090: Left_UpperLeg
+    100092: mayuge_right1
+    100094: //RootNode
+    100096: mobd_model
+    100098: Neck
+    100100: ponite
+    100102: ponite1
+    100104: ponite2
+    100106: ponite3
+    100108: ponite4
+    100110: ponite5
+    100112: ponite9
+    100114: R_born8
+    100116: R_born9
+    100118: R_Hand
+    100120: R_Index_Distal
+    100122: R_Index_Intermediate
+    100124: R_Index_Proximal
+    100126: R_Middle_Distal
+    100128: R_Middle_Intermediate
+    100130: R_Middle_Proximal
+    100132: R_Ring_Distal
+    100134: R_Ring_Intermediate
+    100136: R_Ring_Proximal
+    100138: R_Rittle_Distal
+    100140: R_Rittle_Intermediate
+    100142: R_Rittle_Proximal
+    100144: R_RowerArm
+    100146: R_Shoulder
+    100148: R_Thumb_Distal
+    100150: R_Thumb_Intermediate
+    100152: R_Thumb_proximal
+    100154: R_UpperArm
+    100156: R_zyake1
+    100158: Right_Foot
+    100160: Right_LowerLeg
+    100162: Right_Toes1
+    100164: Right_Toes2
+    100166: Right_UpperLeg
+    100168: Shoues_left
+    100170: Shoues_left1
+    100172: Spine
+    100174: sukato
+    100176: zyaketo
+    400000: born8
+    400002: born8 1
+    400004: born9
+    400006: born9 1
+    400008: Chest
+    400010: face
+    400012: face 1
+    400014: hair
+    400016: Hair1
+    400018: hair2
+    400020: hair3
+    400022: Head
+    400024: head
+    400026: Hip
+    400028: joint6
+    400030: joint6 1
+    400032: kahanshin
+    400034: L_born8
+    400036: L_born9
+    400038: L_Hand
+    400040: L_Index_Distal
+    400042: L_Index_Intermediate
+    400044: L_Index_Proximal
+    400046: L_Little_Distal
+    400048: L_Little_Intermediate
+    400050: L_Little_Proximal
+    400052: L_LowerArm
+    400054: L_Middle_Distal
+    400056: L_Middle_Intermediate
+    400058: L_Middle_Proximal
+    400060: L_Ring_Distal
+    400062: L_Ring_Intermediate
+    400064: L_Ring_Proximal
+    400066: L_Shoulder
+    400068: L_suika
+    400070: L_suika 1
+    400072: L_Thumb_Distal
+    400074: L_Thumb_Intermediate
+    400076: L_Thumb_proximal
+    400078: L_UpperArm
+    400080: L_zyake
+    400082: Left_Foot
+    400084: Left_LowerLeg
+    400086: Left_Toes1
+    400088: Left_Toes2
+    400090: Left_UpperLeg
+    400092: mayuge_right1
+    400094: //RootNode
+    400096: mobd_model
+    400098: Neck
+    400100: ponite
+    400102: ponite1
+    400104: ponite2
+    400106: ponite3
+    400108: ponite4
+    400110: ponite5
+    400112: ponite9
+    400114: R_born8
+    400116: R_born9
+    400118: R_Hand
+    400120: R_Index_Distal
+    400122: R_Index_Intermediate
+    400124: R_Index_Proximal
+    400126: R_Middle_Distal
+    400128: R_Middle_Intermediate
+    400130: R_Middle_Proximal
+    400132: R_Ring_Distal
+    400134: R_Ring_Intermediate
+    400136: R_Ring_Proximal
+    400138: R_Rittle_Distal
+    400140: R_Rittle_Intermediate
+    400142: R_Rittle_Proximal
+    400144: R_RowerArm
+    400146: R_Shoulder
+    400148: R_Thumb_Distal
+    400150: R_Thumb_Intermediate
+    400152: R_Thumb_proximal
+    400154: R_UpperArm
+    400156: R_zyake1
+    400158: Right_Foot
+    400160: Right_LowerLeg
+    400162: Right_Toes1
+    400164: Right_Toes2
+    400166: Right_UpperLeg
+    400168: Shoues_left
+    400170: Shoues_left1
+    400172: Spine
+    400174: sukato
+    400176: zyaketo
+    4300000: sukato
+    4300002: head
+    4300004: kahanshin
+    4300006: face
+    4300008: mayuge_right1
+    4300010: Shoues_left1
+    4300012: Shoues_left
+    4300014: zyaketo
+    4300016: Hair1
+    4300018: hair3
+    4300020: hair2
+    9500000: //RootNode
+    13700000: face
+    13700002: Hair1
+    13700004: hair2
+    13700006: hair3
+    13700008: head
+    13700010: kahanshin
+    13700012: mayuge_right1
+    13700014: Shoues_left
+    13700016: Shoues_left1
+    13700018: sukato
+    13700020: zyaketo
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MOGD_tex_body
+    second: {fileID: 2100000, guid: 754abd1814761c242a13160bd97c2650, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MOGD_tex_face
+    second: {fileID: 2100000, guid: 6f80d40c081f870459d295eafd3007e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MOGD_tex_hair
+    second: {fileID: 2100000, guid: 4fbd515f758442e459fb48c0120df84c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MOGD_tex_komono
+    second: {fileID: 2100000, guid: 64e9866e3ce049841aecd346aefe9dc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MOGD_tex_top
+    second: {fileID: 2100000, guid: a218a8af18961074fad615725aa094c1, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -53,3 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDefaultInputUse: 1
   portNum: COM4
+  device_V_Default: 0

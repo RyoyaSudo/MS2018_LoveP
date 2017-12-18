@@ -28,6 +28,12 @@ public class LoveP_Input : MonoBehaviour {
     private bool pushA = false;
 
     /// <summary>
+    /// 垂直軸補正値
+    /// </summary>
+    public float Device_V_Default { get { return device_V_Default; } }
+    [SerializeField][Range(-1f,1f)] float device_V_Default;
+
+    /// <summary>
     /// 生成時処理
     /// </summary>
     private void Awake()
@@ -43,6 +49,7 @@ public class LoveP_Input : MonoBehaviour {
         if( isDefaultInputUse )
         {
             Debug.LogWarning( "入力モード:Unity標準" );
+            device_V_Default = 0.0f;
         }
         else
         {
@@ -71,7 +78,7 @@ public class LoveP_Input : MonoBehaviour {
     }
 
     // シリアル通信の終了処理
-    void OnDisable()
+    private void OnDestroy()
     {
         if( serial != null )
         {

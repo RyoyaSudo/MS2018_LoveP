@@ -1,0 +1,283 @@
+fileFormatVersion: 2
+guid: a7a2a0ef48aef56498199f78eb684fc4
+timeCreated: 1513493272
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: bati_star
+    100002: Chest
+    100004: CHILD
+    100006: face
+    100008: foot
+    100010: hair1
+    100012: Head
+    100014: head1
+    100016: Hip
+    100018: joint6
+    100020: joint6 1
+    100022: joint7
+    100024: L_born8
+    100026: L_born9
+    100028: L_Foot
+    100030: L_Hand
+    100032: L_Index_Distal
+    100034: L_Index_Intermediate
+    100036: L_Index_Proximal
+    100038: L_Little_Distal
+    100040: L_Little_Intermediate
+    100042: L_Little_Proximal
+    100044: L_LowerArm
+    100046: L_LowerLeg
+    100048: L_Middle_Distal
+    100050: L_Middle_Intermediate
+    100052: L_Middle_Proximal
+    100054: L_Ring_Distal
+    100056: L_Ring_Intermediate
+    100058: L_Ring_Proximal
+    100060: L_Shoulder
+    100062: L_Thumb_Distal
+    100064: L_Thumb_Intermediate
+    100066: L_Thumb_proximal
+    100068: L_Toes1
+    100070: L_Toes2
+    100072: L_UpperArm
+    100074: L_UpperLeg
+    100076: L_zyake
+    100078: mayuge_right1
+    100080: //RootNode
+    100082: Neck
+    100084: polySurface1
+    100086: R_born8
+    100088: R_born9
+    100090: R_Foot
+    100092: R_Hand
+    100094: R_Index_Distal
+    100096: R_Index_Intermediate
+    100098: R_Index_Proximal
+    100100: R_Little_Distal
+    100102: R_Little_Intermediate
+    100104: R_Little_Proximal
+    100106: R_LowerArm
+    100108: R_LowerLeg
+    100110: R_Middle_Distal
+    100112: R_Middle_Intermediate
+    100114: R_Middle_Proximal
+    100116: R_Ring_Distal
+    100118: R_Ring_Intermediate
+    100120: R_Ring_Proximal
+    100122: R_Shoulder
+    100124: R_Thumb_Distal
+    100126: R_Thumb_Intermediate
+    100128: R_Thumb_proximal
+    100130: R_Toes1
+    100132: R_Toes2
+    100134: R_UpperArm
+    100136: R_UpperLeg
+    100138: R_zyake
+    100140: Shoues_left
+    100142: Shoues_right
+    100144: Spine
+    100146: tops
+    100148: zubon
+    400000: bati_star
+    400002: Chest
+    400004: CHILD
+    400006: face
+    400008: foot
+    400010: hair1
+    400012: Head
+    400014: head1
+    400016: Hip
+    400018: joint6
+    400020: joint6 1
+    400022: joint7
+    400024: L_born8
+    400026: L_born9
+    400028: L_Foot
+    400030: L_Hand
+    400032: L_Index_Distal
+    400034: L_Index_Intermediate
+    400036: L_Index_Proximal
+    400038: L_Little_Distal
+    400040: L_Little_Intermediate
+    400042: L_Little_Proximal
+    400044: L_LowerArm
+    400046: L_LowerLeg
+    400048: L_Middle_Distal
+    400050: L_Middle_Intermediate
+    400052: L_Middle_Proximal
+    400054: L_Ring_Distal
+    400056: L_Ring_Intermediate
+    400058: L_Ring_Proximal
+    400060: L_Shoulder
+    400062: L_Thumb_Distal
+    400064: L_Thumb_Intermediate
+    400066: L_Thumb_proximal
+    400068: L_Toes1
+    400070: L_Toes2
+    400072: L_UpperArm
+    400074: L_UpperLeg
+    400076: L_zyake
+    400078: mayuge_right1
+    400080: //RootNode
+    400082: Neck
+    400084: polySurface1
+    400086: R_born8
+    400088: R_born9
+    400090: R_Foot
+    400092: R_Hand
+    400094: R_Index_Distal
+    400096: R_Index_Intermediate
+    400098: R_Index_Proximal
+    400100: R_Little_Distal
+    400102: R_Little_Intermediate
+    400104: R_Little_Proximal
+    400106: R_LowerArm
+    400108: R_LowerLeg
+    400110: R_Middle_Distal
+    400112: R_Middle_Intermediate
+    400114: R_Middle_Proximal
+    400116: R_Ring_Distal
+    400118: R_Ring_Intermediate
+    400120: R_Ring_Proximal
+    400122: R_Shoulder
+    400124: R_Thumb_Distal
+    400126: R_Thumb_Intermediate
+    400128: R_Thumb_proximal
+    400130: R_Toes1
+    400132: R_Toes2
+    400134: R_UpperArm
+    400136: R_UpperLeg
+    400138: R_zyake
+    400140: Shoues_left
+    400142: Shoues_right
+    400144: Spine
+    400146: tops
+    400148: zubon
+    4300000: face
+    4300002: hair1
+    4300004: mayuge_right1
+    4300006: head1
+    4300008: foot
+    4300010: tops
+    4300012: Shoues_right
+    4300014: Shoues_left
+    4300016: bati_star
+    4300018: zubon
+    4300020: polySurface1
+    9500000: //RootNode
+    13700000: bati_star
+    13700002: face
+    13700004: foot
+    13700006: hair1
+    13700008: head1
+    13700010: mayuge_right1
+    13700012: polySurface1
+    13700014: Shoues_left
+    13700016: Shoues_right
+    13700018: tops
+    13700020: zubon
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tex_Child_body
+    second: {fileID: 2100000, guid: 2bd567311717b064bb90ef7199903bc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tex_Child_face
+    second: {fileID: 2100000, guid: 875d6657e3e428145a673754043bf45e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tex_Child_hair
+    second: {fileID: 2100000, guid: 45219278291b7e749846454749099a87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tex_Child_komono
+    second: {fileID: 2100000, guid: 166e832c5c56db945a4964b5dabb03e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tex_Child_tops
+    second: {fileID: 2100000, guid: 66d62bc787857004f96f5072beb512d8, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
