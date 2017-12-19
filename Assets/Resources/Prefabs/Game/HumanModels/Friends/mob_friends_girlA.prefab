@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 136603616787828304}
   - component: {fileID: 114277554224804240}
   m_Layer: 0
-  m_Name: mob_girlC_v1
+  m_Name: mob_friends_girlA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

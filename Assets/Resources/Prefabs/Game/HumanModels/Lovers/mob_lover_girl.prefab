@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 136219944547100844}
   - component: {fileID: 114978797487554652}
   m_Layer: 0
-  m_Name: mob_girlB_v1
+  m_Name: mob_lover_girl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
