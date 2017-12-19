@@ -88,4 +88,6 @@ PlayableDirector:
     value: {fileID: 0}
   m_ExposedReferences:
     m_References:
+    - ce36fdfcaf19d2444a3ba67e9e22fc7a: {fileID: 0}
     - b1fabfc4e44a3e4468bf587f1879fc0d: {fileID: 0}
+    - 314cc70d1e8949e45af8d130afaf28c6: {fileID: 0}

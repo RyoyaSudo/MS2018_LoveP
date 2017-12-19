@@ -41,7 +41,7 @@ MonoBehaviour:
     m_ClipIn: 0
     m_Asset: {fileID: 114076715757848844}
     m_UnderlyingAsset: {fileID: 114076715757848844}
-    m_Duration: 5.266666666666667
+    m_Duration: 6.133333333332
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114025058673769080}
     m_EaseInDuration: 0
@@ -50,37 +50,13 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -106,14 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db79ba61ed089df49a0865ba4b06ca1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getOffvcam1: {fileID: 114468329269339050, guid: 373ac206f96e23a4194bb6120f40f7ae,
-    type: 2}
-  getOffDolly: {fileID: 1502941510973558, guid: 2eea373204740b846ba28b18e2e39033,
-    type: 2}
+  virtualCameraManagerPath: VirtualCameraManager
   playerPath: Player
   mainCameraPath: Game_Main Camera
-  dollyIntervalTime: 0.01
-  dollyIntervalPos: 0.02
 --- !u!114 &114517220492768278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,9 +97,23 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: 
+    exposedName: 314cc70d1e8949e45af8d130afaf28c6
     defaultValue: {fileID: 114468329269339050, guid: 373ac206f96e23a4194bb6120f40f7ae,
       type: 2}
+--- !u!114 &114769362187589760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  VirtualCamera:
+    exposedName: ce36fdfcaf19d2444a3ba67e9e22fc7a
+    defaultValue: {fileID: 0}
 --- !u!114 &114937239220307068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,32 +132,20 @@ MonoBehaviour:
   m_Parent: {fileID: 11400000}
   m_Children: []
   m_Clips:
-  - m_Start: 0.11666666666666667
+  - m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 114517220492768278}
     m_UnderlyingAsset: {fileID: 114517220492768278}
-    m_Duration: 5.149999999999333
+    m_Duration: 3.033333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114937239220307068}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendOutDuration: 0.03333333333333277
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -192,4 +165,50 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: GetOffvcam1
+    m_Version: 1
+  - m_Start: 3.0000000000000004
+    m_ClipIn: 0
+    m_Asset: {fileID: 114769362187589760}
+    m_UnderlyingAsset: {fileID: 114769362187589760}
+    m_Duration: 3.1333333333319997
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114937239220307068}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.03333333333333277
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: GetOffvcam2
     m_Version: 1

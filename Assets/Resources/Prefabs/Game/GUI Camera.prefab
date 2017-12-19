@@ -871,20 +871,20 @@ MonoBehaviour:
   ptsLogoPrefab: {fileID: 1347684776603354, guid: bc28f7dad671743b2a617f42cd184f04,
     type: 2}
   SpriteArray:
-  - {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300002, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300004, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300006, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300008, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300010, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300012, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
+  - {fileID: 21300000, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300002, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300004, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300006, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300008, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300010, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300012, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300014, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300016, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300018, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
   padding: 10
   heightPadding: 75
   ptsPadding: 4
-  numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
+  numberSp: {fileID: 21300000, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
   gameCtrlObjPath: Game
 --- !u!114 &114439202552879148
 MonoBehaviour:

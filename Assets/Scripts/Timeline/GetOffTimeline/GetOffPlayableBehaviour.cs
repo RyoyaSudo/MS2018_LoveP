@@ -13,62 +13,87 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
     private GameObject mainCameraObj;   //メインカメラオブジェ
     public string mainCameraPath;       //メインカメラパス
 
-    public GameObject getOffDolly;      //ドリー
+    private VirtualCameraManager virtualCameraManager;      //バーチャルカメラマネージャ
+    public string virtualCameraManagerPath;                 //バーチャルカメラマネージャパス
 
-    public CinemachineVirtualCamera getOffvcam1;  //バーチャルカメラ1
-    private CinemachineTrackedDolly trackDolly1;  //トラックドリー1
+    private GameObject vc1Obj;          //バーチャルカメラオブジェクト1
+    private GameObject vc2Obj;          //バーチャルカメラオブジェクト2
 
-    public float dollyIntervalTime;    //ドリーの刻む時間
-    public float dollyIntervalPos;     //ドリーの刻む位置
-    private float pathPosCnt;          //パスの位置カウント
+    private GameObject awaitObj;        //待ち受け状態の人オブジェ
+    private GameObject getOffObj;       //下車状態の人オブジェ
 
     // タイムライ開始実行
     public override void OnGraphStart(Playable playable)
     {
-        //プレイヤーオブジェクト取得
-        playerObj = GameObject.Find(playerPath);
+        //各オブジェクト取得    
+        playerObj = GameObject.Find(playerPath);        //プレイヤーオブジェクト
+        mainCameraObj = GameObject.Find(mainCameraPath);//メインカメラオブジェクト
+        virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
 
-        //カメラオブジェクト取得
-        mainCameraObj = GameObject.Find(mainCameraPath);
+        // HACK : 違う取得の方法を試します
+        //今いる人オブジェクト取得
+        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
 
+        //「待ち受け」状態のオブジェクトを探す
+        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
+        {
+            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.AWAIT )
+            {
+                awaitObj = humanObj[nCnt];
+            }
+        }
+
+        //「下車」状態のオブジェクトを探す
+        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
+        {
+            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.GETOFF)
+            {
+                getOffObj = humanObj[nCnt];
+            }
+        }
+
+
+        //バーチャルカメラのSetActive ON
+        virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM1, true);
+        virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM2, true);
+
+        //バーチャルカメラオブジェクト取得
+        vc1Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM1);
+        vc2Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM2);
+
+        //バーチャルカメラ取得
+        Cinemachine.CinemachineVirtualCamera vc1 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        Cinemachine.CinemachineVirtualCamera vc2 = vc2Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         //LookAt設定
-        getOffvcam1.LookAt = playerObj.transform;
+        vc1.LookAt = getOffObj.transform;
+        vc2.LookAt = awaitObj.transform;
 
-        //Follow設定
-        getOffvcam1.Follow = playerObj.transform;
+        //位置設定
+        Vector3 pos, direction;
 
-        //ドリーの位置と回転を設定
-        Vector3 pos;
-        pos = playerObj.transform.position;
-        pos += playerObj.transform.forward * 0.5f;
-        //pos.y += 2.0f;
-        getOffDolly.transform.position = pos;
+        direction = playerObj.transform.position - awaitObj.transform.position;
+        direction = direction.normalized;
+        pos = awaitObj.transform.position + (-direction * 5.0f);
+        pos.y += 3.0f;
+        vc1Obj.transform.position = pos;
 
-        Quaternion rotation;
-        rotation = playerObj.transform.rotation;
-        //rotation.y += 70.0f;
-        getOffDolly.transform.rotation = rotation;
+        pos = awaitObj.transform.position + (direction * 3.0f);
+        pos.y += 1.0f;
+        vc2Obj.transform.position = pos;
     }
 
     // タイムライン停止実行
     public override void OnGraphStop(Playable playable)
     {
-
+        //バーチャルカメラのSetActive OFF
+        virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM1, false);
+        virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM2, false);
     }
 
     // PlayableTrack再生実行
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
-        //BodyのCinemachineTrackedDolly取得
-        trackDolly1 = getOffvcam1.GetCinemachineComponent<CinemachineTrackedDolly>();
-
-        //パス位置の設定
-        if( trackDolly1 != null )
-        {
-            trackDolly1.m_PathPosition = 0;
-            pathPosCnt = 0;
-        }
     }
 
     // PlayableTrack停止時実行
@@ -76,41 +101,8 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
     {
     }
 
-
     // PlayableTrack再生時毎フレーム実行
     public override void PrepareFrame(Playable playable, FrameData info)
     {
-        if( trackDolly1 == null )
-        {
-            return;
-        }
-
-        if( pathPosCnt >= dollyIntervalTime)
-        {
-            float f;
-
-            for( f = pathPosCnt; f >= dollyIntervalTime; f -= dollyIntervalTime)
-            {
-                trackDolly1.m_PathPosition += dollyIntervalPos;
-
-                trackDolly1.m_PathPosition = Mathf.Min(trackDolly1.m_PathPosition , 3.0f );
-            }
-
-            pathPosCnt = f;
-        }
-
-        pathPosCnt += Time.deltaTime;
-
-
-        //trackDolly1.m_PathPosition = pathPosCnt;
-        //
-        //if (pathPosCnt >= 3.0f )
-        //{
-        //    pathPosCnt = 3.0f;
-        //}
-        //else
-        //{
-        //    pathPosCnt += Time.deltaTime;
-        //}
     }
 }

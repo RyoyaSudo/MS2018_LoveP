@@ -15,6 +15,7 @@ public class RideTimeline : Timeline {
     /// メインカメラに対して処理を実行するため取得する
     /// </summary>
     private GameObject cameraObj;
+
     [SerializeField] string cameraPath;
 
     /// <summary>

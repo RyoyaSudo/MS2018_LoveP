@@ -6,11 +6,9 @@ using UnityEngine.Playables;
 [System.Serializable]
 public class RidePlayableAsset : PlayableAsset
 {
-    public Cinemachine.CinemachineVirtualCamera rideCamera1; //バーチャルカメラ1
-    public Cinemachine.CinemachineVirtualCamera rideCamera2; //バーチャルカメラ2
-
-    public string playerPath;                           //プレイヤーパス
-    public string mainCameraPath;                       //メインカメラパス
+    public string playerPath;               //プレイヤーパス
+    public string mainCameraPath;           //メインカメラパス
+    public string virtualCameraManagerPath; //バーチャルカメラマネージャパス
 
     //Timeline再生開始時に１度呼ばれる
     // Factory method that generates a playable based on this asset
@@ -20,8 +18,7 @@ public class RidePlayableAsset : PlayableAsset
         var behaviour = new RidePlayableBehaviour();
 
         // Resolveメソッドを利用して、charaObjectの参照を実行時に解決します。
-        behaviour.rideCamera1 = rideCamera1;
-        behaviour.rideCamera2 = rideCamera2;
+        behaviour.virtualCameraManagerPath = virtualCameraManagerPath;
         behaviour.playerPath = playerPath;
         behaviour.mainCameraPath = mainCameraPath;
 
