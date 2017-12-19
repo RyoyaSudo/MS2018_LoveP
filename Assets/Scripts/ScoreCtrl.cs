@@ -106,6 +106,8 @@ public class ScoreCtrl : MonoBehaviour
 
         // オブジェクトを取得
         gameCtrl = GameObject.Find( gameCtrlObjPath ).GetComponent<Game>();
+
+        totalScore = 12121212;
     }
 
     void Update()
