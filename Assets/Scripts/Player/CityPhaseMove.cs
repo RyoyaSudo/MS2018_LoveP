@@ -215,6 +215,8 @@ public class CityPhaseMove : MonoBehaviour {
     [SerializeField] [Range( -1.5f , 1.5f )] float brakeBiasMin;
     [SerializeField] [Range( -1.5f , 1.5f )] float brakeBiasMax;
 
+    [SerializeField] bool isDebugBrake;
+
     /// <summary>
     /// 地上接地判定
     /// </summary>
@@ -373,7 +375,7 @@ public class CityPhaseMove : MonoBehaviour {
         // ブレーキ処理
         if( isBrake )
         {
-            velocityVec *= groundFriction;
+            velocityVec *= isDebugBrake ? 0.0f : groundFriction;
 
             if( velocityVec.magnitude < stoppingDeadZone )
             {
