@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1538654053994476}
+  m_IsPrefabParent: 1
+--- !u!1 &1538654053994476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4241284163372170}
+  - component: {fileID: 320573639118118988}
+  - component: {fileID: 114618299372303662}
+  m_Layer: 0
+  m_Name: ChangeTimeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4241284163372170
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538654053994476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114618299372303662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538654053994476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f2f685043cc4244addee8a2a4fcab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachineTrackPath: Cinemachine Track
+  cameraPath: Game_Main Camera
+--- !u!320 &320573639118118988
+PlayableDirector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538654053994476}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 24b9d448f0764ed4eab1b55ee5a93c5f, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114466492303773478, guid: 24b9d448f0764ed4eab1b55ee5a93c5f, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114389464854382748, guid: 24b9d448f0764ed4eab1b55ee5a93c5f, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References:
+    - c167877be3e17c6408c12aec7f851d3b: {fileID: 0}
+    - d5996010b59828f4c93861916bdd38eb: {fileID: 0}

@@ -9,17 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 337831424, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
-  m_Name: RideTimeline
+  m_Name: ChangeTimeline
   m_EditorClassIdentifier: 
   m_NextId: 0
   m_Tracks:
-  - {fileID: 114958952042992840}
-  - {fileID: 114856337576305708}
+  - {fileID: 114466492303773478}
+  - {fileID: 114389464854382748}
   m_FixedDuration: 0
   m_EditorSettings:
     fps: 60
   m_DurationMode: 0
---- !u!114 &114200871028193098
+--- !u!114 &114092193031655928
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -31,39 +31,9 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: ba738ca9c0783ac4fb9712b69b57516a
-    defaultValue: {fileID: 114083305387437356, guid: 7cff905e5383ea54cbe9002c26d297a8,
-      type: 2}
---- !u!114 &114634219575064128
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 181143100bf423c4ba7e7baa54d21d5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPath: Player
-  mainCameraPath: Game_Main Camera
-  virtualCameraManagerPath: VirtualCameraManager
---- !u!114 &114725423635360192
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
-  m_Name: CinemachineShot
-  m_EditorClassIdentifier: 
-  VirtualCamera:
-    exposedName: fbd76973ad4399440a6d8be66b753310
-    defaultValue: {fileID: 114737238380602636, guid: bc4def4b3ea008d4ab86a01cd6508c2c,
-      type: 2}
---- !u!114 &114856337576305708
+    exposedName: d5996010b59828f4c93861916bdd38eb
+    defaultValue: {fileID: 0}
+--- !u!114 &114389464854382748
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -81,84 +51,38 @@ MonoBehaviour:
   m_Parent: {fileID: 11400000}
   m_Children: []
   m_Clips:
-  - m_Start: 0.1
+  - m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: 114200871028193098}
-    m_UnderlyingAsset: {fileID: 114200871028193098}
-    m_Duration: 4.733333333333333
+    m_Asset: {fileID: 114092193031655928}
+    m_UnderlyingAsset: {fileID: 114092193031655928}
+    m_Duration: 8.033333333332
     m_TimeScale: 1
-    m_ParentTrack: {fileID: 114856337576305708}
+    m_ParentTrack: {fileID: 114389464854382748}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.31666666666666643
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Ridevcam1
-    m_Version: 1
-  - m_Start: 4.516666666666667
-    m_ClipIn: 0
-    m_Asset: {fileID: 114725423635360192}
-    m_UnderlyingAsset: {fileID: 114725423635360192}
-    m_Duration: 0.5166666666653335
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114856337576305708}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 0.31666666666666643
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 0
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -171,9 +95,9 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Ridevcam2
+    m_DisplayName: Changevcam1
     m_Version: 1
---- !u!114 &114958952042992840
+--- !u!114 &114466492303773478
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -193,11 +117,11 @@ MonoBehaviour:
   m_Clips:
   - m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: 114634219575064128}
-    m_UnderlyingAsset: {fileID: 114634219575064128}
-    m_Duration: 5.033333333333333
+    m_Asset: {fileID: 114611713728106228}
+    m_UnderlyingAsset: {fileID: 114611713728106228}
+    m_Duration: 8.033333333333333
     m_TimeScale: 1
-    m_ParentTrack: {fileID: 114958952042992840}
+    m_ParentTrack: {fileID: 114466492303773478}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
@@ -247,5 +171,23 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: RidePlayableAsset
+    m_DisplayName: ChangePlayableAsset
     m_Version: 1
+--- !u!114 &114611713728106228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b34c1c099476f498bc1e547d6a4e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPath: Player
+  mainCameraPath: Game_Main Camera
+  virtualCameraManagerPath: VirtualCameraManager
+  changeDolly: {fileID: 1558910138587938, guid: ffb22e6973f66dd4387f6c4869b6752b,
+    type: 2}
+  dollyIntervalTime: 0.005
+  dollyIntervalPos: 0.005

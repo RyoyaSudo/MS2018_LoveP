@@ -16,8 +16,13 @@ public class TimelineManager : MonoBehaviour {
     // 初期化
     void Start ()
     {
+
+    }
+    private void Awake()
+    {
         // 生成
         TimelineCreate();
+
     }
 
     /// <summary>

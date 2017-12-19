@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RideTimeline : Timeline {
+public class ChangeTimeline : Timeline {
 
     /// <summary>
     /// シネマシーントラックパス

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 [System.Serializable]
-public class GetOffPlayableAsset : PlayableAsset
+public class ReadyPlayableAsset : PlayableAsset
 {
     public string virtualCameraManagerPath;             //バーチャルカメラマネージャパス
 
@@ -16,13 +16,13 @@ public class GetOffPlayableAsset : PlayableAsset
     public override Playable CreatePlayable(PlayableGraph graph, GameObject go)
     {
         // もともとある、CreatePlayableメソッド内で、PlayableBehaviourを以下のようにインスタンス化
-        var behaviour = new GetOffPlayableBehaviour();
+        var behaviour = new ReadyPlayableBehaviour();
 
         // Resolveメソッドを利用して、charaObjectの参照を実行時に解決します。
         behaviour.virtualCameraManagerPath = virtualCameraManagerPath;
         behaviour.playerPath = playerPath;
         behaviour.mainCameraPath = mainCameraPath;
 
-        return ScriptPlayable<GetOffPlayableBehaviour>.Create(graph, behaviour);
+        return ScriptPlayable<ReadyPlayableBehaviour>.Create(graph, behaviour);
     }
 }
