@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4097700361217132}
   - component: {fileID: 33682374928645540}
   - component: {fileID: 23753894589505832}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Vehicle_Car_CargoTruck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4070473205596134}
   - component: {fileID: 33526626094558940}
   - component: {fileID: 23263432123318346}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Object049
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4722517148501374}
   - component: {fileID: 65936525571958538}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Vehicle_Car_CargoTruck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 54942486285983020}
   - component: {fileID: 114236140670276628}
   - component: {fileID: 114736020108749836}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: NpcVehicleCargoTruck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4751185733021174}
   - component: {fileID: 33475821478135368}
   - component: {fileID: 23479002842011028}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Object048
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4940832686299946}
   - component: {fileID: 33657702617237508}
   - component: {fileID: 23911513501812420}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Object047
   m_TagString: Untagged
   m_Icon: {fileID: 0}

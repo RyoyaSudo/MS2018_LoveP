@@ -7,9 +7,8 @@ public class GuestCursor : MonoBehaviour {
     GameObject player;   // プレイヤーキャラ
     GameObject parent;  // 親オブジェクト
 
-	// Use this for initialization
-	void Start () {
-
+                            // Use this for initialization
+    void Start () {
         // プレイヤーオブジェクトと親オブジェクトを取得
         // 2017/12/01 数藤
         //   ・親オブジェクトの取得の仕方を『root』から『parent』に変更しました。
@@ -20,6 +19,8 @@ public class GuestCursor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // 親オブジェクトであるマップアイコンをプレイヤーと同じ向きにする
+        parent.transform.rotation = new Quaternion(0.0f, player.transform.rotation.y, 0.0f, player.transform.rotation.w);
         
         // 自分の位置をプレイヤーの位置に設定
         transform.position = new Vector3(player.transform.position.x,
@@ -45,5 +46,6 @@ public class GuestCursor : MonoBehaviour {
         }
 
         transform.Translate(new Vector3(0.0f, 0.0f, 65.4f));
+       
     }
 }
