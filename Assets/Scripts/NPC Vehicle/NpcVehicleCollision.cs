@@ -71,6 +71,12 @@ public class NpcVehicleCollision : MonoBehaviour {
             //pos = new Vector3(pos.x + addPower, pos.y + addPower, pos.z + addPower);
             obstacleRb.AddForce( transform.forward * addPower , ForceMode.Impulse );
             obstacleRb.AddForce( velocity * impactRate , ForceMode.Impulse );
+            playerObj.PlaySoundEffect(SoundController.Sounds.VEHICLE_BUMP_BIG);
+        }
+        else
+        {
+            Player playerObj = col.transform.root.gameObject.GetComponent<Player>();
+            playerObj.PlaySoundEffect(SoundController.Sounds.VEHICLE_BUMP_SMALL);
         }
     }
 }
