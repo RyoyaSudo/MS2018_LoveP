@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e82c5d00b6005b74da3647a2e39d3693
-timeCreated: 1513727482
+guid: e16e2783350691c4f91036eb1b2de52f
+timeCreated: 1513762381
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -49,16 +49,16 @@ ModelImporter:
     100082: R_Index_Distal
     100084: R_Index_Intermediate
     100086: R_Index_Proximal
-    100088: R_Middle_Distal
-    100090: R_Middle_Intermediate
-    100092: R_Middle_Proximal
-    100094: R_Ring_Distal
-    100096: R_Ring_Intermediate
-    100098: R_Ring_Proximal
-    100100: R_Rittle_Distal
-    100102: R_Rittle_Intermediate
-    100104: R_Rittle_Proximal
-    100106: R_RowerArm
+    100088: R_LowerArm
+    100090: R_Middle_Distal
+    100092: R_Middle_Intermediate
+    100094: R_Middle_Proximal
+    100096: R_Ring_Distal
+    100098: R_Ring_Intermediate
+    100100: R_Ring_Proximal
+    100102: R_Rittle_Distal
+    100104: R_Rittle_Intermediate
+    100106: R_Rittle_Proximal
     100108: R_Shoulder
     100110: R_Thumb_Distal
     100112: R_Thumb_Intermediate
@@ -119,16 +119,16 @@ ModelImporter:
     400082: R_Index_Distal
     400084: R_Index_Intermediate
     400086: R_Index_Proximal
-    400088: R_Middle_Distal
-    400090: R_Middle_Intermediate
-    400092: R_Middle_Proximal
-    400094: R_Ring_Distal
-    400096: R_Ring_Intermediate
-    400098: R_Ring_Proximal
-    400100: R_Rittle_Distal
-    400102: R_Rittle_Intermediate
-    400104: R_Rittle_Proximal
-    400106: R_RowerArm
+    400088: R_LowerArm
+    400090: R_Middle_Distal
+    400092: R_Middle_Intermediate
+    400094: R_Middle_Proximal
+    400096: R_Ring_Distal
+    400098: R_Ring_Intermediate
+    400100: R_Ring_Proximal
+    400102: R_Rittle_Distal
+    400104: R_Rittle_Intermediate
+    400106: R_Rittle_Proximal
     400108: R_Shoulder
     400110: R_Thumb_Distal
     400112: R_Thumb_Intermediate
@@ -259,24 +259,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Left_UpperLeg
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: Right_UpperLeg
       humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Left_LowerLeg
-      humanName: LeftLowerLeg
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -291,16 +275,16 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Left_Foot
-      humanName: LeftFoot
+    - boneName: Right_Foot
+      humanName: RightFoot
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Right_Foot
-      humanName: RightFoot
+    - boneName: Right_Toes1
+      humanName: RightToes
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -315,32 +299,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Neck
-      humanName: Neck
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Shoulder
-      humanName: LeftShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: R_Shoulder
       humanName: RightShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_UpperArm
-      humanName: LeftUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -355,24 +315,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: L_LowerArm
-      humanName: LeftLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_RowerArm
+    - boneName: R_LowerArm
       humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Hand
-      humanName: LeftHand
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -387,16 +331,88 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Left_Toes1
-      humanName: LeftToes
+    - boneName: Neck
+      humanName: Neck
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Right_Toes1
-      humanName: RightToes
+    - boneName: Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: face 1
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_Shoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_UpperArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_LowerArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_Hand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_UpperLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_LowerLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Toes1
+      humanName: LeftToes
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -651,22 +667,14 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Head
-      humanName: Head
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     skeleton:
-    - name: mob_manD_v2(Clone)
+    - name: mob_manD_v3(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hip
-      parentName: mob_manD_v2(Clone)
+      parentName: mob_manD_v3(Clone)
       position: {x: -1.9699448e-16, y: 1.2332127, z: -0.09588024}
       rotation: {x: -0.47406244, y: 0.52465683, z: -0.47406244, w: 0.52465683}
       scale: {x: 1, y: 1, z: 1}
@@ -763,7 +771,7 @@ ModelImporter:
     - name: L_Index_Intermediate
       parentName: L_Index_Proximal
       position: {x: -0.06843817, y: -0.0029862646, z: -0.000004489934}
-      rotation: {x: -9.755725e-21, y: 0.00008291752, z: -0.055148624, w: 0.9984782}
+      rotation: {x: -1.3149021e-20, y: 0.00008291752, z: -0.055148624, w: 0.9984782}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Index_Distal
       parentName: L_Index_Intermediate
@@ -778,7 +786,7 @@ ModelImporter:
     - name: L_Little_Intermediate
       parentName: L_Little_Proximal
       position: {x: -0.05129857, y: -0.0024486904, z: -0.0022278272}
-      rotation: {x: -1.5474966e-20, y: -0.00007686991, z: -0.046323534, w: 0.9989265}
+      rotation: {x: -1.674688e-20, y: -0.00007686991, z: -0.046323534, w: 0.9989265}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Little_Distal
       parentName: L_Little_Intermediate
@@ -808,7 +816,7 @@ ModelImporter:
     - name: L_Ring_Intermediate
       parentName: L_Ring_Proximal
       position: {x: -0.06771354, y: -0.002103926, z: 0.0019390988}
-      rotation: {x: 1.8542106e-21, y: -0.000014942366, z: -0.037812736, w: 0.99928486}
+      rotation: {x: 1.9601656e-21, y: -0.000014942366, z: -0.037812736, w: 0.99928486}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Ring_Distal
       parentName: L_Ring_Intermediate
@@ -860,13 +868,13 @@ ModelImporter:
       position: {x: 0.13562053, y: -0.008467327, z: -0.009258499}
       rotation: {x: -0.0054399325, y: -0.082892455, z: 0.0080086095, w: 0.9965115}
       scale: {x: 1, y: 1, z: 1}
-    - name: R_RowerArm
+    - name: R_LowerArm
       parentName: R_UpperArm
       position: {x: 0.36704963, y: -0.0121118445, z: -0.045693662}
       rotation: {x: 0.0034911183, y: 0.14996776, z: -0.04970392, w: 0.98743457}
       scale: {x: 1, y: 1, z: 1}
     - name: R_Hand
-      parentName: R_RowerArm
+      parentName: R_LowerArm
       position: {x: 0.30047464, y: 0.018294228, z: -0.007328734}
       rotation: {x: 0.00041319037, y: -0.038718354, z: 0.03189677, w: 0.99874085}
       scale: {x: 1, y: 1, z: 1}
@@ -883,7 +891,7 @@ ModelImporter:
     - name: R_Index_Intermediate
       parentName: R_Index_Proximal
       position: {x: 0.06843707, y: 0.0029882768, z: 0.0000043373}
-      rotation: {x: 4.24162e-22, y: 0.00008291752, z: -0.055148624, w: 0.9984782}
+      rotation: {x: -1.2724859e-21, y: 0.00008291752, z: -0.055148624, w: 0.9984782}
       scale: {x: 1, y: 1, z: 1}
     - name: R_Index_Distal
       parentName: R_Index_Intermediate
@@ -913,7 +921,7 @@ ModelImporter:
     - name: R_Ring_Intermediate
       parentName: R_Ring_Proximal
       position: {x: 0.06771321, y: 0.0020980272, z: -0.0019391406}
-      rotation: {x: -1.5893234e-22, y: -0.000014942366, z: -0.037812736, w: 0.99928486}
+      rotation: {x: -5.827519e-22, y: -0.000014942366, z: -0.037812736, w: 0.99928486}
       scale: {x: 1, y: 1, z: 1}
     - name: R_Ring_Distal
       parentName: R_Ring_Intermediate
@@ -928,7 +936,7 @@ ModelImporter:
     - name: R_Rittle_Intermediate
       parentName: R_Rittle_Proximal
       position: {x: 0.05129966, y: 0.0024502745, z: 0.0022276642}
-      rotation: {x: -1.6958867e-21, y: -0.00007686991, z: -0.046323534, w: 0.9989265}
+      rotation: {x: -4.6636883e-21, y: -0.00007686991, z: -0.046323534, w: 0.9989265}
       scale: {x: 1, y: 1, z: 1}
     - name: R_Rittle_Distal
       parentName: R_Rittle_Intermediate
@@ -951,7 +959,7 @@ ModelImporter:
       rotation: {x: 0.0057682586, y: 0.0228035, z: 0.04208842, w: 0.998837}
       scale: {x: 1, y: 1, z: 1}
     - name: MOMA
-      parentName: mob_manD_v2(Clone)
+      parentName: mob_manD_v3(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}

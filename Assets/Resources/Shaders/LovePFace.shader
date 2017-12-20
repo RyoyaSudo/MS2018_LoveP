@@ -1,4 +1,4 @@
-﻿Shader "Unlit/LovePFace"
+﻿Shader "MS_LoveP/LovePFace"
 {
 	Properties
 	{
