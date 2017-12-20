@@ -5,26 +5,19 @@ using UnityEngine;
 public class TimeCtrl : MonoBehaviour
 {
 
-    const int TIME_MAX = 4;    //スコアの桁数
-    const float TIME_DEFAULT_POS = -1.5f; //スコアの1の位の基本になる位置(いい感じの値) 
-    const int TOTAL_TIME = 300;
+    const int TIME_MAX = 3;    //の桁数
 
     private int[] TimeStack;     //スコアを格納する配列
 
-    private int TimeMinute;     //分のカウント
-    private int TimeSeconds;    //秒のカウント
-    private int TotalTime;      //制限時間
+    [SerializeField]
+    private float TotalTime;      //制限時間
 
     private GameObject[] TimeArray;    //スコアの桁数
-    private float Timeleft;
     private float timer;
-
-    private GameObject colonObj;
+    private float Timeleft;
 
     public GameObject TimePrefab;
     public Sprite[] SpriteArray;    //スコアのテクスチャ
-
-    public GameObject colonPrefab;  //数字間の　「:」これ
 
     [SerializeField]
     private float padding;  //1文字の間隔
@@ -33,13 +26,7 @@ public class TimeCtrl : MonoBehaviour
     private float heightPadding;    //縦の間隔
 
     [SerializeField]
-    private float colonPadding;     //コロンの間隔
-
-    [SerializeField]
     Sprite numberSp;
-
-    [SerializeField]
-    Sprite colonSp;
 
     public enum State
     {
@@ -54,19 +41,12 @@ public class TimeCtrl : MonoBehaviour
 
     void Start()
     {
-        //分,秒の初期化
-        TimeMinute = 5;
-        TimeSeconds = 0;
-        TotalTime = TOTAL_TIME;
-
         timer = 0.0f;
-        Timeleft = 0.0f;
 
         //スコアの実際に表示される0~9の値を格納する変数
         TimeStack = new int[ TIME_MAX ];
         TimeArray = new GameObject[ TIME_MAX ];
 
-        float colonSize = (float)colonSp.texture.width / 2.0f;
         //桁数分タイムを生成する
         float unitSize = ( float )numberSp.texture.width / 10.0f;   //1文字分の幅を取る
 
@@ -81,23 +61,10 @@ public class TimeCtrl : MonoBehaviour
             TimeArray[nCnt].transform.position = pos; //Time生成
             TimeArray[nCnt].transform.parent = gameObject.transform;   //生成されたTimeArrayに元のTimeに親子関係を紐づけする
         }
-        for (int nCnt = 2; nCnt < 4; nCnt ++)
-        {
-            Vector3 PaddingPos;
-            PaddingPos = new Vector3(colonSize, 0.0f, 0.0f);
-            TimeArray[nCnt].transform.position += PaddingPos;
-            TimeArray[nCnt].transform.parent = gameObject.transform;
-        }
-        colonObj = Instantiate(colonPrefab);
-        Vector3 colonPos;
-        colonPos.x = TimeArray[1].transform.position.x + colonSize * 1.5f;
-        colonPos.y = TimeArray[1].transform.position.y;
-        colonPos.z = 0.0f;
-
-        colonObj.transform.position = colonPos;
-        colonObj.transform.parent = gameObject.transform;
-
         TimeSet(0);
+
+
+
     }
 
     void Update()
@@ -110,13 +77,10 @@ public class TimeCtrl : MonoBehaviour
                 }
             case State.TIME_STATE_RUN:
                 {
-                    Timeleft += Time.deltaTime;
-                    if( Timeleft >= 1.0f )
-                    {
-                        Timeleft = 0.0f;
-                        timer = Mathf.Floor(Timeleft);
-                        TimeSet( 1 );
-                    }
+                    TotalTime -= Time.deltaTime;
+                    //Debug.Log("トータルタイム "+ TotalTime);
+                    TotalTime = Mathf.Floor(Timeleft);
+                    TimeSet( TotalTime );
                     break;
                 }
         }
@@ -133,27 +97,15 @@ public class TimeCtrl : MonoBehaviour
     * 戻り値:なし
     * 説明：スコアにどの値が入ったか調べる
     ***********************************************************/
-    private void TimeSet( int Time )
+    private void TimeSet( float Time )
     {
-        //トータルタイムが一秒減る
-        TotalTime -= Time;
-
-        //秒が減る
-        TimeSeconds--;
-        //分の計算
-        if( TimeSeconds < 0 )
-        {
-            TimeMinute -= 1;
-            if (TimeMinute <= 0) TimeMinute = 0;
-            TimeSeconds = 59;
-        }
+        int timeSeconds = (int)Time;
+        Debug.Log(timeSeconds);
 
         //入ってきたスコアをチェック
-        TimeStack[ 0 ] = TimeMinute / 10 % 10;     //10の位
-        TimeStack[ 1 ] = TimeMinute % 10;      //1の位
-
-        TimeStack[ 2 ] = TimeSeconds / 10 % 10;       //10の位
-        TimeStack[ 3 ] = TimeSeconds % 10;            //1の位
+        TimeStack[ 0 ] = timeSeconds/ 100 % 10;     //10の位
+        TimeStack[ 1 ] = timeSeconds / 10 % 10;      //1の位
+        TimeStack[ 2 ] = timeSeconds % 10;      //10の位
 
         //各TimeArrayにTimeStackに合ったスプライトに差し替える
         for( int nCnt = 0 ; nCnt < TIME_MAX ; nCnt++ )
@@ -162,7 +114,7 @@ public class TimeCtrl : MonoBehaviour
         }
     }
 
-    public int GetTime()
+    public float GetTime()
     {
         return TotalTime;
     }
