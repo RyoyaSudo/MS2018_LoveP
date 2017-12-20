@@ -5,7 +5,7 @@ using UnityEngine;
 public class MobController : MonoBehaviour
 {
 
-    const float ESCAPE_AREA = 90.0f;   // この中に入ったら逃げる（半径）
+    public float ESCAPE_AREA;   // この中に入ったら逃げる（半径）
     public int ESCAPE_TIME;         // 逃げるのに使う時間
     public float ESCAPE_SPEED;          // プレイヤーから逃げるスピード
     enum STATUS { NORMAL = 0, ESCAPE, ESCAPE2, TALK, SIT }; // 状態の種類(普通、逃げる,逃げる時に方向転換,おしゃべり、座ってる)  
@@ -57,7 +57,7 @@ public class MobController : MonoBehaviour
         }
 
         if(slash == 0)
-        {
+        {// モブの場合強制的に
             ride = false;
         }
         else
@@ -83,7 +83,7 @@ public class MobController : MonoBehaviour
             float playerRot = player.transform.rotation.y;  // プレイヤーキャラの向き           
 
             if (((playerPos.x - mobPos.x) * (playerPos.x - mobPos.x)) +
-                ((playerPos.y - mobPos.y) * (playerPos.y - mobPos.y)) <= ESCAPE_AREA / (slash + 1) && status == STATUS.NORMAL)
+                ((playerPos.y - mobPos.y) * (playerPos.y - mobPos.y)) <= ESCAPE_AREA && status == STATUS.NORMAL)
             {// プレイヤーキャラが近いと逃げる
 
                 //♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪

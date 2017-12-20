@@ -768,7 +768,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6682b5703bedb1468763425dac8cad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ESCAPE_SPEED: -2.5
+  ESCAPE_AREA: 110
+  ESCAPE_TIME: 18
+  ESCAPE_SPEED: -0.8
   slash: 0
 --- !u!114 &114608507744446002
 MonoBehaviour:
