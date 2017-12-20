@@ -193,6 +193,8 @@ public class CityPhaseMove : MonoBehaviour {
     [SerializeField] float velocityMax;
     [SerializeField] float velocityBoostMax;
 
+    public float VelocityMax { get { return velocityMax; } }
+
     /// <summary>
     /// 地面判断の際にレイキャストする対象のレイヤー群
     /// </summary>
@@ -455,6 +457,8 @@ public class CityPhaseMove : MonoBehaviour {
         // 過去情報を保存しておく
         oldPos = transform.position;
         IsBoostOld = IsBoost;
+
+        Velocity = velocityVec.magnitude;
     }
 
     /// <summary>
