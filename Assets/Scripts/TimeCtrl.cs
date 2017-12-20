@@ -62,9 +62,6 @@ public class TimeCtrl : MonoBehaviour
             TimeArray[nCnt].transform.parent = gameObject.transform;   //生成されたTimeArrayに元のTimeに親子関係を紐づけする
         }
         TimeSet(0);
-
-
-
     }
 
     void Update()
@@ -77,10 +74,13 @@ public class TimeCtrl : MonoBehaviour
                 }
             case State.TIME_STATE_RUN:
                 {
-                    TotalTime -= Time.deltaTime;
-                    //Debug.Log("トータルタイム "+ TotalTime);
-                    TotalTime = Mathf.Floor(Timeleft);
-                    TimeSet( TotalTime );
+                    timer += Time.deltaTime;
+                    if(timer >= 1.0f)
+                    {
+                        TotalTime -= timer;
+                        TimeSet(TotalTime);
+                        timer = 0.0f;
+                    }
                     break;
                 }
         }
@@ -99,13 +99,14 @@ public class TimeCtrl : MonoBehaviour
     ***********************************************************/
     private void TimeSet( float Time )
     {
+        Time = Mathf.Floor(TotalTime);
+
         int timeSeconds = (int)Time;
-        Debug.Log(timeSeconds);
 
         //入ってきたスコアをチェック
-        TimeStack[ 0 ] = timeSeconds/ 100 % 10;     //10の位
-        TimeStack[ 1 ] = timeSeconds / 10 % 10;      //1の位
-        TimeStack[ 2 ] = timeSeconds % 10;      //10の位
+        TimeStack[ 0 ] = timeSeconds / 100 % 10;     //100の位
+        TimeStack[ 1 ] = timeSeconds / 10 % 10;      //10の位
+        TimeStack[ 2 ] = timeSeconds % 10;          //1の位
 
         //各TimeArrayにTimeStackに合ったスプライトに差し替える
         for( int nCnt = 0 ; nCnt < TIME_MAX ; nCnt++ )
