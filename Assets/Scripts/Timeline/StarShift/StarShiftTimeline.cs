@@ -29,4 +29,5 @@ public class StarShiftTimeline : Timeline {
         // バインド処理
         BindTrack(cameraObj, cinemachineTrackPath);
     }
+
 }

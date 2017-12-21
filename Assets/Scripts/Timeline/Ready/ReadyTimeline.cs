@@ -30,4 +30,5 @@ public class ReadyTimeline : Timeline {
         // バインド処理
         BindTrack(cameraObj, cinemachineTrackPath);
     }
+
 }

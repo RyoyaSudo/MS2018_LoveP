@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class RideTimeline : Timeline {
 
@@ -30,4 +31,5 @@ public class RideTimeline : Timeline {
         // バインド処理
         BindTrack(cameraObj, cinemachineTrackPath);
     }
+
 }

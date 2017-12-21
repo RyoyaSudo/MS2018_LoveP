@@ -123,7 +123,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: GetOffSmallvcam1
+    m_DisplayName: GetOffSmallvcam2
     m_Version: 1
   - m_Start: 2.816666666666667
     m_ClipIn: 0

@@ -182,8 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b5796189325e240a785be8ef3d3035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starShiftvcam1: {fileID: 114650985889606010, guid: 0fbc8ace0e4864444843896cc9c68743,
-    type: 2}
+  starShiftvcam1: {fileID: 0}
   playerPath: Player
 --- !u!114 &114865974035427258
 MonoBehaviour:
