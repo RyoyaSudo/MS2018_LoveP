@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe1875a5e829a7458c13ee13b18a1d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vcam1: {fileID: 114569782192749936, guid: 107ebb8691d4f244084d83ed76727bdb, type: 2}
+  vcam1: {fileID: 0}
   playerPath: Player
   mainCameraPath: Game_Main Camera
 --- !u!114 &114591710295818112
