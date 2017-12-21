@@ -62,6 +62,22 @@ public class HumanAnim : MonoBehaviour {
     }
 
     /// <summary>
+    ///  下車するときの走りアニメーションをON
+    /// </summary>
+    public void GetoffRunAnimON()
+    {
+        anim.SetBool("GetOffRun", true);
+    }
+
+    /// <summary>
+    ///  下車するときの待ちアニメーションをON
+    /// </summary>
+    public void GetoffWaitAnimON()
+    {
+        anim.SetBool("GetOffWait", true);
+    }
+
+    /// <summary>
     ///  解散するときのアニメーションをON
     /// </summary>
     public void ReleaseAnimON()

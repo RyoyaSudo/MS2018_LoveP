@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 124451382150755262}
   - component: {fileID: 81718931618783812}
   - component: {fileID: 82221001372264016}
-  - component: {fileID: 114824247337034218}
   m_Layer: 0
   m_Name: Game_Main Camera
   m_TagString: MainCamera
@@ -298,36 +297,6 @@ MonoBehaviour:
   playerCityMoveObjPath: Player
   fovBoost: 80
   blurBlendingBoost: 1
---- !u!114 &114824247337034218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326571750533802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Cinemachine.CinemachineBrain+BrainEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!124 &124451382150755262
 Behaviour:
   m_ObjectHideFlags: 1

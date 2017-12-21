@@ -470,7 +470,7 @@ public class Player : MonoBehaviour
                 }
 
                 HumanCreate( human );
-
+                
                 //グループの大きさ分確保する
                 passengerObj = new Human[ rideGroupNum ];
 
@@ -575,7 +575,7 @@ public class Player : MonoBehaviour
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
                     break;
-
+                    
                 case PlayerVehicle.Type.BUS:
                     changeEffectObj.Play();
                     MoveEnable( false );
@@ -600,21 +600,30 @@ public class Player : MonoBehaviour
     /// </summary>
     void VehicleChange()
     {
-        // HACK: 車両変化時の演出に関する部分
-        //       煙エフェクトを出しつつスケール値を段々小さくしたあとに段々大きくなって現れる感じにしたい。
-        if( changeFade )
-        {
-            // HACK: 乗り物変化演出に関して
-            //       2017/12/04にPlayerVehicle.csに処理を分けた際、問題が発生する恐れあり。
-            //       Morphing関数の呼び出し方を工夫する必要がありそうか？
-            changeFade = false;
-        }
-        else
+        // TODO : 田口 2017/12/17
+        //指定時間がたつとStateが変わるように変更しました
+        if (timelineManagerObj.stateType == TimelineManager.STATETYPE.TIMELINE_NONE)
         {
             StateParam = State.PLAYER_STATE_FREE;
-            MoveEnable( true );
+            MoveEnable(true);
             changeFade = true;
         }
+
+        //// HACK: 車両変化時の演出に関する部分
+        ////       煙エフェクトを出しつつスケール値を段々小さくしたあとに段々大きくなって現れる感じにしたい。
+        //if( changeFade )
+        //{
+        //    // HACK: 乗り物変化演出に関して
+        //    //       2017/12/04にPlayerVehicle.csに処理を分けた際、問題が発生する恐れあり。
+        //    //       Morphing関数の呼び出し方を工夫する必要がありそうか？
+        //    changeFade = false;
+        //}
+        //else
+        //{
+        //    StateParam = State.PLAYER_STATE_FREE;
+        //    MoveEnable( true );
+        //    changeFade = true;
+        //}
     }
 
     //スコアが貯まる
@@ -657,8 +666,6 @@ public class Player : MonoBehaviour
                 break;
 
             case State.PLAYER_STATE_TAKE_READY:
-                //乗車タイムラインの時間を取得
-                StateTimer = timelineManagerObj.Get("RideTimeline").Duration();
                 MoveEnable( false );
                 break;
 
@@ -666,12 +673,14 @@ public class Player : MonoBehaviour
                 break;
 
             case State.PLAYER_STATE_GET_OFF:
-                //下車タイムラインの時間を取得
-                StateTimer = timelineManagerObj.Get("GetOffTimeline").Duration(); ;
                 MoveEnable( false );
                 break;
 
             case State.PLAYER_STATE_IN_CHANGE:
+                // TODO : 田口　2017/12/17
+                //チェンジタイムライン開始
+                timelineManagerObj.Get("ChangeTimeline").Play();
+                timelineManagerObj.SetStateType(TimelineManager.STATETYPE.TIMELINE_START);
                 break;
 
             default:
@@ -684,14 +693,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void TakeRady()
     {
-        StateTimer -= Time.deltaTime;
-
-        if( StateTimer < 0.0f )
+        if (timelineManagerObj.stateType == TimelineManager.STATETYPE.TIMELINE_NONE)
         {
-            StateTimer = 0.0f;
             StateParam = State.PLAYER_STATE_TAKE;
-
-            MoveEnable( true );
+            MoveEnable(true);
         }
     }
 
@@ -700,14 +705,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void GetOff()
     {
-        StateTimer -= Time.deltaTime;
-
-        if( StateTimer < 0.0f )
+        if (timelineManagerObj.stateType == TimelineManager.STATETYPE.TIMELINE_NONE)
         {
-            StateTimer = 0.0f;
             StateParam = State.PLAYER_STATE_FREE;
-
-            MoveEnable( true );
+            MoveEnable(true);
 
             // 乗り物変化開始
             VehicleChangeStart();
@@ -814,6 +815,10 @@ public class Player : MonoBehaviour
             }
             else //それ以外の状態は「下車」に
             {
+                // TODO : 田口　2017/12/20
+                // 状態が「待ち受け」の人のオブジェクトを取得
+                passengerObj[i].GetComponent<PassengerController>().SetGetOffAwaitObj(passengerObj[rideCount - 1].GetComponent<Human>().gameObject);
+
                 passengerObj[ i ].GetComponent<Human>().CurrentStateType = Human.STATETYPE.GETOFF;
             }
         }
