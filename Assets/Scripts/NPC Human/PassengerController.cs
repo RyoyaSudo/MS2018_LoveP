@@ -58,7 +58,7 @@ public class PassengerController : MonoBehaviour
     }
     private GetOffType getOffType;
 
-    private float awaitTime;                        //待ち状態の時間
+    [SerializeField] private float awaitTime;                        //待ち状態の時間
 
     //乗客がどのグループなのかUI
     public GameObject passengerGroupUIEnptyPrefab;   //空プレファブ
@@ -285,7 +285,6 @@ public class PassengerController : MonoBehaviour
             case Human.STATETYPE.AWAIT:
                 Destroy(passengerGroupUIEnptyObj);                              //乗客がどのグループなのかUI削除
                 transform.LookAt(playerObj.transform);                          //プレイヤーの位置を向かせる
-                awaitTime = timelineManager.Get("GetOffTimeline").Duration();   //下車のタイムライン時間取得
                 break;
         }
     }

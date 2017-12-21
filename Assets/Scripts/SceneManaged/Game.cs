@@ -71,7 +71,8 @@ public class Game : MonoBehaviour {
     /// </summary>
     public enum Phase
     {
-        GAME_PAHSE_READY = 0,
+        GAME_PHASE_INIT = 0,
+        GAME_PAHSE_READY,
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR_SHIFT,
         GAME_PAHSE_STAR,
@@ -138,6 +139,10 @@ public class Game : MonoBehaviour {
 	void Update () {
 		switch( phaseParam )
         {
+            case Phase.GAME_PHASE_INIT:
+                PhaseParam = Phase.GAME_PAHSE_READY;
+                break;
+
             case Phase.GAME_PAHSE_READY:
                 {
                     phaseTimer += Time.deltaTime;
@@ -227,6 +232,10 @@ public class Game : MonoBehaviour {
 
         switch( phaseParam )
         {
+            case Phase.GAME_PHASE_INIT:
+                PhaseInitStart();
+                break;
+
             case Phase.GAME_PAHSE_READY:
                 PhaseReadyStart();
                 break;
@@ -251,6 +260,22 @@ public class Game : MonoBehaviour {
 
     // 同じコンポーネントを使ってるところは後できれいにする
     // TODO: 各フェイズ初期化処理。あとで確実に問題が生じるので、何か不都合が生じたら優先して見る！
+    void PhaseInitStart()
+    {
+        CityObj.SetActive( true );
+        StarObj.SetActive( false );
+        citySpawnManagerObj.SetActive( true );
+        starSpawnManagerObj.SetActive( false );
+        timeManagerObj.SetState( TimeManager.State.TIME_STATE_STOP );
+        scoreManagerObj.SetState( ScoreManager.State.SCORE_STATE_STOP );
+        playerObj.CityPhaseInit();
+        playerObj.MoveEnable( false );
+        //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
+        //mainCameraObj.GetComponent<StarCameraController>().enabled = false;
+        skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
+        phaseTimer = 0;
+    }
+
     void PhaseReadyStart()
     {
         CityObj.SetActive( true );
@@ -259,6 +284,7 @@ public class Game : MonoBehaviour {
         starSpawnManagerObj.SetActive( false );
         timeManagerObj.SetState(TimeManager.State.TIME_STATE_STOP);
         scoreManagerObj.SetState(ScoreManager.State.SCORE_STATE_STOP);
+        //timelineObj.Get( "StarShiftTimeline" ).Play();
         playerObj.CityPhaseInit();
         playerObj.MoveEnable( false );
         //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
