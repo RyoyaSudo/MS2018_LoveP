@@ -13,27 +13,17 @@ using System.Collections;
 
 public class ScoreCtrl : MonoBehaviour
 {
-    const int SCORE_MAX = 8;    //スコアの桁数
-
     private int totalScore = 0;       //総スコアを格納する用
     private int[] scoreStack;     //スコアを格納する配列
-    private int ScoreTest;
+
+    [SerializeField]
     private GameObject[] ScoreArray;    //スコアの桁数
-    private GameObject ptsLogo;
+
     private int scoreValueCnt;          //桁数をカウントする用
 
     public GameObject ScorePrefab;
-    public GameObject ptsLogoPrefab;
+
     public Sprite[] SpriteArray;    //スコアのテクスチャ
-
-    [SerializeField]
-    private float padding;  //1文字の間隔
-
-    [SerializeField]
-    private float heightPadding;    //縦の間隔
-
-    [SerializeField]
-    private float ptsPadding;   //ロゴの間隔
 
     [SerializeField]
     Sprite numberSp;
@@ -65,41 +55,43 @@ public class ScoreCtrl : MonoBehaviour
     //スコアの保存キー
     string scorKey = "scorKey";
 
+    public ScoreManager.State state;
+
     void Start()
     {
         starPhaseAddScoreNum = 1;
-        ScoreTest = 1000;
+
         scoreValueCnt = 0;
         //スコアの実際に表示される0~9の値を格納する変数
-        scoreStack = new int[ SCORE_MAX ];
+        scoreStack = new int[ ScoreArray.Length ];
 
-        ScoreArray = new GameObject[ SCORE_MAX ];
+        //ScoreArray = new GameObject[ ScoreArray.Length ];
 
-        //桁数分スコアを生成する
-        float unitSize = ( float )numberSp.texture.width / 10.0f;
+        ////桁数分スコアを生成する
+        //float unitSize = ( float )numberSp.texture.width / 10.0f;
 
-        for( int nCnt = 0 ; nCnt < SCORE_MAX ; nCnt++ )
-        {
-            ScoreArray[ nCnt ] = Instantiate( ScorePrefab ); //Score生成
+        //for( int nCnt = 0 ; nCnt < ScoreArray.Length ; nCnt++ )
+        //{
+        //    ScoreArray[ nCnt ] = Instantiate( ScorePrefab ); //Score生成
 
-            Vector3 pos;
-            pos.x = ((float)Screen.width / 2.0f) / -1.05f + unitSize * nCnt + (padding * nCnt);
-            pos.y = ((float)Screen.height / 2.0f) - 20.0f - heightPadding;
-            pos.z = 0.0f;
+        //    Vector3 pos;
+        //    pos.x = ((float)Screen.width / 2.0f) / -1.05f + unitSize * nCnt + (padding * nCnt);
+        //    pos.y = ((float)Screen.height / 2.0f) - 20.0f - heightPadding;
+        //    pos.z = 0.0f;
 
-            ScoreArray[nCnt].transform.position = pos;
-            ScoreArray[ nCnt ].transform.parent = gameObject.transform;   //生成されたScoreArrayに元のScoreに親子関係を紐づけする
+        //    ScoreArray[nCnt].transform.position = pos;
+        //    ScoreArray[ nCnt ].transform.parent = gameObject.transform;   //生成されたScoreArrayに元のScoreに親子関係を紐づけする
 
-        }
+        //}
 
-        //Ptsを生成して配置する
-        ptsLogo = Instantiate(ptsLogoPrefab);
-        Vector3 ptsPos;
-        ptsPos.x = ScoreArray[7].transform.position.x + unitSize + ptsPadding * SCORE_MAX;  //スコアの最後の位置から離して配置
-        ptsPos.y = ScoreArray[7].transform.position.y;   //縦の位置
-        ptsPos.z = 0.0f;
-        ptsLogo.transform.position = ptsPos;
-        ptsLogo.transform.parent = gameObject.transform;
+        ////Ptsを生成して配置する
+        //ptsLogo = Instantiate(ptsLogoPrefab);
+        //Vector3 ptsPos;
+        //ptsPos.x = ScoreArray[7].transform.position.x + unitSize + ptsPadding * ScoreArray.Length;  //スコアの最後の位置から離して配置
+        //ptsPos.y = ScoreArray[7].transform.position.y;   //縦の位置
+        //ptsPos.z = 0.0f;
+        //ptsLogo.transform.position = ptsPos;
+        //ptsLogo.transform.parent = gameObject.transform;
 
         //総スコアを保存
         PlayerPrefs.SetInt(scorKey, totalScore);
@@ -110,17 +102,19 @@ public class ScoreCtrl : MonoBehaviour
 
     void Update()
     {
-        //テスト用////////////////////////////////
-        if( Input.GetKeyDown( KeyCode.UpArrow ) )
+        switch (state)
         {
-            ScoreTest += 1;
+            case ScoreManager.State.SCORE_STATE_STOP:
+                {
+                    break;
+                }
+            case ScoreManager.State.SCORE_STATE_RUN:
+                {
+                    //スコア加算
+                    ScoreSet(0);
+                    break;
+                }
         }
-        if( Input.GetKeyDown( KeyCode.DownArrow ) )
-        {
-            ScoreTest -= 1;
-        }
-
-        ScoreSet( 0 );
     }
 
     /************************************************************
@@ -156,7 +150,7 @@ public class ScoreCtrl : MonoBehaviour
         scoreStack[ 7 ] = totalScore % 10;            //1の位 
 
         //各ScoreArrayにscoreStackに合ったスプライトに差し替える
-        for( int nCnt = 0 ; nCnt < SCORE_MAX ; nCnt++ )
+        for( int nCnt = 0 ; nCnt < ScoreArray.Length ; nCnt++ )
         {
             ScoreArray[ nCnt ].GetComponent<SpriteRenderer>().sprite = SpriteArray[ scoreStack[ nCnt ] ];
         }
@@ -170,11 +164,11 @@ public class ScoreCtrl : MonoBehaviour
     ***********************************************************/
     private void ScoreZeroCheck()
     {
-        for( int nCnt = 0 ; nCnt < SCORE_MAX ; nCnt++ )
+        for( int nCnt = 0 ; nCnt < ScoreArray.Length ; nCnt++ )
         {
             if( scoreStack[ nCnt ] > 0 )
             {
-                for( ; nCnt < SCORE_MAX ; nCnt++ )
+                for( ; nCnt < ScoreArray.Length ; nCnt++ )
                 {
                     ScoreArray[ nCnt ].SetActive( true );
                 }

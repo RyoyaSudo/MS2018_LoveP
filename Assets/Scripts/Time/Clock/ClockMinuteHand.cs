@@ -8,10 +8,12 @@ public class ClockMinuteHand : MonoBehaviour {
     const float TIME_ROTATEMAX = 360;
     const float TIME_SPLITMAX = 60;
 
+    [SerializeField]
     private Transform clockMinuteHandObj;
     private float timeSplit;
 
     //時計の背景色//////////////////////////////////////////
+    [SerializeField]
     private GameObject clockBackGroundObj;
 
     [SerializeField]
@@ -34,15 +36,18 @@ public class ClockMinuteHand : MonoBehaviour {
     private float timeRatioRed;
 
     private float timeComparison;   //タイムの比較用の変数
+
+    public TimeManager.State state;
+
     // Use this for initialization
     void Start()
     {
         //時計の秒針////////////////////////////////////////////
-        clockMinuteHandObj = transform.Find("Time_MinuteHand");
+        //clockMinuteHandObj = transform.Find("Time_MinuteHand");
         timeSplit = (TIME_ROTATEMAX / TIME_SPLITMAX);  //最大回転
 
         //時計のデフォの色を設定
-        clockBackGroundObj = transform.Find("Time_Circle").gameObject;
+        //clockBackGroundObj = transform.FindChild("Clock").Find("Time_Circle");
         clockBackGroundObj.GetComponent<Renderer>().material = clockBGMaterial[0];
 
         //色の変化するタイミングのタイムの割合計算
@@ -50,15 +55,34 @@ public class ClockMinuteHand : MonoBehaviour {
         timeRatioRed = totalTime * timeRateRed;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        switch (state)
+        {
+            case TimeManager.State.TIME_STATE_STOP:
+                {
+                    break;
+                }
+            case TimeManager.State.TIME_STATE_RUN:
+                {
+                    ClockUpdate();
+                    break;
+                }
+        }
+
+    }
+
+    // Update is called once per frame
+    private void ClockUpdate()
     {
         clockMinuteHandObj.transform.Rotate(0.0f, 0.0f, -timeSplit * Time.deltaTime);
         timer += Time.deltaTime;
 
+        //Timerを全体のタイムから引いて現在の
         timeComparison = totalTime - timer;
 
-        if (timeComparison <= timeRatioYellow && timeComparison >= timeRatioRed )   // 三分未満 180
+        //分未満だったら色を変える
+        if (timeComparison <= timeRatioYellow && timeComparison >= timeRatioRed ) 
         {
             //黄色の状態
             clockBackGroundObj.GetComponent<Renderer>().material = clockBGMaterial[1];
