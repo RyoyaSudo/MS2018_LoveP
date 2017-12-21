@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class AudioStructsSe
+{
+    public AudioClip clip;
+    [Range(0f,1f)]public float volume;
+}
+
 public class SoundController : MonoBehaviour {
 
-    public enum Sounds
+    public enum SoundsSeType
     {
         PICTURE_TRANSITION = 0,     //画面遷移
         CITY_DRIVE_SOUND,
@@ -19,7 +26,9 @@ public class SoundController : MonoBehaviour {
         VEHICLE_CHANGE_BIKE,
         VEHICLE_CHANGE_CAR,
         VEHICLE_CHANGE_BUS,
-        VEHICLE_CHANGE_AIRPLANE
+        VEHICLE_CHANGE_AIRPLANE,
+        TypeMax,
+        
 
 
         //BRAKE_SOUND = 1,            //ブレーキ音
@@ -46,14 +55,32 @@ public class SoundController : MonoBehaviour {
         //RESULT_END_SOUND = 22       //リザルト最終結果表示
     }
 
+
+    [SerializeField] AudioStructsSe[] seList = new AudioStructsSe[(int)SoundsSeType.TypeMax];
+
+
     [SerializeField]
     private AudioClip[] soundArray;
 
-    public AudioClip AudioClipCreate(Sounds type)
+    public AudioClip AudioClipCreate(SoundsSeType type)
     {
         int num = (int)type;
         AudioClip clip;
         clip = soundArray[num];
         return clip;
+    }
+
+    public void PlayOneShot(SoundsSeType type , AudioSource source )
+    {
+        AudioStructsSe se = seList[(int)type];
+
+        source.volume = se.volume;
+        source.PlayOneShot(se.clip);
+    }
+
+    public AudioStructsSe GetSeList(SoundsSeType type)
+    {
+        AudioStructsSe se = seList[(int)type];
+        return se;
     }
 }
