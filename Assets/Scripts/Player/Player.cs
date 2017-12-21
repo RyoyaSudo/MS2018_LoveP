@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     //サウンド用/////////////////////////////
     private AudioSource playerAudioS;
     private SoundController playerSoundCtrl;
-    private SoundController.Sounds playerType;  //プレイヤーの車両用
+    private SoundController.SoundsSeType playerType;  //プレイヤーの車両用
     private AudioSource driveSoundSource;
     public float soundVolume;
     public float min_rate = 0.0f;
@@ -193,9 +193,9 @@ public class Player : MonoBehaviour
         playerAudioS = audioSources[0];
         driveSoundSource = audioSources[1];
 
-        driveSoundSource.clip = playerSoundCtrl.AudioClipCreate(SoundController.Sounds.CITY_DRIVE_SOUND);
+        driveSoundSource.clip = playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.CITY_DRIVE_SOUND);
         driveSoundSource.loop = true;
-        driveSoundSource.volume = soundVolume;
+        driveSoundSource.volume = playerSoundCtrl.GetSeList(SoundController.SoundsSeType.CITY_DRIVE_SOUND).volume;
         driveSoundSource.Play();
     }
 
@@ -244,7 +244,6 @@ public class Player : MonoBehaviour
         float rate;
         rate = cityPhaseMoveObj.Velocity / cityPhaseMoveObj.VelocityMax;      
         driveSoundSource.pitch = Mathf.Lerp(min_rate, max_rate, rate);
-
     }
 
     /// <summary>
@@ -536,7 +535,7 @@ public class Player : MonoBehaviour
                 human.CurrentStateType = Human.STATETYPE.RIDE;
 
                 //乗車SE
-                playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.PASSENGER_RIDE));
+                playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_RIDE, playerAudioS);
             }
         }
     }
@@ -551,24 +550,24 @@ public class Player : MonoBehaviour
             case PlayerVehicle.Type.BIKE:
                 {
                     Velocity = cityPhaseMoveObj.Velocity;
-                    //playerType = SoundController.Sounds.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
+                    //playerType = SoundController.SoundsSeType.BIKE_RUN;   //プレイヤーの車両によってSEも変更する
                     break;
                 }
             case PlayerVehicle.Type.CAR:
                 {
                     Velocity = cityPhaseMoveObj.Velocity;
-                   // playerType = SoundController.Sounds.CAR_RUN;//プレイヤーの車両によってSEも変更する
+                   // playerType = SoundController.SoundsSeType.CAR_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case PlayerVehicle.Type.BUS:
                 {
                     Velocity = cityPhaseMoveObj.Velocity;
-                    //playerType = SoundController.Sounds.BUS_RUN;//プレイヤーの車両によってSEも変更する
+                    //playerType = SoundController.SoundsSeType.BUS_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
             case PlayerVehicle.Type.AIRPLANE:
                 {
-                    //playerType = SoundController.Sounds.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
+                    //playerType = SoundController.SoundsSeType.AIRPLANE_RUN;//プレイヤーの車両によってSEも変更する
                     break;
                 }
         }
@@ -590,7 +589,7 @@ public class Player : MonoBehaviour
                     MoveEnable( false );
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.VEHICLE_CHANGE_BIKE));
+                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_BIKE));
                     break;
 
                 case PlayerVehicle.Type.CAR:
@@ -598,7 +597,7 @@ public class Player : MonoBehaviour
                     MoveEnable( false );
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.VEHICLE_CHANGE_CAR));
+                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_CAR));
                     break;
 
                 case PlayerVehicle.Type.BUS:
@@ -606,12 +605,12 @@ public class Player : MonoBehaviour
                     MoveEnable( false );
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.VEHICLE_CHANGE_BUS));
+                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_BUS));
                     break;
 
                 case PlayerVehicle.Type.AIRPLANE:
                     //星フェーズへの移行開始
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.VEHICLE_CHANGE_AIRPLANE));
+                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_AIRPLANE));
                     ChangeStarPhase();
                     break;
 
@@ -856,19 +855,19 @@ public class Player : MonoBehaviour
         {
             case PassengerController.GROUPTYPE.PEAR:
                 //ペア作成時のSE再生///////////////////////////////////////////////
-                playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.PASSENGER_COMPLETE) );
+                playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_COMPLETE, playerAudioS);
                 vehicleControllerObj.VehicleScore += 1;
                 break;
 
             case PassengerController.GROUPTYPE.SMAlLL:
                 //ペア作成時のSE再生///////////////////////////////////////////////
-                playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.PASSENGER_COMPLETE) );
+                playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_COMPLETE, playerAudioS);
                 vehicleControllerObj.VehicleScore += 2;
                 break;
 
             case PassengerController.GROUPTYPE.BIG:
                 //ペア作成時のSE再生///////////////////////////////////////////////
-                playerAudioS.PlayOneShot( playerSoundCtrl.AudioClipCreate( SoundController.Sounds.PASSENGER_COMPLETE) );
+                playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_COMPLETE, playerAudioS);
                 vehicleControllerObj.VehicleScore += 4;
                 break;
 
@@ -985,7 +984,7 @@ public class Player : MonoBehaviour
     //        case "Obstacle":
     //            {
     //                Debug.Log("hit");
-    //                playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.Sounds.BUMP_MIDDLE));
+    //                playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.BUMP_MIDDLE));
     //                break;
     //            }
     //        default:
@@ -995,9 +994,9 @@ public class Player : MonoBehaviour
     //    }
     //}
 
-    public void PlaySoundEffect(SoundController.Sounds sound)
+    public void PlaySoundEffect(SoundController.SoundsSeType sound)
     {
-        playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(sound));
+        playerSoundCtrl.PlayOneShot(sound, playerAudioS);
     }
 
 

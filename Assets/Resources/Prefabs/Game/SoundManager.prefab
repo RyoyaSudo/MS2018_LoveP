@@ -51,6 +51,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a820a4c6221f450a85c61a45308c20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seList:
+  - clip: {fileID: 8300000, guid: 13dbbce1e97cd48d2969ba1385d59e08, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 62840f42f77f75a459d92278efc12a39, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 5843f54187f6341bcb3f1f8f7c8b1ac1, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 701751ee3ffa01f4789773d8e8e544d7, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: a793448727c4c4493b426da8aa9979bb, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 4a7a54e035969428a81d0a7e4215778a, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: a953a947d81524b2090acbc830601a7e, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: a953a947d81524b2090acbc830601a7e, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: a953a947d81524b2090acbc830601a7e, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: a953a947d81524b2090acbc830601a7e, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 1d2eebfe8b0624160bc3ac001f830808, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 1d2eebfe8b0624160bc3ac001f830808, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 1d2eebfe8b0624160bc3ac001f830808, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 1d2eebfe8b0624160bc3ac001f830808, type: 3}
+    volume: 1
   soundArray:
   - {fileID: 8300000, guid: 13dbbce1e97cd48d2969ba1385d59e08, type: 3}
   - {fileID: 8300000, guid: 62840f42f77f75a459d92278efc12a39, type: 3}

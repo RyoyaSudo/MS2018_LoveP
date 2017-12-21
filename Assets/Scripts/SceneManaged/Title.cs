@@ -27,7 +27,7 @@ public class Title : MonoBehaviour {
     GameObject transition;
 
     //サウンド用/////////////////////////////
-    public SoundController.Sounds titleSoundType;
+    public SoundController.SoundsSeType titleSoundType;
     private AudioSource titleAudioS;
     private SoundController titleSoundCtrl;
     private AudioSource titleBGM;
