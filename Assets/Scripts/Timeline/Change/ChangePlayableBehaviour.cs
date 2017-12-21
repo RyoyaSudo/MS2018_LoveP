@@ -10,14 +10,13 @@ public class ChangePlayableBehaviour : PlayableBehaviour
     public string playerPath;               //プレイヤーパス
     private PlayerVehicle playerVehicle;    //プレイヤー車両オブジェクト
 
-    private GameObject mainCameraObj;       //メインカメラオブジェ
-    public string mainCameraPath;           //メインカメラパス
-
     private GameObject vc1Obj;              //バーチャルカメラオブジェクト1
-    private GameObject vc2Obj;              //バーチャルカメラオブジェクト2
 
     private VirtualCameraManager virtualCameraManager;      //バーチャルカメラマネージャ
     public string virtualCameraManagerPath;                 //バーチャルカメラマネージャパス
+
+    private TimelineManager timelineManager;    //タイムラインマネージャー
+    public string timelineManagerPath;          //タイムラインマネージャーパス
 
     public GameObject changeDolly;                            //チェンジドリーオブジェ
     private Cinemachine.CinemachineTrackedDolly trackDolly1;  //トラックドリー1
@@ -33,8 +32,8 @@ public class ChangePlayableBehaviour : PlayableBehaviour
         //各オブジェクト取得    
         playerObj = GameObject.Find(playerPath).GetComponent<Player>();                                       //プレイヤーオブジェクト    
         playerVehicle = playerObj.GetComponent<PlayerVehicle>();                                              //プレイヤー車両オブジェクト     
-        mainCameraObj = GameObject.Find(mainCameraPath);                                                      //カメラオブジェクト      
         virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
+        timelineManager = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();               //タイムラインマネージャー
 
         // HACK : 違う取得の方法を試します
         //今いる人オブジェクト取得
@@ -51,15 +50,12 @@ public class ChangePlayableBehaviour : PlayableBehaviour
 
         //バーチャルカメラのSetActive ON
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM1, true);
-        virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM2, true);
 
         //バーチャルカメラオブジェクト取得
         vc1Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM1);
-        vc2Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM2);
 
         //バーチャルカメラ取得
         Cinemachine.CinemachineVirtualCamera vc1 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        Cinemachine.CinemachineVirtualCamera vc2 = vc2Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         //LookAt設定
         vc1.LookAt = playerObj.transform;
@@ -76,11 +72,6 @@ public class ChangePlayableBehaviour : PlayableBehaviour
         rotation = playerObj.transform.rotation;
         changeDolly.transform.rotation = rotation;
 
-        //GameObject obj = awaitObj.GetComponent<PassengerController>().GetOffMainCamera;
-
-        vc2Obj.transform.position = playerObj.transform.position;
-        vc2Obj.transform.rotation = playerObj.transform.rotation;
-
         //BodyのCinemachineTrackedDolly取得
         trackDolly1 = vc1.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>();
 
@@ -94,8 +85,9 @@ public class ChangePlayableBehaviour : PlayableBehaviour
     {
         //バーチャルカメラのSetActive OFF
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM1, false);
-        virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM2, false);
 
+        //タイムラインの状態を「終わり」に
+        timelineManager.SetStateType(TimelineManager.STATETYPE.TIMELINE_END);
     }
 
     // PlayableTrack再生実行

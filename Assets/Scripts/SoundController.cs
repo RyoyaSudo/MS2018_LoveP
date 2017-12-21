@@ -58,18 +58,6 @@ public class SoundController : MonoBehaviour {
 
     [SerializeField] AudioStructsSe[] seList = new AudioStructsSe[(int)SoundsSeType.TypeMax];
 
-
-    [SerializeField]
-    private AudioClip[] soundArray;
-
-    public AudioClip AudioClipCreate(SoundsSeType type)
-    {
-        int num = (int)type;
-        AudioClip clip;
-        clip = soundArray[num];
-        return clip;
-    }
-
     public void PlayOneShot(SoundsSeType type , AudioSource source )
     {
         AudioStructsSe se = seList[(int)type];

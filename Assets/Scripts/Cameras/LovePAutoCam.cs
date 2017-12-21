@@ -87,9 +87,9 @@ public class LovePAutoCam : AutoCam
     /// <param name="deltaTime"></param>
     protected override void FollowTarget( float deltaTime )
     {
-        base.FollowTarget( deltaTime );
+        base.FollowTarget(deltaTime);
 
-        if( !Application.isPlaying )
+        if (!Application.isPlaying)
         {
             return;
         }
@@ -99,13 +99,13 @@ public class LovePAutoCam : AutoCam
         // 画角の処理
         float targetFov = isBoost ? fovBoost : fovOrigin;
 
-        cameraObj.fieldOfView = Mathf.Lerp( cameraObj.fieldOfView , targetFov , 2.0f * Time.deltaTime );
+        cameraObj.fieldOfView = Mathf.Lerp(cameraObj.fieldOfView, targetFov, 2.0f * Time.deltaTime);
 
         // モーションブラーの処理
         MotionBlurModel.Settings motionBlurSettings = postProcessing.profile.motionBlur.settings;
         float targetBlending = isBoost ? blurBlendingBoost : blurBlendingOrigin;
 
-        motionBlurSettings.frameBlending = Mathf.Lerp( motionBlurSettings.frameBlending , targetBlending , 2.0f * Time.deltaTime );
+        motionBlurSettings.frameBlending = Mathf.Lerp(motionBlurSettings.frameBlending, targetBlending, 2.0f * Time.deltaTime);
 
         postProcessing.profile.motionBlur.settings = motionBlurSettings;
 

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineTrackPath: Cinemachine Track
-  cameraPath: Game_Main Camera
+  cameraPath: BrainCamera
 --- !u!320 &320573639118118988
 PlayableDirector:
   m_ObjectHideFlags: 1

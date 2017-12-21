@@ -188,30 +188,28 @@ public class TitleLogo_Airplane : TweenAnimation
                 break;
 
             case State.MoveFront:
-                Debug.Log(param);
                 iTween.MoveBy(gameObject, moveFrontHash);
                 break;
+
             case State.RotateToBackIn:
-                Debug.Log(param);
                 iTween.ScaleBy(gameObject, scaleBackHash);
                 iTween.MoveBy(gameObject, rotateBackInHash);
                 break;
+
             case State.RotateToBackOut:
-                Debug.Log(param);
                 iTween.MoveBy(gameObject, rotateBackOutHash);
                 break;
+
             case State.MoveBack:
-                Debug.Log(param);
                 iTween.MoveBy(gameObject, moveBackHash);
                 break;
 
             case State.RotateToFrontIn:
-                Debug.Log(param);
                 iTween.ScaleBy(gameObject, scaleFrontHash);
                 iTween.MoveBy(gameObject, rotateFrontInHash);
                 break;
+
             case State.RotateToFrontOut:
-                Debug.Log(param);
                 iTween.MoveBy(gameObject, rotateFrontOutHash);
                 break;
         }

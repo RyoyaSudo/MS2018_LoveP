@@ -10,14 +10,14 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
     private GameObject playerObj;       //プレイヤーオブジェ
     public string playerPath;           //プレイヤーパス
 
-    private GameObject mainCameraObj;   //メインカメラオブジェ
-    public string mainCameraPath;       //メインカメラパス
-
     private VirtualCameraManager virtualCameraManager;      //バーチャルカメラマネージャ
     public string virtualCameraManagerPath;                 //バーチャルカメラマネージャパス
 
     private GameObject vc1Obj;          //バーチャルカメラオブジェクト1
     private GameObject vc2Obj;          //バーチャルカメラオブジェクト2
+
+    private TimelineManager timelineManager;    //タイムラインマネージャー
+    public string timelineManagerPath;          //タイムラインマネージャーパス
 
     private GameObject awaitObj;        //待ち受け状態の人オブジェ
     private GameObject getOffObj;       //下車状態の人オブジェ
@@ -27,8 +27,8 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
     {
         //各オブジェクト取得    
         playerObj = GameObject.Find(playerPath);        //プレイヤーオブジェクト
-        mainCameraObj = GameObject.Find(mainCameraPath);//メインカメラオブジェクト
         virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
+        timelineManager = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();               //タイムラインマネージャー
 
         // HACK : 違う取得の方法を試します
         //今いる人オブジェクト取得
@@ -89,6 +89,9 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
         //バーチャルカメラのSetActive OFF
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM1, false);
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM2, false);
+
+        //タイムラインの状態を「終わり」に
+        timelineManager.SetStateType(TimelineManager.STATETYPE.TIMELINE_END);
     }
 
     // PlayableTrack再生実行

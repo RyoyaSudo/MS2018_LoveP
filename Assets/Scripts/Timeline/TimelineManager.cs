@@ -9,20 +9,33 @@ using System.Linq;
 /// </summary>
 public class TimelineManager : MonoBehaviour {
 
-    private Timeline[] timelineObjArray;
+    //タイラインの状態
+    public enum STATETYPE
+    {
+        TIMELINE_NONE,      //タイムライン中ではない
+        TIMELINE_START,     //タイムライン中
+        TIMELINE_END,       //タイムライン終わり
+        TIMELINE_BLENDING,  //ブレンド中
+    }
+    public STATETYPE stateType;
 
+    private Timeline[] timelineObjArray;
     [SerializeField] Timeline[] timelinePrefabArray;
+
+    private BrainCamera brainCameraObj;                 //BrainCameraオブジェ
+    [SerializeField] private string brainCameraPath;    //BrainCameraパス
 
     // 初期化
     void Start ()
     {
-
+        brainCameraObj = GameObject.Find(brainCameraPath).GetComponent<BrainCamera>();
+        SetStateType(STATETYPE.TIMELINE_NONE);
     }
+
     private void Awake()
     {
         // 生成
         TimelineCreate();
-
     }
 
     /// <summary>
@@ -68,5 +81,35 @@ public class TimelineManager : MonoBehaviour {
         Debug.LogError( "タイムラインオブジェクト取得に失敗しました。\n名前:" + name );
 
         return null;
+    }
+
+    /// <summary>
+    /// 状態をセット
+    /// </summary>
+    /// <param name="type">
+    /// 状態
+    /// </param>
+    public void SetStateType(STATETYPE type)
+    {
+        stateType = type;
+
+        switch (type)
+        {
+            case STATETYPE.TIMELINE_NONE:
+                break;
+
+            case STATETYPE.TIMELINE_START:
+                //BrainCameraをONに
+                brainCameraObj.SetActive(true);
+                break;
+
+            case STATETYPE.TIMELINE_END:
+                break;
+
+            case STATETYPE.TIMELINE_BLENDING:
+                //BrainCameraのブレンドを設定
+                brainCameraObj.SetBlending();
+                break;
+        }
     }
 }
