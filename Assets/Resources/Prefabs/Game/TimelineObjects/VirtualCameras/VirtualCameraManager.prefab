@@ -771,7 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timelineManagerPath: TimeLineManager
   gameMainCameraPath: Game_Main Camera
-  blendTime: 1
+  blendTime: 0.5
   waitTime: 0.5
 --- !u!114 &114612659835072930
 MonoBehaviour:

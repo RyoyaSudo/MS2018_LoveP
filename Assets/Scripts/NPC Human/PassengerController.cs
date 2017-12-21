@@ -12,6 +12,7 @@ public class PassengerController : MonoBehaviour
 {
     private GameObject playerObj;                    //プレイヤーオブジェ
     [SerializeField] private string playerPath;      //プレイヤーパス
+    private PlayerVehicle playerVehicle;             //プレイヤー車両オブジェクト
 
     /// <summary>
     /// 乗車
@@ -130,6 +131,9 @@ public class PassengerController : MonoBehaviour
         //プレイヤーオブジェクト取得
         playerObj = GameObject.Find(playerPath);
 
+        //プレイヤー車両オブジェクト取得
+        playerVehicle = playerObj.GetComponent<PlayerVehicle>();                                                   
+
         //タイムラインマネージャー取得
         timelineManager = GameObject.Find(timelineMangerPath).GetComponent<TimelineManager>();
     }
@@ -207,6 +211,26 @@ public class PassengerController : MonoBehaviour
             //乗車
             case Human.STATETYPE.RIDE:
                 {
+                    float jumpDistance=0;   //ジャンプする位置
+
+                    switch (playerVehicle.VehicleType)
+                    {
+                        case PlayerVehicle.Type.BIKE:
+                            {
+                                jumpDistance += 2.0f;
+                                break;
+                            }
+                        case PlayerVehicle.Type.CAR:
+                            {
+                                jumpDistance += 4.0f;
+                                break;
+                            }
+                        case PlayerVehicle.Type.BUS:
+                            {
+                                jumpDistance += 6.0f;
+                                break;
+                            }
+                    }
                     rideType = RideType.RUN;
                     rideCnt = 0;
 
@@ -215,19 +239,20 @@ public class PassengerController : MonoBehaviour
 
                     Vector3 direction = rideStartPos - rideEndPos;
                     direction = direction.normalized;
-                    rideMiddlePos = playerObj.transform.position + direction * 2.0f;    //中間位置
+                    rideMiddlePos = playerObj.transform.position + direction * jumpDistance;    //中間位置
 
                     rideMoveRate = 1.0f / rideRunTime;                                  //移動割合
                     rideJumpRate = Mathf.PI / rideJumpTime;                             //ジャンプ割合
-                    transform.LookAt(playerObj.transform);                            //プレイヤーの位置を向かせる
+                    transform.LookAt(playerObj.transform);                              //プレイヤーの位置を向かせる
 
-                    Destroy(passengerGroupUIEnptyObj);                                //乗客がどのグループなのかUI削除
+                    Destroy(passengerGroupUIEnptyObj);                                  //乗客がどのグループなのかUI削除
 
                     //乗車タイムライン開始
                     timelineManager.Get("RideTimeline").Play();
                     timelineManager.SetStateType(TimelineManager.STATETYPE.TIMELINE_START);
                     break;
                 }
+
             //下車
             case Human.STATETYPE.GETOFF:
                 {
@@ -249,6 +274,7 @@ public class PassengerController : MonoBehaviour
                     timelineManager.SetStateType(TimelineManager.STATETYPE.TIMELINE_START);
                     break;
                 }
+
             //運搬
             case Human.STATETYPE.TRANSPORT:
                 //親をプレイヤーにする
