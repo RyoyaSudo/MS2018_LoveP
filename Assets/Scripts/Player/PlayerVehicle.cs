@@ -71,6 +71,20 @@ public class PlayerVehicle : MonoBehaviour {
 
     Vector3[] originScaleArray;
 
+    /// <summary>
+    /// 乗車位置配列
+    /// </summary>
+    public Transform[] BikeRidePoint { get { return bikeRidePoint; } }
+    public Transform[] CarRidePoint { get { return carRidePoint; } }
+    public Transform[] BusRidePoint { get { return busRidePoint; } }
+
+    /// <summary>
+    /// 乗車位置配列
+    /// </summary>
+    [SerializeField] Transform[] bikeRidePoint = new Transform[ 1 ];
+    [SerializeField] Transform[] carRidePoint = new Transform[ 2 ];
+    [SerializeField] Transform[] busRidePoint = new Transform[ 4 ];
+
     #endregion
 
     /// <summary>
