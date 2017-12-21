@@ -56,6 +56,8 @@ public class Game : MonoBehaviour {
 
     Player playerObj;
     TimeCtrl timeObj;
+    TimeManager timeManagerObj;
+    ScoreManager scoreManagerObj;
     TimelineManager timelineObj;
     LoveP_Input inputObj;
 
@@ -255,7 +257,8 @@ public class Game : MonoBehaviour {
         StarObj.SetActive( false );
         citySpawnManagerObj.SetActive( true );
         starSpawnManagerObj.SetActive( false );
-        timeObj.SetState(TimeCtrl.State.TIME_STATE_STOP);
+        timeManagerObj.SetState(TimeManager.State.TIME_STATE_STOP);
+        scoreManagerObj.SetState(ScoreManager.State.SCORE_STATE_STOP);
         playerObj.CityPhaseInit();
         playerObj.MoveEnable( false );
         //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
@@ -270,7 +273,8 @@ public class Game : MonoBehaviour {
         StarObj.SetActive( false );
         citySpawnManagerObj.SetActive( true );
         starSpawnManagerObj.SetActive( false );
-        timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
+        timeManagerObj.SetState( TimeManager.State.TIME_STATE_RUN );
+        scoreManagerObj.SetState(ScoreManager.State.SCORE_STATE_RUN);
         playerObj.CityPhaseInit();
         playerObj.MoveEnable( true );
         //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;
@@ -295,7 +299,8 @@ public class Game : MonoBehaviour {
         playerObj.StarPhaseInit();
         playerObj.MoveEnable( true );
 
-        timeObj.SetState( TimeCtrl.State.TIME_STATE_RUN );
+        timeManagerObj.SetState( TimeManager.State.TIME_STATE_RUN );
+        scoreManagerObj.SetState(ScoreManager.State.SCORE_STATE_RUN);
 
         mainCameraObj.GetComponent<LovePCameraController>().enabled = false;
         mainCameraObj.GetComponent<StarCameraController>().enabled = true;
@@ -337,7 +342,7 @@ public class Game : MonoBehaviour {
                 obj = Instantiate( prefabs );
                 obj.name = prefabs.name;
             }
-
+           
             return obj;
         };
 
@@ -364,7 +369,9 @@ public class Game : MonoBehaviour {
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？
-        timeObj = GameObject.Find( "Time" ).GetComponent<TimeCtrl>();
+        timeObj = GameObject.Find("Time").GetComponent<TimeCtrl>();
+        timeManagerObj = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+        scoreManagerObj = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
     }
 
 }
