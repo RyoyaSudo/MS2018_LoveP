@@ -37,8 +37,8 @@ public class TitleLogo_Planet : TweenAnimation
         // 各ハッシュの初期化
         startHash = new Hashtable()
         {
-            { "x" , 1.0f } ,
-            { "y" , 1.0f } ,
+            { "x" , 0.85f } ,
+            { "y" , 0.85f } ,
             { "time", moveTime },
             { "delay", delayTime },
             { "easetype" , iTween.EaseType.easeInOutBack },

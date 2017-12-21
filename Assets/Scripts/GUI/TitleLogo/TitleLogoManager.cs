@@ -27,6 +27,7 @@ public class TitleLogoManager : MonoBehaviour {
         //earthObj.Play();
         logoMainObj.Play();
         planetObj.Play();
+        logoPushStartObj.Play();
     }
 
     /// <summary>
