@@ -13,18 +13,22 @@ public class TitleLogo_Rocket : TweenAnimation
         Stop,
         Pause,
         MoveFront,
-        RotateToBack,
+        RotateToBackIn,
+        RotateToBackOut,
         MoveBack,
-        RotateToFront,
+        RotateToFrontIn,
+        RotateToFrontOut
     }
 
     // iTween用のハッシュテーブル各種
     Hashtable moveFrontHash;
     Hashtable scaleBackHash;
-    Hashtable rotateBackHash;
+    Hashtable rotateBackInHash;
+    Hashtable rotateBackOutHash;
     Hashtable moveBackHash;
     Hashtable scaleFrontHash;
-    Hashtable rotateFrontHash;
+    Hashtable rotateFrontInHash;
+    Hashtable rotateFrontOutHash;
 
     // 初期値の保持
     Transform origin;
@@ -36,62 +40,93 @@ public class TitleLogo_Rocket : TweenAnimation
         // 各ハッシュの初期化
         moveFrontHash = new Hashtable()
         {
-            { "x" , -640.0f } ,
-            { "y" , -160.0f },
+            { "x" , -400.0f } ,
+            { "y" , -70.0f },
             { "time", moveTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
-            { "oncompleteparams" , State.RotateToBack },
+            { "oncompleteparams" , State.RotateToBackIn },
         };
 
         scaleBackHash = new Hashtable()
         {
             { "x" , -1.0f },
-            { "time" , rotateTime },
+            { "time" , rotateTime * 2},
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
+            
+        };
+
+
+        rotateBackInHash = new Hashtable()
+        {
+            { "z" , 2.0f },
+            { "x" , -90.0f},
+            { "y ", -30.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeOutCubic},
+            { "oncompletetarget" , gameObject },
+            { "oncomplete" , "SetState" },
+            { "oncompleteparams" , State.RotateToBackOut },
+        };
+
+        rotateBackOutHash = new Hashtable()
+        {
+            { "z" , 2.0f },
+            { "x" , 90.0f},
+            { "y ", 30.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeInCubic},
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
             { "oncompleteparams" , State.MoveBack },
         };
 
-        rotateBackHash = new Hashtable()
-        {
-            { "z" , 4.0f },
-            { "time" , rotateTime },
-            { "easetype" , iTween.EaseType.linear },
-        };
-
         moveBackHash = new Hashtable()
         {
-            { "x" , 640.0f } ,
-            { "y" , 160.0f },
+            { "x" , 400.0f } ,
+            { "y" , 70.0f },
             { "time", moveTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
-            { "oncompleteparams" , State.RotateToFront },
+            { "oncompleteparams" , State.RotateToFrontIn },
         };
 
         scaleFrontHash = new Hashtable()
         {
             { "x" , -1.0f },
-            { "time" , rotateTime },
+            { "time" , rotateTime * 2 },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
+            
+        };
+        
+        rotateFrontInHash = new Hashtable()
+        {
+            { "z" , -2.0f },
+            { "x" , 90.0f},
+            { "y ", 30.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeOutCubic },
+            { "oncompletetarget" , gameObject },
+            { "oncomplete" , "SetState" },
+            { "oncompleteparams" , State.RotateToFrontOut },
+        };
+
+        rotateFrontOutHash = new Hashtable()
+        {
+            { "z" , -2.0f },
+            { "x" , -90.0f},
+            { "y ", -30.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeInCubic },
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
             { "oncompleteparams" , State.MoveFront },
-        };
-
-        rotateFrontHash = new Hashtable()
-        {
-            { "z" , -4.0f },
-            { "time" , rotateTime },
-            { "easetype" , iTween.EaseType.linear },
         };
     }
 
@@ -147,21 +182,33 @@ public class TitleLogo_Rocket : TweenAnimation
                 break;
 
             case State.MoveFront:
+                Debug.Log(param);
                 iTween.MoveBy(gameObject, moveFrontHash);
                 break;
 
-            case State.RotateToBack:
+            case State.RotateToBackIn:
+                Debug.Log(param);
                 iTween.ScaleBy(gameObject, scaleBackHash);
-                iTween.MoveBy(gameObject, rotateBackHash);
+                iTween.MoveBy(gameObject, rotateBackInHash);
+                break;
+            case State.RotateToBackOut:
+                Debug.Log(param);
+                iTween.MoveBy(gameObject, rotateBackOutHash);
                 break;
 
             case State.MoveBack:
+                Debug.Log(param);
                 iTween.MoveBy(gameObject, moveBackHash);
                 break;
 
-            case State.RotateToFront:
+            case State.RotateToFrontIn:
+                Debug.Log(param);
                 iTween.ScaleBy(gameObject, scaleFrontHash);
-                iTween.MoveBy(gameObject, rotateFrontHash);
+                iTween.MoveBy(gameObject, rotateFrontInHash);
+                break;
+            case State.RotateToFrontOut:
+                Debug.Log(param);
+                iTween.MoveBy(gameObject, rotateFrontOutHash);
                 break;
         }
     }

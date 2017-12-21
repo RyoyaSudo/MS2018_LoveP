@@ -13,7 +13,7 @@ public class TestEffect : MonoBehaviour {
     //サウンド用/////////////////////////////
     private AudioSource testAudioSource;
     private SoundController testMusic;
-    public SoundController.Sounds soundType;
+    public SoundController.SoundsSeType soundType;
 
     private ParticleSystem testEffect;
     // Use this for initialization

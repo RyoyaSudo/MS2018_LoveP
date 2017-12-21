@@ -27,9 +27,12 @@ public class Title : MonoBehaviour {
     GameObject transition;
 
     //サウンド用/////////////////////////////
-    public SoundController.Sounds titleSoundType;
+    public SoundController.SoundsSeType titleSoundType;
     private AudioSource titleAudioS;
     private SoundController titleSoundCtrl;
+    private AudioSource titleBGM;
+
+    public GameObject nowloadingObj;
 
     /// <summary>
     /// 生成時処理
@@ -58,11 +61,14 @@ public class Title : MonoBehaviour {
     void Update()
     {
         //_____フェード関連_____________
-        if( inputObj.GetButton( "Fire1" ) || Input.GetKey( KeyCode.O ) )
+        if( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.O ) )
         {
             // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
             transition.SetActive(true);
-            transition.GetComponent<Transition>().StartTransition("Tutorial");
+            transition.GetComponent<Transition>().StartTransition(null);
+            nowloadingObj.SetActive(true);
+            nowloadingObj.GetComponent<Nowloading>().LoadingStart("Game");
+
             //遷移するときのSE
             titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
         }
