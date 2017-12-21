@@ -7,11 +7,11 @@ using UnityEngine.Playables;
 public class ChangePlayableAsset : PlayableAsset
 {
     public string playerPath;               //プレイヤーパス
-    public string mainCameraPath;           //メインカメラパス
     public string virtualCameraManagerPath; //バーチャルカメラマネージャパス
     public GameObject changeDolly;          //チェンジドリーオブジェ
     public float dollyIntervalTime;         //ドリーの刻む時間
     public float dollyIntervalPos;          //ドリーの刻む位置
+    public string timelineManagerPath;      //タイムラインマネージャーパス
 
     //Timeline再生開始時に１度呼ばれる
     // Factory method that generates a playable based on this asset
@@ -23,10 +23,10 @@ public class ChangePlayableAsset : PlayableAsset
         // Resolveメソッドを利用して、charaObjectの参照を実行時に解決します。
         behaviour.virtualCameraManagerPath = virtualCameraManagerPath;
         behaviour.playerPath = playerPath;
-        behaviour.mainCameraPath = mainCameraPath;
         behaviour.changeDolly = changeDolly;
         behaviour.dollyIntervalTime = dollyIntervalTime;
         behaviour.dollyIntervalPos = dollyIntervalPos;
+        behaviour.timelineManagerPath = timelineManagerPath;
 
         return ScriptPlayable<ChangePlayableBehaviour>.Create(graph, behaviour);
     }
