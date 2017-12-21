@@ -6427,7 +6427,7 @@ MonoBehaviour:
   boostHandlingInterpolate: 0.005
   brakeBiasMin: 0.85
   brakeBiasMax: 1.5
-  isDebugBrake: 0
+  isDebugBrake: 1
   spawnPointPath: City/PlayerSpawnPoint
 --- !u!114 &114880908442341804
 MonoBehaviour:
