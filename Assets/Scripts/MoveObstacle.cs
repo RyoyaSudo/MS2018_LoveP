@@ -28,6 +28,12 @@ public class MoveObstacle : MonoBehaviour {
         velocity = obstacleRb.velocity;
         obstacleRb.constraints = RigidbodyConstraints.FreezeAll;
         obstacleRb.WakeUp();
+        if(GameObject.FindWithTag("Parcel") )
+        {
+            //ダンボール箱だけポジションX,Zだけフリーズさせる
+            obstacleRb.constraints = RigidbodyConstraints.None;
+            obstacleRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        }
     }
 	
     void OnCollisionEnter( Collision col )
