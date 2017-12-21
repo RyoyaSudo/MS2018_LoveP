@@ -16,18 +16,22 @@ public class TitleLogo_Airplane : TweenAnimation
         Stop,
         Pause,
         MoveFront,
-        RotateToBack,
+        RotateToBackIn,
+        RotateToBackOut,
         MoveBack,
-        RotateToFront,
+        RotateToFrontIn,
+        RotateToFrontOut
     }
 
     // iTween用のハッシュテーブル各種
     Hashtable moveFrontHash;
     Hashtable scaleBackHash;
-    Hashtable rotateBackHash;
+    Hashtable rotateBackInHash;
+    Hashtable rotateBackOutHash;
     Hashtable moveBackHash;
     Hashtable scaleFrontHash;
-    Hashtable rotateFrontHash;
+    Hashtable rotateFrontInHash;
+    Hashtable rotateFrontOutHash;
 
     // 初期値の保持
     Transform origin;
@@ -42,62 +46,93 @@ public class TitleLogo_Airplane : TweenAnimation
         // 各ハッシュの初期化
         moveFrontHash = new Hashtable()
         {
-            { "x" , -540.0f } ,
-            { "y" , -260.0f },
+            { "x" , -480.0f } ,
+            { "y" , -120.0f },
             { "time", moveTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
-            { "oncompleteparams" , State.RotateToBack },
+            { "oncompleteparams" , State.RotateToBackIn },
         };
 
         scaleBackHash = new Hashtable()
         {
             { "x" , -1.0f },
-            { "time" , rotateTime },
+            { "time" , rotateTime * 2},
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
+
+        };
+
+
+        rotateBackInHash = new Hashtable()
+        {
+            { "z" ,1.5f },
+            { "x" , -60.0f},
+            { "y ", -20.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeOutCubic},
+            { "oncompletetarget" , gameObject },
+            { "oncomplete" , "SetState" },
+            { "oncompleteparams" , State.RotateToBackOut },
+        };
+
+        rotateBackOutHash = new Hashtable()
+        {
+            { "z" , 2.5f },
+            { "x" , 60.0f},
+            { "y ", 20.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeInCubic},
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
             { "oncompleteparams" , State.MoveBack },
         };
 
-        rotateBackHash = new Hashtable()
-        {
-            { "z" , 4.0f },
-            { "time" , rotateTime },
-            { "easetype" , iTween.EaseType.linear },
-        };
-
         moveBackHash = new Hashtable()
         {
-            { "x" , 540.0f } ,
-            { "y" , 260.0f },
+            { "x" , 480.0f } ,
+            { "y" , 120.0f },
             { "time", moveTime },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
-            { "oncompleteparams" , State.RotateToFront },
+            { "oncompleteparams" , State.RotateToFrontIn },
         };
 
         scaleFrontHash = new Hashtable()
         {
             { "x" , -1.0f },
-            { "time" , rotateTime },
+            { "time" , rotateTime * 2 },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
+
+        };
+
+        rotateFrontInHash = new Hashtable()
+        {
+            { "z" , -3.0f },
+            { "x" , 60.0f},
+            { "y ", 20.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeOutCubic },
+            { "oncompletetarget" , gameObject },
+            { "oncomplete" , "SetState" },
+            { "oncompleteparams" , State.RotateToFrontOut },
+        };
+
+        rotateFrontOutHash = new Hashtable()
+        {
+            { "z" , -1.0f },
+            { "x" , -60.0f},
+            { "y ", -20.0f },
+            { "time" , rotateTime },
+            { "easetype" , iTween.EaseType.easeInCubic },
             { "oncompletetarget" , gameObject },
             { "oncomplete" , "SetState" },
             { "oncompleteparams" , State.MoveFront },
-        };
-
-        rotateFrontHash = new Hashtable()
-        {
-            { "z" , -4.0f },
-            { "time" , rotateTime },
-            { "easetype" , iTween.EaseType.linear },
         };
     }
 
@@ -142,32 +177,42 @@ public class TitleLogo_Airplane : TweenAnimation
     /// <param name="param">設定したい状態</param>
     void SetState( State param )
     {
-        switch( param )
+        switch (param)
         {
             case State.Stop:
-                iTween.Stop( gameObject );
+                iTween.Stop(gameObject);
                 break;
 
             case State.Pause:
-                iTween.Pause( gameObject );
+                iTween.Pause(gameObject);
                 break;
 
             case State.MoveFront:
-                iTween.MoveBy( gameObject , moveFrontHash );
+                Debug.Log(param);
+                iTween.MoveBy(gameObject, moveFrontHash);
                 break;
-
-            case State.RotateToBack:
-                iTween.ScaleBy( gameObject , scaleBackHash );
-                iTween.MoveBy( gameObject , rotateBackHash );
+            case State.RotateToBackIn:
+                Debug.Log(param);
+                iTween.ScaleBy(gameObject, scaleBackHash);
+                iTween.MoveBy(gameObject, rotateBackInHash);
                 break;
-
+            case State.RotateToBackOut:
+                Debug.Log(param);
+                iTween.MoveBy(gameObject, rotateBackOutHash);
+                break;
             case State.MoveBack:
-                iTween.MoveBy( gameObject , moveBackHash );
+                Debug.Log(param);
+                iTween.MoveBy(gameObject, moveBackHash);
                 break;
 
-            case State.RotateToFront:
-                iTween.ScaleBy( gameObject , scaleFrontHash );
-                iTween.MoveBy( gameObject , rotateFrontHash );
+            case State.RotateToFrontIn:
+                Debug.Log(param);
+                iTween.ScaleBy(gameObject, scaleFrontHash);
+                iTween.MoveBy(gameObject, rotateFrontInHash);
+                break;
+            case State.RotateToFrontOut:
+                Debug.Log(param);
+                iTween.MoveBy(gameObject, rotateFrontOutHash);
                 break;
         }
     }
