@@ -70,7 +70,8 @@ public class Title : MonoBehaviour {
             nowloadingObj.GetComponent<Nowloading>().LoadingStart("Game");
 
             //遷移するときのSE
-            titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
+            titleSoundCtrl.PlayOneShot( titleSoundType , titleAudioS );
+            
         }
         //______________
     }

@@ -193,7 +193,7 @@ public class Player : MonoBehaviour
         playerAudioS = audioSources[0];
         driveSoundSource = audioSources[1];
 
-        driveSoundSource.clip = playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.CITY_DRIVE_SOUND);
+        driveSoundSource.clip = playerSoundCtrl.GetSeList( SoundController.SoundsSeType.CITY_DRIVE_SOUND ).clip;
         driveSoundSource.loop = true;
         driveSoundSource.volume = playerSoundCtrl.GetSeList(SoundController.SoundsSeType.CITY_DRIVE_SOUND).volume;
         driveSoundSource.Play();
@@ -589,7 +589,8 @@ public class Player : MonoBehaviour
                     MoveEnable( false );
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_BIKE));
+
+                    playerSoundCtrl.PlayOneShot( SoundController.SoundsSeType.VEHICLE_CHANGE_BIKE , playerAudioS );
                     break;
 
                 case PlayerVehicle.Type.CAR:
@@ -597,7 +598,8 @@ public class Player : MonoBehaviour
                     MoveEnable( false );
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_CAR));
+
+                    playerSoundCtrl.PlayOneShot( SoundController.SoundsSeType.VEHICLE_CHANGE_CAR , playerAudioS );
                     break;
 
                 case PlayerVehicle.Type.BUS:
@@ -605,12 +607,13 @@ public class Player : MonoBehaviour
                     MoveEnable( false );
                     StateParam = State.PLAYER_STATE_IN_CHANGE;
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_BUS));
+
+                    playerSoundCtrl.PlayOneShot( SoundController.SoundsSeType.VEHICLE_CHANGE_BUS , playerAudioS );
                     break;
 
                 case PlayerVehicle.Type.AIRPLANE:
                     //星フェーズへの移行開始
-                    playerAudioS.PlayOneShot(playerSoundCtrl.AudioClipCreate(SoundController.SoundsSeType.VEHICLE_CHANGE_AIRPLANE));
+                    playerSoundCtrl.PlayOneShot( SoundController.SoundsSeType.VEHICLE_CHANGE_AIRPLANE , playerAudioS );
                     ChangeStarPhase();
                     break;
 
