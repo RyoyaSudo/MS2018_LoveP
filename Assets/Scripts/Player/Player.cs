@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     #region 変数宣言
 
+    public int RideCount { get { return rideCount; } }
     int rideCount; //現在乗車人数
     int rideGroupNum; //グループ乗車人数
 

@@ -20,17 +20,22 @@ public class PassengerController : MonoBehaviour
     public float rideRunTime;                        //走る時間
     public float rideWaitTime;                       //待つ時間
     public float rideJumpTime;                       //ジャンプ時間
+    public float rideSitTime;                        //座る時間
     private float rideCnt;                           //カウント
     private Vector3 rideStartPos;                    //最初の位置
-    private Vector3 rideEndPos;                      //最後の位置
+    private Vector3 rideEndPos;                      //終了の位置
     private Vector3 rideMiddlePos;                   //中間の位置
+    private Quaternion sitStartRotation;             //座った時の回転の最初位置
+    private Quaternion sitEndRotation;               //座った時の回転の終了位置
     private float rideMoveRate;                      //移動割合
     private float rideJumpRate;                      //ジャンプ割合
+    private float sitMoveRate;                       //座るときの割合
     private enum RideType                            //状態
     {
         RUN,
         WAIT,
-        JUMP
+        JUMP,
+        SIT
     };
     private RideType rideType;
 
@@ -211,41 +216,51 @@ public class PassengerController : MonoBehaviour
             //乗車
             case Human.STATETYPE.RIDE:
                 {
-                    float jumpDistance=0;   //ジャンプする位置
+                    float jumpDistance=0;                                       //ジャンプする位置
+                    Vector3 endPos = Vector3.zero;                              //終了位置
+                    Quaternion endRotation = Quaternion.identity;               //座った時に向かせる方向
+                    int rideCount=playerObj.GetComponent<Player>().RideCount-1; //現在の乗車人数
 
                     switch (playerVehicle.VehicleType)
                     {
                         case PlayerVehicle.Type.BIKE:
                             {
                                 jumpDistance += 2.0f;
+                                endPos = playerVehicle.BikeRidePoint[rideCount].transform.position;
+                                endRotation = playerVehicle.BikeRidePoint[rideCount].transform.rotation;
                                 break;
                             }
                         case PlayerVehicle.Type.CAR:
                             {
                                 jumpDistance += 4.0f;
+                                endPos = playerVehicle.CarRidePoint[rideCount].transform.position;
+                                endRotation = playerVehicle.CarRidePoint[rideCount].transform.rotation;
                                 break;
                             }
                         case PlayerVehicle.Type.BUS:
                             {
                                 jumpDistance += 6.0f;
+                                endPos = playerVehicle.BusRidePoint[rideCount].transform.position;
+                                endRotation = playerVehicle.BusRidePoint[rideCount].transform.rotation;
                                 break;
                             }
                     }
                     rideType = RideType.RUN;
                     rideCnt = 0;
 
-                    rideStartPos = transform.position;                                   //スタート位置
-                    rideEndPos = playerObj.transform.position;                           //終了位置
-
+                    rideStartPos = transform.position;                                          //スタート位置
+                    rideEndPos = endPos;                                                        //終了位置
                     Vector3 direction = rideStartPos - rideEndPos;
                     direction = direction.normalized;
                     rideMiddlePos = playerObj.transform.position + direction * jumpDistance;    //中間位置
+                    sitEndRotation = endRotation;                                               //座った時の最終方向
 
-                    rideMoveRate = 1.0f / rideRunTime;                                  //移動割合
-                    rideJumpRate = Mathf.PI / rideJumpTime;                             //ジャンプ割合
-                    transform.LookAt(playerObj.transform);                              //プレイヤーの位置を向かせる
+                    rideMoveRate = 1.0f / rideRunTime;                                          //移動割合
+                    rideJumpRate = Mathf.PI / rideJumpTime;                                     //ジャンプ割合
+                    sitMoveRate = 1.0f / rideSitTime;                                           //座った時の割合
+                    transform.LookAt(playerObj.transform);                                      //プレイヤーの位置を向かせる
 
-                    Destroy(passengerGroupUIEnptyObj);                                  //乗客がどのグループなのかUI削除
+                    Destroy(passengerGroupUIEnptyObj);                                          //乗客がどのグループなのかUI削除
 
                     //乗車タイムライン開始
                     timelineManager.Get("RideTimeline").Play();
@@ -344,6 +359,7 @@ public class PassengerController : MonoBehaviour
                 {
                     //乗車ジャンプアニメーションをさせる
                     humanObj.ModelObj.GetComponent<HumanAnim>().RideJumpAnimOn();
+                    transform.LookAt(rideEndPos);        //終了位置を向かせる
 
                     rideType = RideType.JUMP;
                     rideCnt = 0;
@@ -358,11 +374,13 @@ public class PassengerController : MonoBehaviour
             case RideType.JUMP:
                 if (rideCnt >= rideJumpTime)
                 {
-                    //中間位置に移動
+                    rideType = RideType.SIT;
+                    rideCnt = 0;
+
+                    //終了位置に移動
                     transform.position = rideEndPos;
 
-                    //「運搬」状態に
-                    humanObj.CurrentStateType = Human.STATETYPE.TRANSPORT;
+                    sitStartRotation = transform.rotation;
                 }
                 else
                 {
@@ -374,6 +392,19 @@ public class PassengerController : MonoBehaviour
                     pos = transform.position;
                     pos.y += Mathf.Sin(rideJumpRate * rideCnt)*2.0f;
                     transform.position = pos;
+                }
+                break;
+
+            case RideType.SIT:
+                if (rideCnt >= rideSitTime)
+                {
+                    //「運搬」状態に
+                    humanObj.CurrentStateType = Human.STATETYPE.TRANSPORT;
+                }
+                else
+                {
+                    rideCnt += Time.deltaTime;
+                    transform.rotation = Quaternion.Lerp(sitStartRotation, sitEndRotation, sitMoveRate * rideCnt);
                 }
                 break;
         }

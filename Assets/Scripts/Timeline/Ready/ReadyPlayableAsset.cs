@@ -7,9 +7,8 @@ using UnityEngine.Playables;
 public class ReadyPlayableAsset : PlayableAsset
 {
     public string virtualCameraManagerPath;             //バーチャルカメラマネージャパス
-
+    public string timelineManagerPath;                  //タイムラインマネージャーパス
     public string playerPath;                           //プレイヤーパス
-    public string mainCameraPath;                       //メインカメラパス
 
     //Timeline再生開始時に１度呼ばれる
     // Factory method that generates a playable based on this asset
@@ -21,7 +20,7 @@ public class ReadyPlayableAsset : PlayableAsset
         // Resolveメソッドを利用して、charaObjectの参照を実行時に解決します。
         behaviour.virtualCameraManagerPath = virtualCameraManagerPath;
         behaviour.playerPath = playerPath;
-        behaviour.mainCameraPath = mainCameraPath;
+        behaviour.timelineManagerPath = timelineManagerPath;
 
         return ScriptPlayable<ReadyPlayableBehaviour>.Create(graph, behaviour);
     }
