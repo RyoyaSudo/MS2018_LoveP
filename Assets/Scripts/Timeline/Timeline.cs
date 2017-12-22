@@ -7,13 +7,28 @@ using System.Linq;
 public abstract class Timeline : MonoBehaviour
 {
     //PlayableDirector
-    private PlayableDirector director;
+    protected PlayableDirector director;
+
+    private GameObject virtualCameraParent;
+    [SerializeField] string virtualCameraParentPath;
+
+    /// <summary>
+    /// 生成時処理
+    /// </summary>
+    private void Awake()
+    {
+        //PlayableDirector取得
+        director = GetComponent<PlayableDirector>();
+    }
 
     /// <summary>
     /// 初期化処理
     /// </summary>
     private void Start()
     {
+        virtualCameraParent = GameObject.Find( virtualCameraParentPath );
+
+        CinemachineSetting();
         Bind();
     }
 
@@ -28,9 +43,6 @@ public abstract class Timeline : MonoBehaviour
     /// </param>
     public void BindTrack( GameObject obj , string path )
     {
-        //PlayableDirector取得
-        director = GetComponent<PlayableDirector>();
-
         //Timelineからパスのトラックへの参照を取得して
         var binding = director.playableAsset.outputs.First(c => c.streamName == path);
 
@@ -43,6 +55,48 @@ public abstract class Timeline : MonoBehaviour
     /// 必ず派生先初期化時に呼び出すこと！
     /// </summary>
     public abstract void Bind();
+
+    /// <summary>
+    /// プレハブへの設定処理
+    /// </summary>
+    public void CinemachineSetting()
+    {
+        foreach( var output in director.playableAsset.outputs )
+        {
+            if( output.streamName == "Cinemachine Track" )
+            {
+                var cinemachineTrack = output.sourceObject as Cinemachine.Timeline.CinemachineTrack;
+
+                foreach( var clip in cinemachineTrack.GetClips() )
+                {
+                    if( virtualCameraParent == null )
+                    {
+                        Debug.Log( "VirtualCameraParent Not To Find" );
+                        continue;
+                    }
+
+                    var vcObj = virtualCameraParent.transform.Find( clip.displayName ).gameObject;
+
+                    if( vcObj == null )
+                    {
+                        Debug.Log( "VirtualCameraObject Not To Find" );
+                        continue;
+                    }
+
+                    var vc = vcObj.GetComponent<Cinemachine.CinemachineVirtualCameraBase>();
+
+                    if( vc == null )
+                    {
+                        Debug.Log( "VirtualCameraComponent Not To Find" );
+                        continue;
+                    }
+
+                    var cinemachineShot = clip.asset as Cinemachine.Timeline.CinemachineShot;
+                    director.SetReferenceValue( cinemachineShot.VirtualCamera.exposedName , vc );
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// 開始処理

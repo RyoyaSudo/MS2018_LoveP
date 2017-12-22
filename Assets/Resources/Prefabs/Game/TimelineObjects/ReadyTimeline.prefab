@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e83f5833581b9943a7878de1ffa0a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCameraParentPath: VirtualCameraManager
   cinemachineTrackPath: Cinemachine Track
   cameraPath: Game_Main Camera
 --- !u!320 &320683547951796040

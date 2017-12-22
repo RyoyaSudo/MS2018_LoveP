@@ -34,6 +34,7 @@ public class Game : MonoBehaviour {
     [SerializeField] GameObject shipPointsPrefab;
     [SerializeField] GameObject citySpawnListPrefab;
     [SerializeField] GameObject citySpawnManagerPrefab;
+    [SerializeField] GameObject vcManagerPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
@@ -53,6 +54,7 @@ public class Game : MonoBehaviour {
     GameObject shipPointsObj;
     GameObject citySpawnListObj;
     GameObject citySpawnManagerObj;
+    GameObject vcManagerObj;
 
     Player playerObj;
     TimeCtrl timeObj;
@@ -392,6 +394,7 @@ public class Game : MonoBehaviour {
         shipPointsObj       = Create( shipPointsPrefab );
         citySpawnManagerObj = Create( citySpawnManagerPrefab );
         citySpawnListObj    = Create( citySpawnListPrefab );
+        vcManagerObj        = Create( vcManagerPrefab );
 
         // HACK: 直接生成したもの以外で保持したいオブジェクトを取得
         //       直接パスを記述。後に変更したほうがいいか？

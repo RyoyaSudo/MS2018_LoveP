@@ -28,6 +28,7 @@ public class TimelineManager : MonoBehaviour {
     // 初期化
     void Start ()
     {
+        // 設定
         brainCameraObj = GameObject.Find(brainCameraPath).GetComponent<BrainCamera>();
         SetStateType(STATETYPE.TIMELINE_NONE);
     }
@@ -39,7 +40,7 @@ public class TimelineManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// タイムライン生成処理d
+    /// タイムライン生成処理
     /// </summary>
     private void TimelineCreate()
     {

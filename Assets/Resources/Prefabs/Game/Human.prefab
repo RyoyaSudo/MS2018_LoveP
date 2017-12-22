@@ -387,6 +387,7 @@ MonoBehaviour:
   rideRunTime: 2
   rideWaitTime: 0.01
   rideJumpTime: 1
+  rideSitTime: 0.3
   getOffRunTime: 2
   getOffJumpTime: 1
   awaitTime: 3.5
