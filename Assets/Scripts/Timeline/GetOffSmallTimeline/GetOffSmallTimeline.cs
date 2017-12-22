@@ -29,4 +29,5 @@ public class GetOffSmallTimeline : Timeline {
         // バインド処理
         BindTrack(cameraObj, cinemachineTrackPath);
     }
+
 }

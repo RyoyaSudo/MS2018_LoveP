@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd878932aa89edb4eb03ddf59d4560bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCameraParentPath: VirtualCameraManager
   cinemachineTrackPath: Cinemachine Track
   cameraPath: BrainCamera
 --- !u!320 &320016831567726888
@@ -73,4 +74,5 @@ PlayableDirector:
   - key: {fileID: 114419045960793646, guid: 5060454556d610b46a5bb5e2640a6a0d, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
-    m_References: []
+    m_References:
+    - ab9baed830d9f6e499ed7bbef11f548d: {fileID: 0}
