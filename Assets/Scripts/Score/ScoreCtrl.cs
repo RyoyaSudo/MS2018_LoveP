@@ -57,6 +57,9 @@ public class ScoreCtrl : MonoBehaviour
 
     public ScoreManager.State state;
 
+    //スコアの加算された時のフラグ
+    public bool scoreFlag;
+
     void Start()
     {
         starPhaseAddScoreNum = 1;
@@ -65,6 +68,7 @@ public class ScoreCtrl : MonoBehaviour
         //スコアの実際に表示される0~9の値を格納する変数
         scoreStack = new int[ ScoreArray.Length ];
 
+        scoreFlag = false;
         //ScoreArray = new GameObject[ ScoreArray.Length ];
 
         ////桁数分スコアを生成する
@@ -110,8 +114,13 @@ public class ScoreCtrl : MonoBehaviour
                 }
             case ScoreManager.State.SCORE_STATE_RUN:
                 {
+                    //Lpロゴのアニメーションフラグ
+                    scoreFlag = false;
                     //スコア加算
-                    ScoreSet(0);
+                    if(Input.GetKeyDown(KeyCode.UpArrow))
+                    {
+                        ScoreSet(100);
+                    }
                     break;
                 }
         }
@@ -125,6 +134,9 @@ public class ScoreCtrl : MonoBehaviour
     ***********************************************************/
     public void ScoreSet( int score )
     {
+        //Lpロゴのアニメーションフラグ
+        scoreFlag = true;
+
         //トータルスコアに加算させる
         totalScore += score;
 
@@ -154,7 +166,8 @@ public class ScoreCtrl : MonoBehaviour
         {
             ScoreArray[ nCnt ].GetComponent<SpriteRenderer>().sprite = SpriteArray[ scoreStack[ nCnt ] ];
         }
-        ScoreZeroCheck();   //Scoreのゼロチェック（仮）
+        ScoreZeroCheck();   //Scoreのゼロチェック（仮)
+
     }
     /************************************************************
     * 関数名：ScoreZeroCheck
