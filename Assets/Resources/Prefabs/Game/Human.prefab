@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelArray:
-  - {fileID: 1167692189014702, guid: aba614d213f717f4e938361aca0ed2e4, type: 2}
+  - {fileID: 1153668750096960, guid: aba614d213f717f4e938361aca0ed2e4, type: 2}
   - {fileID: 1787178622762782, guid: 3640f0619bfe9b24abddc811c49017fb, type: 2}
 --- !u!136 &136016218072901752
 CapsuleCollider:

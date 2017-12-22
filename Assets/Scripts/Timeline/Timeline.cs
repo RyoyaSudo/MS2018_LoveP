@@ -71,7 +71,7 @@ public abstract class Timeline : MonoBehaviour
                 {
                     if( virtualCameraParent == null )
                     {
-                        Debug.Log( "VirtualCameraParent Not To Find" );
+                        Debug.LogWarning( "VirtualCameraParent Not To Find" );
                         continue;
                     }
 
@@ -79,7 +79,7 @@ public abstract class Timeline : MonoBehaviour
 
                     if( vcObj == null )
                     {
-                        Debug.Log( "VirtualCameraObject Not To Find" );
+                        Debug.LogWarning( "VirtualCameraObject Not To Find" );
                         continue;
                     }
 
@@ -87,7 +87,7 @@ public abstract class Timeline : MonoBehaviour
 
                     if( vc == null )
                     {
-                        Debug.Log( "VirtualCameraComponent Not To Find" );
+                        Debug.LogWarning( "VirtualCameraComponent Not To Find" );
                         continue;
                     }
 

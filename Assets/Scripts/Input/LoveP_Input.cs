@@ -39,6 +39,25 @@ public class LoveP_Input : MonoBehaviour {
     private void Awake()
     {
         serial = null;
+
+        StartCoroutine( LoadCom() );
+    }
+
+    /// <summary>
+    /// COM情報を外部から取得する処理
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator LoadCom()
+    {
+        // C ドライブのみ利用可能
+        var www = new WWW("file:C:/MS_LoveP/LoveP_Input.txt");
+        yield return www;
+
+        if( string.IsNullOrEmpty( www.error ) )
+        {
+            var text = www.text;
+            portNum = text;
+        }
     }
 
     /// <summary>
