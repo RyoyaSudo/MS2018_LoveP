@@ -222,7 +222,8 @@ public class CityPhaseMove : MonoBehaviour {
     /// <summary>
     /// 地上接地判定
     /// </summary>
-    private bool isGround;
+    public bool IsGround { get; set; }
+    bool isGroundOld;
 
     /// <summary>
     /// 開始位置
@@ -253,7 +254,8 @@ public class CityPhaseMove : MonoBehaviour {
         isBoostTrigger = false;
         isBoostRelese = false;
         gravityVec = Vector3.zero;
-        isGround = false;
+        IsGround = false;
+        isGroundOld = false;
 
         // 算出系
         stoppingPower = stoppingTime == 0.0f ? 1.0f : ( 1.0f / stoppingTime ) * stoppingRate;
@@ -421,7 +423,7 @@ public class CityPhaseMove : MonoBehaviour {
         // 重力処理
         gravityVec += gravity * Time.deltaTime;
 
-        if( isGround )
+        if( IsGround || isGroundOld )
         {
             gravityVec = Vector3.zero;
         }
@@ -430,7 +432,7 @@ public class CityPhaseMove : MonoBehaviour {
         //       デバッグ時に活用できそうなので実装
         if( Input.GetKey( KeyCode.J ) )
         {
-            gravityVec = gravity * 2.0f;
+            gravityVec = gravity * -2.0f;
         }
 
         // 速度制限
@@ -443,19 +445,12 @@ public class CityPhaseMove : MonoBehaviour {
         }
 
         // 移動量の反映
-        controller.Move( ( velocityVec + gravityVec ) * Time.deltaTime );
+        Vector3 curMoveV = ( velocityVec + gravityVec ) * Time.deltaTime;
+
+        controller.Move( curMoveV );
         //rb.AddForce( ( velocityVec + gravityVec ) , ForceMode.Acceleration );
         rb.velocity = ( velocityVec + gravityVec );
         //rb.AddForce( ( accV + gravityVec ) , ForceMode.Acceleration );
-
-        if( Equals( transform.position.y , oldPos.y ) )
-        {
-            isGround = true;
-        }
-        else
-        {
-            isGround = false;
-        }
         
         // 過去情報を保存しておく
         oldPos = transform.position;
@@ -635,9 +630,13 @@ public class CityPhaseMove : MonoBehaviour {
     private void FixedUpdate()
     {
         // PhysXによる当たり判定を行った後の位置を制御点のtransformに反映
-        Vector3 v = Vector3.Lerp( transform.position , modelObj.transform.position , 0.75f );
+        //Vector3 v = Vector3.Lerp( transform.position , modelObj.transform.position , 0.75f );
         //v.y = modelObj.transform.localPosition.y;
-        transform.position = v;
+        //transform.position = v;
+
+        isGroundOld = IsGround;
+        IsGround = false;
+
         //rb.velocity = ( velocityVec + gravityVec );
 
         //// ハンドリングに合わせて速度ベクトルを補正

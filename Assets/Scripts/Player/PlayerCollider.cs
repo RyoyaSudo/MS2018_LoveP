@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCollider : MonoBehaviour
 {
     [SerializeField] Player playerObj;
+    [SerializeField] CityPhaseMove moveControllerObj;
 
     /// <summary>
     /// 当たり判定後に行う処理
@@ -18,6 +19,10 @@ public class PlayerCollider : MonoBehaviour
                 Human obj = other.transform.parent.GetComponent<Human>();
 
                 playerObj.PassengerRide( obj );
+                break;
+
+            case "CityPlane":
+                moveControllerObj.IsGround = true;
                 break;
 
             default:

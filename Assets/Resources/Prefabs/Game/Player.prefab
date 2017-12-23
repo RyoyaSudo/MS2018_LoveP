@@ -4636,6 +4636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 114552078547330574}
+  moveControllerObj: {fileID: 114636721241199470}
 --- !u!114 &114422211258631654
 MonoBehaviour:
   m_ObjectHideFlags: 1
