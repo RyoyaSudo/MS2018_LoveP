@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LpAnimation_Lp : TweenAnimation 
+public class LpAnimation_LpLogo : TweenAnimation
 {
-
     [SerializeField] float moveTime;
 
     // 状態変数の列挙値
@@ -13,10 +12,13 @@ public class LpAnimation_Lp : TweenAnimation
         Stop,
         Pause,
         Start,
-        Default
+        Defalut
     }
 
-    State CurrentState;
+
+    State currentState;
+
+    public bool lpLogoFlag;
 
     // iTween用のハッシュテーブル各種
     Hashtable startHash;
@@ -24,24 +26,22 @@ public class LpAnimation_Lp : TweenAnimation
     // 初期値の保持
     Transform origin;
 
-    public bool lpAnimFrag;
-
     private void Awake()
     {
         origin = transform;
 
         // 各ハッシュの初期化
         startHash = new Hashtable()
-        {
-            { "x" , 0.3f } ,
-            { "y" , 0.3f } ,
-            { "time", moveTime },
-            { "easetype" , iTween.EaseType.linear },
-            { "loopType" , iTween.LoopType.none },
-            { "oncompletetarget" , gameObject },
-            { "oncomplete" , "SetState" },
-            { "oncompleteparams" , State.Default },
-        };
+            {
+                { "x" , 1.0f } ,
+                { "y" , 1.0f } ,
+                { "time", moveTime },
+                { "easetype" , iTween.EaseType.linear },
+                { "loopType" , iTween.LoopType.none },
+                { "oncompletetarget" , gameObject },
+                { "oncomplete" , "SetState" },
+                { "oncompleteparams" , State.Defalut },
+            };
     }
 
     /// <summary>
@@ -51,11 +51,7 @@ public class LpAnimation_Lp : TweenAnimation
     {
         Init();
         SetState(State.Start);
-        if (CurrentState == State.Start)
-        {
-            CurrentState = State.Default;
-        }
-
+        lpLogoFlag = true;
     }
 
     /// <summary>
@@ -82,6 +78,9 @@ public class LpAnimation_Lp : TweenAnimation
         transform.position = origin.position;
         transform.rotation = origin.rotation;
         transform.localScale = origin.localScale;
+
+        currentState = State.Defalut;
+        lpLogoFlag = false;
     }
 
     /// <summary>
@@ -90,7 +89,6 @@ public class LpAnimation_Lp : TweenAnimation
     /// <param name="param">設定したい状態</param>
     void SetState(State param)
     {
-        CurrentState = param;
         switch (param)
         {
             case State.Stop:
@@ -104,8 +102,8 @@ public class LpAnimation_Lp : TweenAnimation
             case State.Start:
                 iTween.PunchScale(gameObject, startHash);
                 break;
-
-            case State.Default:
+            case State.Defalut:
+                lpLogoFlag = false;
                 break;
         }
     }
