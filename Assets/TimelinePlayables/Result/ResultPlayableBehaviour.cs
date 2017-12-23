@@ -23,6 +23,9 @@ public class ResultPlayableBehaviour : PlayableBehaviour
     //public float dollyIntervalPos;     //ドリーの刻む位置
     //private float pathPosCnt;          //パスの位置カウント
 
+    private GameObject rocketObj;
+    public string rocketPath;
+
     // タイムライ開始実行
     public override void OnGraphStart(Playable playable)
     {

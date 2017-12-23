@@ -19,7 +19,7 @@ MonoBehaviour:
   m_EditorSettings:
     fps: 60
   m_DurationMode: 0
---- !u!114 &114125437558278116
+--- !u!114 &114302053394819116
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: 5f194dfd6912e484091989d90cdbf8fb
+    exposedName: 220871851b07ab44086827b1d3da8741
     defaultValue: {fileID: 0}
 --- !u!114 &114340142309312062
 MonoBehaviour:
@@ -131,7 +131,7 @@ MonoBehaviour:
     m_ClipIn: 0
     m_Asset: {fileID: 114588081552678460}
     m_UnderlyingAsset: {fileID: 114588081552678460}
-    m_Duration: 5
+    m_Duration: 4.999999999999
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114447715761462190}
     m_EaseInDuration: 0
@@ -158,7 +158,19 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -175,8 +187,8 @@ MonoBehaviour:
     m_Version: 1
   - m_Start: 5
     m_ClipIn: 0
-    m_Asset: {fileID: 114125437558278116}
-    m_UnderlyingAsset: {fileID: 114125437558278116}
+    m_Asset: {fileID: 114302053394819116}
+    m_UnderlyingAsset: {fileID: 114302053394819116}
     m_Duration: 5
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114447715761462190}
@@ -230,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b76b8a86e7ca47908bd048362884c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rocketPath: 
 --- !u!114 &114588081552678460
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,6 +12,7 @@ public class ResultPlayableAsset : PlayableAsset
     //public float dollyIntervalTime;         //ドリーの刻む時間
     //public float dollyIntervalPos;          //ドリーの刻む位置
     //public string timelineManagerPath;      //タイムラインマネージャーパス
+    public string rocketPath;
 
     //Timeline再生開始時に１度呼ばれる
     // Factory method that generates a playable based on this asset

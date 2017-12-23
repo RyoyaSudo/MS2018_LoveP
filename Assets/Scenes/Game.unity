@@ -165,10 +165,10 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 748959597}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4c1d3b16f69780f449ec5c9b74cd6157, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3e7b98e1ab0bbf14c86b357eb18e2320, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.25
   m_Pitch: 1
@@ -385,8 +385,13 @@ Prefab:
     - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
         type: 2}
       propertyPath: phaseParam
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82450138279578090, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 366758b1799bebc4c9a158c7624a096f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
   m_IsPrefabParent: 0
