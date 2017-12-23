@@ -105,6 +105,14 @@ public class StartLogo : MonoBehaviour {
                     pos.x -= startBack1SizeX;
                     transform.localPosition = pos;
 
+                    pos = startBack1OBj.transform.localPosition;
+                    pos.z += 0.2f;
+                    startBack1OBj.transform.localPosition = pos;
+
+                    pos = startBack2Obj.transform.localPosition;
+                    pos.z += 0.1f;
+                    startBack2Obj.transform.localPosition = pos;
+
                     //表示をスライドさせるよ
                     iTween.MoveBy(gameObject, iTween.Hash("x", startBack1SizeX, "easetype", "easeOutExpo", "time", srideInTime));
                     break;
