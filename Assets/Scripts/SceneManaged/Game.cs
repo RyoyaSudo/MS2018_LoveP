@@ -157,11 +157,11 @@ public class Game : MonoBehaviour {
                     //デバッグ用
                     if( isDebug && Input.GetKeyUp( KeyCode.P ) )
                     {
-                        PhaseParam = Phase.GAME_PAHSE_STAR;
+                        //PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
                     if (isDebug && Input.GetKeyUp(KeyCode.I))
                     {
-                        PhaseParam = Phase.GAME_PAHSE_STAR_SHIFT;
+                        //PhaseParam = Phase.GAME_PAHSE_STAR_SHIFT;
                     }
 
                     if ( timeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
@@ -178,7 +178,7 @@ public class Game : MonoBehaviour {
                     //ただこの場合タイムラインを途中で止めてもフェーズ移行する
                     if (PlayState.Paused == timelineObj.Get("StarShiftTimeline").State())
                     {
-                        PhaseParam = Phase.GAME_PAHSE_STAR;
+                        //PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
                     break;
                 }
@@ -210,7 +210,7 @@ public class Game : MonoBehaviour {
 
         if( Input.GetKeyDown( KeyCode.L ) )
         {
-            PhaseParam = ( Phase )Mathf.Min( ( ( int )PhaseParam + 1 ) , ( ( int )Phase.GAME_PAHSE_NUM - 1 ) );
+            //PhaseParam = ( Phase )Mathf.Min( ( ( int )PhaseParam + 1 ) , ( ( int )Phase.GAME_PAHSE_NUM - 1 ) );
         }
 
 

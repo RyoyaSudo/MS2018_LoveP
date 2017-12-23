@@ -27,6 +27,8 @@ public class PassengerGroupUI : TweenAnimation
     // 初期値の保持
     Transform origin;
 
+    Camera mainCamera;
+
     private void Awake()
     {
         origin = transform;
@@ -88,6 +90,7 @@ public class PassengerGroupUI : TweenAnimation
             { "oncomplete" , "SetState" },
             { "oncompleteparams" , State.MoveUp },
         };
+
     }
 
     // 初期化
@@ -99,7 +102,12 @@ public class PassengerGroupUI : TweenAnimation
 	//更新
 	void Update ()
     {
-        Vector3 p = Camera.main.transform.position;
+        if( !mainCamera.enabled )
+        {
+            return;
+        }
+
+        Vector3 p = mainCamera.transform.position;
         p.y = transform.position.y;
         transform.LookAt(p);
     }

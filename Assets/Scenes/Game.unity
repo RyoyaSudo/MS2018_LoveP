@@ -444,11 +444,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 108174876495565400, guid: bed29b86db315464191a72d10650b569,
-        type: 2}
-      propertyPath: m_DrawHalo
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bed29b86db315464191a72d10650b569, type: 2}
   m_IsPrefabParent: 0
