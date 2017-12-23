@@ -64,11 +64,6 @@ public class Game : MonoBehaviour {
     LoveP_Input inputObj;
 
     /// <summary>
-    /// ゲームが開始するまでの時間
-    /// </summary>
-    [SerializeField] float gameStartWaitTime;
-
-    /// <summary>
     /// ゲームシーン状態の列挙値
     /// </summary>
     public enum Phase
@@ -149,10 +144,9 @@ public class Game : MonoBehaviour {
                 {
                     phaseTimer += Time.deltaTime;
 
-                    if( phaseTimer > gameStartWaitTime )
+                    if ( timelineObj.stateType == TimelineManager.STATETYPE.TIMELINE_NONE )
                     {
                         PhaseParam = Phase.GAME_PAHSE_CITY;
-                        phaseTimer = 0.0f;
                     }
                     break;
                 }
@@ -286,7 +280,8 @@ public class Game : MonoBehaviour {
         starSpawnManagerObj.SetActive( false );
         timeManagerObj.SetState(TimeManager.State.TIME_STATE_STOP);
         scoreManagerObj.SetState(ScoreManager.State.SCORE_STATE_STOP);
-        //timelineObj.Get( "StarShiftTimeline" ).Play();
+        timelineObj.Get("ReadyTimeline").Play();                                //タイムライン開始
+        timelineObj.SetStateType(TimelineManager.STATETYPE.TIMELINE_START);
         playerObj.CityPhaseInit();
         playerObj.MoveEnable( false );
         //mainCameraObj.GetComponent<LovePCameraController>().enabled = true;

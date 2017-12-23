@@ -39,7 +39,7 @@ public class FaceController : MonoBehaviour {
     // 一種類追加（FACE_STATE_TEAR）：さとう
     public enum FaceState
     {
-        FACE_STATE_NORMAL = 0,
+        FACE_STATE_NONE = 0,
         FACE_STATE_WINK,
         FACE_STATE_TEAR
     }
@@ -149,29 +149,9 @@ public class FaceController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        // 親がどの状態か取得
-        Human.STATETYPE humanState = transform.parent.GetComponent<Human>().CurrentStateType;
-
-        if (humanState == Human.STATETYPE.EVADE)
-        {// 親が逃げ回り状態だと涙状態
-            faceState = FaceState.FACE_STATE_TEAR;
-            faceType = FaceType.FACE_TYPE_TEAR;
-            ChangeFace(FaceType.FACE_TYPE_TEAR);
-        }
-        // ここに順次条件を追加
-        else
-        {// それ以外だとウインク
-            if(faceState == FaceState.FACE_STATE_TEAR)
-            {
-                faceState = FaceState.FACE_STATE_WINK;
-                faceType = FaceType.FACE_TYPE_NORMAL;
-                ChangeFace(FaceType.FACE_TYPE_NORMAL);
-            }
-        }
-
         switch( faceState )
         {
-            case FaceState.FACE_STATE_NORMAL:
+            case FaceState.FACE_STATE_NONE:
                 {
                     break;
                 }

@@ -9,6 +9,7 @@ public class VirtualCamera : MonoBehaviour {
     {
         READY_VCAM1 ,
         READY_VCAM2 ,
+        READY_VCAM3 ,
         RIDE_VCAM1 ,
         GETOFF_VCAM1 ,
         GETOFF_VCAM2 ,

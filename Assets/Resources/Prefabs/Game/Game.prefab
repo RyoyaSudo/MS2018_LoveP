@@ -108,7 +108,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -168,7 +168,8 @@ MonoBehaviour:
     type: 2}
   citySpawnManagerPrefab: {fileID: 1648512796981284, guid: 05cf89f3cf6fc724896a1edc82eceed4,
     type: 2}
-  gameStartWaitTime: 5
-  phaseParam: 2
+  vcManagerPrefab: {fileID: 1556290347473042, guid: f687559bc61fe6641813b12e75635e68,
+    type: 2}
+  phaseParam: 0
   isDebug: 1
   isOnGUIEnable: 1

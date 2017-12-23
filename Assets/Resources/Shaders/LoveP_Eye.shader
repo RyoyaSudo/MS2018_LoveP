@@ -1,4 +1,4 @@
-﻿Shader "MS_LoveP/LovePFace"
+﻿Shader "MS_LoveP/LoveP_Eye"
 {
 	Properties
 	{

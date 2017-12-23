@@ -9,11 +9,11 @@ public class ReadyPlayableBehaviour : PlayableBehaviour
     private GameObject playerObj;       //プレイヤーオブジェ
     public string playerPath;           //プレイヤーパス
 
-    private GameObject mainCameraObj;   //メインカメラオブジェ
-    public string mainCameraPath;       //メインカメラパス
-
     private VirtualCameraManager virtualCameraManager;      //バーチャルカメラマネージャ
     public string virtualCameraManagerPath;                 //バーチャルカメラマネージャパス
+
+    private TimelineManager timelineManager;    //タイムラインマネージャー
+    public string timelineManagerPath;          //タイムラインマネージャーパス
 
     private GameObject vc1Obj;          //バーチャルカメラオブジェクト1
     private GameObject vc2Obj;          //バーチャルカメラオブジェクト2
@@ -23,8 +23,8 @@ public class ReadyPlayableBehaviour : PlayableBehaviour
     {
         //各オブジェクト取得    
         playerObj = GameObject.Find(playerPath);        //プレイヤーオブジェクト
-        mainCameraObj = GameObject.Find(mainCameraPath);//メインカメラオブジェクト
         virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
+        timelineManager = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();               //タイムラインマネージャー
 
         //バーチャルカメラのSetActive ON
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.READY_VCAM1, true);
@@ -36,7 +36,7 @@ public class ReadyPlayableBehaviour : PlayableBehaviour
 
         //バーチャルカメラ取得
         Cinemachine.CinemachineVirtualCamera vc1 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        Cinemachine.CinemachineVirtualCamera vc2 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        Cinemachine.CinemachineVirtualCamera vc2 = vc2Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         //LookAt設定
         vc1.LookAt = playerObj.transform;
@@ -45,9 +45,11 @@ public class ReadyPlayableBehaviour : PlayableBehaviour
         //位置設定
         Vector3 pos;
         pos = playerObj.transform.position;
-
-        vc1Obj.transform.position = pos + playerObj.transform.forward * 30.0f;
-        vc2Obj.transform.position = pos + playerObj.transform.forward * 3.0f;
+        pos.y += 30.0f;
+        vc1Obj.transform.position = pos + playerObj.transform.forward * 150.0f;
+        pos = playerObj.transform.position;
+        pos.y += 3.0f;
+        vc2Obj.transform.position = pos + playerObj.transform.forward * 4.0f;
 
     }
 
