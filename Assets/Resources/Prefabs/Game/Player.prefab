@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 4741869904261688}
   - component: {fileID: 33913742960123124}
   - component: {fileID: 23482805087636258}
-  m_Layer: 12
+  m_Layer: 5
   m_Name: Cursor2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 4869938218747668}
   - component: {fileID: 33351709660198260}
   - component: {fileID: 23505533373471770}
-  m_Layer: 12
+  m_Layer: 5
   m_Name: Cursor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,13 +880,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4252652025223582}
   - component: {fileID: 114422211258631654}
-  m_Layer: 12
+  m_Layer: 5
   m_Name: PointCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1672534226971314
 GameObject:
   m_ObjectHideFlags: 1
