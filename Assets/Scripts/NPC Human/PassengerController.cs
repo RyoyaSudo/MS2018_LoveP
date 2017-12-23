@@ -30,6 +30,11 @@ public class PassengerController : MonoBehaviour
     private float rideMoveRate;                      //移動割合
     private float rideJumpRate;                      //ジャンプ割合
     private float sitMoveRate;                       //座るときの割合
+    private int rideNumber;                          //乗車順番
+    public void SetRideNumber(int num)
+    {
+        rideNumber = num;
+    }
     private enum RideType                            //状態
     {
         RUN,
@@ -44,6 +49,8 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     public float getOffRunTime;                      //走るの時間
     public float getOffJumpTime;                     //ジャンプ時間
+    private float getOffStartWaitTime;               //最初の待ち時間
+    public float getOffPoseTime;                     //ポーズ時間
     private float getOffCnt;                         //カウント
     private Vector3 getOffStartPos;                  //最初の位置
     private Vector3 getOffEndPos;                    //最後の位置
@@ -55,15 +62,18 @@ public class PassengerController : MonoBehaviour
     private Vector3 getOffMiddlePos;                 //中間の位置
     private float getOffMoveRate;                    //移動割合
     private float getOffJumpRate;                    //ジャンプ割合
+    static bool bFriendsPoseStart;                   //フレンズポーズ開始
     private enum GetOffType                          //状態
     {
+        STARTWAIT ,
         JUMP,
         RUN,
-        WAIT
+        WAIT,
+        POSE,
     }
     private GetOffType getOffType;
 
-    [SerializeField] private float awaitTime;                        //待ち状態の時間
+    [SerializeField] private float awaitTime;        //待ち状態の時間
 
     //乗客がどのグループなのかUI
     public GameObject passengerGroupUIEnptyPrefab;   //空プレファブ
@@ -271,8 +281,9 @@ public class PassengerController : MonoBehaviour
             //下車
             case Human.STATETYPE.GETOFF:
                 {
-                    getOffType = GetOffType.JUMP;
+                    getOffType = GetOffType.STARTWAIT;
                     getOffCnt = 0;
+                    getOffStartWaitTime = rideNumber * 2.0f;                            //最初の待ち時間
 
                     getOffStartPos = transform.position;                                //スタート位置
                     getOffEndPos = getOffAwaitObj.transform.position;                   //終了位置
@@ -284,8 +295,22 @@ public class PassengerController : MonoBehaviour
                     getOffJumpRate = Mathf.PI / getOffJumpTime;                         //ジャンプ割合
                     transform.LookAt(getOffAwaitObj.transform);                         //待ち受け状態の人の方を向かせる
 
-                    //下車タイムライン開始
-                    timelineManager.Get("GetOffTimeline").Play();
+                    switch (groupType)
+                    {
+                        case GROUPTYPE.Lovers:
+                            //下車タイムライン開始
+                            timelineManager.Get("GetOffTimeline").Play();
+                            break;
+
+                        case GROUPTYPE.Family:
+                            break;
+
+                        case GROUPTYPE.Friends:
+                            bFriendsPoseStart = false;
+                            //下車タイムライン開始
+                            timelineManager.Get("GetOffBigTimeline").Play();
+                            break;
+                    }
                     timelineManager.SetStateType(TimelineManager.STATETYPE.TIMELINE_START);
                     break;
                 }
@@ -300,6 +325,18 @@ public class PassengerController : MonoBehaviour
             case Human.STATETYPE.AWAIT:
                 Destroy(passengerGroupUIEnptyObj);                              //乗客がどのグループなのかUI削除
                 transform.LookAt(playerObj.transform);                          //プレイヤーの位置を向かせる
+                switch (groupType)
+                {
+                    case GROUPTYPE.Lovers:
+                        break;
+
+                    case GROUPTYPE.Family:
+                        break;
+
+                    case GROUPTYPE.Friends:
+                        getOffType = GetOffType.WAIT;
+                        break;
+                }
                 break;
         }
     }
@@ -415,8 +452,41 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     private void GetOff()
     {
+        switch(groupType)
+        {
+            case GROUPTYPE.Lovers:
+                LoversGetOff();
+                break;
+
+            case GROUPTYPE.Family:
+                FamilyGetOff();
+                break;
+
+            case GROUPTYPE.Friends:
+                FriendsGetOff();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Lovers下車
+    /// </summary>
+    void LoversGetOff ()
+    {
         switch (getOffType)
         {
+            case GetOffType.STARTWAIT:
+                if (getOffCnt >= getOffStartWaitTime)
+                {
+                    getOffType = GetOffType.JUMP;
+                    getOffCnt = 0;
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
+
             case GetOffType.JUMP:
                 if (getOffCnt >= getOffJumpTime)
                 {
@@ -474,6 +544,150 @@ public class PassengerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Family下車
+    /// </summary>
+    void FamilyGetOff()
+    {
+
+    }
+
+    /// <summary>
+    /// Friends下車
+    /// </summary>
+    void FriendsGetOff()
+    {
+        switch (getOffType)
+        {
+            case GetOffType.STARTWAIT:
+                if (getOffCnt >= getOffStartWaitTime)
+                {
+                    getOffType = GetOffType.JUMP;
+                    getOffCnt = 0;
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
+
+            case GetOffType.JUMP:
+                if (getOffCnt >= getOffJumpTime)
+                {
+                    //中間位置再設定
+                    getOffMiddlePos = transform.position;
+
+                    //終了位置再設定
+                    switch (rideNumber)
+                    {
+                        case 0:
+                            getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.right * 0.6f - getOffAwaitObj.transform.forward * 0.5f;
+                            break;
+
+                        case 1:
+                            getOffEndPos = getOffAwaitObj.transform.position - getOffAwaitObj.transform.right * 0.6f - getOffAwaitObj.transform.forward * 0.5f;
+                            break;
+
+                        case 2:
+                            getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.right * 1.1f;
+                            break;
+
+                        case 3:
+                            getOffEndPos = getOffAwaitObj.transform.position - getOffAwaitObj.transform.right * 1.1f;
+                            break;
+                    }
+                    transform.LookAt(getOffEndPos);        //終了位置を向かせる
+                    getOffType = GetOffType.RUN;
+                    getOffCnt = 0;
+                }
+                else
+                {
+                    //下車アニメーションをさせる
+                    humanObj.ModelObj.GetComponent<HumanAnim>().GetoffAnimON();
+
+                    //ジャンプ位置まで移動
+                    getOffCnt += Time.deltaTime;
+                    transform.position = Vector3.Lerp(getOffStartPos, getOffMiddlePos, getOffMoveRate * getOffCnt);
+
+                    Vector3 pos;
+                    pos = transform.position;
+                    pos.y += Mathf.Sin(getOffJumpRate * getOffCnt) * 2.0f;
+                    transform.position = pos;
+                }
+
+                break;
+
+            case GetOffType.RUN:
+                if (getOffCnt >= getOffRunTime)
+                {
+                    transform.LookAt(playerObj.transform);        //プレイヤーの位置を向かせる
+                    getOffType = GetOffType.WAIT;
+                    getOffCnt = 0;
+
+                    //最後の人が最終位置に到着したら
+                    if (rideNumber==3)
+                    {
+                        bFriendsPoseStart = true;
+                    }
+
+                    //下車待ちアニメーションさせる
+                    humanObj.ModelObj.GetComponent<HumanAnim>().GetoffWaitAnimON();
+                }
+                else
+                {
+                    //下車走りアニメーションさせる
+                    humanObj.ModelObj.GetComponent<HumanAnim>().GetoffRunAnimON();
+
+                    //指定位置まで移動
+                    getOffCnt += Time.deltaTime;
+                    transform.position = Vector3.Lerp(getOffMiddlePos, getOffEndPos, getOffMoveRate * getOffCnt);
+                }
+                break;
+
+            case GetOffType.WAIT:
+                if (bFriendsPoseStart)
+                {
+                    getOffType = GetOffType.POSE;
+
+                    //ポーズをとらせる
+                    switch (rideNumber)
+                    {
+                        case 0:
+                            humanObj.ModelObj.GetComponent<HumanAnim>().FriendsPose1ON();
+                            break;
+
+                        case 1:
+                            humanObj.ModelObj.GetComponent<HumanAnim>().FriendsPose2ON();
+                            break;
+
+                        case 2:
+                            humanObj.ModelObj.GetComponent<HumanAnim>().FriendsPose3ON();
+                            break;
+
+                        case 3:
+                            humanObj.ModelObj.GetComponent<HumanAnim>().FriendsPose4ON();
+                            break;
+                    }
+
+                }
+                break;
+
+            case GetOffType.POSE:
+                if ( getOffCnt >= getOffPoseTime)
+                {
+                    //「解散」状態に
+                    humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
+
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
+        }
+
+    }
+
+    /// <summary>
     /// 運搬
     /// </summary>
     private void Transport()
@@ -504,12 +718,74 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     private void Await()
     {
+        switch(groupType)
+        {
+            case GROUPTYPE.Lovers:
+                LoversAwait();
+                break;
+
+            case GROUPTYPE.Family:
+                FamilyAwait();
+                break;
+
+            case GROUPTYPE.Friends:
+                FriendsAwait();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Lovers待ち受け
+    /// </summary>
+    void LoversAwait ()
+    {
         awaitTime -= Time.deltaTime;
 
         if (awaitTime < 0.0f)
         {
-
+            //「解散」状態に
             humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
+        }
+    }
+
+    /// <summary>
+    /// Family待ち受け
+    /// </summary>
+    void FamilyAwait()
+    {
+
+    }
+
+    /// <summary>
+    /// Friends待ち受け
+    /// </summary>
+    void FriendsAwait()
+    {
+
+        switch(getOffType)
+        {
+            case GetOffType.WAIT:
+                if (bFriendsPoseStart)
+                {
+                    //ポーズをとらせる
+                    humanObj.ModelObj.GetComponent<HumanAnim>().FriendsPose0ON();
+                    getOffCnt = 0;
+                    getOffType = GetOffType.POSE;
+                }
+                break;
+
+            case GetOffType.POSE:
+                if (getOffCnt >= getOffPoseTime)
+                {
+                    //「解散」状態に
+                    humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
+
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
         }
     }
 

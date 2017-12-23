@@ -78,6 +78,46 @@ public class HumanAnim : MonoBehaviour {
     }
 
     /// <summary>
+    ///  フレンズポーズ0
+    /// </summary>
+    public void FriendsPose0ON()
+    {
+        anim.SetBool("Pose0", true);
+    }
+
+    /// <summary>
+    ///  フレンズポーズ1
+    /// </summary>
+    public void FriendsPose1ON()
+    {
+        anim.SetBool("Pose1", true);
+    }
+
+    /// <summary>
+    ///  フレンズポーズ2
+    /// </summary>
+    public void FriendsPose2ON()
+    {
+        anim.SetBool("Pose2", true);
+    }
+
+    /// <summary>
+    ///  フレンズポーズ3
+    /// </summary>
+    public void FriendsPose3ON()
+    {
+        anim.SetBool("Pose3", true);
+    }
+
+    /// <summary>
+    ///  フレンズポーズ4
+    /// </summary>
+    public void FriendsPose4ON()
+    {
+        anim.SetBool("Pose4", true);
+    }
+
+    /// <summary>
     ///  解散するときのアニメーションをON
     /// </summary>
     public void ReleaseAnimON()
