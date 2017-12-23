@@ -63,6 +63,7 @@ public class Game : MonoBehaviour {
     TimelineManager timelineObj;
     LoveP_Input inputObj;
 
+
     /// <summary>
     /// ゲームシーン状態の列挙値
     /// </summary>
@@ -211,6 +212,8 @@ public class Game : MonoBehaviour {
         {
             PhaseParam = ( Phase )Mathf.Min( ( ( int )PhaseParam + 1 ) , ( ( int )Phase.GAME_PAHSE_NUM - 1 ) );
         }
+
+
         
         // HACK: OnGUIデバッグ時On・Off処理
         //       もっといい方法がありそうだけど現状これで

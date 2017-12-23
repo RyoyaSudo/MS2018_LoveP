@@ -476,17 +476,17 @@ public class Player : MonoBehaviour
                 {
                     case PassengerController.GROUPTYPE.PEAR:
                         rideGroupNum = 2;
-                        Debug.Log( "PEAR" );
+                        //Debug.Log( "PEAR" );
                         break;
 
                     case PassengerController.GROUPTYPE.SMAlLL:
                         rideGroupNum = 3;
-                        Debug.Log( "SMALL" );
+                        //Debug.Log( "SMALL" );
                         break;
 
                     case PassengerController.GROUPTYPE.BIG:
                         rideGroupNum = 5;
-                        Debug.Log( "BIG" );
+                        //Debug.Log( "BIG" );
                         break;
 
                     default:

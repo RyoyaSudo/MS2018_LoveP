@@ -63,11 +63,11 @@ public class SpawnPoint : MonoBehaviour {
         switch( groupType )
         {
             case PassengerController.GROUPTYPE.PEAR:
-                createType = Human.ModelType.Girl;
+                createType = Human.ModelType.Player_Girl;
                 break;
 
             case PassengerController.GROUPTYPE.SMAlLL:
-                createType = Human.ModelType.Boy;
+                createType = Human.ModelType.Player_Boy;
                 break;
 
             case PassengerController.GROUPTYPE.BIG:
@@ -86,6 +86,8 @@ public class SpawnPoint : MonoBehaviour {
         human.PassengerControllerObj.pasengerOrder = passengerOrder;   //乗客の乗車順番
         human.PassengerControllerObj.IsEnable = true;
 
+        human.MobControllerObj.enabled = false;
+
         // 子にする
         human.gameObject.transform.parent = passengerParentObj;
     }
@@ -95,7 +97,7 @@ public class SpawnPoint : MonoBehaviour {
     /// </summary>
     /// <param name="spawnPointNum">生成スポーンポイント番号</param>
     /// <param name="modelType">生成する見た目の種類。指定する場合はHuman.ModelType列挙型の数値を利用。</param>
-    public void MobSpawn( int spawnPointNum , int modelType = -1 )
+    public void MobSpawn( int spawnPointNum = -1 , int modelType = -1 )
     {
         // 生成
         Human human = Instantiate( humanPrefab , transform.position , Quaternion.identity ).GetComponent<Human>();
@@ -118,6 +120,10 @@ public class SpawnPoint : MonoBehaviour {
         // HACK: モブパラメータ設定
         //       モブパラメータ追加したらここで設定してください
         human.MobControllerObj.IsEnable = true;
+        human.RideAreaObj.SetActive( false );
+        human.MapIconObj.SetActive( false );
+
+        human.PassengerControllerObj.enabled = false;
 
         // 子にする
         human.gameObject.transform.parent = mobParentObj;
