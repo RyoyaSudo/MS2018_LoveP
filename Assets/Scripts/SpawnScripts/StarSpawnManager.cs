@@ -58,7 +58,7 @@ public class StarSpawnManager : MonoBehaviour
             SpawnPointCreate(count, child);
             count++;
         }
-        HumanCreate(0, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+        HumanCreate(0, PassengerController.GROUPTYPE.Lovers,SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     // 更新
@@ -66,19 +66,19 @@ public class StarSpawnManager : MonoBehaviour
     {
         if (Input.GetKeyDown("0"))
         {
-            HumanCreate(0, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(0, PassengerController.GROUPTYPE.Lovers , SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("1"))
         {
-            HumanCreate(1, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(1, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("2"))
         {
-            HumanCreate(2, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+            HumanCreate(2, PassengerController.GROUPTYPE.Friends, SpawnPoint.PASSENGER_ORDER.FIRST);
         }
         if (Input.GetKeyDown("5"))
         {
-            SpawnHumanGroup(0, PassengerController.GROUPTYPE.BIG);
+            SpawnHumanGroup(0, PassengerController.GROUPTYPE.Friends );
         }
     }
 
@@ -160,17 +160,17 @@ public class StarSpawnManager : MonoBehaviour
         switch (groupType)
         {
             //ペア
-            case PassengerController.GROUPTYPE.PEAR:
+            case PassengerController.GROUPTYPE.Lovers:
                 passengerNum = pearPassengerNum - 1;
                 break;
 
             //小グループ
-            case PassengerController.GROUPTYPE.SMAlLL:
+            case PassengerController.GROUPTYPE.Family:
                 passengerNum = smallPassengerNum - 1;
                 break;
 
             //大グループ
-            case PassengerController.GROUPTYPE.BIG:
+            case PassengerController.GROUPTYPE.Friends:
                 passengerNum = bigPassengerNum - 1;
                 break;
         }
@@ -263,7 +263,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate( pos , PassengerController.GROUPTYPE.PEAR , SpawnPoint.PASSENGER_ORDER.FIRST );
+                    HumanCreate( pos , PassengerController.GROUPTYPE.Lovers , SpawnPoint.PASSENGER_ORDER.FIRST );
                 }
                 break;
 
@@ -284,7 +284,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -301,7 +301,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 break;
 
@@ -322,7 +322,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -339,7 +339,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
@@ -356,7 +356,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Friends, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
 
                 break;
@@ -377,7 +377,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -394,7 +394,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
@@ -411,7 +411,7 @@ public class StarSpawnManager : MonoBehaviour
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Friends, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
 
                 break;

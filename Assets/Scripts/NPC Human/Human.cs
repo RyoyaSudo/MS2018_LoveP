@@ -33,31 +33,31 @@ public class Human : MonoBehaviour {
     {
         Unknown = -1,
 
-        PlayerSt,
+        PlayerSt = 0,
         Player_Girl = PlayerSt,
         Player_Boy,
-        PlayerEnd,
+        PlayerEnd = Player_Boy,
 
-        LoversSt = PlayerEnd,
+        LoversSt,
         Lover_Girl = LoversSt,
         Lover_Boy,
-        LoversEnd,
+        LoversEnd = Lover_Boy,
 
-        FamilySt = LoversEnd,
+        FamilySt,
         Family_Child = FamilySt,
         Family_Mother,
         Family_Father,
-        FamilyEnd,
+        FamilyEnd = Family_Father,
 
-        FriendsSt = FamilyEnd,
+        FriendsSt,
         Friends_GirlA = FriendsSt,
         Friends_GirlB,
         Friends_ManA,
         Friends_ManB,
         Friends_ManC,
-        FriendsEnd,
+        FriendsEnd = Friends_ManC,
 
-        TypeMax = FriendsEnd
+        TypeMax
     }
 
     /// <summary>
@@ -156,7 +156,7 @@ public class Human : MonoBehaviour {
     {
         if( type >= ModelType.TypeMax || type < 0 )
         {
-            Debug.LogError( "人生成時に不定なタイプが指定されました。" );
+            Debug.LogError( "人生成時に不定なタイプが指定されました。\nタイプID:" + ( int )type + "\n名前:" + type );
         }
 
         CurrentModelType = type;

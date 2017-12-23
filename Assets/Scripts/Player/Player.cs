@@ -170,6 +170,10 @@ public class Player : MonoBehaviour
         // シーン内から必要なオブジェクトを取得
         gameObj = GameObject.Find( gamectrlObjPath ).GetComponent<Game>();
 
+        // HACK: 乗客保存配列に関して
+        //       最大乗客数分確保しておく
+        ridePassengerObj = new Human[ 5 ];
+
     }
 
     /// <summary>
@@ -383,19 +387,19 @@ public class Player : MonoBehaviour
             case PlayerVehicle.Type.BIKE:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
+                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType , human.CurrentModelType );
                     break;
                 }
             case PlayerVehicle.Type.CAR:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
+                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType , human.CurrentModelType );
                     break;
                 }
             case PlayerVehicle.Type.BUS:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType );
+                    citySpawnManagerObj.SpawnHumanGroup( human.PassengerControllerObj.spawnPlace , human.PassengerControllerObj.groupType , human.CurrentModelType );
                     break;
                 }
             case PlayerVehicle.Type.AIRPLANE:
@@ -474,17 +478,17 @@ public class Player : MonoBehaviour
                 // 乗客数の確認
                 switch( human.PassengerControllerObj.groupType )
                 {
-                    case PassengerController.GROUPTYPE.PEAR:
+                    case PassengerController.GROUPTYPE.Lovers:
                         rideGroupNum = 2;
                         //Debug.Log( "PEAR" );
                         break;
 
-                    case PassengerController.GROUPTYPE.SMAlLL:
+                    case PassengerController.GROUPTYPE.Family:
                         rideGroupNum = 3;
                         //Debug.Log( "SMALL" );
                         break;
 
-                    case PassengerController.GROUPTYPE.BIG:
+                    case PassengerController.GROUPTYPE.Friends:
                         rideGroupNum = 5;
                         //Debug.Log( "BIG" );
                         break;
@@ -495,9 +499,6 @@ public class Player : MonoBehaviour
                 }
 
                 HumanCreate( human );
-                
-                //グループの大きさ分確保する
-                ridePassengerObj = new Human[ rideGroupNum ];
 
                 //何人乗せるかUIを表示させる
                 passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
@@ -752,8 +753,6 @@ public class Player : MonoBehaviour
                 ridePassengerObj[ i ].GetHumanModelCollider().isTrigger = false;
             }
 
-            ridePassengerObj = null;
-
             rideCount = 0;
 
             // 乗り物変化開始
@@ -874,19 +873,19 @@ public class Player : MonoBehaviour
         //       決め打ちの数値のため、定数で定めるなどの工夫が必要かと
         switch( passengerType )
         {
-            case PassengerController.GROUPTYPE.PEAR:
+            case PassengerController.GROUPTYPE.Lovers:
                 //ペア作成時のSE再生///////////////////////////////////////////////
                 playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_COMPLETE, playerAudioS);
                 vehicleControllerObj.VehicleScore += 1;
                 break;
 
-            case PassengerController.GROUPTYPE.SMAlLL:
+            case PassengerController.GROUPTYPE.Family:
                 //ペア作成時のSE再生///////////////////////////////////////////////
                 playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_COMPLETE, playerAudioS);
                 vehicleControllerObj.VehicleScore += 2;
                 break;
 
-            case PassengerController.GROUPTYPE.BIG:
+            case PassengerController.GROUPTYPE.Friends:
                 //ペア作成時のSE再生///////////////////////////////////////////////
                 playerSoundCtrl.PlayOneShot(SoundController.SoundsSeType.PASSENGER_COMPLETE, playerAudioS);
                 vehicleControllerObj.VehicleScore += 4;

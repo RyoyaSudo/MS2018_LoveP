@@ -51,31 +51,34 @@ public class SpawnPoint : MonoBehaviour {
     /// <param name="passengerOrder">
     /// 乗客の乗車順番
     /// </param>
-    public void PassengerSpawn( int spawnPointNum , PassengerController.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder )
+    public void PassengerSpawn( int spawnPointNum , PassengerController.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder, int modelType = -1 )
     {
         // 生成
         Human human = Instantiate( humanPrefab , transform.position , Quaternion.identity ).GetComponent<Human>();
 
         // HACK: 人モデル生成
         //       ここでいい具合にランダムなどやりたい
-        Human.ModelType createType = Human.ModelType.Unknown;
+        Human.ModelType createType = ( Human.ModelType )modelType;
 
-        switch( groupType )
+        if( modelType == -1 )
         {
-            case PassengerController.GROUPTYPE.PEAR:
-                createType = Human.ModelType.Player_Girl;
-                break;
+            switch( groupType )
+            {
+                case PassengerController.GROUPTYPE.Lovers:
+                    createType = ( Human.ModelType )Random.Range( ( int )Human.ModelType.LoversSt , ( int )Human.ModelType.LoversEnd );
+                    break;
 
-            case PassengerController.GROUPTYPE.SMAlLL:
-                createType = Human.ModelType.Player_Boy;
-                break;
+                case PassengerController.GROUPTYPE.Family:
+                    createType = ( Human.ModelType )Random.Range( ( int )Human.ModelType.FamilySt , ( int )Human.ModelType.FamilyEnd );
+                    break;
 
-            case PassengerController.GROUPTYPE.BIG:
-                createType = ( Human.ModelType )( Random.Range( 0 , 1 ) );
-                break;
+                case PassengerController.GROUPTYPE.Friends:
+                    createType = ( Human.ModelType )Random.Range( ( int )Human.ModelType.FriendsSt , ( int ) Human.ModelType.FriendsEnd );
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
 
         human.ModelCreate( createType );
@@ -108,7 +111,7 @@ public class SpawnPoint : MonoBehaviour {
 
         if( modelType == -1 )
         {
-            createType = ( Human.ModelType )Random.Range( 0 , ( int )( Human.ModelType.TypeMax - 1 ) );
+            createType = ( Human.ModelType )Random.Range( ( int )Human.ModelType.PlayerEnd , ( int )( Human.ModelType.TypeMax - 1 ) );
         }
         else
         {
