@@ -423,6 +423,18 @@ MonoBehaviour:
   modelArray:
   - {fileID: 1153668750096960, guid: aba614d213f717f4e938361aca0ed2e4, type: 2}
   - {fileID: 1787178622762782, guid: 3640f0619bfe9b24abddc811c49017fb, type: 2}
+  - {fileID: 1334020483249048, guid: 967767e0500975040929bf36c2282fca, type: 2}
+  - {fileID: 1625170672518068, guid: 2557f7431f3c45d4a909abbbf3d246de, type: 2}
+  - {fileID: 1463024165482788, guid: 565e94faf3b37b34db945e865147389c, type: 2}
+  - {fileID: 1136455531876208, guid: 6ebd3d289792ca747b7f7da7c163fff8, type: 2}
+  - {fileID: 1919470793092246, guid: f2a659948a1da8146ac03e12329084cc, type: 2}
+  - {fileID: 1142124884581356, guid: 5652b2dc3b0c4a64e8e6ccd5dc045967, type: 2}
+  - {fileID: 1567621330020836, guid: bdfe420c112105b499b94ed8ffc7b072, type: 2}
+  - {fileID: 1608292675140410, guid: b2ecfa0aeefa2ab4eabdd517b6c100fc, type: 2}
+  - {fileID: 1197499834322110, guid: 5e3eb970ba3bf364b926807d8c343098, type: 2}
+  - {fileID: 1173443252885630, guid: 72edda1d47ff4734d84ffaa3171ebce9, type: 2}
+  mapIconObj: {fileID: 1305481760517078}
+  rideAreaObj: {fileID: 1940941829120278}
 --- !u!136 &136016218072901752
 CapsuleCollider:
   m_ObjectHideFlags: 1

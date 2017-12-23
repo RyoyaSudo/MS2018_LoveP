@@ -23,8 +23,8 @@ TagManager:
   - MoveObstacle
   - CityPlane
   - Player
-  - 
-  - 
+  - Human
+  - SpawnPoint
   - 
   - 
   - 

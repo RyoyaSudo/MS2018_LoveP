@@ -309,7 +309,10 @@ public class CityPhaseMove : MonoBehaviour {
                 // HACK: 移動無効化時に行うべきこと
                 //       CharcterControllerを利用している場合、移動ベクトルを0にしなくてはならないらしい(検証不十分)
                 //       それに伴い、重力値が反映されているか怪しいため、あとでキチンと調査すること。
-                if( controller.enabled ) controller.Move( Vector3.zero );
+                if( controller.enabled )
+                {
+                    controller.Move( Vector3.zero );
+                }
             }
         }
 
@@ -632,7 +635,9 @@ public class CityPhaseMove : MonoBehaviour {
     private void FixedUpdate()
     {
         // PhysXによる当たり判定を行った後の位置を制御点のtransformに反映
-        transform.position = Vector3.Lerp( modelObj.transform.position , transform.position , 0.25f );
+        Vector3 v = Vector3.Lerp( transform.position , modelObj.transform.position , 0.75f );
+        //v.y = modelObj.transform.localPosition.y;
+        transform.position = v;
         //rb.velocity = ( velocityVec + gravityVec );
 
         //// ハンドリングに合わせて速度ベクトルを補正
@@ -667,7 +672,7 @@ public class CityPhaseMove : MonoBehaviour {
     {
         isEnable = flags;
 
-        if( controller != null ) controller.enabled = flags;
+        //if( controller != null ) controller.enabled = flags;
     }
 
     /// <summary>
