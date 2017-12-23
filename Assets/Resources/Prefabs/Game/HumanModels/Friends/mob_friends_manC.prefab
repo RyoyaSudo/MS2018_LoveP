@@ -2217,7 +2217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceType: 4
   faceObj: {fileID: 1400267340625656}
-  atlasSize: {x: 512, y: 512}
+  atlasSize: {x: 256, y: 256}
   faceState: 1
 --- !u!114 &114809379524798230
 MonoBehaviour:

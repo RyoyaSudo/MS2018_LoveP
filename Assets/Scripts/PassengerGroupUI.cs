@@ -28,6 +28,7 @@ public class PassengerGroupUI : TweenAnimation
     Transform origin;
 
     Camera mainCamera;
+    [SerializeField] string mainCameraPath;
 
     private void Awake()
     {
@@ -96,6 +97,7 @@ public class PassengerGroupUI : TweenAnimation
     // 初期化
     void Start ()
     {
+        mainCamera = GameObject.Find( mainCameraPath ).GetComponent<Camera>();
         Play();
 	}
 	
