@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 65342535640854550}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 65906459014243316}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 65046229520482946}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 65342851856041262}
   m_Layer: 10
   m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 4844840896822086}
   m_Layer: 10
   m_Name: BoxParretSet (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 114549837304810618}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -576,11 +576,7 @@ GameObject:
   - component: {fileID: 65421131895509718}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (1)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -598,11 +594,7 @@ GameObject:
   - component: {fileID: 65992540666614334}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (8)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -689,7 +681,7 @@ GameObject:
   - component: {fileID: 65354590737113570}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -746,27 +738,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1026077357002788
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4955473522508228}
-  - component: {fileID: 54447957274475498}
-  - component: {fileID: 114582754346297008}
-  - component: {fileID: 65303372636431600}
-  m_Layer: 10
-  m_Name: Prop_TrafficCone_rb (3)
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1026113760398316
 GameObject:
   m_ObjectHideFlags: 1
@@ -832,7 +803,7 @@ GameObject:
   - component: {fileID: 65380840042856286}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -850,7 +821,7 @@ GameObject:
   - component: {fileID: 65692204592952440}
   m_Layer: 10
   m_Name: Prop_Drum_rb (17)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -868,7 +839,7 @@ GameObject:
   - component: {fileID: 65493682584277628}
   m_Layer: 10
   m_Name: Prop_Drum_rb (24)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -937,7 +908,7 @@ GameObject:
   - component: {fileID: 65508668116040166}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -955,7 +926,7 @@ GameObject:
   - component: {fileID: 65150467996069426}
   m_Layer: 10
   m_Name: Prop_Drum_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1009,11 +980,7 @@ GameObject:
   - component: {fileID: 65857779644817104}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (4)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1048,7 +1015,7 @@ GameObject:
   - component: {fileID: 65428284630576692}
   m_Layer: 10
   m_Name: Prop_Drum_rb (35)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1080,7 +1047,7 @@ GameObject:
   - component: {fileID: 4666314316341378}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1098,7 +1065,7 @@ GameObject:
   - component: {fileID: 65797810091335864}
   m_Layer: 10
   m_Name: Prop_Drum_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1133,7 +1100,7 @@ GameObject:
   - component: {fileID: 65407379388471006}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1238,7 +1205,7 @@ GameObject:
   - component: {fileID: 65857015097371774}
   m_Layer: 10
   m_Name: Prop_Drum_rb (37)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1256,7 +1223,7 @@ GameObject:
   - component: {fileID: 65622470238113530}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1340,7 +1307,7 @@ GameObject:
   - component: {fileID: 4606071638867066}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1409,7 +1376,7 @@ GameObject:
   - component: {fileID: 65911305476932628}
   m_Layer: 10
   m_Name: Prop_Drum_rb (14)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1475,7 +1442,7 @@ GameObject:
   - component: {fileID: 4514669266348898}
   m_Layer: 10
   m_Name: BoxParretSet (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1598,7 +1565,7 @@ GameObject:
   - component: {fileID: 65715815933892232}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1769,28 +1736,7 @@ GameObject:
   - component: {fileID: 65668689433235250}
   m_Layer: 10
   m_Name: Prop_Parcel_rb
-<<<<<<< HEAD
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1062002272838806
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4104772705350770}
-  - component: {fileID: 33328951188101054}
-  - component: {fileID: 23565427479447736}
-  m_Layer: 10
-  m_Name: Prop_TrafficCone
-  m_TagString: Untagged
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1825,7 +1771,7 @@ GameObject:
   - component: {fileID: 65693063455339202}
   m_Layer: 10
   m_Name: Prop_Drum_rb (18)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1860,7 +1806,7 @@ GameObject:
   - component: {fileID: 65460034273141492}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2012,7 +1958,7 @@ GameObject:
   - component: {fileID: 65073308047036020}
   m_Layer: 10
   m_Name: Prop_Drum_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2047,11 +1993,7 @@ GameObject:
   - component: {fileID: 65932914687126892}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2086,7 +2028,7 @@ GameObject:
   - component: {fileID: 65523480060166892}
   m_Layer: 10
   m_Name: Prop_Chair_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2104,7 +2046,7 @@ GameObject:
   - component: {fileID: 65575979622806524}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2156,7 +2098,7 @@ GameObject:
   - component: {fileID: 114062955963432790}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2174,7 +2116,7 @@ GameObject:
   - component: {fileID: 65804174151636692}
   m_Layer: 10
   m_Name: Prop_Drum_rb (30)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2192,11 +2134,7 @@ GameObject:
   - component: {fileID: 65118828922477868}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (10)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2266,7 +2204,7 @@ GameObject:
   - component: {fileID: 65107567025759084}
   m_Layer: 10
   m_Name: Prop_Drum_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2336,7 +2274,7 @@ GameObject:
   - component: {fileID: 65393790283523026}
   m_Layer: 10
   m_Name: Prop_Chair_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2371,7 +2309,7 @@ GameObject:
   - component: {fileID: 65306583005785120}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2406,11 +2344,7 @@ GameObject:
   - component: {fileID: 65986340977181880}
   m_Layer: 10
   m_Name: Prop_Parcel_rb
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2445,7 +2379,7 @@ GameObject:
   - component: {fileID: 65924612267301318}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2481,7 +2415,7 @@ GameObject:
   - component: {fileID: 65291371071996470}
   m_Layer: 10
   m_Name: Prop_Drum_rb (32)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2496,7 +2430,7 @@ GameObject:
   - component: {fileID: 4367696871772240}
   m_Layer: 10
   m_Name: BoxParretSet (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2547,7 +2481,7 @@ GameObject:
   - component: {fileID: 65195684944443092}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2582,7 +2516,7 @@ GameObject:
   - component: {fileID: 65250521358123616}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2703,7 +2637,7 @@ GameObject:
   - component: {fileID: 65167381535591752}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2757,7 +2691,7 @@ GameObject:
   - component: {fileID: 65020975319912876}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2895,7 +2829,7 @@ GameObject:
   - component: {fileID: 65499680420830410}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (12)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2913,7 +2847,7 @@ GameObject:
   - component: {fileID: 65829692630823106}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3139,7 +3073,7 @@ GameObject:
   - component: {fileID: 65712350983843562}
   m_Layer: 10
   m_Name: Prop_Drum_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3157,7 +3091,7 @@ GameObject:
   - component: {fileID: 65977387679124700}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3192,7 +3126,7 @@ GameObject:
   - component: {fileID: 65819467605801422}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3262,7 +3196,7 @@ GameObject:
   - component: {fileID: 65078127022997890}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3279,13 +3213,8 @@ GameObject:
   - component: {fileID: 114525944167428522}
   - component: {fileID: 65296785371087232}
   m_Layer: 10
-<<<<<<< HEAD
-  m_Name: Prop_TrafficCone_rb (4)
-  m_TagString: Obstacle
-=======
   m_Name: Prop_Parcel_rb
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3352,7 +3281,7 @@ GameObject:
   - component: {fileID: 65743637131350740}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3387,7 +3316,7 @@ GameObject:
   - component: {fileID: 114764135310757536}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3423,7 +3352,7 @@ GameObject:
   - component: {fileID: 65310860360007614}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3527,7 +3456,7 @@ GameObject:
   - component: {fileID: 65748812541968704}
   m_Layer: 10
   m_Name: Prop_Drum_rb (27)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3579,7 +3508,7 @@ GameObject:
   - component: {fileID: 65062464715542326}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3597,7 +3526,7 @@ GameObject:
   - component: {fileID: 65869204748945102}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3632,7 +3561,7 @@ GameObject:
   - component: {fileID: 65230915191003644}
   m_Layer: 10
   m_Name: Prop_Drum_rb (36)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3719,7 +3648,7 @@ GameObject:
   - component: {fileID: 65004016710388422}
   m_Layer: 10
   m_Name: Prop_Drum_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3737,7 +3666,7 @@ GameObject:
   - component: {fileID: 65839794501814030}
   m_Layer: 10
   m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3841,7 +3770,7 @@ GameObject:
   - component: {fileID: 114002295072295164}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3908,7 +3837,7 @@ GameObject:
   - component: {fileID: 65931488160864258}
   m_Layer: 10
   m_Name: Prop_Chair_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3926,7 +3855,7 @@ GameObject:
   - component: {fileID: 65825487051897976}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3944,7 +3873,7 @@ GameObject:
   - component: {fileID: 114579079065788650}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4049,7 +3978,7 @@ GameObject:
   - component: {fileID: 65838641246816458}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4085,7 +4014,7 @@ GameObject:
   - component: {fileID: 65163960569153444}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4120,7 +4049,7 @@ GameObject:
   - component: {fileID: 65315323799200308}
   m_Layer: 10
   m_Name: Prop_Drum_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4208,7 +4137,7 @@ GameObject:
   - component: {fileID: 65061017242252282}
   m_Layer: 10
   m_Name: Prop_Drum_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4294,7 +4223,7 @@ GameObject:
   - component: {fileID: 65316634975394300}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4348,7 +4277,7 @@ GameObject:
   - component: {fileID: 65941374634114186}
   m_Layer: 10
   m_Name: Prop_Drum_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4383,7 +4312,7 @@ GameObject:
   - component: {fileID: 65402514388162500}
   m_Layer: 10
   m_Name: Prop_Drum_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4401,7 +4330,7 @@ GameObject:
   - component: {fileID: 65925612249931024}
   m_Layer: 10
   m_Name: Prop_Drum_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4419,7 +4348,7 @@ GameObject:
   - component: {fileID: 65521555911262322}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4473,7 +4402,7 @@ GameObject:
   - component: {fileID: 114821148497306660}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4576,7 +4505,7 @@ GameObject:
   - component: {fileID: 65864714823975498}
   m_Layer: 10
   m_Name: Prop_Drum_rb (29)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4608,7 +4537,7 @@ GameObject:
   - component: {fileID: 4633446195177932}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4727,7 +4656,7 @@ GameObject:
   - component: {fileID: 65357982126000980}
   m_Layer: 10
   m_Name: Prop_Chair_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4763,7 +4692,7 @@ GameObject:
   - component: {fileID: 65206399417590836}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4816,7 +4745,7 @@ GameObject:
   - component: {fileID: 65555868855846890}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4869,7 +4798,7 @@ GameObject:
   - component: {fileID: 65882396262653228}
   m_Layer: 10
   m_Name: Prop_Drum_rb (40)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4973,29 +4902,7 @@ GameObject:
   - component: {fileID: 65410045193934942}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (5)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1165164444764392
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4731742130709238}
-  - component: {fileID: 54514193570652818}
-  - component: {fileID: 64176166058574438}
-  - component: {fileID: 114884803547336220}
-  m_Layer: 10
-  m_Name: Prop_FlowerPot_E_rb
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5044,7 +4951,7 @@ GameObject:
   - component: {fileID: 4802302279643316}
   m_Layer: 10
   m_Name: BoxParretSet (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5079,7 +4986,7 @@ GameObject:
   - component: {fileID: 65221198026219436}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5114,7 +5021,7 @@ GameObject:
   - component: {fileID: 114891152670333868}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5136,27 +5043,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1168542339568828
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4057453441674756}
-  - component: {fileID: 54712719840407532}
-  - component: {fileID: 114187082459595790}
-  - component: {fileID: 65842457084956700}
-  m_Layer: 10
-  m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1168894866112532
 GameObject:
   m_ObjectHideFlags: 1
@@ -5170,7 +5056,7 @@ GameObject:
   - component: {fileID: 65065898122347304}
   m_Layer: 10
   m_Name: Prop_Drum_rb (28)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5328,7 +5214,7 @@ GameObject:
   - component: {fileID: 65974263184179582}
   m_Layer: 10
   m_Name: Prop_Drum_rb (37)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5381,7 +5267,7 @@ GameObject:
   - component: {fileID: 65119662139843410}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5433,7 +5319,7 @@ GameObject:
   - component: {fileID: 65476800907921860}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5486,7 +5372,7 @@ GameObject:
   - component: {fileID: 65970589598656670}
   m_Layer: 10
   m_Name: Prop_Drum_rb (22)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5521,7 +5407,7 @@ GameObject:
   - component: {fileID: 65549209972050278}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5556,11 +5442,7 @@ GameObject:
   - component: {fileID: 65856635267843950}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (1)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5575,7 +5457,7 @@ GameObject:
   - component: {fileID: 4013974698923168}
   m_Layer: 10
   m_Name: DrumSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5593,7 +5475,7 @@ GameObject:
   - component: {fileID: 65748759125675434}
   m_Layer: 10
   m_Name: Prop_Drum_rb (41)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5611,7 +5493,7 @@ GameObject:
   - component: {fileID: 65469064033093424}
   m_Layer: 10
   m_Name: Prop_Drum_rb (41)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5647,7 +5529,7 @@ GameObject:
   - component: {fileID: 65897185453613954}
   m_Layer: 10
   m_Name: Prop_Drum_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5665,7 +5547,7 @@ GameObject:
   - component: {fileID: 114351595562887880}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5700,7 +5582,7 @@ GameObject:
   - component: {fileID: 65562382550124256}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5822,7 +5704,7 @@ GameObject:
   - component: {fileID: 65594929570384598}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5963,7 +5845,7 @@ GameObject:
   - component: {fileID: 65135051837392796}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5981,7 +5863,7 @@ GameObject:
   - component: {fileID: 65907384211550430}
   m_Layer: 10
   m_Name: Prop_Drum_rb (31)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5999,7 +5881,7 @@ GameObject:
   - component: {fileID: 65317761280590496}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6034,7 +5916,7 @@ GameObject:
   - component: {fileID: 65463699673298742}
   m_Layer: 10
   m_Name: Prop_Drum_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6052,11 +5934,7 @@ GameObject:
   - component: {fileID: 65527498570058556}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (11)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6074,7 +5952,7 @@ GameObject:
   - component: {fileID: 65259785729248534}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6144,11 +6022,7 @@ GameObject:
   - component: {fileID: 65137757721414930}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (1)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6305,7 +6179,7 @@ GameObject:
   - component: {fileID: 65865893179695440}
   m_Layer: 10
   m_Name: Prop_Drum_rb (35)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6359,7 +6233,7 @@ GameObject:
   - component: {fileID: 65818954427139436}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6514,7 +6388,7 @@ GameObject:
   - component: {fileID: 65258809537634458}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6568,7 +6442,7 @@ GameObject:
   - component: {fileID: 65421690305717410}
   m_Layer: 10
   m_Name: Prop_Drum_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6603,7 +6477,7 @@ GameObject:
   - component: {fileID: 65076826299975344}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6621,7 +6495,7 @@ GameObject:
   - component: {fileID: 65391259328783530}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6963,7 +6837,7 @@ GameObject:
   - component: {fileID: 4533293094938980}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7206,7 +7080,7 @@ GameObject:
   - component: {fileID: 65771074717810362}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7276,7 +7150,7 @@ GameObject:
   - component: {fileID: 114302817425962664}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7294,7 +7168,7 @@ GameObject:
   - component: {fileID: 65268699094790280}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7363,7 +7237,7 @@ GameObject:
   - component: {fileID: 65385435002377292}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7381,7 +7255,7 @@ GameObject:
   - component: {fileID: 65339929966545876}
   m_Layer: 10
   m_Name: Prop_Drum_rb (32)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7399,7 +7273,7 @@ GameObject:
   - component: {fileID: 65217455984856250}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7417,7 +7291,7 @@ GameObject:
   - component: {fileID: 65828701048534800}
   m_Layer: 10
   m_Name: Prop_Drum_rb (15)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7484,7 +7358,7 @@ GameObject:
   - component: {fileID: 4655557485443492}
   m_Layer: 10
   m_Name: BoxParretSet (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7571,7 +7445,7 @@ GameObject:
   - component: {fileID: 65633358070673816}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7589,7 +7463,7 @@ GameObject:
   - component: {fileID: 65313311454031214}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7655,7 +7529,7 @@ GameObject:
   - component: {fileID: 4940491088915942}
   m_Layer: 10
   m_Name: BoxParretSet (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7707,7 +7581,7 @@ GameObject:
   - component: {fileID: 65718545122422894}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7725,7 +7599,7 @@ GameObject:
   - component: {fileID: 65669772667578704}
   m_Layer: 10
   m_Name: Prop_Drum_rb (25)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7743,7 +7617,7 @@ GameObject:
   - component: {fileID: 65727997054609518}
   m_Layer: 10
   m_Name: Prop_Drum_rb (21)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7779,7 +7653,7 @@ GameObject:
   - component: {fileID: 65742120425902354}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7794,7 +7668,7 @@ GameObject:
   - component: {fileID: 4909852536152186}
   m_Layer: 10
   m_Name: BoxParretSet (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7867,44 +7741,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1262071934351222
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4024749601075558}
-  - component: {fileID: 54925671772171730}
-  - component: {fileID: 64805538698949542}
-  - component: {fileID: 114078559478881710}
-  m_Layer: 10
-  m_Name: Prop_FlowerPot_C_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1262090691449426
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4369459144900008}
-  - component: {fileID: 33823327994172152}
-  - component: {fileID: 23795543231071776}
-  m_Layer: 10
-  m_Name: Prop_Bench
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1262116548279804
 GameObject:
   m_ObjectHideFlags: 1
@@ -8176,7 +8012,7 @@ GameObject:
   - component: {fileID: 65298006269083596}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8194,7 +8030,7 @@ GameObject:
   - component: {fileID: 65731976792122462}
   m_Layer: 10
   m_Name: Prop_Drum_rb (26)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8244,7 +8080,7 @@ GameObject:
   - component: {fileID: 65603358886447442}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8279,7 +8115,7 @@ GameObject:
   - component: {fileID: 65971918427741850}
   m_Layer: 10
   m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8332,7 +8168,7 @@ GameObject:
   - component: {fileID: 65098003079303284}
   m_Layer: 10
   m_Name: Prop_Drum_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8418,7 +8254,7 @@ GameObject:
   - component: {fileID: 65139800063103952}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8436,7 +8272,7 @@ GameObject:
   - component: {fileID: 65057858703575214}
   m_Layer: 10
   m_Name: Prop_Drum_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8490,7 +8326,7 @@ GameObject:
   - component: {fileID: 65859786641698534}
   m_Layer: 10
   m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8560,7 +8396,7 @@ GameObject:
   - component: {fileID: 65342652028823998}
   m_Layer: 10
   m_Name: Prop_Drum_rb (23)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8629,7 +8465,7 @@ GameObject:
   - component: {fileID: 65112485222369094}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8644,7 +8480,7 @@ GameObject:
   - component: {fileID: 4905269490562790}
   m_Layer: 10
   m_Name: CafeSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8679,7 +8515,7 @@ GameObject:
   - component: {fileID: 65594556803711772}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8746,7 +8582,7 @@ GameObject:
   - component: {fileID: 114024416722002316}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8803,27 +8639,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1289183989621460
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4482466300599188}
-  - component: {fileID: 54879546979056466}
-  - component: {fileID: 114730232861872822}
-  - component: {fileID: 65101640832148606}
-  m_Layer: 10
-  m_Name: Prop_TrafficCone_rb (2)
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1289563013652600
 GameObject:
   m_ObjectHideFlags: 1
@@ -8869,7 +8684,7 @@ GameObject:
   - component: {fileID: 65645983625113200}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8956,11 +8771,7 @@ GameObject:
   - component: {fileID: 65034741582563766}
   m_Layer: 10
   m_Name: Prop_Parcel_rb
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9031,7 +8842,7 @@ GameObject:
   - component: {fileID: 65381897446321646}
   m_Layer: 10
   m_Name: Prop_Drum_rb (21)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9049,7 +8860,7 @@ GameObject:
   - component: {fileID: 114003374938372770}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9067,7 +8878,7 @@ GameObject:
   - component: {fileID: 65836268506073636}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9120,7 +8931,7 @@ GameObject:
   - component: {fileID: 65608177565098572}
   m_Layer: 10
   m_Name: Prop_Drum_rb (34)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9138,7 +8949,7 @@ GameObject:
   - component: {fileID: 65808024996554618}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9276,7 +9087,7 @@ GameObject:
   - component: {fileID: 65510573634850300}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9312,7 +9123,7 @@ GameObject:
   - component: {fileID: 65170677048185854}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9330,7 +9141,7 @@ GameObject:
   - component: {fileID: 65139798832931626}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9348,7 +9159,7 @@ GameObject:
   - component: {fileID: 65412840370722266}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9366,7 +9177,7 @@ GameObject:
   - component: {fileID: 65437543463180104}
   m_Layer: 10
   m_Name: Prop_Drum_rb (39)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9384,7 +9195,7 @@ GameObject:
   - component: {fileID: 114002239549950562}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9402,7 +9213,7 @@ GameObject:
   - component: {fileID: 65853946200652150}
   m_Layer: 10
   m_Name: Prop_Drum_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9489,7 +9300,7 @@ GameObject:
   - component: {fileID: 65718618095785610}
   m_Layer: 10
   m_Name: Prop_Drum_rb (30)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9524,7 +9335,7 @@ GameObject:
   - component: {fileID: 65950332135599892}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9542,7 +9353,7 @@ GameObject:
   - component: {fileID: 65866663105262438}
   m_Layer: 10
   m_Name: Prop_Drum_rb (13)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9594,7 +9405,7 @@ GameObject:
   - component: {fileID: 65204829528836478}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9681,7 +9492,7 @@ GameObject:
   - component: {fileID: 65181446823721812}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9734,7 +9545,7 @@ GameObject:
   - component: {fileID: 65628392092111920}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9749,7 +9560,7 @@ GameObject:
   - component: {fileID: 4900727012802006}
   m_Layer: 10
   m_Name: BoxParretSet (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9797,7 +9608,7 @@ GameObject:
   - component: {fileID: 114623901301073368}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9812,7 +9623,7 @@ GameObject:
   - component: {fileID: 4309598945070342}
   m_Layer: 10
   m_Name: MoveObstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9883,32 +9694,11 @@ GameObject:
   - component: {fileID: 65391325368621814}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1323968968809820
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4323814303050472}
-  - component: {fileID: 54329992558151978}
-  - component: {fileID: 114860592740774336}
-  - component: {fileID: 65111309435576774}
-  m_Layer: 10
-  m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1324825911132908
 GameObject:
   m_ObjectHideFlags: 1
@@ -10010,7 +9800,7 @@ GameObject:
   - component: {fileID: 65770624187015698}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10079,7 +9869,7 @@ GameObject:
   - component: {fileID: 114275597706230264}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10114,7 +9904,7 @@ GameObject:
   - component: {fileID: 65426498271988792}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10163,7 +9953,7 @@ GameObject:
   - component: {fileID: 4271547847266222}
   m_Layer: 10
   m_Name: GomiParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10251,7 +10041,7 @@ GameObject:
   - component: {fileID: 65719646784978802}
   m_Layer: 10
   m_Name: Prop_Drum_rb (25)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10339,7 +10129,7 @@ GameObject:
   - component: {fileID: 65020769340161738}
   m_Layer: 10
   m_Name: Prop_Drum_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10375,7 +10165,7 @@ GameObject:
   - component: {fileID: 65210528423502490}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10427,7 +10217,7 @@ GameObject:
   - component: {fileID: 65705837348023736}
   m_Layer: 10
   m_Name: Prop_Drum_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10445,7 +10235,7 @@ GameObject:
   - component: {fileID: 114268991465549042}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10600,7 +10390,7 @@ GameObject:
   - component: {fileID: 65998679138554640}
   m_Layer: 10
   m_Name: Prop_Drum_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10636,7 +10426,7 @@ GameObject:
   - component: {fileID: 65599423980390198}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10725,7 +10515,7 @@ GameObject:
   - component: {fileID: 65930871746985370}
   m_Layer: 10
   m_Name: Prop_Chair_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10811,7 +10601,7 @@ GameObject:
   - component: {fileID: 65426796889188582}
   m_Layer: 10
   m_Name: Prop_Drum_rb (33)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10829,7 +10619,7 @@ GameObject:
   - component: {fileID: 65288838830010048}
   m_Layer: 10
   m_Name: Prop_Drum_rb (19)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10847,7 +10637,7 @@ GameObject:
   - component: {fileID: 65378180668931384}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10865,7 +10655,7 @@ GameObject:
   - component: {fileID: 65922646187238080}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10918,7 +10708,7 @@ GameObject:
   - component: {fileID: 65177236808835584}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10936,7 +10726,7 @@ GameObject:
   - component: {fileID: 65594439487178054}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10990,7 +10780,7 @@ GameObject:
   - component: {fileID: 65761096312792236}
   m_Layer: 10
   m_Name: Prop_Chair_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11023,7 +10813,7 @@ GameObject:
   - component: {fileID: 4601408391162888}
   m_Layer: 10
   m_Name: BoxParretSet (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11196,7 +10986,7 @@ GameObject:
   - component: {fileID: 65201340878086572}
   m_Layer: 10
   m_Name: Prop_Chair_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11248,7 +11038,7 @@ GameObject:
   - component: {fileID: 65781334284458914}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11283,7 +11073,7 @@ GameObject:
   - component: {fileID: 65878425754591926}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11301,7 +11091,7 @@ GameObject:
   - component: {fileID: 65947151258803642}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11319,7 +11109,7 @@ GameObject:
   - component: {fileID: 65255903109441916}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11354,7 +11144,7 @@ GameObject:
   - component: {fileID: 65029662233854550}
   m_Layer: 10
   m_Name: Prop_Drum_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11407,7 +11197,7 @@ GameObject:
   - component: {fileID: 65042032970502968}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11513,7 +11303,7 @@ GameObject:
   - component: {fileID: 65389476353164358}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11531,7 +11321,7 @@ GameObject:
   - component: {fileID: 65650632804918878}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11584,7 +11374,7 @@ GameObject:
   - component: {fileID: 65637762017289094}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11602,7 +11392,7 @@ GameObject:
   - component: {fileID: 65570773387998430}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11620,7 +11410,7 @@ GameObject:
   - component: {fileID: 65149839070038502}
   m_Layer: 10
   m_Name: Prop_Drum_rb (16)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11635,7 +11425,7 @@ GameObject:
   - component: {fileID: 4251702209506634}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11722,7 +11512,7 @@ GameObject:
   - component: {fileID: 65620445315392768}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11915,11 +11705,7 @@ GameObject:
   - component: {fileID: 65663831367071412}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (3)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11987,7 +11773,7 @@ GameObject:
   - component: {fileID: 4034351346587572}
   m_Layer: 10
   m_Name: BoxParretSet (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12040,11 +11826,7 @@ GameObject:
   - component: {fileID: 65015256307253716}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (11)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12080,7 +11862,7 @@ GameObject:
   - component: {fileID: 65865591387701016}
   m_Layer: 10
   m_Name: Prop_Drum_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12098,7 +11880,7 @@ GameObject:
   - component: {fileID: 65385935875692036}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12129,13 +11911,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4810374262989320}
   m_Layer: 10
-<<<<<<< HEAD
-  m_Name: Prop_TrafficCone_rb (1)
-  m_TagString: Obstacle
-=======
   m_Name: Cone_Set (2)
   m_TagString: Untagged
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12153,7 +11930,7 @@ GameObject:
   - component: {fileID: 65180178133448102}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (13)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12171,7 +11948,7 @@ GameObject:
   - component: {fileID: 65429514182439264}
   m_Layer: 10
   m_Name: Prop_Drum_rb (25)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12359,7 +12136,7 @@ GameObject:
   - component: {fileID: 65756655747587114}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12394,7 +12171,7 @@ GameObject:
   - component: {fileID: 65657134302178546}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12447,7 +12224,7 @@ GameObject:
   - component: {fileID: 65622748535287824}
   m_Layer: 10
   m_Name: Prop_Drum_rb (19)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12480,7 +12257,7 @@ GameObject:
   - component: {fileID: 65757410472329012}
   m_Layer: 10
   m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12532,7 +12309,7 @@ GameObject:
   - component: {fileID: 65163439277960562}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12567,7 +12344,7 @@ GameObject:
   - component: {fileID: 65779929672308944}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12602,7 +12379,7 @@ GameObject:
   - component: {fileID: 65257119762035830}
   m_Layer: 10
   m_Name: Prop_Drum_rb (12)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12655,7 +12432,7 @@ GameObject:
   - component: {fileID: 65434122478767590}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12705,7 +12482,7 @@ GameObject:
   - component: {fileID: 4850802455208812}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12723,7 +12500,7 @@ GameObject:
   - component: {fileID: 114122137149539116}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12759,7 +12536,7 @@ GameObject:
   - component: {fileID: 65630552062114642}
   m_Layer: 10
   m_Name: Prop_Drum_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12915,11 +12692,7 @@ GameObject:
   - component: {fileID: 65299296931280270}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (6)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13266,11 +13039,7 @@ GameObject:
   - component: {fileID: 65989027235618988}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13322,7 +13091,7 @@ GameObject:
   - component: {fileID: 65879748286174516}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13340,11 +13109,7 @@ GameObject:
   - component: {fileID: 65400432116340410}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (4)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13362,7 +13127,7 @@ GameObject:
   - component: {fileID: 114583493394917460}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13414,7 +13179,7 @@ GameObject:
   - component: {fileID: 65662920509471620}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13465,7 +13230,7 @@ GameObject:
   - component: {fileID: 65585316485090476}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13483,7 +13248,7 @@ GameObject:
   - component: {fileID: 65945148601271454}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13502,7 +13267,7 @@ GameObject:
   - component: {fileID: 65485322866011218}
   m_Layer: 10
   m_Name: Prop_Chair_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13537,7 +13302,7 @@ GameObject:
   - component: {fileID: 65204684972113322}
   m_Layer: 10
   m_Name: Prop_Drum_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13748,7 +13513,7 @@ GameObject:
   - component: {fileID: 114468236219689404}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13766,11 +13531,7 @@ GameObject:
   - component: {fileID: 65864378454429756}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (8)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13840,7 +13601,7 @@ GameObject:
   - component: {fileID: 65111156935990188}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13927,7 +13688,7 @@ GameObject:
   - component: {fileID: 65000621962537338}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13962,7 +13723,7 @@ GameObject:
   - component: {fileID: 65115801046237608}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13977,7 +13738,7 @@ GameObject:
   - component: {fileID: 4548396267286608}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13995,7 +13756,7 @@ GameObject:
   - component: {fileID: 65389419867534800}
   m_Layer: 10
   m_Name: Prop_Drum_rb (33)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14013,7 +13774,7 @@ GameObject:
   - component: {fileID: 65485446706248022}
   m_Layer: 10
   m_Name: Prop_Chair_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14049,7 +13810,7 @@ GameObject:
   - component: {fileID: 65873766517859054}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14085,7 +13846,7 @@ GameObject:
   - component: {fileID: 65281241476460940}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14103,11 +13864,7 @@ GameObject:
   - component: {fileID: 65980511100844134}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (8)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14161,7 +13918,7 @@ GameObject:
   - component: {fileID: 65212734331287286}
   m_Layer: 10
   m_Name: Prop_Chair_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14249,7 +14006,7 @@ GameObject:
   - component: {fileID: 65918787096771344}
   m_Layer: 10
   m_Name: Prop_Chair_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14267,7 +14024,7 @@ GameObject:
   - component: {fileID: 65920596479078394}
   m_Layer: 10
   m_Name: Prop_Drum_rb (36)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14388,7 +14145,7 @@ GameObject:
   - component: {fileID: 65341266881174628}
   m_Layer: 10
   m_Name: Prop_Drum_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14457,7 +14214,7 @@ GameObject:
   - component: {fileID: 114070065102472474}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14489,7 +14246,7 @@ GameObject:
   - component: {fileID: 4579008317298476}
   m_Layer: 10
   m_Name: BoxParretSet (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14524,7 +14281,7 @@ GameObject:
   - component: {fileID: 65746686833612480}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14559,11 +14316,7 @@ GameObject:
   - component: {fileID: 65674424892188898}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (7)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14667,7 +14420,7 @@ GameObject:
   - component: {fileID: 65215141281445084}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14685,7 +14438,7 @@ GameObject:
   - component: {fileID: 65704408424905488}
   m_Layer: 10
   m_Name: Prop_Drum_rb (28)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14754,11 +14507,7 @@ GameObject:
   - component: {fileID: 65566115368119032}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14776,7 +14525,7 @@ GameObject:
   - component: {fileID: 65868657134263648}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14825,7 +14574,7 @@ GameObject:
   - component: {fileID: 4504047858733548}
   m_Layer: 10
   m_Name: CafeSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14965,7 +14714,7 @@ GameObject:
   - component: {fileID: 65327272020365176}
   m_Layer: 10
   m_Name: Prop_Drum_rb (26)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15054,7 +14803,7 @@ GameObject:
   - component: {fileID: 65870953084684288}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15069,7 +14818,7 @@ GameObject:
   - component: {fileID: 4579362755959046}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15104,7 +14853,7 @@ GameObject:
   - component: {fileID: 65976046931745920}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15191,7 +14940,7 @@ GameObject:
   - component: {fileID: 65011990017242370}
   m_Layer: 10
   m_Name: Prop_Drum_rb (35)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15260,7 +15009,7 @@ GameObject:
   - component: {fileID: 65770354087944932}
   m_Layer: 10
   m_Name: Prop_Drum_rb (27)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15331,11 +15080,7 @@ GameObject:
   - component: {fileID: 65786660652735796}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (8)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15353,7 +15098,7 @@ GameObject:
   - component: {fileID: 65104060389797508}
   m_Layer: 10
   m_Name: Prop_Drum_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15371,7 +15116,7 @@ GameObject:
   - component: {fileID: 65414188196668882}
   m_Layer: 10
   m_Name: Prop_Drum_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15406,11 +15151,7 @@ GameObject:
   - component: {fileID: 65420667650092644}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (6)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15428,7 +15169,7 @@ GameObject:
   - component: {fileID: 65480232949219608}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15463,7 +15204,7 @@ GameObject:
   - component: {fileID: 65115910646782226}
   m_Layer: 10
   m_Name: Prop_Drum_rb (14)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15533,7 +15274,7 @@ GameObject:
   - component: {fileID: 65275298429307658}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15581,7 +15322,7 @@ GameObject:
   - component: {fileID: 65299466232666548}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15669,7 +15410,7 @@ GameObject:
   - component: {fileID: 114722139434240608}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15791,7 +15532,7 @@ GameObject:
   - component: {fileID: 65615038335640052}
   m_Layer: 10
   m_Name: Prop_Drum_rb (19)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15932,7 +15673,7 @@ GameObject:
   - component: {fileID: 65685555889283018}
   m_Layer: 10
   m_Name: Prop_Drum_rb (29)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16036,7 +15777,7 @@ GameObject:
   - component: {fileID: 65404326002297422}
   m_Layer: 10
   m_Name: Prop_Bench_rb(1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16090,7 +15831,7 @@ GameObject:
   - component: {fileID: 65272353017072598}
   m_Layer: 10
   m_Name: Prop_Bench_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16178,7 +15919,7 @@ GameObject:
   - component: {fileID: 65871458175057966}
   m_Layer: 10
   m_Name: Prop_Drum_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16196,7 +15937,7 @@ GameObject:
   - component: {fileID: 65393238642422504}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16261,7 +16002,7 @@ GameObject:
   - component: {fileID: 4315984993996326}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16279,7 +16020,7 @@ GameObject:
   - component: {fileID: 65858460273816552}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16297,7 +16038,7 @@ GameObject:
   - component: {fileID: 65222351112828984}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16315,7 +16056,7 @@ GameObject:
   - component: {fileID: 65837691548709390}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16451,11 +16192,7 @@ GameObject:
   - component: {fileID: 65666895848451798}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16473,7 +16210,7 @@ GameObject:
   - component: {fileID: 65242974609909530}
   m_Layer: 10
   m_Name: Prop_Drum_rb (34)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16506,7 +16243,7 @@ GameObject:
   - component: {fileID: 4557967548131872}
   m_Layer: 10
   m_Name: CafeSet (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16558,7 +16295,7 @@ GameObject:
   - component: {fileID: 65802438221209824}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16594,7 +16331,7 @@ GameObject:
   - component: {fileID: 65953725141294372}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16612,7 +16349,7 @@ GameObject:
   - component: {fileID: 65823108321671082}
   m_Layer: 10
   m_Name: Prop_Drum_rb (20)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16663,7 +16400,7 @@ GameObject:
   - component: {fileID: 4157866439108826}
   m_Layer: 10
   m_Name: GomiParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16681,7 +16418,7 @@ GameObject:
   - component: {fileID: 65604234941234372}
   m_Layer: 10
   m_Name: Prop_Drum_rb (23)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16714,7 +16451,7 @@ GameObject:
   - component: {fileID: 65040137274555444}
   m_Layer: 10
   m_Name: Prop_Drum_rb (32)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16750,7 +16487,7 @@ GameObject:
   - component: {fileID: 65760885473930230}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16785,7 +16522,7 @@ GameObject:
   - component: {fileID: 65134485596035488}
   m_Layer: 10
   m_Name: Prop_Drum_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16803,7 +16540,7 @@ GameObject:
   - component: {fileID: 65112440533977788}
   m_Layer: 10
   m_Name: Prop_Drum_rb (15)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16821,7 +16558,7 @@ GameObject:
   - component: {fileID: 114322344250368576}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16907,7 +16644,7 @@ GameObject:
   - component: {fileID: 65343175505300252}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16925,7 +16662,7 @@ GameObject:
   - component: {fileID: 65340573158786922}
   m_Layer: 10
   m_Name: Prop_Drum_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16943,7 +16680,7 @@ GameObject:
   - component: {fileID: 65773076967136170}
   m_Layer: 10
   m_Name: Prop_Drum_rb (38)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16978,7 +16715,7 @@ GameObject:
   - component: {fileID: 65483295405698626}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17013,11 +16750,7 @@ GameObject:
   - component: {fileID: 65477484186299312}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (3)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17052,7 +16785,7 @@ GameObject:
   - component: {fileID: 65657116136477480}
   m_Layer: 10
   m_Name: Prop_Drum_rb (12)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17087,7 +16820,7 @@ GameObject:
   - component: {fileID: 65302210294381770}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17207,7 +16940,7 @@ GameObject:
   - component: {fileID: 65335741298120102}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17276,7 +17009,7 @@ GameObject:
   - component: {fileID: 65135350976789828}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17332,27 +17065,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1579613951105262
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4198915564219702}
-  - component: {fileID: 54975086378708906}
-  - component: {fileID: 64719688360066440}
-  - component: {fileID: 114511285537163672}
-  m_Layer: 10
-  m_Name: Prop_FlowerPot_D_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1579633953683474
 GameObject:
   m_ObjectHideFlags: 1
@@ -17418,11 +17130,7 @@ GameObject:
   - component: {fileID: 65948706639203340}
   m_Layer: 10
   m_Name: Prop_Parcel_rb
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17440,7 +17148,7 @@ GameObject:
   - component: {fileID: 65772839586308588}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17493,7 +17201,7 @@ GameObject:
   - component: {fileID: 65824476016467346}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17508,32 +17216,11 @@ GameObject:
   - component: {fileID: 4093038368759256}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1581787852634064
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4015880631234476}
-  - component: {fileID: 54269091610650368}
-  - component: {fileID: 114963769532562322}
-  - component: {fileID: 65914979186939668}
-  m_Layer: 10
-  m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1582803347461888
 GameObject:
   m_ObjectHideFlags: 1
@@ -17634,7 +17321,7 @@ GameObject:
   - component: {fileID: 65888842207426956}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17652,7 +17339,7 @@ GameObject:
   - component: {fileID: 65338551317662894}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17705,7 +17392,7 @@ GameObject:
   - component: {fileID: 65746828213616080}
   m_Layer: 10
   m_Name: Prop_Drum_rb (39)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17770,7 +17457,7 @@ GameObject:
   - component: {fileID: 65903009785286520}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17788,7 +17475,7 @@ GameObject:
   - component: {fileID: 65616359594236412}
   m_Layer: 10
   m_Name: Prop_Drum_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17806,7 +17493,7 @@ GameObject:
   - component: {fileID: 65647008655605976}
   m_Layer: 10
   m_Name: Prop_Drum_rb (22)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17859,7 +17546,7 @@ GameObject:
   - component: {fileID: 65716268573666538}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17963,7 +17650,7 @@ GameObject:
   - component: {fileID: 65263609374158166}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18048,11 +17735,7 @@ GameObject:
   - component: {fileID: 65971773808433574}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (8)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18070,7 +17753,7 @@ GameObject:
   - component: {fileID: 65670050497244516}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18119,7 +17802,7 @@ GameObject:
   - component: {fileID: 4597652267691880}
   m_Layer: 10
   m_Name: BoxParretSet (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18156,9 +17839,6 @@ GameObject:
   - component: {fileID: 65404367262075110}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (5)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18177,7 +17857,6 @@ GameObject:
   m_Layer: 10
   m_Name: Prop_TrafficCone
   m_TagString: Untagged
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18350,7 +18029,7 @@ GameObject:
   - component: {fileID: 65927112044275024}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18455,7 +18134,7 @@ GameObject:
   - component: {fileID: 114796079325572216}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18525,7 +18204,7 @@ GameObject:
   - component: {fileID: 65363753086036632}
   m_Layer: 10
   m_Name: Prop_Drum_rb (30)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18564,27 +18243,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1612870973531056
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4058514222777012}
-  - component: {fileID: 54557506354900238}
-  - component: {fileID: 65800420002416932}
-  - component: {fileID: 114129836821769616}
-  m_Layer: 10
-  m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1614028132520758
 GameObject:
   m_ObjectHideFlags: 1
@@ -18687,7 +18345,7 @@ GameObject:
   - component: {fileID: 65228435477253248}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18740,7 +18398,7 @@ GameObject:
   - component: {fileID: 65250848288980752}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18775,29 +18433,7 @@ GameObject:
   - component: {fileID: 65256417891248352}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1617681727898892
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4810480016723748}
-  - component: {fileID: 54318495409606754}
-  - component: {fileID: 114803134519164922}
-  - component: {fileID: 65202267456580068}
-  m_Layer: 10
-  m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18918,7 +18554,7 @@ GameObject:
   - component: {fileID: 65927269785939118}
   m_Layer: 10
   m_Name: Prop_Bench_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18970,7 +18606,7 @@ GameObject:
   - component: {fileID: 65414609659348240}
   m_Layer: 10
   m_Name: Prop_Drum_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18988,7 +18624,7 @@ GameObject:
   - component: {fileID: 65433778674490290}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19041,7 +18677,7 @@ GameObject:
   - component: {fileID: 65558891951581892}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19076,7 +18712,7 @@ GameObject:
   - component: {fileID: 114709785071217996}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19297,7 +18933,7 @@ GameObject:
   - component: {fileID: 65278172246894200}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19333,7 +18969,7 @@ GameObject:
   - component: {fileID: 65334099349621036}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19348,7 +18984,7 @@ GameObject:
   - component: {fileID: 4482797122282164}
   m_Layer: 10
   m_Name: GomiParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19366,7 +19002,7 @@ GameObject:
   - component: {fileID: 65931524150587032}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19401,7 +19037,7 @@ GameObject:
   - component: {fileID: 65865141591093668}
   m_Layer: 10
   m_Name: Prop_Drum_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19533,7 +19169,7 @@ GameObject:
   - component: {fileID: 4507295991169698}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19602,7 +19238,7 @@ GameObject:
   - component: {fileID: 114804498565470532}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19685,7 +19321,7 @@ GameObject:
   - component: {fileID: 65298076839508984}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19790,11 +19426,7 @@ GameObject:
   - component: {fileID: 65325824594605572}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (1)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19829,7 +19461,7 @@ GameObject:
   - component: {fileID: 65080947787994770}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19847,7 +19479,7 @@ GameObject:
   - component: {fileID: 65905527476988276}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19865,7 +19497,7 @@ GameObject:
   - component: {fileID: 65030483915002282}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19951,7 +19583,7 @@ GameObject:
   - component: {fileID: 65891116013092362}
   m_Layer: 10
   m_Name: Prop_Drum_rb (21)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19969,7 +19601,7 @@ GameObject:
   - component: {fileID: 65544053097180944}
   m_Layer: 10
   m_Name: Prop_Drum_rb (42)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20005,11 +19637,7 @@ GameObject:
   - component: {fileID: 65529881769934362}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (9)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20062,7 +19690,7 @@ GameObject:
   - component: {fileID: 65642088563011308}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20097,7 +19725,7 @@ GameObject:
   - component: {fileID: 65878925416899018}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20146,7 +19774,7 @@ GameObject:
   - component: {fileID: 4379168055419214}
   m_Layer: 10
   m_Name: NewsBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20164,7 +19792,7 @@ GameObject:
   - component: {fileID: 65123940891266344}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20217,7 +19845,7 @@ GameObject:
   - component: {fileID: 65711518413608612}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20235,7 +19863,7 @@ GameObject:
   - component: {fileID: 65564086866125356}
   m_Layer: 10
   m_Name: Prop_Drum_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20253,11 +19881,7 @@ GameObject:
   - component: {fileID: 65090142303153540}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (3)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20275,7 +19899,7 @@ GameObject:
   - component: {fileID: 65781291470544584}
   m_Layer: 10
   m_Name: Prop_Drum_rb (18)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20397,7 +20021,7 @@ GameObject:
   - component: {fileID: 65307472838297518}
   m_Layer: 10
   m_Name: Prop_Drum_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20551,7 +20175,7 @@ GameObject:
   - component: {fileID: 65468941758059680}
   m_Layer: 10
   m_Name: Prop_Drum_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20569,7 +20193,7 @@ GameObject:
   - component: {fileID: 65509695168610662}
   m_Layer: 10
   m_Name: Prop_Drum_rb (16)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20587,7 +20211,7 @@ GameObject:
   - component: {fileID: 65715819668026954}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20622,7 +20246,7 @@ GameObject:
   - component: {fileID: 65894359388341252}
   m_Layer: 10
   m_Name: Prop_Drum_rb (27)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20658,7 +20282,7 @@ GameObject:
   - component: {fileID: 65702883418568704}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20693,7 +20317,7 @@ GameObject:
   - component: {fileID: 65336653306659080}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20728,7 +20352,7 @@ GameObject:
   - component: {fileID: 65201434438137978}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20818,7 +20442,7 @@ GameObject:
   - component: {fileID: 65739257965537224}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20870,7 +20494,7 @@ GameObject:
   - component: {fileID: 65276701749807454}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20905,7 +20529,7 @@ GameObject:
   - component: {fileID: 65294581128907046}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20940,7 +20564,7 @@ GameObject:
   - component: {fileID: 65975255329193956}
   m_Layer: 10
   m_Name: Prop_Drum_rb (39)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20975,7 +20599,7 @@ GameObject:
   - component: {fileID: 65434207530161176}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21046,7 +20670,7 @@ GameObject:
   - component: {fileID: 65829392427391684}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21150,7 +20774,7 @@ GameObject:
   - component: {fileID: 65092090151335458}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21255,7 +20879,7 @@ GameObject:
   - component: {fileID: 65743893789029278}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21290,7 +20914,7 @@ GameObject:
   - component: {fileID: 65461060068627772}
   m_Layer: 10
   m_Name: Prop_Chair_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21342,7 +20966,7 @@ GameObject:
   - component: {fileID: 65433471454656564}
   m_Layer: 10
   m_Name: Prop_Drum_rb (12)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21428,7 +21052,7 @@ GameObject:
   - component: {fileID: 65795869433955146}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21551,7 +21175,7 @@ GameObject:
   - component: {fileID: 65228551954950454}
   m_Layer: 10
   m_Name: Prop_Drum_rb (26)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21586,7 +21210,7 @@ GameObject:
   - component: {fileID: 65725165143073878}
   m_Layer: 10
   m_Name: Prop_Drum_rb (41)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21604,7 +21228,7 @@ GameObject:
   - component: {fileID: 65803930587163108}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21622,7 +21246,7 @@ GameObject:
   - component: {fileID: 65817533841420794}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21640,7 +21264,7 @@ GameObject:
   - component: {fileID: 65423295560482150}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21777,7 +21401,7 @@ GameObject:
   - component: {fileID: 65559014774117670}
   m_Layer: 10
   m_Name: Prop_InformationSign_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21810,32 +21434,11 @@ GameObject:
   - component: {fileID: 4439240536378086}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1708906586535604
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4360211695762132}
-  - component: {fileID: 54488955554708108}
-  - component: {fileID: 114231087339605786}
-  - component: {fileID: 65456195473657036}
-  m_Layer: 10
-  m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1708940031397362
 GameObject:
   m_ObjectHideFlags: 1
@@ -21866,7 +21469,7 @@ GameObject:
   - component: {fileID: 65412163454260190}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21884,7 +21487,7 @@ GameObject:
   - component: {fileID: 114317296559262638}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21917,7 +21520,7 @@ GameObject:
   - component: {fileID: 65203891598500526}
   m_Layer: 10
   m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21935,7 +21538,7 @@ GameObject:
   - component: {fileID: 65124390066100822}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21953,7 +21556,7 @@ GameObject:
   - component: {fileID: 65157460221535586}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21971,7 +21574,7 @@ GameObject:
   - component: {fileID: 65733310140043032}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22023,11 +21626,7 @@ GameObject:
   - component: {fileID: 65991709707571240}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (7)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22045,7 +21644,7 @@ GameObject:
   - component: {fileID: 65205151432193260}
   m_Layer: 10
   m_Name: Prop_Drum_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22167,11 +21766,7 @@ GameObject:
   - component: {fileID: 65952614682665798}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (6)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22345,32 +21940,11 @@ GameObject:
   - component: {fileID: 65015658621799340}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1729113273461822
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4248267708038658}
-  - component: {fileID: 54026746583948742}
-  - component: {fileID: 114076276544767262}
-  - component: {fileID: 65183138346949312}
-  m_Layer: 10
-  m_Name: Prop_DustBox_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1729553211318858
 GameObject:
   m_ObjectHideFlags: 1
@@ -22384,7 +21958,7 @@ GameObject:
   - component: {fileID: 114392787713429992}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22505,7 +22079,7 @@ GameObject:
   - component: {fileID: 65830701767057650}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22558,7 +22132,7 @@ GameObject:
   - component: {fileID: 65411079374817492}
   m_Layer: 10
   m_Name: Prop_Drum_rb (15)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22576,7 +22150,7 @@ GameObject:
   - component: {fileID: 65841871930067292}
   m_Layer: 10
   m_Name: Prop_Chair_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22594,7 +22168,7 @@ GameObject:
   - component: {fileID: 65646245391016500}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22630,11 +22204,7 @@ GameObject:
   - component: {fileID: 65198674702970264}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (3)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22649,7 +22219,7 @@ GameObject:
   - component: {fileID: 4895969648463062}
   m_Layer: 10
   m_Name: BoxParretSet (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22767,7 +22337,7 @@ GameObject:
   - component: {fileID: 4452363811880202}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22838,7 +22408,7 @@ GameObject:
   - component: {fileID: 65416859931854484}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22873,7 +22443,7 @@ GameObject:
   - component: {fileID: 65677976677359528}
   m_Layer: 10
   m_Name: Prop_Drum_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22905,7 +22475,7 @@ GameObject:
   - component: {fileID: 4008368467301722}
   m_Layer: 10
   m_Name: BoxParretSet (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22938,7 +22508,7 @@ GameObject:
   - component: {fileID: 65584989719526820}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22991,7 +22561,7 @@ GameObject:
   - component: {fileID: 65542253183848614}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23043,7 +22613,7 @@ GameObject:
   - component: {fileID: 65454708325138378}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23078,11 +22648,7 @@ GameObject:
   - component: {fileID: 65905278115064420}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (1)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23135,7 +22701,7 @@ GameObject:
   - component: {fileID: 65722580992442058}
   m_Layer: 10
   m_Name: Prop_Drum_rb (31)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23170,7 +22736,7 @@ GameObject:
   - component: {fileID: 114550976268786992}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23271,7 +22837,7 @@ GameObject:
   - component: {fileID: 4875729895671950}
   m_Layer: 10
   m_Name: DrumSet (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23303,7 +22869,7 @@ GameObject:
   - component: {fileID: 4693127928028478}
   m_Layer: 10
   m_Name: BoxParretSet (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23321,7 +22887,7 @@ GameObject:
   - component: {fileID: 65432191743544660}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23373,7 +22939,7 @@ GameObject:
   - component: {fileID: 114291636671264984}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23388,7 +22954,7 @@ GameObject:
   - component: {fileID: 4713296742839378}
   m_Layer: 10
   m_Name: BoxParretSet (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23406,11 +22972,7 @@ GameObject:
   - component: {fileID: 65995395894088432}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23479,7 +23041,7 @@ GameObject:
   - component: {fileID: 65388472655235250}
   m_Layer: 10
   m_Name: Prop_Drum_rb (17)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23528,7 +23090,7 @@ GameObject:
   - component: {fileID: 4836169057555384}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23546,28 +23108,7 @@ GameObject:
   - component: {fileID: 65829206270438048}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (9)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1771869799090560
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4367007576278528}
-  - component: {fileID: 33018056188656452}
-  - component: {fileID: 23013471748873322}
-  m_Layer: 10
-  m_Name: Prop_Bench
-  m_TagString: Untagged
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23602,7 +23143,7 @@ GameObject:
   - component: {fileID: 65673175018013572}
   m_Layer: 10
   m_Name: Prop_Drum_rb (42)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23620,7 +23161,7 @@ GameObject:
   - component: {fileID: 65207447160031172}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23706,7 +23247,7 @@ GameObject:
   - component: {fileID: 114027471925953028}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23724,7 +23265,7 @@ GameObject:
   - component: {fileID: 65101903137159638}
   m_Layer: 10
   m_Name: Prop_Drum_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23742,7 +23283,7 @@ GameObject:
   - component: {fileID: 65231591288289712}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23824,7 +23365,7 @@ GameObject:
   - component: {fileID: 4224787630483508}
   m_Layer: 10
   m_Name: BoxParretSet (4)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24030,7 +23571,7 @@ GameObject:
   - component: {fileID: 4304746228487728}
   m_Layer: 10
   m_Name: CafeSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24065,7 +23606,7 @@ GameObject:
   - component: {fileID: 65682170366840306}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24083,7 +23624,7 @@ GameObject:
   - component: {fileID: 65344926662895188}
   m_Layer: 10
   m_Name: Prop_Drum_rb (29)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24137,29 +23678,7 @@ GameObject:
   - component: {fileID: 65177582831290142}
   m_Layer: 10
   m_Name: Prop_Parcel_rb
-<<<<<<< HEAD
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1791821180421404
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4404934175208198}
-  - component: {fileID: 54558006842685776}
-  - component: {fileID: 114571057983468880}
-  - component: {fileID: 65693269391157614}
-  m_Layer: 10
-  m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24177,7 +23696,7 @@ GameObject:
   - component: {fileID: 65749143313456258}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24192,7 +23711,7 @@ GameObject:
   - component: {fileID: 4825234154858280}
   m_Layer: 10
   m_Name: DrumSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24210,7 +23729,7 @@ GameObject:
   - component: {fileID: 65508480185217504}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24262,7 +23781,7 @@ GameObject:
   - component: {fileID: 114853749528704942}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24314,7 +23833,7 @@ GameObject:
   - component: {fileID: 65820316606826962}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24450,7 +23969,7 @@ GameObject:
   - component: {fileID: 65704345857551560}
   m_Layer: 10
   m_Name: Prop_Bench_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24502,7 +24021,7 @@ GameObject:
   - component: {fileID: 65531659749434076}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24520,7 +24039,7 @@ GameObject:
   - component: {fileID: 65517797730295626}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24572,7 +24091,7 @@ GameObject:
   - component: {fileID: 65760410110149196}
   m_Layer: 10
   m_Name: Prop_Drum_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24608,7 +24127,7 @@ GameObject:
   - component: {fileID: 65808024092714456}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24660,7 +24179,7 @@ GameObject:
   - component: {fileID: 114142984249047536}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24678,7 +24197,7 @@ GameObject:
   - component: {fileID: 65729736589355222}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24783,7 +24302,7 @@ GameObject:
   - component: {fileID: 65367688887946340}
   m_Layer: 10
   m_Name: Prop_Drum_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24798,7 +24317,7 @@ GameObject:
   - component: {fileID: 4605272443784348}
   m_Layer: 10
   m_Name: BoxParretSet (11)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24816,7 +24335,7 @@ GameObject:
   - component: {fileID: 114036022500078256}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24954,7 +24473,7 @@ GameObject:
   - component: {fileID: 65489185527605144}
   m_Layer: 10
   m_Name: Prop_Drum_rb (36)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25003,7 +24522,7 @@ GameObject:
   - component: {fileID: 4388488503673530}
   m_Layer: 10
   m_Name: CafeFrontSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25038,7 +24557,7 @@ GameObject:
   - component: {fileID: 65483171224449536}
   m_Layer: 10
   m_Name: Prop_Drum_rb (22)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25364,7 +24883,7 @@ GameObject:
   - component: {fileID: 4388615549485326}
   m_Layer: 10
   m_Name: DustBoxSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25555,7 +25074,7 @@ GameObject:
   - component: {fileID: 65413959848692376}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25607,7 +25126,7 @@ GameObject:
   - component: {fileID: 65706054620320404}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25693,7 +25212,7 @@ GameObject:
   - component: {fileID: 65486701961307982}
   m_Layer: 10
   m_Name: Prop_Drum_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25817,7 +25336,7 @@ GameObject:
   - component: {fileID: 65617385992754576}
   m_Layer: 10
   m_Name: Prop_Drum_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25870,7 +25389,7 @@ GameObject:
   - component: {fileID: 65269876729572100}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25888,7 +25407,7 @@ GameObject:
   - component: {fileID: 65700760634278160}
   m_Layer: 10
   m_Name: Prop_Drum_rb (18)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25906,7 +25425,7 @@ GameObject:
   - component: {fileID: 65703101028030990}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25924,7 +25443,7 @@ GameObject:
   - component: {fileID: 65908528914992762}
   m_Layer: 10
   m_Name: Prop_Bench_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25993,7 +25512,7 @@ GameObject:
   - component: {fileID: 65770133910983484}
   m_Layer: 10
   m_Name: Prop_Drum_rb (24)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26063,7 +25582,7 @@ GameObject:
   - component: {fileID: 114270088149792852}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26099,7 +25618,7 @@ GameObject:
   - component: {fileID: 65831781966907866}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26148,7 +25667,7 @@ GameObject:
   - component: {fileID: 4273882252389192}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26234,7 +25753,7 @@ GameObject:
   - component: {fileID: 65676942991742536}
   m_Layer: 10
   m_Name: Prop_Drum_rb (24)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26252,7 +25771,7 @@ GameObject:
   - component: {fileID: 65063223883420900}
   m_Layer: 10
   m_Name: Prop_Bench_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26353,7 +25872,7 @@ GameObject:
   - component: {fileID: 4579730680144916}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26385,7 +25904,7 @@ GameObject:
   - component: {fileID: 4493098056538588}
   m_Layer: 10
   m_Name: CafeSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26435,7 +25954,7 @@ GameObject:
   - component: {fileID: 65219111752150152}
   m_Layer: 10
   m_Name: Prop_Drum_rb (13)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26453,7 +25972,7 @@ GameObject:
   - component: {fileID: 65603916226407898}
   m_Layer: 10
   m_Name: Prop_Chair_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26540,7 +26059,7 @@ GameObject:
   - component: {fileID: 65342541696209122}
   m_Layer: 10
   m_Name: Prop_Drum_rb (33)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26558,7 +26077,7 @@ GameObject:
   - component: {fileID: 65964804387925488}
   m_Layer: 10
   m_Name: Prop_Drum_rb (28)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26646,7 +26165,7 @@ GameObject:
   - component: {fileID: 65513995919873738}
   m_Layer: 10
   m_Name: Prop_Drum_rb (40)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26699,7 +26218,7 @@ GameObject:
   - component: {fileID: 65151572467586068}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26717,11 +26236,7 @@ GameObject:
   - component: {fileID: 65394886535197512}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (10)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26739,7 +26254,7 @@ GameObject:
   - component: {fileID: 114398780387959922}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26774,7 +26289,7 @@ GameObject:
   - component: {fileID: 65168886062978026}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26809,7 +26324,7 @@ GameObject:
   - component: {fileID: 65736624721351570}
   m_Layer: 10
   m_Name: Prop_Bench_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26827,7 +26342,7 @@ GameObject:
   - component: {fileID: 65509099140952548}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26893,7 +26408,7 @@ GameObject:
   - component: {fileID: 4791026852728170}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26962,7 +26477,7 @@ GameObject:
   - component: {fileID: 65156891330344718}
   m_Layer: 10
   m_Name: Prop_Drum_rb (38)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26995,7 +26510,7 @@ GameObject:
   - component: {fileID: 65514888161897766}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (12)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27043,11 +26558,7 @@ GameObject:
   - component: {fileID: 65166038312910600}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (7)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27204,7 +26715,7 @@ GameObject:
   - component: {fileID: 65782040033266444}
   m_Layer: 10
   m_Name: Prop_Drum_rb (16)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27273,7 +26784,7 @@ GameObject:
   - component: {fileID: 65105322840069248}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27291,7 +26802,7 @@ GameObject:
   - component: {fileID: 65596308563373300}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27361,7 +26872,7 @@ GameObject:
   - component: {fileID: 65934906065504550}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27379,7 +26890,7 @@ GameObject:
   - component: {fileID: 114380220860686226}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27430,7 +26941,7 @@ GameObject:
   - component: {fileID: 114935278146964600}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27483,7 +26994,7 @@ GameObject:
   - component: {fileID: 65693331452415608}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (8)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27501,7 +27012,7 @@ GameObject:
   - component: {fileID: 65846625644538290}
   m_Layer: 10
   m_Name: Prop_Drum_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27519,7 +27030,7 @@ GameObject:
   - component: {fileID: 65256857972752982}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27537,11 +27048,7 @@ GameObject:
   - component: {fileID: 65228985241478722}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (7)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27576,7 +27083,7 @@ GameObject:
   - component: {fileID: 65874699277047822}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27612,7 +27119,7 @@ GameObject:
   - component: {fileID: 65778099351509878}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27681,7 +27188,7 @@ GameObject:
   - component: {fileID: 65095072250302380}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27699,7 +27206,7 @@ GameObject:
   - component: {fileID: 65144938764393124}
   m_Layer: 10
   m_Name: Prop_Drum_rb (6)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27869,7 +27376,7 @@ GameObject:
   - component: {fileID: 65786890431051860}
   m_Layer: 10
   m_Name: Prop_Newsbox_A_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27887,7 +27394,7 @@ GameObject:
   - component: {fileID: 65790868037550780}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27975,7 +27482,7 @@ GameObject:
   - component: {fileID: 65526765768002562}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27990,7 +27497,7 @@ GameObject:
   - component: {fileID: 4669376052966882}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28073,7 +27580,7 @@ GameObject:
   - component: {fileID: 4193704374864844}
   m_Layer: 10
   m_Name: BoxParretSet
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28109,7 +27616,7 @@ GameObject:
   - component: {fileID: 65893335198437792}
   m_Layer: 10
   m_Name: Prop_Drum_rb (31)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28127,7 +27634,7 @@ GameObject:
   - component: {fileID: 65848833936584778}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (10)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28196,7 +27703,7 @@ GameObject:
   - component: {fileID: 65829143946745138}
   m_Layer: 10
   m_Name: Prop_Bench_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28265,7 +27772,7 @@ GameObject:
   - component: {fileID: 65627192868305670}
   m_Layer: 10
   m_Name: Prop_ConcreteBarrier_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28283,7 +27790,7 @@ GameObject:
   - component: {fileID: 65013586339549730}
   m_Layer: 10
   m_Name: Prop_Drum_rb (23)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28350,7 +27857,7 @@ GameObject:
   - component: {fileID: 4242122204623342}
   m_Layer: 10
   m_Name: BoxParretSet (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28386,7 +27893,7 @@ GameObject:
   - component: {fileID: 65950127546453884}
   m_Layer: 10
   m_Name: Prop_Drum_rb (40)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28404,7 +27911,7 @@ GameObject:
   - component: {fileID: 65850960736090270}
   m_Layer: 10
   m_Name: Prop_Drum_rb (42)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28491,7 +27998,7 @@ GameObject:
   - component: {fileID: 65287741223132054}
   m_Layer: 10
   m_Name: Prop_Drum_rb (17)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28543,32 +28050,11 @@ GameObject:
   - component: {fileID: 65693100833882688}
   m_Layer: 10
   m_Name: Prop_Drum_rb (20)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1947133541237910
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4509474538601798}
-  - component: {fileID: 54961773899745024}
-  - component: {fileID: 114784193682172108}
-  - component: {fileID: 65663233842766954}
-  m_Layer: 10
-  m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1947296213874962
 GameObject:
   m_ObjectHideFlags: 1
@@ -28582,7 +28068,7 @@ GameObject:
   - component: {fileID: 65709499825677658}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28617,7 +28103,7 @@ GameObject:
   - component: {fileID: 65841886301168546}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28639,27 +28125,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!1 &1948807745465778
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4268166813253158}
-  - component: {fileID: 54344579570178890}
-  - component: {fileID: 64386178104870896}
-  - component: {fileID: 114964367891760390}
-  m_Layer: 10
-  m_Name: Prop_FlowerPot_A_rb
-  m_TagString: Obstacle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-=======
->>>>>>> origin/TakeuchiMerge
 --- !u!1 &1948968461285654
 GameObject:
   m_ObjectHideFlags: 1
@@ -28707,7 +28172,7 @@ GameObject:
   - component: {fileID: 65866719838889510}
   m_Layer: 10
   m_Name: Prop_Chair_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28794,7 +28259,7 @@ GameObject:
   - component: {fileID: 65465671865379862}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28882,7 +28347,7 @@ GameObject:
   - component: {fileID: 65120964136616630}
   m_Layer: 10
   m_Name: Prop_Drum_rb (9)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28897,7 +28362,7 @@ GameObject:
   - component: {fileID: 4015531724603090}
   m_Layer: 10
   m_Name: BoxParretSet (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28932,7 +28397,7 @@ GameObject:
   - component: {fileID: 65586294550991064}
   m_Layer: 10
   m_Name: Prop_Drum_rb (37)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28968,7 +28433,7 @@ GameObject:
   - component: {fileID: 65162823328295708}
   m_Layer: 10
   m_Name: Prop_Drum_rb (14)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28986,11 +28451,7 @@ GameObject:
   - component: {fileID: 65539982769240314}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (5)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29094,7 +28555,7 @@ GameObject:
   - component: {fileID: 65319422270610974}
   m_Layer: 10
   m_Name: Prop_Drum_rb (7)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29129,7 +28590,7 @@ GameObject:
   - component: {fileID: 65668739146258620}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29147,7 +28608,7 @@ GameObject:
   - component: {fileID: 65892402652243870}
   m_Layer: 10
   m_Name: Prop_Drum_rb (20)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29165,7 +28626,7 @@ GameObject:
   - component: {fileID: 65570979403318658}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29336,7 +28797,7 @@ GameObject:
   - component: {fileID: 65229369135653646}
   m_Layer: 10
   m_Name: Prop_Bench_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29543,7 +29004,7 @@ GameObject:
   - component: {fileID: 65417597515294278}
   m_Layer: 10
   m_Name: Prop_Drum_rb (38)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29646,7 +29107,7 @@ GameObject:
   - component: {fileID: 65336639162744752}
   m_Layer: 10
   m_Name: Prop_Drum_rb (5)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29681,7 +29142,7 @@ GameObject:
   - component: {fileID: 65298129617289282}
   m_Layer: 10
   m_Name: Prop_Bench_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29716,7 +29177,7 @@ GameObject:
   - component: {fileID: 114187432683674954}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29820,7 +29281,7 @@ GameObject:
   - component: {fileID: 65920811606165078}
   m_Layer: 10
   m_Name: Prop_Hydrant_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29855,11 +29316,7 @@ GameObject:
   - component: {fileID: 65739824015201520}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (7)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29877,11 +29334,7 @@ GameObject:
   - component: {fileID: 65479527015969348}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (2)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29899,11 +29352,7 @@ GameObject:
   - component: {fileID: 65059004662658912}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (9)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29938,11 +29387,7 @@ GameObject:
   - component: {fileID: 65000371427234162}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (6)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29977,7 +29422,7 @@ GameObject:
   - component: {fileID: 114092485744630732}
   m_Layer: 10
   m_Name: Prop_Pallet_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30012,7 +29457,7 @@ GameObject:
   - component: {fileID: 65177735267033580}
   m_Layer: 10
   m_Name: Prop_Drum_rb (13)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30116,7 +29561,7 @@ GameObject:
   - component: {fileID: 114438121075096440}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30152,7 +29597,7 @@ GameObject:
   - component: {fileID: 65604164910389464}
   m_Layer: 10
   m_Name: Prop_Newsbox_B_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30187,11 +29632,7 @@ GameObject:
   - component: {fileID: 65324412762816516}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (12)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30209,7 +29650,7 @@ GameObject:
   - component: {fileID: 65088801845807790}
   m_Layer: 10
   m_Name: Prop_Chair_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30227,7 +29668,7 @@ GameObject:
   - component: {fileID: 65649370192539164}
   m_Layer: 10
   m_Name: Prop_Rubbish_rb
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30242,7 +29683,7 @@ GameObject:
   - component: {fileID: 4586673852957836}
   m_Layer: 10
   m_Name: BoxParretSet (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30277,7 +29718,7 @@ GameObject:
   - component: {fileID: 65208811174729256}
   m_Layer: 10
   m_Name: Prop_DustBox_rb (12)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30329,7 +29770,7 @@ GameObject:
   - component: {fileID: 65705922209440124}
   m_Layer: 10
   m_Name: Prop_Drum_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30347,7 +29788,7 @@ GameObject:
   - component: {fileID: 65012760353731994}
   m_Layer: 10
   m_Name: Prop_Drum_rb (34)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30365,7 +29806,7 @@ GameObject:
   - component: {fileID: 65486510002925748}
   m_Layer: 10
   m_Name: Prop_Drum_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30400,7 +29841,7 @@ GameObject:
   - component: {fileID: 65465123266037376}
   m_Layer: 10
   m_Name: Prop_Chair_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30418,7 +29859,7 @@ GameObject:
   - component: {fileID: 65156842604672138}
   m_Layer: 10
   m_Name: Prop_TrafficCone_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30436,7 +29877,7 @@ GameObject:
   - component: {fileID: 65036914947733374}
   m_Layer: 10
   m_Name: Prop_CoffeTable_rb (1)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30454,7 +29895,7 @@ GameObject:
   - component: {fileID: 114981994158242610}
   m_Layer: 10
   m_Name: Prop_Pallet_rb (2)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30472,11 +29913,7 @@ GameObject:
   - component: {fileID: 65658771814212676}
   m_Layer: 10
   m_Name: Prop_Parcel_rb (4)
-<<<<<<< HEAD
-  m_TagString: Obstacle
-=======
   m_TagString: Parcel
->>>>>>> origin/TakeuchiMerge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30546,7 +29983,7 @@ GameObject:
   - component: {fileID: 65595988465201368}
   m_Layer: 10
   m_Name: Prop_Bench_rb (3)
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

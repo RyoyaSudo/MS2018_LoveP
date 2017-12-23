@@ -132,6 +132,8 @@ public class Human : MonoBehaviour {
         ModelObj = Instantiate( createModel , transform.position , Quaternion.identity ) as GameObject;
         ModelObj.transform.parent = transform;
         ModelObj.name = createModel.name;
+
+        ModelObj.transform.parent.name = createModel.name;
     }
 
     /// <summary>
