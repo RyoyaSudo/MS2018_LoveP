@@ -319,7 +319,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST , ( int )Human.ModelType.Family_Child);
                 }
                 break;
 
@@ -340,7 +340,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST );
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -357,7 +357,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST, ( int )Human.ModelType.Family_Child );
                 }
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
