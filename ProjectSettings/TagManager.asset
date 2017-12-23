@@ -8,6 +8,7 @@ TagManager:
   - RideArea
   - CityPlane
   - Obstacle
+  - Parcel
   layers:
   - Default
   - TransparentFX
