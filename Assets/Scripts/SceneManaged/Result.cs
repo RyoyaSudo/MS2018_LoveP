@@ -6,11 +6,18 @@ using System;
 public class Result : MonoBehaviour
 {
     public GameObject transition;
+    public GameObject ScoreObj;
+    public GameObject cameraObj;
+    public GameObject GroundObj;
+    public GameObject timeline;
 
-    ////サウンド用/////////////////////////////
-    //public SoundController.Sounds titleSoundType;
-    //private AudioSource titleAudioS;
-    //private SoundController titleSoundCtrl;
+    public enum State
+    {
+        STATE_RIDE = 0,
+        STATE_SCORE
+    }
+
+    State state;
 
     // プレハブ系
     // Hierarchy上から設定する
@@ -33,7 +40,7 @@ public class Result : MonoBehaviour
     void Update()
     {
         //_____フェード関連_____________
-        if( inputObj.GetButton( "Fire1" ) || Input.GetKey( KeyCode.O ) )
+        if (inputObj.GetButton("Fire1") || Input.GetKey(KeyCode.O))
         {
             // Spaceキーで次のシーン
             // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
@@ -58,20 +65,37 @@ public class Result : MonoBehaviour
     {
         // ラムダ式で生成処理を実装
         // 効率が良いのかは分からん
-        Func< GameObject , GameObject > Create = ( GameObject prefabs ) =>
-        {
-            GameObject obj = GameObject.Find( prefabs.name );
+        Func<GameObject, GameObject> Create = (GameObject prefabs) =>
+     {
+         GameObject obj = GameObject.Find(prefabs.name);
 
-            if( obj == null )
-            {
-                obj = Instantiate( prefabs );
-                obj.name = prefabs.name;
-            }
+         if (obj == null)
+         {
+             obj = Instantiate(prefabs);
+             obj.name = prefabs.name;
+         }
 
-            return obj;
-        };
+         return obj;
+     };
 
         // 各オブジェクトの生成
-        inputObj = Create( inputPrefab ).GetComponent<LoveP_Input>();
+        inputObj = Create(inputPrefab).GetComponent<LoveP_Input>();
+    }
+
+    public void SetStateType(State type)
+    {
+        state = type;
+        switch (state)
+        {
+            case State.STATE_SCORE:
+                {
+                    GroundObj.SetActive(false);
+                    ScoreObj.SetActive(true);
+                    cameraObj.transform.position = new Vector3(50, 0, 0);
+                    cameraObj.transform.rotation = Quaternion.identity;
+                    //timeline.SetActive(false);
+                    break;
+                }
+        }
     }
 }

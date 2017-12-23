@@ -44,8 +44,8 @@ public class Transition : MonoBehaviour
            yield return SceneManager.LoadSceneAsync(transitionScene);
         }
 
-        //yield return Animate(_transitionOut, 1);
-        //if (OnComplete != null) { OnComplete.Invoke(); }
+        yield return Animate(_transitionOut, 1);
+        if (OnComplete != null) { OnComplete.Invoke(); }
     }
 
     IEnumerator StartTransition()

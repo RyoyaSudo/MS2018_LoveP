@@ -2467,14 +2467,15 @@ MonoBehaviour:
   playerPath: Rocket
   rocketPath: Rocket
   rocketObj: {fileID: 0}
-  rideRunTime: 0
+  rideRunTime: 1
   rideWaitTime: 0
-  rideJumpTime: 0
-  rideSitTime: 0
-  awaitTime: 0
-  spawnPlace: 0
+  rideJumpTime: 1
+  rideSitTime: 1
+  rideStartPos: {x: 0, y: 0, z: 0}
+  awaitTime: 1
+  spawnPlace: 1
   pasengerOrder: 0
-  destroyTime: 0
+  destroyTime: 1
   humanAnim: {fileID: 0}
 --- !u!114 &114691091411701514
 MonoBehaviour:

@@ -71,9 +71,19 @@ public class ResultPassengerContoller : MonoBehaviour {
 
 
     public HumanAnim humanAnim;
+    Vector3 origin;
 
     //アニメーター
     Animator anim;
+
+
+    public enum State
+    {
+        STATE_WAIT = 0,
+        STATE_RUN,
+    };
+
+    State state;
 
     /// <summary>
     /// Awake時処理
@@ -90,12 +100,14 @@ public class ResultPassengerContoller : MonoBehaviour {
     /// </summary>
     void Start()
     {
+        origin = transform.position;
+        Debug.Log(origin);
         anim = this.GetComponent<Animator>();
         //状態を「生成」に
 
         //プレイヤーオブジェクト取得
-         playerObj = GameObject.Find(playerPath);
-       // playerObj = this.gameObject;
+         //playerObj = GameObject.Find(playerPath);
+        playerObj = this.gameObject;
         //プレイヤー車両オブジェクト取得
         // playerVehicle = playerObj.GetComponent<PlayerVehicle>();
 
@@ -103,6 +115,7 @@ public class ResultPassengerContoller : MonoBehaviour {
         //timelineManager = GameObject.Find(timelineMangerPath).GetComponent<TimelineManager>();
 
         rocketObj = GameObject.Find(rocketPath);
+        state = State.STATE_WAIT;
 
     }
 
@@ -118,7 +131,22 @@ public class ResultPassengerContoller : MonoBehaviour {
 
         //Debug.Log("run");
         //anim.SetBool("Run", true);
-        Ride();
+        
+        switch( state )
+        {
+            case State.STATE_WAIT:
+                {
+                    break;
+                }
+            case State.STATE_RUN:
+                {
+                    Ride();
+                    break;
+                }
+        }
+
+ 
+        
     }
 
     /// <summary>
@@ -137,7 +165,7 @@ public class ResultPassengerContoller : MonoBehaviour {
                     float jumpDistance = 0;                                       //ジャンプする位置
                     Vector3 endPos = Vector3.zero;                              //終了位置
                     Quaternion endRotation = Quaternion.identity;               //座った時に向かせる方向
-                    
+                    rideCnt = 0;
 
                     jumpDistance += 5.0f;
                     endPos = rocketObj.transform.position;
@@ -149,7 +177,7 @@ public class ResultPassengerContoller : MonoBehaviour {
                     rideEndPos = endPos;                                                        //終了位置
                     Vector3 direction = rideStartPos - rideEndPos;
                     direction = direction.normalized;
-                    rideMiddlePos = playerObj.transform.position + direction * jumpDistance;    //中間位置
+                    rideMiddlePos = new Vector3(290.0f, 0.0f, -131.3f); 
                     sitEndRotation = endRotation;                                               //座った時の最終方向
 
                     rideMoveRate = 1.0f / rideRunTime;                                          //移動割合
@@ -157,6 +185,8 @@ public class ResultPassengerContoller : MonoBehaviour {
                     sitMoveRate = 1.0f / rideSitTime;                                           //座った時の割合
                     transform.LookAt(playerObj.transform);                                      //プレイヤーの位置を向かせる
                     anim.SetBool("Run", true);
+                    transform.position = origin;
+                    state = State.STATE_RUN;
                     //乗車タイムライン開始
                     //timelineManager.Get("RideTimeline").Play();
                     //timelineManager.SetStateType(TimelineManager.STATETYPE.TIMELINE_START);
@@ -230,7 +260,7 @@ public class ResultPassengerContoller : MonoBehaviour {
                     transform.position = rideEndPos;
 
                     sitStartRotation = transform.rotation;
-                    //Destroy(gameObject);
+                    Destroy(gameObject);
                 }
                 else
                 {
