@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4666385499350402}
   - component: {fileID: 198521020772002928}
   - component: {fileID: 199900190209819716}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4480472984028268}
   - component: {fileID: 198392392755555454}
   - component: {fileID: 199035847796438998}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BigGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4797110745959078}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,9 +68,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4121821181286224}
-  - component: {fileID: 23796009658842404}
   - component: {fileID: 114681550110055880}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +86,7 @@ GameObject:
   - component: {fileID: 4126521321274976}
   - component: {fileID: 198059291673644916}
   - component: {fileID: 199515135934696020}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FloorZoneBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +104,7 @@ GameObject:
   - component: {fileID: 33598934201674966}
   - component: {fileID: 135038794049043170}
   - component: {fileID: 23482535496956300}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pointObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +121,7 @@ GameObject:
   - component: {fileID: 4263322947493900}
   - component: {fileID: 198477338095325742}
   - component: {fileID: 199916395896006368}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GlowBits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +134,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1419229282505804}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -241,40 +240,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23796009658842404
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1419229282505804}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: fbcf95bd3e605334da5497993a228a14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

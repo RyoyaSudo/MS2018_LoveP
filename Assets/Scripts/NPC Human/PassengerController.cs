@@ -89,10 +89,10 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     public enum GROUPTYPE
     {
-        PEAR = 0,      // ペア
-        SMAlLL,        // 小グループ
-        BIG,           // 大グループ
-        TYPE_MAX       // グループ総数
+        Lovers = 0,    // ペア
+        Family,        // 小グループ
+        Friends,       // 大グループ
+        TypeMax        // グループ総数
     };
 
     //宣言
@@ -556,15 +556,15 @@ public class PassengerController : MonoBehaviour
                 switch (groupType)
                 {
                     //ペア
-                    case GROUPTYPE.PEAR:
+                    case GROUPTYPE.Lovers:
                         passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIPearMat;
                         break;
                     //小グループ
-                    case GROUPTYPE.SMAlLL:
+                    case GROUPTYPE.Family:
                         passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUISmallMat;
                         break;
                     //大グループ
-                    case GROUPTYPE.BIG:
+                    case GROUPTYPE.Friends:
                         passengerGroupUIPlane.GetComponent<Renderer>().material = passengerGroupUIBigMat;
                         break;
                     default:

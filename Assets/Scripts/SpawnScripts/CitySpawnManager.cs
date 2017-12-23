@@ -49,28 +49,7 @@ public class CitySpawnManager : MonoBehaviour {
         }
 
         //初回スポーン
-        HumanCreate(1, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
-    }
-
-    // 更新
-    void Update()
-    {
-        //if (Input.GetKeyDown("0"))
-        //{
-        //    HumanCreate(0, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
-        //}
-        //if (Input.GetKeyDown("1"))
-        //{
-        //    HumanCreate(1, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
-        //}
-        //if (Input.GetKeyDown("2"))
-        //{
-        //    HumanCreate(2, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
-        //}
-        //if (Input.GetKeyDown("5"))
-        //{
-        //    SpawnHumanGroup(0, PassengerController.GROUPTYPE.BIG);
-        //}
+        HumanCreate(1, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
     }
 
     /// <summary>
@@ -85,9 +64,9 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="passengerOrder">
     /// 乗客の乗車順番
     /// </param>
-    public void HumanCreate(int spawnPointNum , PassengerController.GROUPTYPE groupType , SpawnPoint.PASSENGER_ORDER passengerOrder)
+    public void HumanCreate(int spawnPointNum , PassengerController.GROUPTYPE groupType , SpawnPoint.PASSENGER_ORDER passengerOrder , int modelType = -1 )
     {
-        spawnPointObject[spawnPointNum].PassengerSpawn( spawnPointNum , groupType , passengerOrder);
+        spawnPointObject[spawnPointNum].PassengerSpawn( spawnPointNum , groupType , passengerOrder , modelType );
     }
 
     /// <summary>
@@ -99,7 +78,7 @@ public class CitySpawnManager : MonoBehaviour {
     /// <param name="groupType">
     /// 生成する乗客の所属グループタイプ
     /// </param>
-    public void SpawnHumanGroup ( int spawnPlace , PassengerController.GROUPTYPE groupType)
+    public void SpawnHumanGroup ( int spawnPlace , PassengerController.GROUPTYPE groupType , Human.ModelType alreadyCreateModel )
     {
         //相方たちの人数
         int passengerNum=0;
@@ -108,17 +87,17 @@ public class CitySpawnManager : MonoBehaviour {
         switch ( groupType )
         {
             //ペア
-            case PassengerController.GROUPTYPE.PEAR:
+            case PassengerController.GROUPTYPE.Lovers:
                 passengerNum = pearPassengerNum - 1;
                 break;
 
             //小グループ
-            case PassengerController.GROUPTYPE.SMAlLL:
+            case PassengerController.GROUPTYPE.Family:
                 passengerNum = smallPassengerNum - 1;
                 break;
 
             //大グループ
-            case PassengerController.GROUPTYPE.BIG:
+            case PassengerController.GROUPTYPE.Friends:
                 passengerNum = bigPassengerNum - 1;
                 break;
         }
@@ -137,8 +116,42 @@ public class CitySpawnManager : MonoBehaviour {
 
         existPlace[spawnPlace] = true;
 
+        // 生成済み乗客を調査
+        bool[] modelAlredyCreate = null;
+        int index = 0;
+
+        switch( groupType )
+        {
+            //ペア
+            case PassengerController.GROUPTYPE.Lovers:
+                modelAlredyCreate = new bool[ 2 ];
+
+                index = ( alreadyCreateModel - Human.ModelType.LoversSt );
+
+                modelAlredyCreate[ index ] = true;
+                break;
+
+            //小グループ
+            case PassengerController.GROUPTYPE.Family:
+                modelAlredyCreate = new bool[ 3 ];
+
+                index = ( alreadyCreateModel - Human.ModelType.FamilySt );
+
+                modelAlredyCreate[ index ] = true;
+                break;
+
+            //大グループ
+            case PassengerController.GROUPTYPE.Friends:
+                modelAlredyCreate = new bool[ 5 ];
+
+                index = ( alreadyCreateModel - Human.ModelType.FriendsSt );
+
+                modelAlredyCreate[ index ] = true;
+                break;
+        }
+
         //相方生成を人数分生成
-        for ( int nCnt = 0; nCnt < passengerNum; nCnt++ )
+        for( int nCnt = 0; nCnt < passengerNum; nCnt++ )
         {
             while(true)
             {
@@ -162,8 +175,65 @@ public class CitySpawnManager : MonoBehaviour {
                 }
             }
 
+            // 生成するモデルを設定
+            int randomSt = 0;
+            int randomEnd = 0;
+            int modelID = -1;
+
+            switch( groupType )
+            {
+                //ペア
+                case PassengerController.GROUPTYPE.Lovers:
+                    randomSt = ( int )Human.ModelType.LoversSt;
+                    randomEnd = ( int )Human.ModelType.LoversEnd + 1;
+                    break;
+
+                //小グループ
+                case PassengerController.GROUPTYPE.Family:
+                    randomSt = ( int )Human.ModelType.FamilySt;
+                    randomEnd = ( int )Human.ModelType.FamilyEnd + 1;
+                    break;
+
+                //大グループ
+                case PassengerController.GROUPTYPE.Friends:
+                    randomSt = ( int )Human.ModelType.FriendsSt;
+                    randomEnd = ( int )Human.ModelType.FriendsEnd + 1;
+                    break;
+            }
+
+            while(true)
+            {
+                modelID = Random.Range( randomSt , randomEnd );
+
+                int refIdx = modelID - randomSt;
+
+                if( modelAlredyCreate[ refIdx ] == false )
+                {
+                    modelAlredyCreate[ refIdx ] = true;
+                    break;
+                }
+            }
+
+            switch( groupType )
+            {
+                //ペア
+                case PassengerController.GROUPTYPE.Lovers:
+                    passengerNum = pearPassengerNum - 1;
+                    break;
+
+                //小グループ
+                case PassengerController.GROUPTYPE.Family:
+                    passengerNum = smallPassengerNum - 1;
+                    break;
+
+                //大グループ
+                case PassengerController.GROUPTYPE.Friends:
+                    passengerNum = bigPassengerNum - 1;
+                    break;
+            }
+
             //人生成
-            HumanCreate(randam,groupType, SpawnPoint.PASSENGER_ORDER.DEFOULT);
+            HumanCreate(randam,groupType, SpawnPoint.PASSENGER_ORDER.DEFOULT, modelID );
         }
     }
 
@@ -211,7 +281,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR,SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers,SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 break;
 
@@ -232,7 +302,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -249,7 +319,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST , ( int )Human.ModelType.Family_Child);
                 }
                 break;
 
@@ -270,7 +340,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.PEAR, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST );
                 }
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
@@ -287,7 +357,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.SMAlLL, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST, ( int )Human.ModelType.Family_Child );
                 }
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
@@ -304,7 +374,7 @@ public class CitySpawnManager : MonoBehaviour {
                     }
 
                     // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.BIG, SpawnPoint.PASSENGER_ORDER.FIRST);
+                    HumanCreate(pos, PassengerController.GROUPTYPE.Friends, SpawnPoint.PASSENGER_ORDER.FIRST);
                 }
 
                 break;

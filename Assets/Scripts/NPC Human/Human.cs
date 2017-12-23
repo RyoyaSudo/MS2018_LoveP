@@ -24,7 +24,7 @@ public class Human : MonoBehaviour {
     /// 人モデル配列。
     /// Inspector上で設定を忘れないこと！！
     /// </summary>
-    [SerializeField] GameObject[] modelArray;
+    [SerializeField] GameObject[] modelArray = new GameObject[(int)ModelType.TypeMax];
 
     /// <summary>
     /// 表示モデルタイプ
@@ -32,8 +32,31 @@ public class Human : MonoBehaviour {
     public enum ModelType
     {
         Unknown = -1,
-        Girl = 0,
-        Boy,
+
+        PlayerSt = 0,
+        Player_Girl = PlayerSt,
+        Player_Boy,
+        PlayerEnd = Player_Boy,
+
+        LoversSt,
+        Lover_Girl = LoversSt,
+        Lover_Boy,
+        LoversEnd = Lover_Boy,
+
+        FamilySt,
+        Family_Child = FamilySt,
+        Family_Mother,
+        Family_Father,
+        FamilyEnd = Family_Father,
+
+        FriendsSt,
+        Friends_GirlA = FriendsSt,
+        Friends_GirlB,
+        Friends_ManA,
+        Friends_ManB,
+        Friends_ManC,
+        FriendsEnd = Friends_ManC,
+
         TypeMax
     }
 
@@ -61,6 +84,18 @@ public class Human : MonoBehaviour {
     /// 表示モデルオブジェクト
     /// </summary>
     public GameObject ModelObj { get; private set; }
+
+    /// <summary>
+    /// マップアイコン用オブジェクト
+    /// </summary>
+    public GameObject MapIconObj { get { return mapIconObj; } }
+    [SerializeField] GameObject mapIconObj;
+
+    /// <summary>
+    /// 乗車エリアオブジェクト
+    /// </summary>
+    public GameObject RideAreaObj { get { return rideAreaObj; } }
+    [SerializeField] GameObject rideAreaObj;
 
     /// <summary>
     /// 状態列挙値
@@ -121,7 +156,7 @@ public class Human : MonoBehaviour {
     {
         if( type >= ModelType.TypeMax || type < 0 )
         {
-            Debug.LogError( "人生成時に不定なタイプが指定されました。" );
+            Debug.LogError( "人生成時に不定なタイプが指定されました。\nタイプID:" + ( int )type + "\n名前:" + type );
         }
 
         CurrentModelType = type;
@@ -133,6 +168,7 @@ public class Human : MonoBehaviour {
         ModelObj.transform.parent = transform;
         ModelObj.name = createModel.name;
 
+        // モデルの名前を管理オブジェクトとなる親につける
         ModelObj.transform.parent.name = createModel.name;
     }
 
