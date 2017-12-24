@@ -125,6 +125,8 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     private Human humanObj;
 
+    public FaceController FaceControllerObj { get; private set; }
+
     /// <summary>
     /// Awake時処理
     /// </summary>
@@ -153,6 +155,8 @@ public class PassengerController : MonoBehaviour
 
         //タイムラインマネージャー取得
         timelineManager = GameObject.Find(timelineMangerPath).GetComponent<TimelineManager>();
+
+        FaceControllerObj = transform.Find( gameObject.name ).gameObject.GetComponent<FaceController>();
     }
 
     /// <summary>
@@ -554,7 +558,8 @@ public class PassengerController : MonoBehaviour
             case GetOffType.WAIT:
                 //「解散」状態に
                 humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
-
+                FaceControllerObj.ChangeFace( FaceController.FaceType.FACE_TYPE_SMILE );
+                FaceControllerObj.faceState = FaceController.FaceState.FACE_STATE_HAPPY;
                 break;
         }
     }
@@ -681,6 +686,9 @@ public class PassengerController : MonoBehaviour
                 {
                     //「解散」状態に
                     humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
+                    FaceControllerObj.ChangeFace( FaceController.FaceType.FACE_TYPE_SMILE );
+                    FaceControllerObj.faceState = FaceController.FaceState.FACE_STATE_HAPPY;
+
                 }
                 else
                 {
@@ -821,7 +829,7 @@ public class PassengerController : MonoBehaviour
                 {
                     //「解散」状態に
                     humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
-
+                    FaceControllerObj.ChangeFace( FaceController.FaceType.FACE_TYPE_SMILE );
                 }
                 else
                 {
@@ -850,6 +858,8 @@ public class PassengerController : MonoBehaviour
         humanObj.ModelObj.GetComponent<HumanAnim>().ReleaseAnimON(); // TODO: 11/7現在。乗客の状態に解散状態が設定されることがないためここで解散アニメーションをしている
 
         destroyTime -= Time.deltaTime;
+        FaceControllerObj.ChangeFace( FaceController.FaceType.FACE_TYPE_NORMAL );
+        FaceControllerObj.faceState = FaceController.FaceState.FACE_STATE_WINK;
 
         if (destroyTime < 0.0f)
         {
