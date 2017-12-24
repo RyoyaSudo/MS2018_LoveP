@@ -67,6 +67,7 @@ public class Game : MonoBehaviour {
     TimelineManager timelineObj;
     LoveP_Input inputObj;
     StartLogo startLogoObj;
+    FinishLogo finishLogoObj;
 
 
     /// <summary>
@@ -80,6 +81,7 @@ public class Game : MonoBehaviour {
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR_SHIFT,
         GAME_PAHSE_STAR,
+        GAME_PHASE_FINISH ,
         GAME_PAHSE_END,
 
         GAME_PAHSE_NUM,
@@ -179,7 +181,7 @@ public class Game : MonoBehaviour {
 
                     if ( timeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
-                        SceneManager.LoadScene("Result");
+                        PhaseParam = Phase.GAME_PHASE_FINISH;
                     }
                     break;
                 }
@@ -202,6 +204,16 @@ public class Game : MonoBehaviour {
                     {
                         SceneManager.LoadScene("Result");
                     }
+                    break;
+                }
+
+            case Phase.GAME_PHASE_FINISH:
+                {
+                    if (finishLogoObj.stateType == FinishLogo.STATETYPE.NONE )
+                    {
+                        SceneManager.LoadScene("Result");
+                    }
+
                     break;
                 }
 
@@ -266,6 +278,10 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_STAR:
                 PhaseStarStart();
+                break;
+
+            case Phase.GAME_PHASE_FINISH:
+                PhaseFinishStart();
                 break;
 
             case Phase.GAME_PAHSE_END:
@@ -365,6 +381,13 @@ public class Game : MonoBehaviour {
         skyboxManagerObj.GetComponent<SkyboxManager>().SetStarSkyBox();
     }
 
+    void PhaseFinishStart()
+    {
+        finishLogoObj.gameObject.SetActive(true);
+        finishLogoObj.SetStateType(FinishLogo.STATETYPE.SRIDE_IN);
+    }
+
+
     void PhaseEndStart()
     {
         playerObj.MoveEnable( false );
@@ -425,6 +448,7 @@ public class Game : MonoBehaviour {
         timeManagerObj = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         scoreManagerObj = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         startLogoObj = GameObject.Find("StartLogo").GetComponent<StartLogo>();
+        finishLogoObj = GameObject.Find("FinishLogo").GetComponent<FinishLogo>();
     }
 
 }
