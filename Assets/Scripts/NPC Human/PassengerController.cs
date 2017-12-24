@@ -50,7 +50,8 @@ public class PassengerController : MonoBehaviour
     public float getOffRunTime;                      //走るの時間
     public float getOffJumpTime;                     //ジャンプ時間
     private float getOffStartWaitTime;               //最初の待ち時間
-    public float getOffPoseTime;                     //ポーズ時間
+    public float familyPoseTime;                     //ファミリーポーズ時間
+    public float friendsPoseTime;                    //フレンズポーズ時間
     private float getOffCnt;                         //カウント
     private Vector3 getOffStartPos;                  //最初の位置
     private Vector3 getOffEndPos;                    //最後の位置
@@ -294,7 +295,10 @@ public class PassengerController : MonoBehaviour
                     direction = direction.normalized;
                     getOffMiddlePos = getOffEndPos + direction * 2.0f;                  //中間位置
                     getOffMoveRate = 1.0f / getOffRunTime;                              //移動割合
-                    getOffJumpRate = Mathf.PI / getOffJumpTime;                         //ジャンプ割合
+
+                    // TODO:着地位置が浮いているので割合増やして地面に近い位置に着地するようにしました
+                    // 時間あるとき見直しときます。とりあえず今はこれで
+                    getOffJumpRate = (Mathf.PI+0.1f) / getOffJumpTime;                  //ジャンプ割合
                     transform.LookAt(getOffAwaitObj.transform);                         //待ち受け状態の人の方を向かせる
 
                     switch (groupType)
@@ -671,7 +675,7 @@ public class PassengerController : MonoBehaviour
                 break;
 
             case GetOffType.POSE:
-                if (getOffCnt >= getOffPoseTime)
+                if (getOffCnt >= familyPoseTime)
                 {
                     //「解散」状態に
                     humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
@@ -811,7 +815,7 @@ public class PassengerController : MonoBehaviour
                 break;
 
             case GetOffType.POSE:
-                if ( getOffCnt >= getOffPoseTime)
+                if ( getOffCnt >= friendsPoseTime)
                 {
                     //「解散」状態に
                     humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
@@ -911,7 +915,7 @@ public class PassengerController : MonoBehaviour
                 break;
 
             case GetOffType.POSE:
-                if (getOffCnt >= getOffPoseTime)
+                if (getOffCnt >= familyPoseTime)
                 {
                     //「解散」状態に
                     humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
@@ -944,7 +948,7 @@ public class PassengerController : MonoBehaviour
                 break;
 
             case GetOffType.POSE:
-                if (getOffCnt >= getOffPoseTime)
+                if (getOffCnt >= friendsPoseTime)
                 {
                     //「解散」状態に
                     humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
