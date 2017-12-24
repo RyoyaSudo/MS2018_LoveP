@@ -44,7 +44,7 @@ public class PassengerTogetherUI : MonoBehaviour {
         faceGroupNum = 0;
         facePearUiDefPos = facePearUiObj.transform.position;
         faceGroupSmallUiDefPos = faceGroupSmallUiObj.transform.position;
-        Debug.Log("グループのポスy" + faceGroupSmallUiDefPos.x);
+        //Debug.Log("グループのポスy" + faceGroupSmallUiDefPos.x);
         faceGroupLargeUiDefPos = faceGroupLargeUiObj.transform.position;
         bEnd = false;
         //facePearUiObj.SetActive(false);
