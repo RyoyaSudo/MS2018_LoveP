@@ -34,7 +34,7 @@ public class GetOffBigPlayableBehaviour : PlayableBehaviour
         virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
         timelineManager = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();               //タイムラインマネージャー
 
-        //今いる人オブジェクト取得
+        //待ち受けいる人オブジェクト取得
         awaitObj = playerObj.GetComponent<Player>().awaitHumanObj;
 
         //「下車」状態のオブジェクトを取得

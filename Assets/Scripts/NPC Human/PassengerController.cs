@@ -63,6 +63,7 @@ public class PassengerController : MonoBehaviour
     private float getOffMoveRate;                    //移動割合
     private float getOffJumpRate;                    //ジャンプ割合
     static bool bFriendsPoseStart;                   //フレンズポーズ開始
+    static bool bFamilyPoseStart;                    //ファミリーポーズ開始
     private enum GetOffType                          //状態
     {
         STARTWAIT ,
@@ -283,7 +284,7 @@ public class PassengerController : MonoBehaviour
                 {
                     getOffType = GetOffType.STARTWAIT;
                     getOffCnt = 0;
-                    getOffStartWaitTime = rideNumber * 2.0f;                            //最初の待ち時間
+                    getOffStartWaitTime = rideNumber * 1.0f;                            //最初の待ち時間
 
                     getOffStartPos = transform.position;                                //スタート位置
                     getOffEndPos = getOffAwaitObj.transform.position;                   //終了位置
@@ -303,6 +304,9 @@ public class PassengerController : MonoBehaviour
                             break;
 
                         case GROUPTYPE.Family:
+                            bFamilyPoseStart = false;
+                            //下車タイムライン開始
+                            timelineManager.Get("GetOffSmallTimeline").Play();
                             break;
 
                         case GROUPTYPE.Friends:
@@ -331,6 +335,8 @@ public class PassengerController : MonoBehaviour
                         break;
 
                     case GROUPTYPE.Family:
+                        getOffType = GetOffType.WAIT;
+                        humanObj.ModelObj.GetComponent<HumanAnim>().AwaitON();  //待ち受けアニメーションON
                         break;
 
                     case GROUPTYPE.Friends:
@@ -467,7 +473,7 @@ public class PassengerController : MonoBehaviour
                 break;
         }
     }
-
+     
     /// <summary>
     /// Lovers下車
     /// </summary>
@@ -548,6 +554,127 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     void FamilyGetOff()
     {
+        switch (getOffType)
+        {
+            case GetOffType.STARTWAIT:
+                if (getOffCnt >= getOffStartWaitTime)
+                {
+                    getOffType = GetOffType.JUMP;
+                    getOffCnt = 0;
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
+
+            case GetOffType.JUMP:
+                if (getOffCnt >= getOffJumpTime)
+                {
+                    //中間位置再設定
+                    getOffMiddlePos = transform.position;
+
+                    //終了位置再設定
+                    switch (rideNumber)
+                    {
+                        case 0:
+                            getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.forward * 0.5f ;
+                            break;
+
+                        case 1:
+                            getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.right * 0.8f;
+                            break;
+                    }
+                    transform.LookAt(getOffEndPos);        //終了位置を向かせる
+                    getOffType = GetOffType.RUN;
+                    getOffCnt = 0;
+                }
+                else
+                {
+                    //下車アニメーションをさせる
+                    humanObj.ModelObj.GetComponent<HumanAnim>().GetoffAnimON();
+
+                    //ジャンプ位置まで移動
+                    getOffCnt += Time.deltaTime;
+                    transform.position = Vector3.Lerp(getOffStartPos, getOffMiddlePos, getOffMoveRate * getOffCnt);
+
+                    Vector3 pos;
+                    pos = transform.position;
+                    pos.y += Mathf.Sin(getOffJumpRate * getOffCnt) * 2.0f;
+                    transform.position = pos;
+                }
+
+                break;
+
+            case GetOffType.RUN:
+                if (getOffCnt >= getOffRunTime)
+                {
+                    transform.LookAt(playerObj.transform);        //プレイヤーの位置を向かせる
+                    getOffType = GetOffType.WAIT;
+                    getOffCnt = 0;
+
+                    //最後の人が最終位置に到着したら
+                    if (rideNumber == 1)
+                    {
+                        bFamilyPoseStart = true;
+                    }
+
+                    //下車待ちアニメーションさせる
+                    humanObj.ModelObj.GetComponent<HumanAnim>().GetoffWaitAnimON();
+                }
+                else
+                {
+                    switch (rideNumber)
+                    {
+                        case 0:
+                            //下車子供走りアニメーションさせる
+                            humanObj.ModelObj.GetComponent<HumanAnim>().GetoffChildRunON();
+                            break;
+
+                        case 1:
+                            //下車走りアニメーションさせる
+                            humanObj.ModelObj.GetComponent<HumanAnim>().GetoffRunAnimON();
+                            break;
+                    }
+
+                    //指定位置まで移動
+                    getOffCnt += Time.deltaTime;
+                    transform.position = Vector3.Lerp(getOffMiddlePos, getOffEndPos, getOffMoveRate * getOffCnt);
+                }
+                break;
+
+            case GetOffType.WAIT:
+                if (bFamilyPoseStart)
+                {
+                    getOffType = GetOffType.POSE;
+
+                    if (gameObject.name == "mob_family_child")
+                    {
+                        humanObj.ModelObj.GetComponent<HumanAnim>().ChildPoseON();
+                    }
+                    else if (gameObject.name == "mob_family_girl")
+                    {
+                        humanObj.ModelObj.GetComponent<HumanAnim>().MotherPoseON();
+                    }
+                    else if (gameObject.name == "mob_family_man")
+                    {
+                        humanObj.ModelObj.GetComponent<HumanAnim>().FatherPoseON();
+                    }
+                }
+                break;
+
+            case GetOffType.POSE:
+                if (getOffCnt >= getOffPoseTime)
+                {
+                    //「解散」状態に
+                    humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
+        }
 
     }
 
@@ -753,6 +880,37 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     void FamilyAwait()
     {
+        switch (getOffType)
+        {
+            case GetOffType.WAIT:
+                if (bFamilyPoseStart)
+                {
+                    if (gameObject.name == "mob_family_girl")
+                    {
+                        humanObj.ModelObj.GetComponent<HumanAnim>().MotherPoseON();
+                    }
+                    else if (gameObject.name == "mob_family_man")
+                    {
+                        humanObj.ModelObj.GetComponent<HumanAnim>().FatherPoseON();
+                    }
+                    getOffCnt = 0;
+                    getOffType = GetOffType.POSE;
+                }
+                break;
+
+            case GetOffType.POSE:
+                if (getOffCnt >= getOffPoseTime)
+                {
+                    //「解散」状態に
+                    humanObj.CurrentStateType = Human.STATETYPE.RELEASE;
+
+                }
+                else
+                {
+                    getOffCnt += Time.deltaTime;
+                }
+                break;
+        }
 
     }
 
@@ -761,7 +919,6 @@ public class PassengerController : MonoBehaviour
     /// </summary>
     void FriendsAwait()
     {
-
         switch(getOffType)
         {
             case GetOffType.WAIT:

@@ -70,11 +70,52 @@ public class HumanAnim : MonoBehaviour {
     }
 
     /// <summary>
+    ///  下車するときの子供走りアニメーションをON
+    /// </summary>
+    public void GetoffChildRunON()
+    {
+        anim.SetBool("GetOffChildRun", true);
+    }
+
+    /// <summary>
     ///  下車するときの待ちアニメーションをON
     /// </summary>
     public void GetoffWaitAnimON()
     {
         anim.SetBool("GetOffWait", true);
+    }
+
+
+    /// <summary>
+    ///  父ポーズ
+    /// </summary>
+    public void FatherPoseON()
+    {
+        anim.SetBool("FatherPose", true);
+    }
+
+    /// <summary>
+    ///  ファミリー待ち受け
+    /// </summary>
+    public void AwaitON()
+    {
+        anim.SetBool("Await", true);
+    }
+
+    /// <summary>
+    ///  母ポーズ
+    /// </summary>
+    public void MotherPoseON()
+    {
+        anim.SetBool("MotherPose", true);
+    }
+
+    /// <summary>
+    ///  子供ポーズ
+    /// </summary>
+    public void ChildPoseON()
+    {
+        anim.SetBool("ChildPose", true);
     }
 
     /// <summary>
