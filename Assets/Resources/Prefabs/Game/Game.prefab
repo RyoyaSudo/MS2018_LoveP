@@ -219,7 +219,7 @@ MonoBehaviour:
     type: 2}
   mainCameraPrefab: {fileID: 1070630515080160, guid: 600f161d7f5f17043b96d886bd7022e0,
     type: 2}
-  guiCameraPrefab: {fileID: 1477520057521798, guid: c3f80760529395b4e903dd80343a06dd,
+  guiCameraPrefab: {fileID: 1810098095555444, guid: a40fdff940ddd7a4cb099b9eeb2e100a,
     type: 2}
   starSpawnPrefab: {fileID: 1458502282586436, guid: ac96ab3ef69a00748b9250c00cb21942,
     type: 2}
@@ -251,6 +251,6 @@ MonoBehaviour:
     type: 2}
   vcManagerPrefab: {fileID: 1556290347473042, guid: f687559bc61fe6641813b12e75635e68,
     type: 2}
-  phaseParam: 2
+  phaseParam: 3
   isDebug: 1
   isOnGUIEnable: 1
