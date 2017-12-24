@@ -39,11 +39,17 @@ public class ClockMinuteHand : MonoBehaviour {
 
     public TimeManager.State state;
 
+    [SerializeField]
+    private TimeCtrl timeCtrlObj;
+
     // Use this for initialization
     void Start()
     {
         //時計の秒針////////////////////////////////////////////
         //clockMinuteHandObj = transform.Find("Time_MinuteHand");
+
+        //state = TimeManager.State.TIME_STATE_STOP;
+
         timeSplit = (TIME_ROTATEMAX / TIME_SPLITMAX);  //最大回転
 
         //時計のデフォの色を設定
@@ -75,11 +81,14 @@ public class ClockMinuteHand : MonoBehaviour {
     // Update is called once per frame
     private void ClockUpdate()
     {
-        clockMinuteHandObj.transform.Rotate(0.0f, 0.0f, -timeSplit * Time.deltaTime);
+        //TimeCtrlのタイムを取得して時計と時間を同期させる
+        totalTime = timeCtrlObj.GetTime();   
+
         timer += Time.deltaTime;
 
         //Timerを全体のタイムから引いて現在の
-        timeComparison = totalTime - timer;
+        //timeComparison = totalTime - timer;
+        timeComparison = totalTime;
 
         //分未満だったら色を変える
         if (timeComparison <= timeRatioYellow && timeComparison >= timeRatioRed ) 
@@ -90,5 +99,8 @@ public class ClockMinuteHand : MonoBehaviour {
             //赤色の状態
             clockBackGroundObj.GetComponent<Renderer>().material = clockBGMaterial[2]; 
         }
+
+        //秒針回転
+        clockMinuteHandObj.transform.Rotate(0.0f, 0.0f, -timeSplit * Time.deltaTime);
     }
  }
