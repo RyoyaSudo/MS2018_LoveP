@@ -19,7 +19,7 @@ public class GetOffSmallPlayableBehaviour : PlayableBehaviour
     public string timelineManagerPath;          //タイムラインマネージャーパス
 
     private GameObject awaitObj;        //待ち受け状態の人オブジェ
-    private GameObject getOffObj;       //下車状態の人オブジェ
+    private Human[] getOffObj;          //下車の人オブジェ
 
     // タイムライ開始実行
     public override void OnGraphStart(Playable playable)
@@ -29,27 +29,11 @@ public class GetOffSmallPlayableBehaviour : PlayableBehaviour
         virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
         timelineManager = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();               //タイムラインマネージャー
 
-        // HACK : 違う取得の方法を試します
-        //今いる人オブジェクト取得
-        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
+        //待ち受けいる人オブジェクト取得
+        awaitObj = playerObj.GetComponent<Player>().awaitHumanObj;
 
-        //「待ち受け」状態のオブジェクトを探す
-        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
-        {
-            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.AWAIT)
-            {
-                awaitObj = humanObj[nCnt];
-            }
-        }
-
-        //「下車」状態のオブジェクトを探す
-        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
-        {
-            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.GETOFF)
-            {
-                getOffObj = humanObj[nCnt];
-            }
-        }
+        //「下車」状態のオブジェクトを取得
+        getOffObj = playerObj.GetComponent<Player>().RidePassengerObj;
 
 
         //バーチャルカメラのSetActive ON
@@ -57,15 +41,15 @@ public class GetOffSmallPlayableBehaviour : PlayableBehaviour
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFFSMALL_VCAM2, true);
 
         //バーチャルカメラオブジェクト取得
-        vc1Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM1);
-        vc2Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM2);
+        vc1Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFFSMALL_VCAM1);
+        vc2Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFFSMALL_VCAM2);
 
         //バーチャルカメラ取得
         Cinemachine.CinemachineVirtualCamera vc1 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         Cinemachine.CinemachineVirtualCamera vc2 = vc2Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         //LookAt設定
-        vc1.LookAt = getOffObj.transform;
+        vc1.LookAt = getOffObj[0].transform;
         vc2.LookAt = awaitObj.transform;
 
         //位置設定
@@ -73,11 +57,11 @@ public class GetOffSmallPlayableBehaviour : PlayableBehaviour
 
         direction = playerObj.transform.position - awaitObj.transform.position;
         direction = direction.normalized;
-        pos = awaitObj.transform.position + (-direction * 5.0f);
-        pos.y += 3.0f;
+        pos = awaitObj.transform.position + Quaternion.Euler(0.0f, -45.0f, 0.0f) * (direction * 3.0f);
+        pos.y += 2.0f;
         vc1Obj.transform.position = pos;
 
-        pos = awaitObj.transform.position + (direction * 3.0f);
+        pos = awaitObj.transform.position + Quaternion.Euler(0.0f, -20.0f, 0.0f) * (direction * 2.5f);
         pos.y += 1.0f;
         vc2Obj.transform.position = pos;
     }

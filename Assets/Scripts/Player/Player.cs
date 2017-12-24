@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
     public Human lastRideHuman;
 
     /// <summary>
+    /// 待ち状態の人
+    /// </summary>
+    public GameObject awaitHumanObj;
+
+    /// <summary>
     /// 乗客乗車人数を示すUIオブジェクト。
     /// プレイヤー側から操作するために取得。
     /// </summary>
@@ -860,6 +865,14 @@ public class Player : MonoBehaviour
                 // TODO : 田口　2017/12/20
                 // 状態が「待ち受け」の人のオブジェクトを取得
                 ridePassengerObj[i].GetComponent<PassengerController>().SetGetOffAwaitObj(ridePassengerObj[rideCount - 1].GetComponent<Human>().gameObject);
+
+                // TODO : 田口　2017/12/24
+                // 後で上記も書き直す
+                awaitHumanObj = ridePassengerObj[rideCount - 1].GetComponent<Human>().gameObject;
+
+                // TODO : 田口　2017/12/24
+                // 乗車順番を保存
+                ridePassengerObj[i].GetComponent<PassengerController>().SetRideNumber(i); 
 
                 ridePassengerObj[ i ].GetComponent<Human>().CurrentStateType = Human.STATETYPE.GETOFF;
             }

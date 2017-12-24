@@ -62,6 +62,7 @@ public class Game : MonoBehaviour {
     ScoreManager scoreManagerObj;
     TimelineManager timelineObj;
     LoveP_Input inputObj;
+    StartLogo startLogoObj;
 
 
     /// <summary>
@@ -71,6 +72,7 @@ public class Game : MonoBehaviour {
     {
         GAME_PHASE_INIT = 0,
         GAME_PAHSE_READY,
+        GAME_PAHSE_STARTLOGO ,
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR_SHIFT,
         GAME_PAHSE_STAR,
@@ -143,14 +145,21 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_READY:
                 {
-                    phaseTimer += Time.deltaTime;
-
                     if ( timelineObj.stateType == TimelineManager.STATETYPE.TIMELINE_NONE )
                     {
-                        PhaseParam = Phase.GAME_PAHSE_CITY;
+                        PhaseParam = Phase.GAME_PAHSE_STARTLOGO;
                     }
                     break;
                 }
+
+            case Phase.GAME_PAHSE_STARTLOGO:
+                {
+                    if (startLogoObj.stateType == StartLogo.STATETYPE.NONE)
+                    {
+                        PhaseParam = Phase.GAME_PAHSE_CITY;
+                    }
+                }
+                break;
 
             case Phase.GAME_PAHSE_CITY:
                 {
@@ -239,6 +248,10 @@ public class Game : MonoBehaviour {
                 PhaseReadyStart();
                 break;
 
+            case Phase.GAME_PAHSE_STARTLOGO:
+                PhaseStartLogoStart();
+                break;
+
             case Phase.GAME_PAHSE_CITY:
                 PhaseCityStart();
                 break;
@@ -291,6 +304,12 @@ public class Game : MonoBehaviour {
         //mainCameraObj.GetComponent<StarCameraController>().enabled = false;
         skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
         phaseTimer = 0;
+    }
+
+    void PhaseStartLogoStart()
+    {
+        startLogoObj.gameObject.SetActive(true);
+        startLogoObj.SetStateType(StartLogo.STATETYPE.SRIDE_IN);
     }
 
     void PhaseCityStart()
@@ -399,6 +418,7 @@ public class Game : MonoBehaviour {
         timeObj = GameObject.Find("Time").GetComponent<TimeCtrl>();
         timeManagerObj = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         scoreManagerObj = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        startLogoObj = GameObject.Find("StartLogo").GetComponent<StartLogo>();
     }
 
 }
