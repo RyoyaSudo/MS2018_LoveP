@@ -32,7 +32,7 @@ public class GetOffPlayableBehaviour : PlayableBehaviour
 
         // HACK : 違う取得の方法を試します
         //今いる人オブジェクト取得
-        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
+        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Passenger");
 
         //「待ち受け」状態のオブジェクトを探す
         for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)

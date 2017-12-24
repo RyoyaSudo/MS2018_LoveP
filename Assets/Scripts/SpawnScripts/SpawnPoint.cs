@@ -92,6 +92,8 @@ public class SpawnPoint : MonoBehaviour {
         human.PassengerControllerObj.spawnPlace = spawnPointNum;       //スポーンの場所を設定
         human.PassengerControllerObj.pasengerOrder = passengerOrder;   //乗客の乗車順番
 
+        human.tag = "Passenger";
+
         return human;
     }
 
@@ -123,6 +125,8 @@ public class SpawnPoint : MonoBehaviour {
         // HACK: モブパラメータ設定
         //       モブパラメータはHuman.csで自己変更する仕様に変更
         human.Role = Human.RoleType.Mob;
+
+        human.tag = "Mob";
 
         return human;
     }

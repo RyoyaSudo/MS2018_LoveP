@@ -149,6 +149,8 @@ public class Player : MonoBehaviour
     private TimelineManager timelineManagerObj;
     [SerializeField] private string timelineManagerPath;
 
+    public Transform PassengerParentT { get; private set; }
+
     #endregion 変数宣言
 
     /// <summary>
@@ -200,6 +202,8 @@ public class Player : MonoBehaviour
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
         vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
         timelineManagerObj = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();
+
+        PassengerParentT = GameObject.Find( "Player/Model" ).transform;
 
         //サウンド用//////////////////////////////////////
         playerSoundCtrl = GameObject.Find( "SoundManager" ).GetComponent<SoundController>();
@@ -506,7 +510,7 @@ public class Player : MonoBehaviour
                 HumanCreate( human );
 
                 //何人乗せるかUIを表示させる
-                passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum );
+                passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIStart( rideGroupNum , human );
             }
 
             //　TODO : 田口　2017/11/30
@@ -524,7 +528,7 @@ public class Player : MonoBehaviour
             rideCount++;
 
             //フェイスUIをONにする
-            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount );
+            passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().FaiceUION( rideCount , human );
 
             // 乗客の当たり判定を消す
             human.GetHumanModelCollider().isTrigger = true;
@@ -927,7 +931,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void PassengerDeleteAll()
     {
-        GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Human" );
+        GameObject[] humanAll = GameObject.FindGameObjectsWithTag( "Passenger" );
 
         foreach( GameObject deleteHuman in humanAll )
         {

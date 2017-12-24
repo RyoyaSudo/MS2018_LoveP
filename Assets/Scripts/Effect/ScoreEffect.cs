@@ -19,7 +19,7 @@ public class ScoreEffect : MonoBehaviour {
         IsChase = false;
         Target = null;
         chaseRate = 0.0f;
-        chaseAddValuePerFlame = 0.0f;
+        chaseAddValuePerFlame = 1.0f / chaseDuration;
 
         getPos = Vector3.zero;
     }
@@ -29,10 +29,15 @@ public class ScoreEffect : MonoBehaviour {
 
         if( IsChase == true )
         {
-            chaseRate += chaseAddValuePerFlame;
+            chaseRate += ( chaseAddValuePerFlame * ( 60.0f * Time.deltaTime ) );
             chaseRate = Mathf.Min( chaseRate , 1.0f );
 
             Vector3 curV = Vector3.Slerp( getPos , Target.position , chaseRate );
+
+            if( chaseRate == 1.0f )
+            {
+                IsChase = false;
+            }
         }
     }
 }

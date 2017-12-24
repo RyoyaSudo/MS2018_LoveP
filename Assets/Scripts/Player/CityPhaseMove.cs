@@ -231,6 +231,8 @@ public class CityPhaseMove : MonoBehaviour {
     Transform spawnPoint;
     [SerializeField] string spawnPointPath;
 
+    float originPosY;
+
     #endregion
 
     /// <summary>
@@ -292,6 +294,8 @@ public class CityPhaseMove : MonoBehaviour {
         controller.enabled = isEnable;
         controller.detectCollisions = false;
         //controller.enabled = false;
+
+        originPosY = transform.position.y;
     }
 
     /// <summary>
@@ -315,6 +319,8 @@ public class CityPhaseMove : MonoBehaviour {
                 {
                     controller.Move( Vector3.zero );
                 }
+
+                IsBoost = false;
             }
         }
 
@@ -423,7 +429,7 @@ public class CityPhaseMove : MonoBehaviour {
         // 重力処理
         gravityVec += gravity * Time.deltaTime;
 
-        if( IsGround || isGroundOld )
+        if( IsGround || isGroundOld || true )
         {
             gravityVec = Vector3.zero;
         }
@@ -457,6 +463,11 @@ public class CityPhaseMove : MonoBehaviour {
         IsBoostOld = IsBoost;
 
         Velocity = velocityVec.magnitude;
+
+        Vector3 defaultPos = transform.position;
+        defaultPos.y = originPosY;
+
+        transform.position = defaultPos;
     }
 
     /// <summary>
@@ -632,6 +643,11 @@ public class CityPhaseMove : MonoBehaviour {
         // PhysXによる当たり判定を行った後の位置を制御点のtransformに反映
         //Vector3 v = Vector3.Lerp( transform.position , modelObj.transform.position , 0.75f );
         //v.y = modelObj.transform.localPosition.y;
+        //transform.position = v;
+
+        //Vector3 v = transform.position;
+        //v.y = modelObj.transform.position.y;
+
         //transform.position = v;
 
         isGroundOld = IsGround;

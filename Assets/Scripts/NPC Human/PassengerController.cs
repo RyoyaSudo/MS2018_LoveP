@@ -323,7 +323,9 @@ public class PassengerController : MonoBehaviour
             //運搬
             case Human.STATETYPE.TRANSPORT:
                 //親をプレイヤーにする
-                gameObject.transform.parent = playerObj.transform;
+                Transform parentT = playerObj.GetComponent<Player>().PassengerParentT;
+
+                gameObject.transform.parent = parentT;
                 break;
 
             //待ち受け
