@@ -18,6 +18,7 @@ public class VirtualCamera : MonoBehaviour {
         GETOFFSMALL_VCAM2,
         GETOFFBIG_VCAM1 ,
         GETOFFBIG_VCAM2 ,
+        GETOFFBIG_VCAM3 ,
     }
     public VIRTUALCAMERA_TYPE virtualCameraType;
 

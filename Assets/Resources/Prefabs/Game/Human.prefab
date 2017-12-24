@@ -454,7 +454,8 @@ MonoBehaviour:
   rideSitTime: 0.3
   getOffRunTime: 2
   getOffJumpTime: 1
-  getOffPoseTime: 2
+  familyPoseTime: 2
+  friendsPoseTime: 4
   awaitTime: 3.5
   passengerGroupUIEnptyPrefab: {fileID: 1727667008595502, guid: 91ce169bab77377488d17150e465cfa5,
     type: 2}
