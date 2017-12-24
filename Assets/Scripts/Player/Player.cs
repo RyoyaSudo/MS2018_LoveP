@@ -149,6 +149,8 @@ public class Player : MonoBehaviour
     private TimelineManager timelineManagerObj;
     [SerializeField] private string timelineManagerPath;
 
+    public Transform PassengerParentT { get; private set; }
+
     #endregion 変数宣言
 
     /// <summary>
@@ -200,6 +202,8 @@ public class Player : MonoBehaviour
         passengerTogetherUIObj = GameObject.Find( passengerTogetherUIObjPath );
         vehicleControllerObj = GameObject.Find( vehicleControllerObjPath ).GetComponent<PlayerVehicle>();
         timelineManagerObj = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();
+
+        PassengerParentT = GameObject.Find( "Player/Model" ).transform;
 
         //サウンド用//////////////////////////////////////
         playerSoundCtrl = GameObject.Find( "SoundManager" ).GetComponent<SoundController>();

@@ -388,7 +388,18 @@ public class CityPhaseMove : MonoBehaviour {
         // ブレーキ処理
         if( isBrake )
         {
-            velocityVec *= isDebugBrake ? 0.0f : groundFriction;
+            const float fps = ( 1.0f / 60.0f );
+
+            float friction = groundFriction;
+            
+            if( Time.deltaTime < fps )
+            {
+                friction = groundFriction * ( fps / Time.deltaTime );
+            }
+            
+            Debug.Log( "F:" + friction );
+
+            velocityVec *= isDebugBrake ? 0.0f : friction;
 
             if( velocityVec.magnitude < stoppingDeadZone )
             {

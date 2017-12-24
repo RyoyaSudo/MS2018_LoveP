@@ -10,6 +10,8 @@ TagManager:
   - Obstacle
   - Parcel
   - MobPointAdder
+  - Passenger
+  - Mob
   layers:
   - Default
   - TransparentFX

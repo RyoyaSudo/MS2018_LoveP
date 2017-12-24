@@ -4594,7 +4594,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4637,7 +4637,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObj: {fileID: 114552078547330574}
   moveControllerObj: {fileID: 114636721241199470}
-  mobPointAdderName: MobPointGetArea
 --- !u!114 &114422211258631654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4663,6 +4662,7 @@ MonoBehaviour:
   citySpawnManagerPath: CitySpawnManager
   starSpawnManagerPath: StarSpawnManager
   lastRideHuman: {fileID: 0}
+  awaitHumanObj: {fileID: 0}
   passengerTogetherUIObjPath: GUI Camera/PassengerTogetherUI
   gamectrlObjPath: Game
   soundVolume: 1
@@ -4691,7 +4691,7 @@ MonoBehaviour:
   acceleration: 6
   stoppingTime: 1
   stoppingRate: 1.35
-  stoppingDeadZone: 2.5
+  stoppingDeadZone: 4
   chargeMax: 2
   boostDuration: 2
   boostVelocityRate: 1.5
@@ -4700,8 +4700,8 @@ MonoBehaviour:
   controllerPath: Player
   inputObjPath: LoveP_Input
   modelObj: {fileID: 1366389515875680}
-  boostImpactRate: 2
-  boostAccelerationRate: 0.15
+  boostImpactRate: 1.125
+  boostAccelerationRate: 0.0125
   velocityMax: 30
   velocityBoostMax: 60
   groundCheckRaycastLayerName:
@@ -4711,7 +4711,7 @@ MonoBehaviour:
   boostHandlingInterpolate: 0.005
   brakeBiasMin: 0.85
   brakeBiasMax: 1.5
-  isDebugBrake: 1
+  isDebugBrake: 0
   spawnPointPath: City/PlayerSpawnPoint
 --- !u!114 &114880908442341804
 MonoBehaviour:
