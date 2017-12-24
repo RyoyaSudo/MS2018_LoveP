@@ -12,18 +12,28 @@ public class MapIcon : MonoBehaviour {
     }
     public TYPE type;
 
-    GameObject human;   // 親オブジェクトの乗客
+    Human human;   // 親オブジェクトの乗客
     GameObject mapCamera;   // マップカメラ
+    [SerializeField] Material mat;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField] Texture[] groupTexArray;
+    [SerializeField] Texture[] charTexArray;
+
+    Player playerObj;
+    [SerializeField] string playerObjPath;
+
+    // Use this for initialization
+    void Start () {
         // 親オブジェクトを取得
         // 2017/12/01 数藤
         //   オブジェクト取得方法をrootからparentに変更
-        human = transform.parent.gameObject;
+        human = transform.parent.gameObject.GetComponent<Human>();
+        playerObj = GameObject.Find( playerObjPath ).GetComponent<Player>();
 
         // マップカメラ
         mapCamera = GameObject.Find("MapCamera");
+
+        //mat.SetTexture( "_MainTex" , tex );
     }
 	
 	// Update is called once per frame
@@ -36,5 +46,26 @@ public class MapIcon : MonoBehaviour {
         {// もし表示する必要のない状態なら消す。
             Destroy(gameObject);
         }
-	}
+
+        // テクスチャの切り替え
+        if( playerObj.StateParam == Player.State.PLAYER_STATE_TAKE || playerObj.StateParam == Player.State.PLAYER_STATE_TAKE_READY )
+        {
+            // 顔を出す
+            int idx = human.CurrentModelType - Human.ModelType.LoversSt;
+            mat.SetTexture( "_MainTex" , charTexArray[ idx ] );
+        }
+        else
+        {
+            // グループのアイコン出す
+            int idx = (int)human.PassengerControllerObj.groupType;
+            mat.SetTexture( "_MainTex" , groupTexArray[ idx ] );
+        }
+
+        // 角度合わせる
+        Vector3 euler = transform.rotation.eulerAngles;
+        euler.y = mapCamera.transform.rotation.eulerAngles.y + 180.0f;
+        transform.rotation = Quaternion.Euler( euler );
+
+        Debug.Log( "Map:" + mapCamera.transform.rotation.eulerAngles );
+    }
 }
