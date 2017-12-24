@@ -6,6 +6,7 @@ public class ResultScore : MonoBehaviour {
 
     const int SCORE_MAX = 8;    //スコアの桁数
 
+    private int curScore = 0;       //総スコアを格納する用
     private int totalScore = 0;       //総スコアを格納する用
     private int[] scoreStack;     //スコアを格納する配列
     private GameObject[] ScoreArray;    //スコアの桁数
@@ -27,6 +28,21 @@ public class ResultScore : MonoBehaviour {
     [SerializeField]
     Sprite numberSp;
 
+    [SerializeField] string curScoreKey;
+    [SerializeField] string totalScoreKey;
+    [SerializeField] bool debugFlag;
+
+    private void Awake()
+    {
+        if(debugFlag)
+        {
+            int t = PlayerPrefs.GetInt(totalScoreKey, 0);
+            PlayerPrefs.SetInt( totalScoreKey , t + 10);
+        }
+
+        curScore = PlayerPrefs.GetInt( curScoreKey , 0 );
+        totalScore = PlayerPrefs.GetInt( totalScoreKey , 0 );
+    }
 
     // 初期化
     void Start()
@@ -44,8 +60,8 @@ public class ResultScore : MonoBehaviour {
             ScoreArray[nCnt] = Instantiate(ScorePrefab); //Score生成
 
             Vector3 pos;
-            pos.x = ((float)Screen.width / 2.0f) / -1.05f + unitSize * nCnt + (padding * nCnt);
-            pos.y = ((float)Screen.height / 2.0f) - 20.0f - heightPadding;
+            pos.x = transform.parent.transform.position.x -1.05f + unitSize * nCnt + (padding * nCnt);
+            pos.y = transform.parent.transform.position.y - 20.0f - heightPadding;
             pos.z = 0.0f;
 
             ScoreArray[nCnt].transform.position = pos;
@@ -61,13 +77,18 @@ public class ResultScore : MonoBehaviour {
         ptsPos.z = 0.0f;
         ptsLogo.transform.position = ptsPos;
         ptsLogo.transform.parent = gameObject.transform;
-
+        this.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z +  1.0f);
     }
 
     // 更新
     void Update()
     {
         ScoreSet(0);
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.SetInt( totalScoreKey , totalScore );
     }
 
     /************************************************************
@@ -78,9 +99,6 @@ public class ResultScore : MonoBehaviour {
     ***********************************************************/
     public void ScoreSet(int score)
     {
-        //ゲームシーンで保存したスコアを入れてる
-        totalScore = PlayerPrefs.GetInt("scorKey");
-
         //トータルスコアに加算させる
         totalScore += score;
 
@@ -137,5 +155,21 @@ public class ResultScore : MonoBehaviour {
                 ScoreArray[nCnt].SetActive(true);
             }
         }
+    }
+
+    private void OnGUI()
+    {
+        GUIStyleState styleState;
+        styleState = new GUIStyleState();
+        styleState.textColor = Color.white;
+
+        GUIStyle guiStyle = new GUIStyle();
+        guiStyle.fontSize = 48;
+        guiStyle.normal = styleState;
+
+        string str;
+        str = "現在スコア:" + curScore + "\n総スコア:" + totalScore;
+
+        GUI.Label(new Rect(0, 400, 800, 600), str, guiStyle);
     }
 }

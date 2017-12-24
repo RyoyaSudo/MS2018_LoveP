@@ -20,9 +20,20 @@ public class Transition : MonoBehaviour
     private string transitionScene;
     private bool transitionFlag;//トランジション中か否かのフラグ
 
+    public enum State
+    {
+        STATE_NONE = 0,
+        STATE_FADE_IN,
+        STATE_FADE_OUT,
+
+    }
+
+    public State state;
+
     private void Awake()
     {
         transitionFlag = false;
+        state = State.STATE_NONE;
     }
 
     void Start()
@@ -43,6 +54,7 @@ public class Transition : MonoBehaviour
         {
            yield return SceneManager.LoadSceneAsync(transitionScene);
         }
+        state = State.STATE_FADE_OUT;
 
         yield return Animate(_transitionOut, 1);
         if (OnComplete != null) { OnComplete.Invoke(); }
@@ -76,6 +88,7 @@ public class Transition : MonoBehaviour
     {
         if ( transitionFlag == true ) return;
         transitionFlag = true;
+        state = State.STATE_FADE_IN;
         transitionScene = sceneName;
         StartCoroutine(BeginTransition());
     }

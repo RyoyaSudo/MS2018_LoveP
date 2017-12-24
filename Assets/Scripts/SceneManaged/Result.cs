@@ -10,10 +10,17 @@ public class Result : MonoBehaviour
     public GameObject cameraObj;
     public GameObject GroundObj;
     public GameObject timeline;
+    public GameObject timeCamera;
+    public GameObject scoreCamera;
+    public GameObject resultGUI;
+    public GameObject resultScore;
+    public GameObject totalScore;
+    public GameObject skyBoxObj;
 
     public enum State
     {
         STATE_RIDE = 0,
+        STATE_ROCKET_CROSS,
         STATE_SCORE
     }
 
@@ -27,8 +34,11 @@ public class Result : MonoBehaviour
     // シーン中シーン管理上操作したい場合に保持しておく
     LoveP_Input inputObj;
 
+    private bool one;
+
     void Start()
     {
+        one = false;
         ////サウンド用
         //titleSoundCtrl = GameObject.Find("SoundManager").GetComponent<SoundController>();
         ////オブジェクトについているAudioSourceを取得する
@@ -48,6 +58,24 @@ public class Result : MonoBehaviour
             transition.GetComponent<Transition>().StartTransition("Title");
             //遷移するときのSE
             //titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
+        }
+
+        switch( state)
+        {
+            case State.STATE_SCORE:
+                {
+                    if (one == true) break;
+                    if (transition.GetComponent<Transition>().state == Transition.State.STATE_FADE_OUT)
+                    {
+                        one = true;
+                        timeCamera.SetActive(false);
+                        scoreCamera.SetActive(true);
+                        resultGUI.SetActive(true);
+                        resultScore.transform.position += new Vector3(-400, -400, 1);
+                        skyBoxObj.GetComponent<SkyboxManager>().SetStarSkyBox();
+                    }                 
+                    break;
+                }
         }
         //______________
     }
@@ -93,6 +121,7 @@ public class Result : MonoBehaviour
                     ScoreObj.SetActive(true);
                     cameraObj.transform.position = new Vector3(50, 0, 0);
                     cameraObj.transform.rotation = Quaternion.identity;
+                    
                     //timeline.SetActive(false);
                     break;
                 }

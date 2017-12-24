@@ -440,3 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee6403ffa96a2c4292b7c2b16c36695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1
+  transition: {fileID: 0}
+  resultObj: {fileID: 0}
