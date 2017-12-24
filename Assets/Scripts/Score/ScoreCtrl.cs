@@ -53,7 +53,7 @@ public class ScoreCtrl : MonoBehaviour
     };
 
     //スコアの保存キー
-    string scorKey = "scorKey";
+    string scorKey = "curScoreKey";
 
     public ScoreManager.State state;
 

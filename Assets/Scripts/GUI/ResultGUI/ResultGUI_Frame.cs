@@ -39,6 +39,7 @@ public class ResultGUI_Frame : TweenAnimation
             //{ "x" , -480.0f } ,
             { "y" , -2160.0f },
             { "time", moveTime },
+            { "delay",2.0f },
             { "easetype" , iTween.EaseType.linear },
             { "loopType" , iTween.LoopType.none },
             { "oncompletetarget" , gameObject },

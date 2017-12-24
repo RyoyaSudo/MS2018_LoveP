@@ -33,6 +33,7 @@ public class Title : MonoBehaviour {
     private AudioSource titleBGM;
 
     public GameObject nowloadingObj;
+    private bool transFlag;
 
     /// <summary>
     /// 生成時処理
@@ -53,6 +54,7 @@ public class Title : MonoBehaviour {
         titleAudioS = gameObject.GetComponent<AudioSource>();
 
         transition = GameObject.Find( "GUI Camera/transition" );
+        transFlag = false;
     }
 
     /// <summary>
@@ -63,15 +65,19 @@ public class Title : MonoBehaviour {
         //_____フェード関連_____________
         if( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.O ) )
         {
-            // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
-            transition.SetActive(true);
-            transition.GetComponent<Transition>().StartTransition(null);
-            nowloadingObj.SetActive(true);
-            nowloadingObj.GetComponent<Nowloading>().LoadingStart("Game");
+            if( transFlag == false)
+            {
+                transFlag = true;
+                // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
+                transition.SetActive(true);
+                transition.GetComponent<Transition>().StartHalfTransition(null);
+                nowloadingObj.SetActive(true);
+                nowloadingObj.GetComponent<Nowloading>().LoadingStart("Game");
 
-            //遷移するときのSE
-            titleSoundCtrl.PlayOneShot( titleSoundType , titleAudioS );
-            
+                //遷移するときのSE
+                titleSoundCtrl.PlayOneShot( titleSoundType , titleAudioS );
+            }
+ 
         }
         //______________
     }

@@ -19,7 +19,7 @@ public class ResultPassengerManager : MonoBehaviour {
         Vector3 pos = transform.position;
         for(int i = 0; i < passengerNum; i++)
         {
-            passengers[i] = Instantiate(passengerPrefab[0], pos, Quaternion.identity);
+            passengers[i] = Instantiate(passengerPrefab[i], pos, Quaternion.identity);
             passengers[i].transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
             passengers[i].GetComponent<ResultPassengerContoller>().rideStartPos = pos;
             pos.z += 20;

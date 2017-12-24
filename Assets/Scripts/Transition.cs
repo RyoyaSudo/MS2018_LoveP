@@ -18,7 +18,7 @@ public class Transition : MonoBehaviour
     private UnityEvent OnComplete;
 
     private string transitionScene;
-    private bool transitionFlag;//トランジション中か否かのフラグ
+    public bool transitionFlag;//トランジション中か否かのフラグ
 
     public enum State
     {
@@ -66,6 +66,13 @@ public class Transition : MonoBehaviour
         if (OnComplete != null) { OnComplete.Invoke(); }
     }
 
+    IEnumerator HalfTransition()
+    {
+        yield return Animate(_transitionIn, 1);
+        if (OnTransition != null) { OnTransition.Invoke(); }
+        yield return new WaitForEndOfFrame();
+    }
+
     /// <summary>
     /// time秒かけてトランジションを行う
     /// </summary>
@@ -91,5 +98,14 @@ public class Transition : MonoBehaviour
         state = State.STATE_FADE_IN;
         transitionScene = sceneName;
         StartCoroutine(BeginTransition());
+    }
+
+    public void StartHalfTransition(string sceneName)
+    {
+        if (transitionFlag == true) return;
+        transitionFlag = true;
+        state = State.STATE_FADE_IN;
+        transitionScene = sceneName;
+        StartCoroutine(HalfTransition());
     }
 }

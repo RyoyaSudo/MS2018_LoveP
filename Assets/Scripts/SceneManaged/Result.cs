@@ -16,6 +16,7 @@ public class Result : MonoBehaviour
     public GameObject resultScore;
     public GameObject totalScore;
     public GameObject skyBoxObj;
+    public GameObject crossRocketObj;
 
     public enum State
     {
@@ -35,6 +36,7 @@ public class Result : MonoBehaviour
     LoveP_Input inputObj;
 
     private bool one;
+    private bool fadeFlag;
 
     void Start()
     {
@@ -44,20 +46,27 @@ public class Result : MonoBehaviour
         ////オブジェクトについているAudioSourceを取得する
         //titleAudioS = gameObject.GetComponent<AudioSource>();
         InitCreateObjects();
+        fadeFlag = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //_____フェード関連_____________
-        if (inputObj.GetButton("Fire1") || Input.GetKey(KeyCode.O))
+        if (inputObj.GetButton("Fire1") || Input.GetKeyDown(KeyCode.O))
         {
-            // Spaceキーで次のシーン
-            // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
-            transition.SetActive(true);
-            transition.GetComponent<Transition>().StartTransition("Title");
-            //遷移するときのSE
-            //titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
+            if(fadeFlag == false)
+            {
+                fadeFlag = true;
+                // Spaceキーで次のシーン
+                // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
+                transition.SetActive(true);
+                transition.GetComponent<Transition>().transitionFlag = false;
+                transition.GetComponent<Transition>().StartTransition("Title");
+                //遷移するときのSE
+                //titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
+            }
+            
         }
 
         switch( state)
@@ -71,7 +80,9 @@ public class Result : MonoBehaviour
                         timeCamera.SetActive(false);
                         scoreCamera.SetActive(true);
                         resultGUI.SetActive(true);
-                        resultScore.transform.position += new Vector3(-400, -400, 1);
+                        crossRocketObj.SetActive(true);
+                        crossRocketObj.GetComponent<CrossRocket>().Play();
+                        //resultScore.transform.position += new Vector3(-400, -400, 1);
                         skyBoxObj.GetComponent<SkyboxManager>().SetStarSkyBox();
                     }                 
                     break;
