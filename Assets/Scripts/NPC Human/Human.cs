@@ -101,6 +101,8 @@ public class Human : MonoBehaviour {
     public GameObject RideAreaObj { get { return rideAreaObj; } }
     [SerializeField] GameObject rideAreaObj;
 
+    [SerializeField] GameObject cursorObj;
+
     /// <summary>
     /// 親オブジェクトたち
     /// </summary>
@@ -281,6 +283,7 @@ public class Human : MonoBehaviour {
 
                 RideAreaObj.SetActive( false );
                 MapIconObj.SetActive( false );
+                cursorObj.SetActive( false );
 
                 PassengerControllerObj.IsEnable = false;
                 PassengerControllerObj.enabled = false;
@@ -296,6 +299,7 @@ public class Human : MonoBehaviour {
 
                 RideAreaObj.SetActive( true );
                 MapIconObj.SetActive( true );
+                cursorObj.SetActive( true );
 
                 MobControllerObj.IsEnable = false;
                 MobControllerObj.enabled = false;

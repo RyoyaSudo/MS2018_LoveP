@@ -14,10 +14,10 @@ public class MapIcon : MonoBehaviour {
 
     Human human;   // 親オブジェクトの乗客
     GameObject mapCamera;   // マップカメラ
-    [SerializeField] Material mat;
+    [SerializeField] SpriteRenderer spRen;
 
-    [SerializeField] Texture[] groupTexArray;
-    [SerializeField] Texture[] charTexArray;
+    [SerializeField] Sprite[] groupTexArray;
+    [SerializeField] Sprite[] charTexArray;
 
     Player playerObj;
     [SerializeField] string playerObjPath;
@@ -34,6 +34,7 @@ public class MapIcon : MonoBehaviour {
         mapCamera = GameObject.Find("MapCamera");
 
         //mat.SetTexture( "_MainTex" , tex );
+        spRen = GetComponent<SpriteRenderer>();
     }
 	
 	// Update is called once per frame
@@ -52,20 +53,20 @@ public class MapIcon : MonoBehaviour {
         {
             // 顔を出す
             int idx = human.CurrentModelType - Human.ModelType.LoversSt;
-            mat.SetTexture( "_MainTex" , charTexArray[ idx ] );
+            spRen.sprite = charTexArray[ idx ];
+            transform.localScale = new Vector3( 0.25f , 0.25f , 1f );
         }
         else
         {
             // グループのアイコン出す
             int idx = (int)human.PassengerControllerObj.groupType;
-            mat.SetTexture( "_MainTex" , groupTexArray[ idx ] );
+            spRen.sprite = groupTexArray[ idx ];
+            transform.localScale = new Vector3( 10f , 10f , 1f );
         }
 
         // 角度合わせる
         Vector3 euler = transform.rotation.eulerAngles;
         euler.y = mapCamera.transform.rotation.eulerAngles.y + 180.0f;
         transform.rotation = Quaternion.Euler( euler );
-
-        Debug.Log( "Map:" + mapCamera.transform.rotation.eulerAngles );
     }
 }

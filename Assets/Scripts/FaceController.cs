@@ -41,8 +41,10 @@ public class FaceController : MonoBehaviour {
     {
         FACE_STATE_NONE = 0,
         FACE_STATE_WINK,
-        FACE_STATE_TEAR
+        FACE_STATE_TEAR,
+        FACE_STATE_HAPPY,
     }
+
     public FaceState faceState;
 
     float winkCount;
@@ -172,6 +174,21 @@ public class FaceController : MonoBehaviour {
                     }
                     break;
                 }
+            case FaceState.FACE_STATE_HAPPY:
+                //座標を求める
+                info.atlas.x = ( ( int )FaceState.FACE_STATE_HAPPY / info.vNum );
+                info.atlas.y = ( ( int )FaceState.FACE_STATE_HAPPY - ( info.atlas.x * info.vNum ) );
+                info.atlas.x *= info.atlas.width;
+                info.atlas.y *= info.atlas.height;
+
+                //UV座標計算
+                Vector2 offset;
+                offset = new Vector2( info.atlas.x / info.textureSize.x ,
+                                    1.0f - ( info.atlas.y / info.textureSize.y ) );
+
+                //適用
+                info.mat.SetTextureOffset( "_MainTex" , offset );
+                break;
         }
     }
 
