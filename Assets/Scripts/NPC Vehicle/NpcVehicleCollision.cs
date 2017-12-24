@@ -47,7 +47,7 @@ public class NpcVehicleCollision : MonoBehaviour {
             return;
         }
 
-        Debug.Log( "Hit" );
+        //Debug.Log( "Hit" );
 
         // 吹き飛ばせるか判定
         PlayerVehicle.Type currentType = col.transform.root.gameObject.GetComponent<PlayerVehicle>().VehicleType;

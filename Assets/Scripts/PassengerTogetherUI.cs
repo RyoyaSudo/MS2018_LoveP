@@ -109,7 +109,7 @@ public class PassengerTogetherUI : MonoBehaviour {
     /// </param>
     public void PassengerTogetherUIStart ( int groupNum )
     {
-        Debug.Log(groupNum);
+        //Debug.Log(groupNum);
         //グループの人数によってmargineを設定
         switch(groupNum)
         {

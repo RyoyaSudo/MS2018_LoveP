@@ -519,7 +519,7 @@ public class Player : MonoBehaviour
             //Human.csで運搬状態にしました
             //乗客の状態を「運搬」に
             //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
-            Debug.Log( "Ride" );
+            //Debug.Log( "Ride" );
             ridePassengerObj[ rideCount ] = human;
             rideCount++;
 

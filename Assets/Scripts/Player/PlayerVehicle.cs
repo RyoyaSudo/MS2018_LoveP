@@ -241,7 +241,7 @@ public class PlayerVehicle : MonoBehaviour {
             VehicleType = Type.BIKE;
         }
 
-        Debug.Log( "乗り物スコア:" + VehicleScore );
+        //Debug.Log( "乗り物スコア:" + VehicleScore );
 
         return flags;
     }

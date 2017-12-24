@@ -128,7 +128,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1561281128739422}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4c1d3b16f69780f449ec5c9b74cd6157, type: 3}
@@ -219,7 +219,7 @@ MonoBehaviour:
     type: 2}
   mainCameraPrefab: {fileID: 1070630515080160, guid: 600f161d7f5f17043b96d886bd7022e0,
     type: 2}
-  guiCameraPrefab: {fileID: 1810098095555444, guid: a40fdff940ddd7a4cb099b9eeb2e100a,
+  guiCameraPrefab: {fileID: 1168186388302946, guid: a40fdff940ddd7a4cb099b9eeb2e100a,
     type: 2}
   starSpawnPrefab: {fileID: 1458502282586436, guid: ac96ab3ef69a00748b9250c00cb21942,
     type: 2}
