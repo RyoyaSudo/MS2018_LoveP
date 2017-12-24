@@ -51,7 +51,7 @@ public class SpawnPoint : MonoBehaviour {
     /// <param name="passengerOrder">
     /// 乗客の乗車順番
     /// </param>
-    public void PassengerSpawn( int spawnPointNum , PassengerController.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder, int modelType = -1 )
+    public Human PassengerSpawn( int spawnPointNum , PassengerController.GROUPTYPE groupType , PASSENGER_ORDER passengerOrder, int modelType = -1 )
     {
         // 生成
         Human human = Instantiate( humanPrefab , transform.position , Quaternion.identity ).GetComponent<Human>();
@@ -83,16 +83,16 @@ public class SpawnPoint : MonoBehaviour {
 
         human.ModelCreate( createType );
 
-        // 乗客設定
+        // HACK: モブパラメータ設定
+        //       モブパラメータはHuman.csで自己変更する仕様に変更
+        human.Role = Human.RoleType.Passenger;
+
+        // 乗客の外部設定
         human.PassengerControllerObj.groupType = groupType;            //グループタイプを設定
         human.PassengerControllerObj.spawnPlace = spawnPointNum;       //スポーンの場所を設定
         human.PassengerControllerObj.pasengerOrder = passengerOrder;   //乗客の乗車順番
-        human.PassengerControllerObj.IsEnable = true;
 
-        human.MobControllerObj.enabled = false;
-
-        // 子にする
-        human.gameObject.transform.parent = passengerParentObj;
+        return human;
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class SpawnPoint : MonoBehaviour {
     /// </summary>
     /// <param name="spawnPointNum">生成スポーンポイント番号</param>
     /// <param name="modelType">生成する見た目の種類。指定する場合はHuman.ModelType列挙型の数値を利用。</param>
-    public void MobSpawn( int spawnPointNum = -1 , int modelType = -1 )
+    public Human MobSpawn( int spawnPointNum = -1 , int modelType = -1 )
     {
         // 生成
         Human human = Instantiate( humanPrefab , transform.position , Quaternion.identity ).GetComponent<Human>();
@@ -121,14 +121,9 @@ public class SpawnPoint : MonoBehaviour {
         human.ModelCreate( createType );
 
         // HACK: モブパラメータ設定
-        //       モブパラメータ追加したらここで設定してください
-        human.MobControllerObj.IsEnable = true;
-        human.RideAreaObj.SetActive( false );
-        human.MapIconObj.SetActive( false );
+        //       モブパラメータはHuman.csで自己変更する仕様に変更
+        human.Role = Human.RoleType.Mob;
 
-        human.PassengerControllerObj.enabled = false;
-
-        // 子にする
-        human.gameObject.transform.parent = mobParentObj;
+        return human;
     }
 }

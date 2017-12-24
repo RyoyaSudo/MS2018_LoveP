@@ -29,4 +29,41 @@ public class PlayerCollider : MonoBehaviour
                 break;
         }
     }
+
+    private void OnTriggerEnter( Collider other )
+    {
+        switch( other.gameObject.tag )
+        {
+            case "MobPointAdder":
+                MobPointAdder adder = other.gameObject.GetComponent<MobPointAdder>();
+
+                if( adder != null )
+                {
+                    adder.State = MobPointAdder.StateType.Add;
+                    adder.IsPlayerStay = true;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void OnTriggerExit( Collider other )
+    {
+        switch( other.gameObject.tag )
+        {
+            case "MobPointAdder":
+                MobPointAdder adder = other.gameObject.GetComponent<MobPointAdder>();
+
+                if( adder != null )
+                { 
+                    adder.IsPlayerStay = false;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
 }
