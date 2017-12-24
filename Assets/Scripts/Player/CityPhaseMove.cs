@@ -319,6 +319,8 @@ public class CityPhaseMove : MonoBehaviour {
                 {
                     controller.Move( Vector3.zero );
                 }
+
+                IsBoost = false;
             }
         }
 
