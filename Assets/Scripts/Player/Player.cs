@@ -626,7 +626,7 @@ public class Player : MonoBehaviour
                 case PlayerVehicle.Type.AIRPLANE:
                     //星フェーズへの移行開始
                     playerSoundCtrl.PlayOneShot( SoundController.SoundsSeType.VEHICLE_CHANGE_AIRPLANE , playerAudioS );
-                    ChangeStarPhase();
+                    //ChangeStarPhase();
                     break;
 
                 default:

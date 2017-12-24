@@ -264,6 +264,7 @@ public class PassengerController : MonoBehaviour
                     Vector3 direction = rideStartPos - rideEndPos;
                     direction = direction.normalized;
                     rideMiddlePos = playerObj.transform.position + direction * jumpDistance;    //中間位置
+                    rideMiddlePos.y = transform.position.y;                                     // 高さを自分の現時点の高さに代入
                     sitEndRotation = endRotation;                                               //座った時の最終方向
 
                     rideMoveRate = 1.0f / rideRunTime;                                          //移動割合
@@ -499,6 +500,9 @@ public class PassengerController : MonoBehaviour
                     //中間位置と終了位置の再設定
                     getOffMiddlePos = transform.position;
                     getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.right * 1.0f;
+                    // HACK: 地面の高さを追加
+                    //       靴が埋まるため
+                    getOffEndPos.y = 0.2f;
                     transform.LookAt(getOffEndPos);        //終了位置を向かせる
                     getOffType = GetOffType.RUN;
                     getOffCnt = 0;
@@ -578,13 +582,16 @@ public class PassengerController : MonoBehaviour
                     switch (rideNumber)
                     {
                         case 0:
-                            getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.forward * 0.5f ;
+                            getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.forward * 0.7f ;
                             break;
 
                         case 1:
                             getOffEndPos = getOffAwaitObj.transform.position + getOffAwaitObj.transform.right * 0.8f;
                             break;
                     }
+                    // HACK: 地面の高さを追加
+                    //       靴が埋まるため
+                    getOffEndPos.y = 0.2f;
                     transform.LookAt(getOffEndPos);        //終了位置を向かせる
                     getOffType = GetOffType.RUN;
                     getOffCnt = 0;
@@ -722,6 +729,11 @@ public class PassengerController : MonoBehaviour
                             getOffEndPos = getOffAwaitObj.transform.position - getOffAwaitObj.transform.right * 1.1f;
                             break;
                     }
+
+                    // HACK: 地面の高さを追加
+                    //       靴が埋まるため
+                    getOffEndPos.y = 0.2f;
+
                     transform.LookAt(getOffEndPos);        //終了位置を向かせる
                     getOffType = GetOffType.RUN;
                     getOffCnt = 0;
