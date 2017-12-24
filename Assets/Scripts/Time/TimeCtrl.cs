@@ -28,6 +28,8 @@ public class TimeCtrl : MonoBehaviour
 
         //スコアの実際に表示される0~9の値を格納する変数
         TimeStack = new int[ TimeArray.Length ];
+
+        //state = TimeManager.State.TIME_STATE_STOP;
 //        TimeArray = new GameObject[ TIME_MAX ];
 
         //桁数分タイムを生成する
@@ -69,11 +71,9 @@ public class TimeCtrl : MonoBehaviour
         if(timer >= 1.0f)
         {
             TotalTime -= timer;
-
             if( TotalTime < 0.0f ) TotalTime = 0.0f;
-
-            TimeSet(TotalTime);
             timer = 0.0f;
+            TimeSet(TotalTime);
         }
     }
 
@@ -85,7 +85,7 @@ public class TimeCtrl : MonoBehaviour
     ***********************************************************/
     private void TimeSet( float Time )
     {
-        Time = Mathf.Floor(TotalTime);
+        Time = Mathf.Ceil(TotalTime);
 
         int timeSeconds = (int)Time;
 

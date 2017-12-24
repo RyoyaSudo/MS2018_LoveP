@@ -5,16 +5,11 @@ using UnityEngine;
 public class PassengerTogetherUI : MonoBehaviour {
 
     [SerializeField]
-    private float faceOnPearUiMoveX;            //フェイスOnUIのサイズX
-    [SerializeField]
-    private float faceOnGroupSmallUiMoveX;            //フェイスOnUIのサイズX
-    [SerializeField]
-    private float faceOnGroupLargeUiMoveX;            //フェイスOnUIのサイズX
+    private float faceOnMoveX;            //フェイスOnUIのサイズX
     [SerializeField]
     private float faceOnUilimit;
 
     private bool bEnd = false;             　//UI表示を終了
-
 
     //顔アイコンのスプライトの配列
     [SerializeField]
@@ -38,13 +33,23 @@ public class PassengerTogetherUI : MonoBehaviour {
     private GameObject faceGroupLargeUiObj;
 
     private int faceGroupNum;
+
+    private Vector3 facePearUiDefPos;
+    private Vector3 faceGroupSmallUiDefPos;
+    private Vector3 faceGroupLargeUiDefPos;
+
     // 初期化
     void Start ()
     {
         faceGroupNum = 0;
-        facePearUiObj.SetActive(false);
-        faceGroupSmallUiObj.SetActive(false);
-        faceGroupLargeUiObj.SetActive(false);
+        facePearUiDefPos = facePearUiObj.transform.position;
+        faceGroupSmallUiDefPos = faceGroupSmallUiObj.transform.position;
+        Debug.Log("グループのポスy" + faceGroupSmallUiDefPos.x);
+        faceGroupLargeUiDefPos = faceGroupLargeUiObj.transform.position;
+        bEnd = false;
+        //facePearUiObj.SetActive(false);
+        //faceGroupSmallUiObj.SetActive(false);
+        //faceGroupLargeUiObj.SetActive(false);
     }
 
     // 更新
@@ -59,13 +64,11 @@ public class PassengerTogetherUI : MonoBehaviour {
                 case 2:
                         //UI表示が画面外にいくと
                     if (facePearUiObj.transform.localPosition.x <= -faceOnUilimit )
-                        {
-                            foreach (FaceUI child in facePearUiArray)
-                            {
-                                child.IsColor = false;
-                            }
-                            facePearUiObj.SetActive(false);
-                            bEnd = false;
+                     {
+                         facePearUiArray[0].IsColor = false;
+                        facePearUiArray[1].IsColor = false;
+                         facePearUiObj.transform.localPosition = new Vector3( facePearUiDefPos.x, facePearUiDefPos.y ,0.0f  );
+                        bEnd = false;
                         }
                     break;
                 //グループ小
@@ -73,24 +76,24 @@ public class PassengerTogetherUI : MonoBehaviour {
                         //UI表示が画面外にいくと
                     if(faceGroupSmallUiObj.transform.localPosition.x <= -faceOnUilimit)
                         {
-                            foreach (FaceUI child in faceGroupSmallUiArray)
-                            {
-                                child.IsColor = false;
-                            }
-                            faceGroupSmallUiObj.SetActive(false);
+                            faceGroupSmallUiArray[0].IsColor = false;
+                            faceGroupSmallUiArray[1].IsColor = false;
+                            faceGroupSmallUiArray[2].IsColor = false;
+                        faceGroupSmallUiObj.transform.localPosition = new Vector3(-1537.0f, -435.0f, 0.0f);
                             bEnd = false;
                         }
                   break;
                 //グループ大
                 case 5:
                     //UI表示が画面外にいくと
-                    if (faceGroupLargeUiObj.transform.localPosition.x <= faceOnUilimit)
+                    if (faceGroupLargeUiObj.transform.localPosition.x <= -faceOnUilimit)
                     {
-                        foreach (FaceUI child in faceGroupLargeUiArray)
-                        {
-                            child.IsColor = false;
-                        }
-                        faceGroupLargeUiObj.SetActive(false);
+                        faceGroupLargeUiArray[0].IsColor = false;
+                        faceGroupLargeUiArray[1].IsColor = false;
+                        faceGroupLargeUiArray[2].IsColor = false;
+                        faceGroupLargeUiArray[3].IsColor = false;
+                        faceGroupLargeUiArray[4].IsColor = false;
+                        faceGroupLargeUiObj.transform.localPosition = new Vector3(-1537.0f, -435.0f, 0.0f);
                         bEnd = false;
                     }
                     break;
@@ -106,30 +109,32 @@ public class PassengerTogetherUI : MonoBehaviour {
     /// </param>
     public void PassengerTogetherUIStart ( int groupNum )
     {
+        Debug.Log(groupNum);
         //グループの人数によってmargineを設定
         switch(groupNum)
         {
             //ペア
             case 2:
-                    facePearUiArray[0].IsColor = true;
                     facePearUiObj.gameObject.SetActive(true);
+                    facePearUiArray[0].IsColor = true;
                     faceGroupNum = groupNum;
                     //表示をスライドさせるよ
-                iTween.MoveBy(facePearUiObj, iTween.Hash("x", faceOnPearUiMoveX, "easetype", "easeOutBounce", "time", 1.2f));
+                    iTween.MoveBy(facePearUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
            //グループ小
             case 3:
-                    faceGroupSmallUiArray[0].IsColor = true;
-                    faceGroupSmallUiObj.gameObject.SetActive(true);
-                    faceGroupNum = groupNum;
-                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", faceOnGroupSmallUiMoveX, "easetype", "easeOutBounce", "time", 1.2f));
+                Debug.Log("入ったよ");
+                faceGroupSmallUiObj.gameObject.SetActive(true);               
+                faceGroupSmallUiArray[0].IsColor = true;
+                faceGroupNum = groupNum;
+                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
             //グループ大
             case 5:
-                    faceGroupLargeUiArray[0].IsColor = true;
-                    faceGroupLargeUiObj.gameObject.SetActive(true);
+                faceGroupLargeUiObj.gameObject.SetActive(true);
+                faceGroupLargeUiArray[0].IsColor = true;
                     faceGroupNum = groupNum;
-                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", faceOnGroupLargeUiMoveX, "easetype", "easeOutBounce", "time", 1.2f));
+                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
         } 
     }
@@ -144,16 +149,17 @@ public class PassengerTogetherUI : MonoBehaviour {
         {
             //ペア
             case 2:
+
                 //表示をスライドさせるよ
-                iTween.MoveBy(facePearUiObj, iTween.Hash("x", -faceOnPearUiMoveX, "easetype", "easeInOutQuart", "time", 1.2f));              
+                iTween.MoveBy(facePearUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));              
                 break;
             //グループ小
             case 3:
-                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", -faceOnGroupSmallUiMoveX, "easetype", "easeInOutQuart", "time", 1.2f));
+                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f)); 
                 break;
             //グループ大
             case 5:
-                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", -faceOnGroupLargeUiMoveX, "easetype", "easeInOutQuart", "time", 1.2f));                
+                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));                
                 break;
         }
         bEnd = true;
@@ -168,29 +174,19 @@ public class PassengerTogetherUI : MonoBehaviour {
     public void FaiceUION ( int rideCount)
     {
         rideCount--;
-        //faiceUIObj[rideCount].GetComponent<SpriteRenderer>().sprite = faiceOnUISprite;
         switch (faceGroupNum)
         {
             //ペア
             case 2:
-                foreach (FaceUI child in facePearUiArray)
-                {
                     facePearUiArray[rideCount].IsColor = true;
-                }
-                break;
+                    break;
             //グループ小
             case 3:
-                foreach (FaceUI child in faceGroupSmallUiArray)
-                {
                     faceGroupSmallUiArray[rideCount].IsColor = true;
-                }
                 break;
             //グループ大
             case 5:
-                foreach (FaceUI child in faceGroupLargeUiArray)
-                {
                     faceGroupLargeUiArray[rideCount].IsColor = true;
-                }
                 break;
         }
     }
