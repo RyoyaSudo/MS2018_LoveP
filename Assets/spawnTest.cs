@@ -13,9 +13,12 @@ public class spawnTest : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if( Input.GetKey( KeyCode.N ) )
+		if( Input.GetKeyDown( KeyCode.N ) )
         {
-            p.MobSpawn();
+            Human h = p.PassengerSpawn( 0 , PassengerController.GROUPTYPE.Lovers , SpawnPoint.PASSENGER_ORDER.DEFOULT );
+            h.Role = Human.RoleType.Mob;
+
+            //p.MobSpawn();
         }
 	}
 }

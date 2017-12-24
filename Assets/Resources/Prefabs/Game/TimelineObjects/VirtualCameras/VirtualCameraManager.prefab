@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 20066495985744900}
   - component: {fileID: 114410135024019908}
   - component: {fileID: 114549002650669718}
+  - component: {fileID: 114350595644444098}
   m_Layer: 0
   m_Name: BrainCamera
   m_TagString: Untagged
@@ -784,13 +785,13 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
+    m_Bits: 4294967261
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1099,6 +1100,18 @@ MonoBehaviour:
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
+--- !u!114 &114350595644444098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275842701425890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 0a53ae330c38bf14a9819f6423091a91, type: 2}
 --- !u!114 &114350962433296052
 MonoBehaviour:
   m_ObjectHideFlags: 1

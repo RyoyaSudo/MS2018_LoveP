@@ -14,11 +14,15 @@ public class Human : MonoBehaviour {
     /// <summary>
     /// 役割の種類列挙値
     /// </summary>
-    enum RoleType
+    public enum RoleType
     {
+        Unknown = -1,
         Mob = 0,
         Passenger,
     }
+
+    public RoleType Role { get { return role; } set { SetRoleType( value ); } }
+    private RoleType role;
 
     /// <summary>
     /// 人モデル配列。
@@ -98,6 +102,14 @@ public class Human : MonoBehaviour {
     [SerializeField] GameObject rideAreaObj;
 
     /// <summary>
+    /// 親オブジェクトたち
+    /// </summary>
+    private GameObject mobsParent;
+    public string mobsParentPath;
+    private GameObject passengerParent;
+    public string passengerParentPath;
+
+    /// <summary>
     /// 状態列挙値
     /// </summary>
     public enum STATETYPE
@@ -140,10 +152,14 @@ public class Human : MonoBehaviour {
         CurrentModelType = ModelType.Unknown;
         CurrentStateType = STATETYPE.CREATE;
         IsProtect = false;
+        role = RoleType.Unknown;
 
         // 必要なゲームオブジェクト取得
         PassengerControllerObj = gameObject.GetComponent<PassengerController>();
         MobControllerObj = gameObject.GetComponent<MobController>();
+
+        mobsParent = GameObject.Find( mobsParentPath );
+        passengerParent = GameObject.Find( passengerParentPath );
     }
 
     /// <summary>
@@ -241,6 +257,52 @@ public class Human : MonoBehaviour {
         if( Game.IsDebug )
         {
             //Debug.Log( "人の新規状態:" + type );
+        }
+    }
+
+    /// <summary>
+    /// 役割の設定処理
+    /// </summary>
+    /// <param name="type"></param>
+    private void SetRoleType( RoleType type )
+    {
+        role = type;
+
+        // 設定する役割に応じてコンポーネント切り替え
+        switch( type )
+        {
+            case RoleType.Unknown:
+                Debug.LogWarning( "不定なタイプが人オブジェクトに指定されました。" );
+                break;
+
+            case RoleType.Mob:
+                MobControllerObj.IsEnable = true;
+                MobControllerObj.enabled = true;
+
+                RideAreaObj.SetActive( false );
+                MapIconObj.SetActive( false );
+
+                PassengerControllerObj.IsEnable = false;
+                PassengerControllerObj.enabled = false;
+
+                gameObject.transform.parent = mobsParent.transform;
+                break;
+
+            case RoleType.Passenger:
+                PassengerControllerObj.IsEnable = true;
+                PassengerControllerObj.enabled = true;
+
+                RideAreaObj.SetActive( true );
+                MapIconObj.SetActive( true );
+
+                MobControllerObj.IsEnable = false;
+                MobControllerObj.enabled = false;
+
+                gameObject.transform.parent = passengerParent.transform;
+                break;
+
+            default:
+                break;
         }
     }
 }
