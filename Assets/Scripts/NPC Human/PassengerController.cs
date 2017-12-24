@@ -972,6 +972,7 @@ public class PassengerController : MonoBehaviour
     public void PassengerGroupUICreate ()
     {
         //空のオブジェクト
+
         //生成
         passengerGroupUIEnptyObj = Instantiate(passengerGroupUIEnptyPrefab);
 

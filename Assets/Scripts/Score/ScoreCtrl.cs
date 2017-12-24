@@ -52,11 +52,10 @@ public class ScoreCtrl : MonoBehaviour
         2500,
     };
 
-    // スコアの保存キー
-    [SerializeField] string scorKey = "scorKey";
-
     // デバッグフラグ(保存処理初期化などに利用)
     [SerializeField] bool debugFlag = false;
+    //スコアの保存キー
+    [SerializeField] string scorKey = "curScoreKey";
 
     public ScoreManager.State state;
 
