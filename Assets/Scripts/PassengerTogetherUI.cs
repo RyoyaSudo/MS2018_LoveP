@@ -66,7 +66,7 @@ public class PassengerTogetherUI : MonoBehaviour {
                     if (facePearUiObj.transform.localPosition.x <= -faceOnUilimit )
                      {
                          facePearUiArray[0].IsColor = false;
-                        facePearUiArray[1].IsColor = false;
+                         facePearUiArray[1].IsColor = false;
                          facePearUiObj.transform.localPosition = new Vector3( facePearUiDefPos.x, facePearUiDefPos.y ,0.0f  );
                         bEnd = false;
                         }
@@ -107,32 +107,40 @@ public class PassengerTogetherUI : MonoBehaviour {
     /// <param name="groupNum">
     /// 乗車させるグループの人数
     /// </param>
-    public void PassengerTogetherUIStart ( int groupNum )
+    public void PassengerTogetherUIStart ( int groupNum , Human rideHuman )
     {
         //Debug.Log(groupNum);
         //グループの人数によってmargineを設定
+        int activeIdx = 0;
+
         switch(groupNum)
         {
             //ペア
             case 2:
-                    facePearUiObj.gameObject.SetActive(true);
-                    facePearUiArray[0].IsColor = true;
-                    faceGroupNum = groupNum;
-                    //表示をスライドさせるよ
-                    iTween.MoveBy(facePearUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
+                activeIdx = rideHuman.CurrentModelType - Human.ModelType.LoversSt;
+
+                facePearUiObj.gameObject.SetActive(true);
+                facePearUiArray[ activeIdx ].IsColor = true;
+                faceGroupNum = groupNum;
+                //表示をスライドさせるよ
+                iTween.MoveBy(facePearUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
            //グループ小
             case 3:
+                activeIdx = rideHuman.CurrentModelType - Human.ModelType.FamilySt;
+
                 Debug.Log("入ったよ");
                 faceGroupSmallUiObj.gameObject.SetActive(true);               
-                faceGroupSmallUiArray[0].IsColor = true;
+                faceGroupSmallUiArray[ activeIdx ].IsColor = true;
                 faceGroupNum = groupNum;
                 iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
             //グループ大
             case 5:
+                activeIdx = rideHuman.CurrentModelType - Human.ModelType.FriendsSt;
+
                 faceGroupLargeUiObj.gameObject.SetActive(true);
-                faceGroupLargeUiArray[0].IsColor = true;
+                faceGroupLargeUiArray[ activeIdx ].IsColor = true;
                     faceGroupNum = groupNum;
                 iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
@@ -151,15 +159,15 @@ public class PassengerTogetherUI : MonoBehaviour {
             case 2:
 
                 //表示をスライドさせるよ
-                iTween.MoveBy(facePearUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));              
+                iTween.MoveBy(facePearUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));
                 break;
             //グループ小
             case 3:
-                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f)); 
+                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));
                 break;
             //グループ大
             case 5:
-                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));                
+                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));
                 break;
         }
         bEnd = true;
@@ -171,22 +179,27 @@ public class PassengerTogetherUI : MonoBehaviour {
     /// <param name="rideCount">
     /// 今乗車させた人が何人目か
     /// </param>
-    public void FaiceUION ( int rideCount)
+    public void FaiceUION ( int rideCount , Human rideHuman )
     {
         rideCount--;
-        switch (faceGroupNum)
+        int activeIdx = 0;
+
+        switch( faceGroupNum)
         {
             //ペア
             case 2:
-                    facePearUiArray[rideCount].IsColor = true;
-                    break;
+                activeIdx = rideHuman.CurrentModelType - Human.ModelType.LoversSt;
+                facePearUiArray[ activeIdx ].IsColor = true;
+                break;
             //グループ小
             case 3:
-                    faceGroupSmallUiArray[rideCount].IsColor = true;
+                activeIdx = rideHuman.CurrentModelType - Human.ModelType.FamilySt;
+                faceGroupSmallUiArray[ activeIdx ].IsColor = true;
                 break;
             //グループ大
             case 5:
-                    faceGroupLargeUiArray[rideCount].IsColor = true;
+                activeIdx = rideHuman.CurrentModelType - Human.ModelType.FriendsSt;
+                faceGroupLargeUiArray[ activeIdx ].IsColor = true;
                 break;
         }
     }

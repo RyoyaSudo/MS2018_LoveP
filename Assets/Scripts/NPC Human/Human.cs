@@ -286,6 +286,8 @@ public class Human : MonoBehaviour {
                 PassengerControllerObj.enabled = false;
 
                 gameObject.transform.parent = mobsParent.transform;
+
+                gameObject.tag = "Mob";
                 break;
 
             case RoleType.Passenger:
@@ -299,6 +301,8 @@ public class Human : MonoBehaviour {
                 MobControllerObj.enabled = false;
 
                 gameObject.transform.parent = passengerParent.transform;
+
+                gameObject.tag = "Passenger";
                 break;
 
             default:

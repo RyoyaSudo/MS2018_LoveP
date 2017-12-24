@@ -37,16 +37,16 @@ public class ChangePlayableBehaviour : PlayableBehaviour
 
         // HACK : 違う取得の方法を試します
         //今いる人オブジェクト取得
-        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
-
-        //「待ち受け」状態のオブジェクトを探す
-        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
-        {
-            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.AWAIT)
-            {
-                awaitObj = humanObj[nCnt];
-            }
-        }
+        //GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
+        //
+        ////「待ち受け」状態のオブジェクトを探す
+        //for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
+        //{
+        //    if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.AWAIT)
+        //    {
+        //        awaitObj = humanObj[nCnt];
+        //    }
+        //}
 
         //バーチャルカメラのSetActive ON
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.CHANGE_VCAM1, true);

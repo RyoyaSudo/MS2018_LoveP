@@ -2119,6 +2119,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  transitionFlag: 0
+  state: 0
 --- !u!114 &114155067296989160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2262,8 +2264,8 @@ MonoBehaviour:
   - {fileID: 21300018, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
   numberSp: {fileID: 21300000, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
   gameCtrlObjPath: Game
-  scorKey: scorKey
   debugFlag: 0
+  scorKey: scorKey
   state: 1
   scoreFlag: 0
 --- !u!114 &114532427406970136
@@ -2458,8 +2460,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a96677c44ec7a5440a3de70867289422, type: 3}
   - {fileID: 21300000, guid: 4b099f88f89ccda4f983f87ff55b5c42, type: 3}
   facePearUiArray:
-  - {fileID: 114734835241663374}
   - {fileID: 114021475163225486}
+  - {fileID: 114734835241663374}
   faceGroupSmallUiArray:
   - {fileID: 114329691976171858}
   - {fileID: 114784688340454170}
