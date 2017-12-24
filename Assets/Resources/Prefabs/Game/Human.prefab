@@ -379,6 +379,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71a1c8bb7a241ab4f8295e988c8fa7c3, type: 3}
   - {fileID: 21300000, guid: dcd5858d782c7b44cba7cf13e4abf73c, type: 3}
   - {fileID: 21300000, guid: af9b4e22aad1357458b6bc427d722217, type: 3}
+  mobTex: {fileID: 21300000, guid: e186b761f05ce094a89e3edb18bc4af6, type: 3}
   playerObjPath: Player
 --- !u!114 &114445120566314776
 MonoBehaviour:

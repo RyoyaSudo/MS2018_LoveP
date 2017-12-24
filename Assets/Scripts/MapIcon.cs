@@ -19,6 +19,8 @@ public class MapIcon : MonoBehaviour {
     [SerializeField] Sprite[] groupTexArray;
     [SerializeField] Sprite[] charTexArray;
 
+    [SerializeField] Sprite mobTex;
+
     Player playerObj;
     [SerializeField] string playerObjPath;
 
@@ -48,20 +50,28 @@ public class MapIcon : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        // テクスチャの切り替え
-        if( playerObj.StateParam == Player.State.PLAYER_STATE_TAKE || playerObj.StateParam == Player.State.PLAYER_STATE_TAKE_READY )
+        if( human.Role == Human.RoleType.Passenger )
         {
-            // 顔を出す
-            int idx = human.CurrentModelType - Human.ModelType.LoversSt;
-            spRen.sprite = charTexArray[ idx ];
-            transform.localScale = new Vector3( 0.25f , 0.25f , 1f );
+            // テクスチャの切り替え
+            if( playerObj.StateParam == Player.State.PLAYER_STATE_TAKE || playerObj.StateParam == Player.State.PLAYER_STATE_TAKE_READY )
+            {
+                // 顔を出す
+                int idx = human.CurrentModelType - Human.ModelType.LoversSt;
+                spRen.sprite = charTexArray[ idx ];
+                transform.localScale = new Vector3( 0.25f , 0.25f , 1f );
+            }
+            else
+            {
+                // グループのアイコン出す
+                int idx = (int)human.PassengerControllerObj.groupType;
+                spRen.sprite = groupTexArray[ idx ];
+                transform.localScale = new Vector3( 10f , 10f , 1f );
+            }
         }
-        else
+        else if( human.Role == Human.RoleType.Mob )
         {
-            // グループのアイコン出す
-            int idx = (int)human.PassengerControllerObj.groupType;
-            spRen.sprite = groupTexArray[ idx ];
-            transform.localScale = new Vector3( 10f , 10f , 1f );
+            spRen.sprite = mobTex;
+            transform.localScale = new Vector3( 0.025f , 0.025f , 1f );
         }
 
         // 角度合わせる

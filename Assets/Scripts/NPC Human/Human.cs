@@ -282,7 +282,7 @@ public class Human : MonoBehaviour {
                 MobControllerObj.enabled = true;
 
                 RideAreaObj.SetActive( false );
-                MapIconObj.SetActive( false );
+                MapIconObj.SetActive( true );
                 cursorObj.SetActive( false );
 
                 PassengerControllerObj.IsEnable = false;
