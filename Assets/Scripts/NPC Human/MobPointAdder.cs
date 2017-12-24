@@ -18,20 +18,21 @@ public class MobPointAdder : MonoBehaviour {
     float stateTimer;
 
     [SerializeField] float pointAddDuration;
-
-    ScoreCtrl scoreObj;
-    [SerializeField] string scorePath;
+    [SerializeField] ScoreEffect scoreEffectprefab;
 
     public bool IsPlayerStay { get; set; }
+
+    private GameObject playerObj;
+    [SerializeField] string playerObjPath;
 
     // Use this for initialization
     void Start () {
         State = StateType.Ready;
         stateTimer = 0.0f;
 
-        scoreObj = GameObject.Find( scorePath ).GetComponent<ScoreCtrl>();
-
         IsPlayerStay = false;
+
+        playerObj = GameObject.Find( playerObjPath );
     }
 	
 	// Update is called once per frame
@@ -42,7 +43,15 @@ public class MobPointAdder : MonoBehaviour {
                 break;
 
             case StateType.Add:
-                scoreObj.AddScoreValue( 150 );
+                for( int i = 0 ; i < 5 ; i++ )
+                {
+                    ScoreEffect e = Instantiate( scoreEffectprefab , transform.position , transform.rotation );
+                    e.AddScore = 10;
+                    e.Target = playerObj.transform;
+                    e.waitTime = 0.5f;
+                    e.State = ScoreEffect.StateType.Wait;
+                }
+                
                 State = StateType.Wait;
                 break;
 

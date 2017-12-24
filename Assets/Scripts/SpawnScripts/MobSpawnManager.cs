@@ -49,12 +49,7 @@ public class MobSpawnManager : MonoBehaviour {
         //       あとから何とかしたい
         for( int i = 0 ; i < SpawnNum ; i++ )
         {
-            spawnPointObject[ i ].MobSpawn( 0 );
+            spawnPointObject[ i ].MobSpawn( i );
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
