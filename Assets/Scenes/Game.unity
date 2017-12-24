@@ -365,6 +365,18 @@ Prefab:
       propertyPath: isOnGUIEnable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: mobSpawnManagerPrefab
+      value: 
+      objectReference: {fileID: 1778028771566208, guid: 21bf77bf2e121fc4783583049b3a8f16,
+        type: 2}
+    - target: {fileID: 114323102851240840, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2,
+        type: 2}
+      propertyPath: mobSpawnListPrefab
+      value: 
+      objectReference: {fileID: 1111484063888614, guid: a3c00a6c24837e74f91970291ea0bd18,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 82450138279578090, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
     - {fileID: 82456312566316656, guid: cd2ddfb06c4d5a54cbbe93b38bb3fbe2, type: 2}
