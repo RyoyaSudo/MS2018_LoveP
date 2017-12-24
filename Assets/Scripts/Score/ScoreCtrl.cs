@@ -52,8 +52,10 @@ public class ScoreCtrl : MonoBehaviour
         2500,
     };
 
+    // デバッグフラグ(保存処理初期化などに利用)
+    [SerializeField] bool debugFlag = false;
     //スコアの保存キー
-    string scorKey = "scorKey";
+    [SerializeField] string scorKey = "curScoreKey";
 
     public ScoreManager.State state;
 
@@ -132,7 +134,7 @@ public class ScoreCtrl : MonoBehaviour
     * 戻り値:なし
     * 説明：スコアにどの値が入ったか調べる
     ***********************************************************/
-    public void ScoreSet( int score )
+    private void ScoreSet( int score )
     {
         //Lpロゴのアニメーションフラグ
         scoreFlag = true;
@@ -222,12 +224,16 @@ public class ScoreCtrl : MonoBehaviour
                 break;
         }
 
+        ScoreSet( result );
+    }
 
-        // トータルに反映
-        totalScore += result;
-
-        //総スコアを保存
-        PlayerPrefs.SetInt(scorKey, totalScore);
+    /// <summary>
+    /// スコア加算処理( 数値直代入 )
+    /// </summary>
+    /// <param name="value">加算値</param>
+    public void AddScoreValue( int value )
+    {
+        ScoreSet( value );
     }
 
     /// <summary>
@@ -257,6 +263,15 @@ public class ScoreCtrl : MonoBehaviour
         starPhaseAddScoreNum++;
 
         return result;
+    }
+
+    /// <summary>
+    /// 破棄時処理
+    /// </summary>
+    private void OnDestroy()
+    {
+        // 今回の総スコアを保存
+        PlayerPrefs.SetInt( scorKey , totalScore );
     }
 
     private void OnGUI()

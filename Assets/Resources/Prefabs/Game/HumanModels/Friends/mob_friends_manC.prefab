@@ -2196,7 +2196,7 @@ Animator:
   m_GameObject: {fileID: 1173443252885630}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e36df776995ff2942aa5cf6b0ef47e3d, type: 3}
-  m_Controller: {fileID: 9100000, guid: e6dd671cb2682c04d97d7fb85de2ed5d, type: 2}
+  m_Controller: {fileID: 9100000, guid: b4f3f3a4ea89b6046aecdabfe722c764, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2217,7 +2217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceType: 4
   faceObj: {fileID: 1400267340625656}
-  atlasSize: {x: 512, y: 512}
+  atlasSize: {x: 256, y: 256}
   faceState: 1
 --- !u!114 &114809379524798230
 MonoBehaviour:

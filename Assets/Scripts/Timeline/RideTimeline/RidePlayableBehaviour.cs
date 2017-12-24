@@ -52,15 +52,15 @@ public class RidePlayableBehaviour : PlayableBehaviour
                 break;
 
             case PlayerVehicle.Type.CAR:
-                pos.y += 4.0f;
+                pos.y += 3.0f;
                 break;
 
             case PlayerVehicle.Type.BUS:
-                pos.y += 4.0f;
+                pos.y += 3.0f;
                 break;
         }
         vc1Obj.transform.position = pos;
-        vc1Obj.transform.position += passengerObj.transform.forward * 6.0f;
+        vc1Obj.transform.position += passengerObj.transform.forward * 5.0f;
     }
 
     // タイムライン停止実行

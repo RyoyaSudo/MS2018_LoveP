@@ -14,7 +14,8 @@ public class EffectController : MonoBehaviour
         CHARGE_EFFECT = 3 ,
         CHARGE_MAX_EFFECT = 4,
         SCORE_UP_EFFECT = 5,
-        CHANGE_EFFECT = 6
+        CHANGE_EFFECT = 6,
+        ROCKET_WAIT_EFFECT = 7
     }
 
     //エフェクト用の配列

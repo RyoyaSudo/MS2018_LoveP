@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
     public Human lastRideHuman;
 
     /// <summary>
+    /// 待ち状態の人
+    /// </summary>
+    public GameObject awaitHumanObj;
+
+    /// <summary>
     /// 乗客乗車人数を示すUIオブジェクト。
     /// プレイヤー側から操作するために取得。
     /// </summary>
@@ -514,7 +519,7 @@ public class Player : MonoBehaviour
             //Human.csで運搬状態にしました
             //乗客の状態を「運搬」に
             //human.gameObject.GetComponent<Human>().SetStateType( Human.STATETYPE.TRANSPORT );
-            Debug.Log( "Ride" );
+            //Debug.Log( "Ride" );
             ridePassengerObj[ rideCount ] = human;
             rideCount++;
 
@@ -621,7 +626,7 @@ public class Player : MonoBehaviour
                 case PlayerVehicle.Type.AIRPLANE:
                     //星フェーズへの移行開始
                     playerSoundCtrl.PlayOneShot( SoundController.SoundsSeType.VEHICLE_CHANGE_AIRPLANE , playerAudioS );
-                    ChangeStarPhase();
+                    //ChangeStarPhase();
                     break;
 
                 default:
@@ -860,6 +865,14 @@ public class Player : MonoBehaviour
                 // TODO : 田口　2017/12/20
                 // 状態が「待ち受け」の人のオブジェクトを取得
                 ridePassengerObj[i].GetComponent<PassengerController>().SetGetOffAwaitObj(ridePassengerObj[rideCount - 1].GetComponent<Human>().gameObject);
+
+                // TODO : 田口　2017/12/24
+                // 後で上記も書き直す
+                awaitHumanObj = ridePassengerObj[rideCount - 1].GetComponent<Human>().gameObject;
+
+                // TODO : 田口　2017/12/24
+                // 乗車順番を保存
+                ridePassengerObj[i].GetComponent<PassengerController>().SetRideNumber(i); 
 
                 ridePassengerObj[ i ].GetComponent<Human>().CurrentStateType = Human.STATETYPE.GETOFF;
             }

@@ -199,15 +199,16 @@ public class PlayerVehicle : MonoBehaviour {
         //   1～3 : 車
         //   4～7 : 大型車( バス )
         //   8～  : 飛行機
-        if( VehicleScore >= vehicleScoreLimit[ ( int )Type.AIRPLANE ] && vehicleType != Type.AIRPLANE )
-        {
-            // 飛行機
-            flags = true;
-
-            oldVehicleType = vehicleType;
-            VehicleType = Type.AIRPLANE;
-        }
-        else if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BUS ] && VehicleScore < vehicleScoreLimit[ ( int )Type.AIRPLANE ] && vehicleType != Type.BUS )
+        //if( VehicleScore >= vehicleScoreLimit[ ( int )Type.AIRPLANE ] && vehicleType != Type.AIRPLANE )
+        //{
+        //    // 飛行機
+        //    flags = true;
+        //
+        //    oldVehicleType = vehicleType;
+        //    VehicleType = Type.AIRPLANE;
+        //}
+        //else 
+        if( VehicleScore >= vehicleScoreLimit[ ( int )Type.BUS ] && VehicleScore < vehicleScoreLimit[ ( int )Type.AIRPLANE ] && vehicleType != Type.BUS )
         {
             // 大型車
             flags = true;
@@ -240,7 +241,7 @@ public class PlayerVehicle : MonoBehaviour {
             VehicleType = Type.BIKE;
         }
 
-        Debug.Log( "乗り物スコア:" + VehicleScore );
+        //Debug.Log( "乗り物スコア:" + VehicleScore );
 
         return flags;
     }

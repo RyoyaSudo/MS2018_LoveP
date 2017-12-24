@@ -13,6 +13,8 @@ public class TimeManager : MonoBehaviour
     }
     State state;
 
+    private int count;
+
     [SerializeField]
     private TimeCtrl timeObj;
 

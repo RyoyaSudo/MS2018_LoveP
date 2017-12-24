@@ -4,30 +4,52 @@ using UnityEngine;
 
 public class PassengerTogetherUI : MonoBehaviour {
 
-    public GameObject faiceBgUIPrefab;       //フェイスBgUIプレファブ
-    public GameObject faiceUIPrefab;         //フェイスUIプレファブ
-    public Sprite faiceOnUISprite;           //フェイスOnUIのスプライト
-    public Sprite faiceBgUISprite;           //フェイスBgUIのスプライト
-    public float marginePear;                //フェイスUIの左右の幅(ペア)
-    public float margineSmall;               //フェイスUIの左右の幅(小)
-    public float margineBig;                 //フェイスUIの左右の幅(大)
+    [SerializeField]
+    private float faceOnMoveX;            //フェイスOnUIのサイズX
+    [SerializeField]
+    private float faceOnUilimit;
 
-    private GameObject faiceBgUIObj=null;    //フェイスBgUIオブジェクト
-    private GameObject []faiceUIObj=null;    //フェイスUIオブジェクト
-    private float faiceBgUISizeX;            //フェイスBgUIのサイズX
-    private float faiceBgUISizeY;            //フェイスBgUIのサイズY
-    private float faiceOnUISizeX;            //フェイスOnUIのサイズX
     private bool bEnd = false;             　//UI表示を終了
-    private float margine;                   //フェイスUIの左右の幅
+
+    //顔アイコンのスプライトの配列
+    [SerializeField]
+    private Sprite[] faceUiList;
+    //顔アイコンのスプライトの影バージョン
+    [SerializeField]
+    private Sprite[] faceShadeUiList;
+
+    //faceUiの表示するやつら
+    [SerializeField]
+    private FaceUI[] facePearUiArray;
+    [SerializeField]
+    private FaceUI[] faceGroupSmallUiArray;
+    [SerializeField]
+    private FaceUI[] faceGroupLargeUiArray;
+    [SerializeField]
+    private GameObject facePearUiObj;
+    [SerializeField]
+    private GameObject faceGroupSmallUiObj;
+    [SerializeField]
+    private GameObject faceGroupLargeUiObj;
+
+    private int faceGroupNum;
+
+    private Vector3 facePearUiDefPos;
+    private Vector3 faceGroupSmallUiDefPos;
+    private Vector3 faceGroupLargeUiDefPos;
 
     // 初期化
     void Start ()
     {
-        //フェイスBgUIの幅と高さ
-        faiceBgUISizeX = faiceBgUISprite.texture.width;
-        faiceBgUISizeY = faiceBgUISprite.texture.height;
-        //フェイスOnUIの幅
-        faiceOnUISizeX = faiceOnUISprite.texture.width;
+        faceGroupNum = 0;
+        facePearUiDefPos = facePearUiObj.transform.position;
+        faceGroupSmallUiDefPos = faceGroupSmallUiObj.transform.position;
+        //Debug.Log("グループのポスy" + faceGroupSmallUiDefPos.x);
+        faceGroupLargeUiDefPos = faceGroupLargeUiObj.transform.position;
+        bEnd = false;
+        //facePearUiObj.SetActive(false);
+        //faceGroupSmallUiObj.SetActive(false);
+        //faceGroupLargeUiObj.SetActive(false);
     }
 
     // 更新
@@ -36,13 +58,45 @@ public class PassengerTogetherUI : MonoBehaviour {
         //UI表示が終了するとき
         if (bEnd)
         {
-            //UI表示が画面外にいくと
-            if (faiceBgUIObj.transform.localPosition.x < -((float)Screen.width / 2.0f - faiceBgUISizeX / 2.0f) - faiceBgUISizeX)
+            switch (faceGroupNum)
             {
-                //フェイスBgUIオブジェクト消去
-                Destroy(faiceBgUIObj);
-
-                bEnd = false;
+                //ペア
+                case 2:
+                        //UI表示が画面外にいくと
+                    if (facePearUiObj.transform.localPosition.x <= -faceOnUilimit )
+                     {
+                         facePearUiArray[0].IsColor = false;
+                        facePearUiArray[1].IsColor = false;
+                         facePearUiObj.transform.localPosition = new Vector3( facePearUiDefPos.x, facePearUiDefPos.y ,0.0f  );
+                        bEnd = false;
+                        }
+                    break;
+                //グループ小
+                case 3:
+                        //UI表示が画面外にいくと
+                    if(faceGroupSmallUiObj.transform.localPosition.x <= -faceOnUilimit)
+                        {
+                            faceGroupSmallUiArray[0].IsColor = false;
+                            faceGroupSmallUiArray[1].IsColor = false;
+                            faceGroupSmallUiArray[2].IsColor = false;
+                        faceGroupSmallUiObj.transform.localPosition = new Vector3(-1537.0f, -435.0f, 0.0f);
+                            bEnd = false;
+                        }
+                  break;
+                //グループ大
+                case 5:
+                    //UI表示が画面外にいくと
+                    if (faceGroupLargeUiObj.transform.localPosition.x <= -faceOnUilimit)
+                    {
+                        faceGroupLargeUiArray[0].IsColor = false;
+                        faceGroupLargeUiArray[1].IsColor = false;
+                        faceGroupLargeUiArray[2].IsColor = false;
+                        faceGroupLargeUiArray[3].IsColor = false;
+                        faceGroupLargeUiArray[4].IsColor = false;
+                        faceGroupLargeUiObj.transform.localPosition = new Vector3(-1537.0f, -435.0f, 0.0f);
+                        bEnd = false;
+                    }
+                    break;
             }
         }
     }
@@ -55,78 +109,59 @@ public class PassengerTogetherUI : MonoBehaviour {
     /// </param>
     public void PassengerTogetherUIStart ( int groupNum )
     {
-        //フェイスBgUI生成
-        faiceBgUIObj = Instantiate(faiceBgUIPrefab);
-
-        //親を自分に設定
-        faiceBgUIObj.transform.parent = gameObject.transform;
-
-        //位置設定
-        Vector3 pos;
-        pos.x = -((float)Screen.width / 2.0f - faiceBgUISizeX / 2.0f) - faiceBgUISizeX;
-        pos.y = -((float)Screen.height / 2.0f - faiceBgUISizeY / 2.0f);
-        pos.z = 12.0f;
-        faiceBgUIObj.transform.localPosition = pos;
-        faiceBgUIObj.transform.localRotation = Quaternion.identity;
-
-        //乗車人数分の配列を作る
-        faiceUIObj = new GameObject[groupNum];
-
+        //Debug.Log(groupNum);
         //グループの人数によってmargineを設定
         switch(groupNum)
         {
             //ペア
             case 2:
-                margine = marginePear;
+                    facePearUiObj.gameObject.SetActive(true);
+                    facePearUiArray[0].IsColor = true;
+                    faceGroupNum = groupNum;
+                    //表示をスライドさせるよ
+                    iTween.MoveBy(facePearUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
            //グループ小
             case 3:
-                margine = margineSmall;
+                Debug.Log("入ったよ");
+                faceGroupSmallUiObj.gameObject.SetActive(true);               
+                faceGroupSmallUiArray[0].IsColor = true;
+                faceGroupNum = groupNum;
+                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
             //グループ大
             case 5:
-                margine = margineBig;
+                faceGroupLargeUiObj.gameObject.SetActive(true);
+                faceGroupLargeUiArray[0].IsColor = true;
+                    faceGroupNum = groupNum;
+                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", faceOnMoveX, "easetype", "easeOutBounce", "time", 1.2f));
                 break;
-        }
-
-
-        float offset = -faiceBgUISizeX / 2;
-        float padding = (faiceBgUISizeX - (margine * 2) - (faiceOnUISizeX * groupNum)) / (groupNum * 2);    //フェイスUIの間隔
-        offset += margine;
-
-        //フェイスOffUI
-        for (int nCnt = 0; nCnt < groupNum; nCnt++)
-        {
-            //フェイスOffUI生成
-            faiceUIObj[nCnt] = Instantiate(faiceUIPrefab);
-
-            //親をBgUIに設定
-            faiceUIObj[nCnt].transform.parent = faiceBgUIObj.transform;
-
-            //位置設定
-            offset += padding;
-            offset += faiceOnUISizeX/2;
-            pos.x = offset;
-            offset += padding;
-            offset += faiceOnUISizeX / 2;
-            pos.y = 0.0f;
-            pos.z = -0.1f;
-            faiceUIObj[nCnt].transform.localPosition = pos;
-            faiceUIObj[nCnt].transform.localRotation = Quaternion.identity;
-        }
-
-        //表示をスライドさせるよ
-        iTween.MoveBy(faiceBgUIObj, iTween.Hash("x", faiceBgUISizeX, "easetype", "easeOutBounce", "time", 1.2f));
+        } 
     }
 
     /// <summary>
     /// UI表示終了
     /// </summary>
-    public void PassengerTogetherUIEnd ()
+    public void PassengerTogetherUIEnd()
     {
-        //表示をスライドさせるよ
-        iTween.MoveBy(faiceBgUIObj, iTween.Hash("x", -faiceBgUISizeX, "easetype", "easeInOutQuart", "time", 1.2f));
+        //グループの人数によってmargineを設定
+        switch (faceGroupNum)
+        {
+            //ペア
+            case 2:
 
+                //表示をスライドさせるよ
+                iTween.MoveBy(facePearUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));              
+                break;
+            //グループ小
+            case 3:
+                iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f)); 
+                break;
+            //グループ大
+            case 5:
+                iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));                
+                break;
+        }
         bEnd = true;
     }
 
@@ -139,6 +174,20 @@ public class PassengerTogetherUI : MonoBehaviour {
     public void FaiceUION ( int rideCount)
     {
         rideCount--;
-        faiceUIObj[rideCount].GetComponent<SpriteRenderer>().sprite = faiceOnUISprite;
+        switch (faceGroupNum)
+        {
+            //ペア
+            case 2:
+                    facePearUiArray[rideCount].IsColor = true;
+                    break;
+            //グループ小
+            case 3:
+                    faceGroupSmallUiArray[rideCount].IsColor = true;
+                break;
+            //グループ大
+            case 5:
+                    faceGroupLargeUiArray[rideCount].IsColor = true;
+                break;
+        }
     }
 }

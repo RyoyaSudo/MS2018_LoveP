@@ -14,12 +14,17 @@ public class GetOffBigPlayableBehaviour : PlayableBehaviour
 
     private GameObject vc1Obj;          //バーチャルカメラオブジェクト1
     private GameObject vc2Obj;          //バーチャルカメラオブジェクト2
+    Cinemachine.CinemachineVirtualCamera vc1 ;  //バーチャルカメラ1
+    Cinemachine.CinemachineVirtualCamera vc2;   //バーチャルカメラ2
 
     private TimelineManager timelineManager;    //タイムラインマネージャー
     public string timelineManagerPath;          //タイムラインマネージャーパス
 
     private GameObject awaitObj;        //待ち受け状態の人オブジェ
-    private GameObject getOffObj;       //下車状態の人オブジェ
+    private Human[] getOffObj;          //下車の人オブジェ
+
+    private float count;                //カウント
+    private int currentLookAtObjNum;       //現在のLookAtしてるオブジェ番号
 
     // タイムライ開始実行
     public override void OnGraphStart(Playable playable)
@@ -29,27 +34,11 @@ public class GetOffBigPlayableBehaviour : PlayableBehaviour
         virtualCameraManager = GameObject.Find(virtualCameraManagerPath).GetComponent<VirtualCameraManager>();//バーチャルカメラマネージャ
         timelineManager = GameObject.Find(timelineManagerPath).GetComponent<TimelineManager>();               //タイムラインマネージャー
 
-        // HACK : 違う取得の方法を試します
-        //今いる人オブジェクト取得
-        GameObject[] humanObj = GameObject.FindGameObjectsWithTag("Human");
+        //待ち受けいる人オブジェクト取得
+        awaitObj = playerObj.GetComponent<Player>().awaitHumanObj;
 
-        //「待ち受け」状態のオブジェクトを探す
-        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
-        {
-            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.AWAIT)
-            {
-                awaitObj = humanObj[nCnt];
-            }
-        }
-
-        //「下車」状態のオブジェクトを探す
-        for (int nCnt = 0; nCnt < humanObj.Length; nCnt++)
-        {
-            if (humanObj[nCnt].GetComponent<Human>().CurrentStateType == Human.STATETYPE.GETOFF)
-            {
-                getOffObj = humanObj[nCnt];
-            }
-        }
+        //「下車」状態のオブジェクトを取得
+        getOffObj = playerObj.GetComponent<Player>().RidePassengerObj;
 
 
         //バーチャルカメラのSetActive ON
@@ -57,15 +46,15 @@ public class GetOffBigPlayableBehaviour : PlayableBehaviour
         virtualCameraManager.SetActive(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFFBIG_VCAM2, true);
 
         //バーチャルカメラオブジェクト取得
-        vc1Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM1);
-        vc2Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFF_VCAM2);
+        vc1Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFFBIG_VCAM1);
+        vc2Obj = virtualCameraManager.GetVirtualCamera(VirtualCamera.VIRTUALCAMERA_TYPE.GETOFFBIG_VCAM2);
 
         //バーチャルカメラ取得
-        Cinemachine.CinemachineVirtualCamera vc1 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        Cinemachine.CinemachineVirtualCamera vc2 = vc2Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        vc1 = vc1Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        vc2 = vc2Obj.GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         //LookAt設定
-        vc1.LookAt = getOffObj.transform;
+        vc1.LookAt = getOffObj[0].transform;
         vc2.LookAt = awaitObj.transform;
 
         //位置設定
@@ -77,9 +66,12 @@ public class GetOffBigPlayableBehaviour : PlayableBehaviour
         pos.y += 3.0f;
         vc1Obj.transform.position = pos;
 
-        pos = awaitObj.transform.position + (direction * 3.0f);
-        pos.y += 1.0f;
+        pos = awaitObj.transform.position + (direction * 2.0f);
+        pos.y += 2.0f;
         vc2Obj.transform.position = pos;
+
+        count = 0;
+        currentLookAtObjNum = 0;
     }
 
     // タイムライン停止実行
@@ -106,5 +98,18 @@ public class GetOffBigPlayableBehaviour : PlayableBehaviour
     // PlayableTrack再生時毎フレーム実行
     public override void PrepareFrame(Playable playable, FrameData info)
     {
+        if ( currentLookAtObjNum < 3 )
+        {
+            if (count >= 1.5f)
+            {
+                currentLookAtObjNum++;
+                count = 0;
+                vc1.LookAt = getOffObj[currentLookAtObjNum].transform;
+            }
+            else
+            {
+                count += Time.deltaTime;
+            }
+        }
     }
 }

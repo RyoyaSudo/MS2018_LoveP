@@ -41,7 +41,7 @@ MonoBehaviour:
     m_ClipIn: 0
     m_Asset: {fileID: 114962504376248648}
     m_UnderlyingAsset: {fileID: 114962504376248648}
-    m_Duration: 4
+    m_Duration: 9
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114055643567821818}
     m_EaseInDuration: 0
@@ -93,13 +93,13 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: GetOffBigvcam2
+    m_DisplayName: GetOffBigvcam1
     m_Version: 1
-  - m_Start: 4
+  - m_Start: 9
     m_ClipIn: 0
     m_Asset: {fileID: 114457141882642948}
     m_UnderlyingAsset: {fileID: 114457141882642948}
-    m_Duration: 2.8166666666660003
+    m_Duration: 1.999999999999
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114055643567821818}
     m_EaseInDuration: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: 
+    exposedName: f25c42b273300974fb369f256bb179b4
     defaultValue: {fileID: 0}
 --- !u!114 &114985514943779136
 MonoBehaviour:
@@ -217,7 +217,7 @@ MonoBehaviour:
     m_ClipIn: 0
     m_Asset: {fileID: 114572491059795128}
     m_UnderlyingAsset: {fileID: 114572491059795128}
-    m_Duration: 6.816666666666666
+    m_Duration: 11
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114985514943779136}
     m_EaseInDuration: 0

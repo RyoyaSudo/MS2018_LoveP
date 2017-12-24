@@ -62,6 +62,7 @@ public class Game : MonoBehaviour {
     ScoreManager scoreManagerObj;
     TimelineManager timelineObj;
     LoveP_Input inputObj;
+    StartLogo startLogoObj;
 
 
     /// <summary>
@@ -71,6 +72,7 @@ public class Game : MonoBehaviour {
     {
         GAME_PHASE_INIT = 0,
         GAME_PAHSE_READY,
+        GAME_PAHSE_STARTLOGO ,
         GAME_PAHSE_CITY,
         GAME_PAHSE_STAR_SHIFT,
         GAME_PAHSE_STAR,
@@ -143,25 +145,32 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_READY:
                 {
-                    phaseTimer += Time.deltaTime;
-
                     if ( timelineObj.stateType == TimelineManager.STATETYPE.TIMELINE_NONE )
                     {
-                        PhaseParam = Phase.GAME_PAHSE_CITY;
+                        PhaseParam = Phase.GAME_PAHSE_STARTLOGO;
                     }
                     break;
                 }
+
+            case Phase.GAME_PAHSE_STARTLOGO:
+                {
+                    if (startLogoObj.stateType == StartLogo.STATETYPE.NONE)
+                    {
+                        PhaseParam = Phase.GAME_PAHSE_CITY;
+                    }
+                }
+                break;
 
             case Phase.GAME_PAHSE_CITY:
                 {
                     //デバッグ用
                     if( isDebug && Input.GetKeyUp( KeyCode.P ) )
                     {
-                        PhaseParam = Phase.GAME_PAHSE_STAR;
+                        //PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
                     if (isDebug && Input.GetKeyUp(KeyCode.I))
                     {
-                        PhaseParam = Phase.GAME_PAHSE_STAR_SHIFT;
+                        //PhaseParam = Phase.GAME_PAHSE_STAR_SHIFT;
                     }
 
                     if ( timeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
@@ -178,7 +187,7 @@ public class Game : MonoBehaviour {
                     //ただこの場合タイムラインを途中で止めてもフェーズ移行する
                     if (PlayState.Paused == timelineObj.Get("StarShiftTimeline").State())
                     {
-                        PhaseParam = Phase.GAME_PAHSE_STAR;
+                        //PhaseParam = Phase.GAME_PAHSE_STAR;
                     }
                     break;
                 }
@@ -210,7 +219,7 @@ public class Game : MonoBehaviour {
 
         if( Input.GetKeyDown( KeyCode.L ) )
         {
-            PhaseParam = ( Phase )Mathf.Min( ( ( int )PhaseParam + 1 ) , ( ( int )Phase.GAME_PAHSE_NUM - 1 ) );
+            //PhaseParam = ( Phase )Mathf.Min( ( ( int )PhaseParam + 1 ) , ( ( int )Phase.GAME_PAHSE_NUM - 1 ) );
         }
 
 
@@ -237,6 +246,10 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_READY:
                 PhaseReadyStart();
+                break;
+
+            case Phase.GAME_PAHSE_STARTLOGO:
+                PhaseStartLogoStart();
                 break;
 
             case Phase.GAME_PAHSE_CITY:
@@ -291,6 +304,12 @@ public class Game : MonoBehaviour {
         //mainCameraObj.GetComponent<StarCameraController>().enabled = false;
         skyboxManagerObj.GetComponent<SkyboxManager>().SetCitySkyBox();
         phaseTimer = 0;
+    }
+
+    void PhaseStartLogoStart()
+    {
+        startLogoObj.gameObject.SetActive(true);
+        startLogoObj.SetStateType(StartLogo.STATETYPE.SRIDE_IN);
     }
 
     void PhaseCityStart()
@@ -399,6 +418,7 @@ public class Game : MonoBehaviour {
         timeObj = GameObject.Find("Time").GetComponent<TimeCtrl>();
         timeManagerObj = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         scoreManagerObj = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        startLogoObj = GameObject.Find("StartLogo").GetComponent<StartLogo>();
     }
 
 }
