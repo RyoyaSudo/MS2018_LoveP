@@ -67,7 +67,7 @@ public class PassengerTogetherUI : MonoBehaviour {
                      {
                          facePearUiArray[0].IsColor = false;
                          facePearUiArray[1].IsColor = false;
-                         facePearUiObj.transform.localPosition = new Vector3( facePearUiDefPos.x, facePearUiDefPos.y ,0.0f  );
+                         facePearUiObj.transform.localPosition = new Vector3( -1537.0f , -435.0f , 0.0f );
                         bEnd = false;
                         }
                     break;
@@ -160,17 +160,22 @@ public class PassengerTogetherUI : MonoBehaviour {
 
                 //表示をスライドさせるよ
                 iTween.MoveBy(facePearUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));
+
+                bEnd = true;
                 break;
             //グループ小
             case 3:
                 iTween.MoveBy(faceGroupSmallUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));
+
+                bEnd = true;
                 break;
             //グループ大
             case 5:
                 iTween.MoveBy(faceGroupLargeUiObj, iTween.Hash("x", -faceOnMoveX, "easetype", "easeInOutQuart", "time", 1.2f, "delay", 6.0f));
+
+                bEnd = true;
                 break;
         }
-        bEnd = true;
     }
 
     /// <summary>

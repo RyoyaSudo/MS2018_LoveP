@@ -4,40 +4,116 @@ using UnityEngine;
 
 public class ScoreEffect : MonoBehaviour {
 
-    [SerializeField] ParticleSystem particle;
-    public Transform Target { get; set; }
-    bool IsChase { get; set; }
+    public enum StateType
+    {
+        None = 0,
+        Wait,
+        Chase,
+        Destroy,
+    }
 
+    public StateType State { get { return state; } set { SetState( value ); } }
+    StateType state;
+
+    float stateTimer;
+
+    ParticleSystem particle;
+    public Transform Target { get; set; }
+
+    public float waitTime;
     [SerializeField] float chaseDuration;
     float chaseAddValuePerFlame;
     float chaseRate;
 
-    Vector3 getPos;
+    Vector3 chaseStPos;
 
-	// Use this for initialization
-	void Start () {
-        IsChase = false;
+    public int AddScore { get; set; }
+
+    ScoreCtrl scoreObj;
+    [SerializeField] string scorePath;
+
+    private void Awake()
+    {
+        stateTimer = 0.0f;
         Target = null;
         chaseRate = 0.0f;
         chaseAddValuePerFlame = 1.0f / chaseDuration;
 
-        getPos = Vector3.zero;
+        chaseStPos = Vector3.zero;
+
+        particle = GetComponent<ParticleSystem>();
+
+        AddScore = 0;
+        scoreObj = GameObject.Find( scorePath ).GetComponent<ScoreCtrl>();
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        if( IsChase == true )
+    // Use this for initialization
+    void Start () {
+        
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+        switch( state )
         {
-            chaseRate += ( chaseAddValuePerFlame * ( 60.0f * Time.deltaTime ) );
-            chaseRate = Mathf.Min( chaseRate , 1.0f );
+            case StateType.None:
+                break;
 
-            Vector3 curV = Vector3.Slerp( getPos , Target.position , chaseRate );
+            case StateType.Wait:
+                stateTimer -= Time.deltaTime;
 
-            if( chaseRate == 1.0f )
-            {
-                IsChase = false;
-            }
+                if( stateTimer < 0.0f )
+                {
+                    State = StateType.Chase;
+                }
+                break;
+
+            case StateType.Chase:
+                chaseRate += chaseAddValuePerFlame * Time.deltaTime;
+                chaseRate = Mathf.Min( chaseRate , 1.0f );
+
+                Vector3 curV = Vector3.Slerp( chaseStPos , Target.position , chaseRate );
+                transform.position = curV;
+
+                if( chaseRate == 1.0f )
+                {
+                    State = StateType.Destroy;
+                }
+                break;
+
+            default:
+                break;
         }
     }
+
+    // 状態設定
+    void SetState( StateType type )
+    {
+        state = type;
+
+        switch( type )
+        {
+            case StateType.None:
+                break;
+
+            case StateType.Wait:
+                particle.Play();
+                stateTimer = waitTime;
+                break;
+
+            case StateType.Chase:
+                chaseStPos = transform.position;
+                break;
+
+            case StateType.Destroy:
+                scoreObj.AddScoreValue( AddScore );
+                Destroy( gameObject );
+                break;
+
+            default:
+                break;
+        }
+    }
+
 }
