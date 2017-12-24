@@ -5,7 +5,7 @@ using UnityEngine;
 public class MobController : MonoBehaviour
 {
 
-    const float ESCAPE_AREA = 90.0f;   // この中に入ったら逃げる（半径）
+    const float ESCAPE_AREA = 30.0f;   // この中に入ったら逃げる（半径）
     public int ESCAPE_TIME;         // 逃げるのに使う時間
     public float ESCAPE_SPEED;          // プレイヤーから逃げるスピード
     enum STATUS { NORMAL = 0, ESCAPE, ESCAPE2, TALK, SIT }; // 状態の種類(普通、逃げる,逃げる時に方向転換,おしゃべり、座ってる)  
@@ -18,6 +18,19 @@ public class MobController : MonoBehaviour
     float oldRot;                       // 移動前の古い向き
     public short slash;                        // 逃げる時間などを設定
     bool ride;                          // 乗せている状態かどうか
+
+    public enum MobType
+    {
+        Stay = 0,
+        Run,
+        Talk,
+        TypeMax,
+    }
+
+    public MobType Type { get; set; }
+
+    public RuntimeAnimatorController[] AnimArray { get{ return animArray; } }
+    [SerializeField] RuntimeAnimatorController[] animArray = new RuntimeAnimatorController[(int)MobType.TypeMax];
 
     /// <summary>
     /// 有効化フラグ
@@ -127,6 +140,11 @@ public class MobController : MonoBehaviour
                     if(slash == 3)
                     transform.GetComponent<Human>().CurrentStateType = Human.STATETYPE.READY;
                 }
+            }
+            else
+            {
+                transform.rotation.SetLookRotation( teiiti.normalized );
+                transform.position = Vector3.Lerp( transform.position , teiiti , Time.deltaTime );
             }
         }
     }

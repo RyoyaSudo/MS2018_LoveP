@@ -30,6 +30,8 @@ public class SpawnPoint : MonoBehaviour {
     private Transform mobParentObj;
     [SerializeField] string mobParentObjPath;
 
+    [SerializeField] MobController.MobType spawnMobType;
+
     /// <summary>
     /// 生成時処理
     /// </summary>
@@ -127,6 +129,11 @@ public class SpawnPoint : MonoBehaviour {
         human.Role = Human.RoleType.Mob;
 
         human.tag = "Mob";
+        human.MobControllerObj.Type = spawnMobType;
+
+        // アニメーション設定
+        Animator anim = human.ModelObj.GetComponent<Animator>();
+        anim.runtimeAnimatorController = human.MobControllerObj.AnimArray[ ( int )spawnMobType ];
 
         return human;
     }
