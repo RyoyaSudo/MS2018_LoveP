@@ -31,7 +31,7 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
     {
         // 以下、シリアルポートが通信可能か否かのコード
         serial = ArduinoSerial.Instance;
-
+        Debug.Log( "PortNum:" + portNum );
         bool success = serial.Open(portNum, ArduinoSerial.Baudrate.B_115200);
 
         if( !success )
@@ -54,6 +54,7 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
         {
             var text = www.text;
             portNum = text;
+            Debug.Log( "PortNumReadSuccess" );
         }
     }
 

@@ -59,7 +59,7 @@ public class Result : MonoBehaviour
         {
             if(fadeFlag == false)
             {
-                portObj.ClosePort();
+                //portObj.ClosePort();
                 fadeFlag = true;
                 // Spaceキーで次のシーン
                 // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する

@@ -7,9 +7,10 @@ public class ScoreManager : MonoBehaviour {
     public enum State
     {
         SCORE_STATE_STOP = 0,
-        SCORE_STATE_RUN
+        SCORE_STATE_RUN,
+        SCORE_STATE_SAVE,
     }
-    State state;
+    public State state { get; set; }
 
     [SerializeField]
     private ScoreCtrl scoreObj;
@@ -25,6 +26,12 @@ public class ScoreManager : MonoBehaviour {
                 }
             case State.SCORE_STATE_RUN:
                 {
+                }
+                break;
+
+            case State.SCORE_STATE_SAVE:
+                {
+                    scoreObj.SaveScore();
                 }
                 break;
         }
