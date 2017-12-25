@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7292d2e34f38f704a8ef474bf690c96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portNum: COM2
+  portNum: COM3
   sendStr: 1

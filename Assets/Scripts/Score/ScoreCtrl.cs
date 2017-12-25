@@ -265,13 +265,18 @@ public class ScoreCtrl : MonoBehaviour
         return result;
     }
 
+    public void SaveScore()
+    {
+        // 今回の総スコアを保存
+        PlayerPrefs.SetInt( scorKey , totalScore );
+    }
+
     /// <summary>
     /// 破棄時処理
     /// </summary>
     private void OnDestroy()
     {
-        // 今回の総スコアを保存
-        PlayerPrefs.SetInt( scorKey , totalScore );
+        
     }
 
     private void OnGUI()

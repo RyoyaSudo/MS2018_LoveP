@@ -210,6 +210,8 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PHASE_FINISH:
                 {
+                    scoreManagerObj.state = ScoreManager.State.SCORE_STATE_SAVE;
+
                     if (finishLogoObj.stateType == FinishLogo.STATETYPE.NONE )
                     {
                         inputObj.ClosePort();

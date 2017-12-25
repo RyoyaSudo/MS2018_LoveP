@@ -32,7 +32,7 @@ public class MoveObstacle : MonoBehaviour {
         {
             //ダンボール箱だけポジションX,Zだけフリーズさせる
             obstacleRb.constraints = RigidbodyConstraints.None;
-            obstacleRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            //obstacleRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         }
     }
 	
