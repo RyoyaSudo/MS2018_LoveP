@@ -6,8 +6,8 @@ public class ResultScore : MonoBehaviour {
 
     const int SCORE_MAX = 8;    //スコアの桁数
 
-    private int curScore = 0;       //総スコアを格納する用
-    private int totalScore = 0;       //総スコアを格納する用
+    public int curScore = 0;       //総スコアを格納する用
+    public int totalScore = 0;       //総スコアを格納する用
     private int[] scoreStack;     //スコアを格納する配列
     private GameObject[] ScoreArray;    //スコアの桁数
     private GameObject ptsLogo;
@@ -44,7 +44,7 @@ public class ResultScore : MonoBehaviour {
         }
 
         curScore = PlayerPrefs.GetInt( curScoreKey , 0 );
-        totalScore = PlayerPrefs.GetInt(curScoreKey, 0 );
+        totalScore = PlayerPrefs.GetInt( totalScoreKey , 0 );
     }
 
     // 初期化
@@ -86,7 +86,7 @@ public class ResultScore : MonoBehaviour {
     // 更新
     void Update()
     {
-        ScoreSet(0);
+        ScoreSet(curScore);
     }
 
     private void OnDestroy()
@@ -162,17 +162,17 @@ public class ResultScore : MonoBehaviour {
 
     private void OnGUI()
     {
-        GUIStyleState styleState;
-        styleState = new GUIStyleState();
-        styleState.textColor = Color.white;
-
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.fontSize = 48;
-        guiStyle.normal = styleState;
-
-        string str;
-        str = "現在スコア:" + curScore + "\n総スコア:" + totalScore;
-
-        GUI.Label(new Rect(0, 400, 800, 600), str, guiStyle);
+        //GUIStyleState styleState;
+        //styleState = new GUIStyleState();
+        //styleState.textColor = Color.white;
+        //
+        //GUIStyle guiStyle = new GUIStyle();
+        //guiStyle.fontSize = 48;
+        //guiStyle.normal = styleState;
+        //
+        //string str;
+        //str = "現在スコア:" + curScore + "\n総スコア:" + totalScore;
+        //
+        //GUI.Label(new Rect(0, 400, 800, 600), str, guiStyle);
     }
 }
