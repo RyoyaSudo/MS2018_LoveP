@@ -30,10 +30,12 @@ public class Result : MonoBehaviour
     // プレハブ系
     // Hierarchy上から設定する
     [SerializeField] GameObject inputPrefab;
+    [SerializeField] GameObject serialPortPrefab;
 
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
     LoveP_Input inputObj;
+    MS_LoveP_SerialPort portObj;
 
     private bool one;
     private bool fadeFlag;
@@ -57,6 +59,7 @@ public class Result : MonoBehaviour
         {
             if(fadeFlag == false)
             {
+                portObj.ClosePort();
                 fadeFlag = true;
                 // Spaceキーで次のシーン
                 // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
@@ -105,20 +108,21 @@ public class Result : MonoBehaviour
         // ラムダ式で生成処理を実装
         // 効率が良いのかは分からん
         Func<GameObject, GameObject> Create = (GameObject prefabs) =>
-     {
-         GameObject obj = GameObject.Find(prefabs.name);
+        {
+             GameObject obj = GameObject.Find(prefabs.name);
 
-         if (obj == null)
-         {
-             obj = Instantiate(prefabs);
-             obj.name = prefabs.name;
-         }
+             if (obj == null)
+             {
+                 obj = Instantiate(prefabs);
+                 obj.name = prefabs.name;
+             }
 
-         return obj;
-     };
+             return obj;
+         };
 
         // 各オブジェクトの生成
         inputObj = Create(inputPrefab).GetComponent<LoveP_Input>();
+        portObj = Create( serialPortPrefab ).GetComponent<MS_LoveP_SerialPort>();
     }
 
     public void SetStateType(State type)
@@ -128,6 +132,9 @@ public class Result : MonoBehaviour
         {
             case State.STATE_SCORE:
                 {
+                    // アルディーノ側に送る
+                    portObj.SerialSendMessage();
+
                     GroundObj.SetActive(false);
                     ScoreObj.SetActive(true);
                     cameraObj.transform.position = new Vector3(50, 0, 0);

@@ -45,48 +45,48 @@ public class Passenger : MonoBehaviour {
     void Update ()
     {
 
-        if (Input.GetKeyDown("1"))
-        {
-            //状態
-            switch (stateType)
-            {
-                //待機
-                case STATETYPE.READY:
-                    stateType = STATETYPE.RIDE;
-                    anim.SetBool("Ride" , true);
-                    break;
-
-                //回避
-                case STATETYPE.EVADE:
-                    break;
-
-                //乗車
-                case STATETYPE.RIDE:
-                    stateType = STATETYPE.TRANSPORT;
-                    anim.SetBool("Transport", true);
-                    break;
-
-                //下車
-                case STATETYPE.GETOFF:
-                    stateType = STATETYPE.RELEASE;
-                    anim.SetBool("Release", true);
-                    break;
-
-                //運搬
-                case STATETYPE.TRANSPORT:
-                    stateType = STATETYPE.GETOFF;
-                    anim.SetBool("Getoff", true);
-                    break;
-
-                //解散
-                case STATETYPE.RELEASE:
-                    break;
-
-                //消去
-                case STATETYPE.DESTROY:
-                    break;
-            }
-        }
+        //if (Input.GetKeyDown("1"))
+        //{
+        //    //状態
+        //    switch (stateType)
+        //    {
+        //        //待機
+        //        case STATETYPE.READY:
+        //            stateType = STATETYPE.RIDE;
+        //            anim.SetBool("Ride" , true);
+        //            break;
+        //
+        //        //回避
+        //        case STATETYPE.EVADE:
+        //            break;
+        //
+        //        //乗車
+        //        case STATETYPE.RIDE:
+        //            stateType = STATETYPE.TRANSPORT;
+        //            anim.SetBool("Transport", true);
+        //            break;
+        //
+        //        //下車
+        //        case STATETYPE.GETOFF:
+        //            stateType = STATETYPE.RELEASE;
+        //            anim.SetBool("Release", true);
+        //            break;
+        //
+        //        //運搬
+        //        case STATETYPE.TRANSPORT:
+        //            stateType = STATETYPE.GETOFF;
+        //            anim.SetBool("Getoff", true);
+        //            break;
+        //
+        //        //解散
+        //        case STATETYPE.RELEASE:
+        //            break;
+        //
+        //        //消去
+        //        case STATETYPE.DESTROY:
+        //            break;
+        //    }
+        //}
 
 
 

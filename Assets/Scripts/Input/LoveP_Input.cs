@@ -96,6 +96,16 @@ public class LoveP_Input : MonoBehaviour {
         objPush(m);
     }
 
+    public void ClosePort()
+    {
+        if( serial != null )
+        {
+            serial.Close();
+            serial.OnDataReceived -= SerialCallBack;
+            serial = null;
+        }
+    }
+
     // シリアル通信の終了処理
     private void OnDestroy()
     {
@@ -103,6 +113,7 @@ public class LoveP_Input : MonoBehaviour {
         {
             serial.Close();
             serial.OnDataReceived -= SerialCallBack;
+            serial = null;
         }
     }
 

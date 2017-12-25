@@ -76,7 +76,7 @@ public class MapIcon : MonoBehaviour {
 
         // 角度合わせる
         Vector3 euler = transform.rotation.eulerAngles;
-        euler.y = mapCamera.transform.rotation.eulerAngles.y + 180.0f;
+        euler.y = playerObj.transform.rotation.eulerAngles.y + 180.0f;
         transform.rotation = Quaternion.Euler( euler );
     }
 }

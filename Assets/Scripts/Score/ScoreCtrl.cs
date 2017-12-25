@@ -119,10 +119,10 @@ public class ScoreCtrl : MonoBehaviour
                     //Lpロゴのアニメーションフラグ
                     scoreFlag = false;
                     //スコア加算
-                    if(Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        ScoreSet(100);
-                    }
+                    //if(Input.GetKeyDown(KeyCode.UpArrow))
+                    //{
+                    //    ScoreSet(100);
+                    //}
                     break;
                 }
         }

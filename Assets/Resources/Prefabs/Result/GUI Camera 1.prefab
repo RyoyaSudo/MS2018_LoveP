@@ -168,14 +168,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4428503967241978}
-  - component: {fileID: 114557332230753956}
+  - component: {fileID: 114533738699006860}
   m_Layer: 1
   m_Name: TotalScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1388972517720062
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,6 +996,42 @@ MonoBehaviour:
   dangleGirlObj: {fileID: 114757755260045608}
   resultGirlObj: {fileID: 114729130414827892}
   resultBoyObj: {fileID: 114419975804816774}
+--- !u!114 &114533738699006860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1304990296973146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe3a5f8403f3144db61222d761c5dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScorePrefab: {fileID: 1234958156938190, guid: 83672fcd0aa834f26b413bc24b09a425,
+    type: 2}
+  ptsLogoPrefab: {fileID: 1347684776603354, guid: bc28f7dad671743b2a617f42cd184f04,
+    type: 2}
+  SpriteArray:
+  - {fileID: 21300000, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300002, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300004, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300006, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300008, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300010, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300012, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300014, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300016, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  - {fileID: 21300018, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  padding: 10
+  heightPadding: 75
+  ptsPadding: 4
+  numberSp: {fileID: 21300000, guid: 03de7b3a5d98c4098bbd2a6a7dfe8a73, type: 3}
+  curScoreKey: curScoreKey
+  totalScoreKey: totalScoreKey
+  debugFlag: 0
+  posX: 0
+  posY: -200
+  curScoreObj: {fileID: 0}
 --- !u!114 &114547981041940406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1041,40 +1077,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  transitionFlag: 0
   state: 0
---- !u!114 &114557332230753956
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1304990296973146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7dee192c2788a4194865aca9e274d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScorePrefab: {fileID: 1234958156938190, guid: 83672fcd0aa834f26b413bc24b09a425,
-    type: 2}
-  ptsLogoPrefab: {fileID: 1347684776603354, guid: bc28f7dad671743b2a617f42cd184f04,
-    type: 2}
-  SpriteArray:
-  - {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300002, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300004, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300006, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300008, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300010, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300012, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  padding: 10
-  heightPadding: 75
-  ptsPadding: 4
-  numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  curScoreKey: curScoreKey
-  totalScoreKey: totalScoreKey
-  debugFlag: 1
 --- !u!114 &114729130414827892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1120,28 +1124,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7dee192c2788a4194865aca9e274d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curScore: 0
+  totalScore: 0
   ScorePrefab: {fileID: 1234958156938190, guid: 83672fcd0aa834f26b413bc24b09a425,
     type: 2}
   ptsLogoPrefab: {fileID: 1347684776603354, guid: bc28f7dad671743b2a617f42cd184f04,
     type: 2}
   SpriteArray:
-  - {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300002, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300004, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300006, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300008, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300010, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300012, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300014, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300016, guid: 294394a7961d44c3398da844dd245308, type: 3}
-  - {fileID: 21300018, guid: 294394a7961d44c3398da844dd245308, type: 3}
+  - {fileID: 21300000, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300002, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300004, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300006, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300008, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300010, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300012, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300014, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300016, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
+  - {fileID: 21300018, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
   padding: 10
   heightPadding: 75
   ptsPadding: 4
-  numberSp: {fileID: 21300000, guid: 294394a7961d44c3398da844dd245308, type: 3}
+  numberSp: {fileID: 21300000, guid: f86de3e54e326b4469642db1b2c4fe38, type: 3}
   curScoreKey: curScoreKey
   totalScoreKey: totalScoreKey
-  debugFlag: 1
+  debugFlag: 0
+  posX: -600
+  posY: 200
 --- !u!114 &114938325990438148
 MonoBehaviour:
   m_ObjectHideFlags: 1

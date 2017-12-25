@@ -47,7 +47,7 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
     IEnumerator LoadCom()
     {
         // C ドライブのみ利用可能
-        var www = new WWW("file:C:/MS_LoveP/LoveP_Input.txt");
+        var www = new WWW("file:C:/MS_LoveP/LoveP_Serial.txt");
         yield return www;
 
         if( string.IsNullOrEmpty( www.error ) )
@@ -63,5 +63,10 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
     public void SerialSendMessage()
     {
         serial.Write( sendStr );
+    }
+
+    public void ClosePort()
+    {
+        serial.Close();
     }
 }

@@ -79,6 +79,16 @@ public class Title : MonoBehaviour {
             }
  
         }
+
+        if( Input.GetKeyDown( KeyCode.R ) )
+        {
+            transFlag = true;
+            // fadePanel.GetComponent<Fade>().SetFadeIn(fadeNum);  //遷移先を設定する
+            transition.SetActive( true );
+            transition.GetComponent<Transition>().StartHalfTransition( null );
+            nowloadingObj.SetActive( true );
+            nowloadingObj.GetComponent<Nowloading>().LoadingStart( "Result" );
+        }
         //______________
     }
 

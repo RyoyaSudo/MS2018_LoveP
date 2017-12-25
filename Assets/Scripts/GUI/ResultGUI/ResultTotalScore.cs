@@ -35,6 +35,8 @@ public class ResultTotalScore : MonoBehaviour {
     [SerializeField] float posX;
     [SerializeField] float posY;
 
+    [SerializeField] ResultScore curScoreObj;
+
     private void Awake()
     {
         if (debugFlag)
@@ -81,17 +83,20 @@ public class ResultTotalScore : MonoBehaviour {
         ptsLogo.transform.position = ptsPos;
         ptsLogo.transform.parent = gameObject.transform;
         this.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.0f);
+
+        // HACK:スコア加算
+        totalScore += curScoreObj.curScore;
     }
 
     // 更新
     void Update()
     {
-        ScoreSet(0);
+        ScoreSet(totalScore);
     }
 
     private void OnDestroy()
     {
-        //PlayerPrefs.SetInt(totalScoreKey, totalScore);
+        PlayerPrefs.SetInt(totalScoreKey, totalScore);
     }
 
     /************************************************************
@@ -162,17 +167,17 @@ public class ResultTotalScore : MonoBehaviour {
 
     private void OnGUI()
     {
-        GUIStyleState styleState;
-        styleState = new GUIStyleState();
-        styleState.textColor = Color.white;
-
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.fontSize = 48;
-        guiStyle.normal = styleState;
-
-        string str;
-        str = "現在スコア:" + curScore + "\n総スコア:" + totalScore;
-
-        GUI.Label(new Rect(0, 400, 800, 600), str, guiStyle);
+        //GUIStyleState styleState;
+        //styleState = new GUIStyleState();
+        //styleState.textColor = Color.white;
+        //
+        //GUIStyle guiStyle = new GUIStyle();
+        //guiStyle.fontSize = 48;
+        //guiStyle.normal = styleState;
+        //
+        //string str;
+        //str = "現在スコア:" + curScore + "\n総スコア:" + totalScore;
+        //
+        //GUI.Label(new Rect(0, 400, 800, 600), str, guiStyle);
     }
 }
