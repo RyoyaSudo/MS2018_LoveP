@@ -25,7 +25,7 @@ public class LoveP_Input : MonoBehaviour {
     private float device_V = 0.0f;
 
     // ボタン
-    private bool pushA = false;
+    private bool push = false;
 
     /// <summary>
     /// 垂直軸補正値
@@ -102,19 +102,17 @@ public class LoveP_Input : MonoBehaviour {
         {
             serial.Close();
             serial.OnDataReceived -= SerialCallBack;
-            serial = null;
         }
     }
 
     // シリアル通信の終了処理
     private void OnDestroy()
     {
-        if( serial != null )
-        {
-            serial.Close();
-            serial.OnDataReceived -= SerialCallBack;
-            serial = null;
-        }
+        //if( serial != null )
+        //{
+        //    serial.Close();
+        //    serial.OnDataReceived -= SerialCallBack;
+        //}
     }
 
     // 水平軸をシリアル通信から読み取る
@@ -178,15 +176,15 @@ public class LoveP_Input : MonoBehaviour {
             return;
         }
 
-        if (a[0] == "button")
+        if (a[0] == "b")
         {
             if (a[1].Trim() == "true")
             {
-                pushA = true;
+                push = true;
             }
             if (a[1].Trim() == "false")
             {
-                pushA = false;
+                push = false;
             }
         }
     }
@@ -303,7 +301,7 @@ public class LoveP_Input : MonoBehaviour {
         }
         else
         {
-            value = pushA;
+            value = push;
         }
 
         return value;
@@ -323,7 +321,7 @@ public class LoveP_Input : MonoBehaviour {
         }
         else
         {
-            // ここに独自デバイスのハンドル左ボタン取得処理を追加して！！
+            value = push;
         }
 
         return value;

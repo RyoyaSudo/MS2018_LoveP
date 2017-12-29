@@ -68,6 +68,9 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
 
     public void ClosePort()
     {
-        serial.Close();
+        if( serial != null )
+        {
+            serial.Close();
+        }
     }
 }
