@@ -92,6 +92,7 @@ public class ResultScore : MonoBehaviour {
     private void OnDestroy()
     {
         PlayerPrefs.SetInt( totalScoreKey , totalScore );
+        PlayerPrefs.Save();
     }
 
     /************************************************************

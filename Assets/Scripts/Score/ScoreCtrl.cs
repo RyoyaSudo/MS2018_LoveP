@@ -269,6 +269,7 @@ public class ScoreCtrl : MonoBehaviour
     {
         // 今回の総スコアを保存
         PlayerPrefs.SetInt( scorKey , totalScore );
+        PlayerPrefs.Save();
     }
 
     /// <summary>

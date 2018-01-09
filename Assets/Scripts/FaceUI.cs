@@ -10,11 +10,11 @@ public class FaceUI : MonoBehaviour {
     public bool IsColor { get{ return isColor; } set{ SetFaceUI(( value )); } }
     bool isColor;
 
-    SpriteRenderer renderer;
+    SpriteRenderer rendererSP;
 
     private void Awake()
     {
-        renderer = GetComponent<SpriteRenderer>();   
+        rendererSP = GetComponent<SpriteRenderer>();   
     }
 
     // Use this for initialization
@@ -35,6 +35,6 @@ public class FaceUI : MonoBehaviour {
         if (flags) setSp = colorSp;
         else setSp = shadeSp;
 
-        renderer.sprite = setSp;
+        rendererSP.sprite = setSp;
     }
 }
