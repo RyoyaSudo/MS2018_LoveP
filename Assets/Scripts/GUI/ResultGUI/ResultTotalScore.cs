@@ -8,6 +8,7 @@ public class ResultTotalScore : MonoBehaviour {
 
     private int curScore = 0;       //総スコアを格納する用
     private int totalScore = 0;       //総スコアを格納する用
+    private int outputScore = 0;       //現在表示しているスコア値
     private int[] scoreStack;     //スコアを格納する配列
     private GameObject[] ScoreArray;    //スコアの桁数
     private GameObject ptsLogo;
@@ -41,12 +42,12 @@ public class ResultTotalScore : MonoBehaviour {
     {
         if (debugFlag)
         {
-            int t = PlayerPrefs.GetInt(totalScoreKey, 0);
-            PlayerPrefs.SetInt(totalScoreKey, t + 10);
+            //int t = PlayerPrefs.GetInt(totalScoreKey, 0);
+            //PlayerPrefs.SetInt(totalScoreKey, t + 10);
         }
 
-        //curScore = PlayerPrefs.GetInt(curScoreKey, 0);
-        totalScore = PlayerPrefs.GetInt(totalScoreKey, 0);
+        curScore = PlayerPrefs.GetInt( ScoreManager.scoreSaveKey , 0 );
+        totalScore = PlayerPrefs.GetInt( ScoreManager.totalScoreKey , 0);
     }
 
     // 初期化
@@ -85,18 +86,20 @@ public class ResultTotalScore : MonoBehaviour {
         this.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.0f);
 
         // HACK:スコア加算
-        totalScore += curScoreObj.curScore;
+        totalScore += curScore;
+
+        ScoreSet( totalScore );
     }
 
     // 更新
     void Update()
     {
-        ScoreSet(totalScore);
+        
     }
 
     private void OnDestroy()
     {
-        PlayerPrefs.SetInt(totalScoreKey, totalScore);
+        PlayerPrefs.SetInt( ScoreManager.totalScoreKey , totalScore );
         PlayerPrefs.Save();
     }
 
@@ -109,28 +112,28 @@ public class ResultTotalScore : MonoBehaviour {
     public void ScoreSet(int score)
     {
         //トータルスコアに加算させる
-        totalScore += score;
+        outputScore += score;
 
         //スコアの溢れチェック
-        if (totalScore > 99999999)
+        if (outputScore > 99999999)
         {
-            totalScore = 99999999;
+            outputScore = 99999999;
         }
         //スコアゼロチェックの代わり
-        if (totalScore < 0)
+        if (outputScore < 0)
         {
-            totalScore = 0;
+            outputScore = 0;
         }
 
         //入ってきたスコアをチェック
-        scoreStack[0] = totalScore / 10000000 % 10; //10000000の位
-        scoreStack[1] = totalScore / 1000000 % 10;  //1000000の位
-        scoreStack[2] = totalScore / 100000 % 10;   //100000の位
-        scoreStack[3] = totalScore / 10000 % 10;    //10000の位
-        scoreStack[4] = totalScore / 1000 % 10;     //1000の位
-        scoreStack[5] = totalScore / 100 % 10;      //100の位
-        scoreStack[6] = totalScore / 10 % 10;       //10の位
-        scoreStack[7] = totalScore % 10;            //1の位 
+        scoreStack[0] = outputScore / 10000000 % 10; //10000000の位
+        scoreStack[1] = outputScore / 1000000 % 10;  //1000000の位
+        scoreStack[2] = outputScore / 100000 % 10;   //100000の位
+        scoreStack[3] = outputScore / 10000 % 10;    //10000の位
+        scoreStack[4] = outputScore / 1000 % 10;     //1000の位
+        scoreStack[5] = outputScore / 100 % 10;      //100の位
+        scoreStack[6] = outputScore / 10 % 10;       //10の位
+        scoreStack[7] = outputScore % 10;            //1の位 
 
         //各ScoreArrayにscoreStackに合ったスプライトに差し替える
         for (int nCnt = 0; nCnt < SCORE_MAX; nCnt++)
