@@ -87,7 +87,10 @@ public class LoveP_Input : MonoBehaviour {
             // OnDaraReceivedに関数を追加することで、ArduinoSerial.csから呼ばれるようになる
             serial.OnDataReceived += SerialCallBack;
         }
-	}
+
+        DontDestroyOnLoad( gameObject );
+
+    }
 
     void SerialCallBack(string m)
     {
@@ -105,14 +108,10 @@ public class LoveP_Input : MonoBehaviour {
         }
     }
 
-    // シリアル通信の終了処理
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
-        //if( serial != null )
-        //{
-        //    serial.Close();
-        //    serial.OnDataReceived -= SerialCallBack;
-        //}
+        ClosePort();
+        Destroy( gameObject );
     }
 
     // 水平軸をシリアル通信から読み取る
@@ -186,6 +185,8 @@ public class LoveP_Input : MonoBehaviour {
             {
                 push = false;
             }
+
+            Debug.Log( "OnFire1:" + push );
         }
     }
 

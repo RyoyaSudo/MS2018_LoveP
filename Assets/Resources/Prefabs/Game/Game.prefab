@@ -255,6 +255,6 @@ MonoBehaviour:
     type: 2}
   mobSpawnManagerPrefab: {fileID: 1778028771566208, guid: 21bf77bf2e121fc4783583049b3a8f16,
     type: 2}
-  phaseParam: 3
-  isDebug: 1
-  isOnGUIEnable: 1
+  phaseParam: 0
+  isDebug: 0
+  isOnGUIEnable: 0
