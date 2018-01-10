@@ -214,7 +214,7 @@ public class Game : MonoBehaviour {
 
                     if (finishLogoObj.stateType == FinishLogo.STATETYPE.NONE )
                     {
-                        //inputObj.ClosePort();
+                        scoreManagerObj.SaveScore();
                         SceneManager.LoadScene("Result");
                     }
 
@@ -223,11 +223,9 @@ public class Game : MonoBehaviour {
 
             case Phase.GAME_PAHSE_END:
                 {
-                    if (inputObj.GetButton("Fire1"))
-                    {
-                        //inputObj.ClosePort();
-                        SceneManager.LoadScene("Result");
-                    }
+                    //inputObj.ClosePort();
+                    scoreManagerObj.SaveScore();
+                    SceneManager.LoadScene("Result");
                 }
                 break;
         }
@@ -236,7 +234,9 @@ public class Game : MonoBehaviour {
         if( Input.GetKeyUp( KeyCode.O ) )
         {
             //inputObj.ClosePort();
-            transitionObj.GetComponent<Transition>().StartTransition("Result");
+            //transitionObj.GetComponent<Transition>().StartTransition("Result");
+
+            PhaseParam = Phase.GAME_PAHSE_END;
         }
 
         if( Input.GetKeyDown( KeyCode.L ) )

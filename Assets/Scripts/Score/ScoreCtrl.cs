@@ -54,8 +54,6 @@ public class ScoreCtrl : MonoBehaviour
 
     // デバッグフラグ(保存処理初期化などに利用)
     [SerializeField] bool debugFlag = false;
-    //スコアの保存キー
-    [SerializeField] string scorKey = "curScoreKey";
 
     public ScoreManager.State state;
 
@@ -98,9 +96,6 @@ public class ScoreCtrl : MonoBehaviour
         //ptsPos.z = 0.0f;
         //ptsLogo.transform.position = ptsPos;
         //ptsLogo.transform.parent = gameObject.transform;
-
-        //総スコアを保存
-        PlayerPrefs.SetInt(scorKey, totalScore);
 
         // オブジェクトを取得
         gameCtrl = GameObject.Find( gameCtrlObjPath ).GetComponent<Game>();
@@ -268,7 +263,7 @@ public class ScoreCtrl : MonoBehaviour
     public void SaveScore()
     {
         // 今回の総スコアを保存
-        PlayerPrefs.SetInt( scorKey , totalScore );
+        PlayerPrefs.SetInt( ScoreManager.scoreSaveKey , totalScore );
         PlayerPrefs.Save();
     }
 
