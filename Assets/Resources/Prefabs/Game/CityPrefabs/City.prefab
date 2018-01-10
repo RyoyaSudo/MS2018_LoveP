@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fe919b78cf89a44a155270a500d7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  billdingPrefab: {fileID: 1985771226892896, guid: 807c7f3052c532e4a807f736dcf95af6,
+  billdingPrefab: {fileID: 1957979981494078, guid: 807c7f3052c532e4a807f736dcf95af6,
     type: 2}
   obstaclePrefab: {fileID: 1321263963392876, guid: 6d256a420d18cf64cb3d2f408ef6fe2d,
     type: 2}

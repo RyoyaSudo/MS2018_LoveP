@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using AppKit;
+using AppKit2;
 
 public class MS_LoveP_SerialPort : MonoBehaviour {
 
     // シリアル通信用スクリプト
-    ArduinoSerial serial;
+    ArduinoSerial2 serial;
 
     // シリアル用ポート番号（USBポートによって変化、Inspectorでの記載例：COM4　）
     public string portNum;
@@ -30,14 +30,23 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
     private void Start()
     {
         // 以下、シリアルポートが通信可能か否かのコード
-        serial = ArduinoSerial.Instance;
+        serial = ArduinoSerial2.Instance;
         Debug.Log( "PortNum:" + portNum );
-        bool success = serial.Open(portNum, ArduinoSerial.Baudrate.B_115200);
+        bool success = serial.Open(portNum, ArduinoSerial2.Baudrate.B_115200);
 
         if( !success )
         {
             return;
         }
+
+        serial.OnDataReceived += SerialCallBack;
+
+        DontDestroyOnLoad( gameObject );
+    }
+
+    void SerialCallBack( string m )
+    {
+
     }
 
     /// <summary>
@@ -68,6 +77,16 @@ public class MS_LoveP_SerialPort : MonoBehaviour {
 
     public void ClosePort()
     {
-        serial.Close();
+        if( serial != null )
+        {
+            serial.Close();
+            serial.OnDataReceived -= SerialCallBack;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        ClosePort();
+        Destroy( gameObject );
     }
 }

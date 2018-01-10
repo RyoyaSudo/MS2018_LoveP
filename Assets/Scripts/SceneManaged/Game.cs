@@ -202,7 +202,7 @@ public class Game : MonoBehaviour {
                 {
                     if (timeObj.GetComponent<TimeCtrl>().GetTime() <= 0 && !isDebug )
                     {
-                        inputObj.ClosePort();
+                        //inputObj.ClosePort();
                         SceneManager.LoadScene("Result");
                     }
                     break;
@@ -214,7 +214,7 @@ public class Game : MonoBehaviour {
 
                     if (finishLogoObj.stateType == FinishLogo.STATETYPE.NONE )
                     {
-                        inputObj.ClosePort();
+                        //inputObj.ClosePort();
                         SceneManager.LoadScene("Result");
                     }
 
@@ -225,7 +225,7 @@ public class Game : MonoBehaviour {
                 {
                     if (inputObj.GetButton("Fire1"))
                     {
-                        inputObj.ClosePort();
+                        //inputObj.ClosePort();
                         SceneManager.LoadScene("Result");
                     }
                 }
@@ -233,9 +233,9 @@ public class Game : MonoBehaviour {
         }
 
         //デバッグ用
-        if( isDebug && Input.GetKeyUp( KeyCode.O ) )
+        if( Input.GetKeyUp( KeyCode.O ) )
         {
-            inputObj.ClosePort();
+            //inputObj.ClosePort();
             transitionObj.GetComponent<Transition>().StartTransition("Result");
         }
 
