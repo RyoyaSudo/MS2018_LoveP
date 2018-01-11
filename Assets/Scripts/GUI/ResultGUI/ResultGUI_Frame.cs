@@ -12,13 +12,15 @@ public class ResultGUI_Frame : TweenAnimation
     [SerializeField] TweenAnimation resultBoyObj;
 
     // 状態変数の列挙値
-    enum State
+    public enum State
     {
         Stop,
         Pause,
         MoveDown,
         MoveEnd
     }
+
+    public State StateValue { get; private set; }
 
     // iTween用のハッシュテーブル各種
     Hashtable moveDownHash;
@@ -31,6 +33,8 @@ public class ResultGUI_Frame : TweenAnimation
     /// </summary>
     private void Awake()
     {
+        StateValue = State.Pause;
+
         origin = transform;
 
         // 各ハッシュの初期化
@@ -89,6 +93,8 @@ public class ResultGUI_Frame : TweenAnimation
     /// <param name="param">設定したい状態</param>
     void SetState(State param)
     {
+        StateValue = param;
+
         switch (param)
         {
             case State.Stop:

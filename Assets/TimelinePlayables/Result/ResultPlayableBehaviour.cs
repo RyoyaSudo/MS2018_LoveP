@@ -29,7 +29,7 @@ public class ResultPlayableBehaviour : PlayableBehaviour
     // タイムライ開始実行
     public override void OnGraphStart(Playable playable)
     {
-
+        
     }
 
     // タイムライン停止実行
@@ -41,6 +41,7 @@ public class ResultPlayableBehaviour : PlayableBehaviour
     // PlayableTrack再生実行
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
+
     }
 
     // PlayableTrack停止時実行
@@ -51,6 +52,6 @@ public class ResultPlayableBehaviour : PlayableBehaviour
     // PlayableTrack再生時毎フレーム実行
     public override void PrepareFrame(Playable playable, FrameData info)
     {
-        
+
     }
 }
