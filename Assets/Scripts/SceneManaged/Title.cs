@@ -35,6 +35,8 @@ public class Title : MonoBehaviour {
     public GameObject nowloadingObj;
     private bool transFlag;
 
+    [SerializeField] bool isDemo = false;
+
     /// <summary>
     /// 生成時処理
     /// </summary>
@@ -72,7 +74,15 @@ public class Title : MonoBehaviour {
                 transition.SetActive(true);
                 transition.GetComponent<Transition>().StartHalfTransition(null);
                 nowloadingObj.SetActive(true);
-                nowloadingObj.GetComponent<Nowloading>().LoadingStart("Game");
+
+                if( isDemo )
+                {
+                    nowloadingObj.GetComponent<Nowloading>().LoadingStart( "Result" );
+                }
+                else
+                {
+                    nowloadingObj.GetComponent<Nowloading>().LoadingStart( "Game" );
+                }
 
                 //遷移するときのSE
                 titleSoundCtrl.PlayOneShot( titleSoundType , titleAudioS );
