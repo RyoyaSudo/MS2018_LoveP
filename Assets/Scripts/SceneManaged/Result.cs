@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using System;
 
 public class Result : MonoBehaviour
@@ -35,13 +36,24 @@ public class Result : MonoBehaviour
     // オブジェクト系
     // シーン中シーン管理上操作したい場合に保持しておく
     LoveP_Input inputObj;
-    MS_LoveP_SerialPort portObj;
+    public MS_LoveP_SerialPort portObj;
+    [SerializeField] ResultGUI_Frame frameObj;
 
     private bool one;
     private bool fadeFlag;
 
+    public bool isDemo;
+    public bool IsBlast { get; private set; }
+
+    bool isEnableSceneTransition;
+    float timer;
+
+    [SerializeField] PlayableDirector director;
+
     void Start()
     {
+        timer = 0.0f;
+        isEnableSceneTransition = false;
         one = false;
         ////サウンド用
         //titleSoundCtrl = GameObject.Find("SoundManager").GetComponent<SoundController>();
@@ -49,13 +61,26 @@ public class Result : MonoBehaviour
         //titleAudioS = gameObject.GetComponent<AudioSource>();
         InitCreateObjects();
         fadeFlag = false;
+
+        if( isDemo )
+        {
+            director.initialTime = 4.0;
+            IsBlast = false;
+        }
+        else
+        {
+            director.initialTime = 0.0;
+            IsBlast = true;
+        }
+
+        director.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
         //_____フェード関連_____________
-        if (inputObj.GetButton("Fire1") || Input.GetKeyDown(KeyCode.O))
+        if( (inputObj.GetButton("Fire1") || Input.GetKeyDown(KeyCode.O)) && isEnableSceneTransition == true && isDemo == false )
         {
             if(fadeFlag == false)
             {
@@ -70,6 +95,26 @@ public class Result : MonoBehaviour
                 //titleAudioS.PlayOneShot(titleSoundCtrl.AudioClipCreate(titleSoundType));
             }
             
+        }
+
+        if( isDemo && ( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.Space ) ) )
+        {
+            IsBlast = true;
+        }
+
+        if( IsBlast == false )
+        {
+            director.time = 4.0;
+        }
+
+        if( !isEnableSceneTransition && frameObj.StateValue == ResultGUI_Frame.State.MoveEnd )
+        {
+            timer += Time.deltaTime;
+
+            if( timer > 3.0f )
+            {
+                isEnableSceneTransition = true;
+            }
         }
 
         switch( state)
@@ -133,7 +178,7 @@ public class Result : MonoBehaviour
             case State.STATE_SCORE:
                 {
                     // アルディーノ側に送る
-                    portObj.SerialSendMessage();
+                    //portObj.SerialSendMessage();
 
                     GroundObj.SetActive(false);
                     ScoreObj.SetActive(true);

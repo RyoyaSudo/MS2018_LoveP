@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class ResultRocket : MonoBehaviour {
 
-    bool blastFlag;
+    public bool blastFlag;
     public float moveSpeed;
     public GameObject transition;
-    public GameObject resultObj;
+    public Result resultObj;
 
     //エフェクト関係
     private EffectController effect;
     private ParticleSystem changeEffectObj;
+
+    private void Awake()
+    {
+        blastFlag = false;
+    }
+
     // Use this for initialization
     void Start () {
         //エフェクト関係
@@ -27,16 +33,27 @@ public class ResultRocket : MonoBehaviour {
             transform.position = new Vector3(transform.position.x, transform.position.y + moveSpeed, transform.position.z);
             if( transform.position.y > 1000.0f)
             {
+                transition.GetComponent<Transition>().StartTransition( null );
+                resultObj.SetStateType( Result.State.STATE_SCORE );
                 this.gameObject.SetActive(false);
-                transition.GetComponent<Transition>().StartTransition(null);
-                resultObj.GetComponent<Result>().SetStateType(Result.State.STATE_SCORE);
             }
         }
 	}
 
     public void RocketBlast()
     {
+        if( resultObj.IsBlast == false )
+        {
+            return;
+        }
+
+        if( !blastFlag )
+        {
+            resultObj.portObj.SerialSendMessage();
+        }
+
         blastFlag = true;
+        
         //changeEffectObj.transform.localScale *= 100;
         //changeEffectObj.Play();
     }
