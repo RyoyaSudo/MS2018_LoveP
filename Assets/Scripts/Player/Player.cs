@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     PassengerController.GROUPTYPE passengerType;//乗客タイプ
 
+    int ignorePlaceIdx;
+
     /// <summary>
     /// 最後に乗車した乗客オブジェクト。
     /// 主にデバッグ処理に用いる
@@ -162,6 +164,8 @@ public class Player : MonoBehaviour
         Velocity = 0.0f;
         VelocityVec = Vector3.zero;
         velocityVecOld = Vector3.zero;
+
+        ignorePlaceIdx = 0;
 
         cityPhaseMoveObj = null;
         starPhaseMoveObj = null;
@@ -433,19 +437,19 @@ public class Player : MonoBehaviour
             case PlayerVehicle.Type.BIKE:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 4 , 4 , 4 );
                     break;
                 }
             case PlayerVehicle.Type.CAR:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 4 , 4 , 4 );
                     break;
                 }
             case PlayerVehicle.Type.BUS:
                 {
                     //乗物によって生成する人を設定
-                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 2 , 2 , 2 );
+                    citySpawnManagerObj.HumanCreateByVehicleType( type , ignoreSpanwPlace , 4 , 4 , 4 );
                     break;
                 }
             case PlayerVehicle.Type.AIRPLANE:
@@ -638,6 +642,10 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            HumanCreateGroup( ignorePlaceIdx );
+        }
     }
 
     /// <summary>
@@ -652,6 +660,8 @@ public class Player : MonoBehaviour
             StateParam = State.PLAYER_STATE_FREE;
             MoveEnable(true);
             changeFade = true;
+
+            HumanCreateGroup( ignorePlaceIdx );
         }
 
         //// HACK: 車両変化時の演出に関する部分
@@ -920,7 +930,7 @@ public class Player : MonoBehaviour
         // HACK: 次の乗客を生成。
         //       後にゲーム管理側で行うように変更をかける可能性。現状はここで。
         //乗物によって生成する人を設定
-        HumanCreateGroup( human.PassengerControllerObj.spawnPlace );
+        ignorePlaceIdx = human.PassengerControllerObj.spawnPlace;
 
         //何人乗せるかUIの表示を終了
         passengerTogetherUIObj.GetComponent<PassengerTogetherUI>().PassengerTogetherUIEnd();
