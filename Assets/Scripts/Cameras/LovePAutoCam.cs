@@ -61,6 +61,9 @@ public class LovePAutoCam : AutoCam
         postProcessing = cameraObj.GetComponent<PostProcessingBehaviour>();
         originProfile = postProcessing.profile;
         blurBlendingOrigin = postProcessing.profile.motionBlur.settings.frameBlending;
+
+        MotionBlurModel.Settings motionBlurSettings = postProcessing.profile.motionBlur.settings;
+        postProcessing.profile.motionBlur.enabled = true;
     }
 
     /// <summary>
@@ -109,6 +112,6 @@ public class LovePAutoCam : AutoCam
 
         postProcessing.profile.motionBlur.settings = motionBlurSettings;
 
-        postProcessing.profile.motionBlur.enabled = isBoost;
+        //postProcessing.profile.motionBlur.enabled = isBoost;
     }
 }
