@@ -2265,7 +2265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a613b347b1554dea80e199aad2954c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalTime: 180
+  TotalTime: 240
   TimeArray:
   - {fileID: 1695308919644484}
   - {fileID: 1564556608201726}
@@ -2462,7 +2462,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2d801c890c72b47c2a583db0c21d94a5, type: 2}
   - {fileID: 2100000, guid: 2b86bb833ee9747d2a9af1c4b013afb7, type: 2}
   - {fileID: 2100000, guid: 30377805577e1477ebdb7e12371534dc, type: 2}
-  totalTime: 180
+  totalTime: 240
   timeRateYellow: 0.6
   timeRateRed: 0.1
   state: 1

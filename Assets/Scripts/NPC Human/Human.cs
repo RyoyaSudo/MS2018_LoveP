@@ -301,8 +301,8 @@ public class Human : MonoBehaviour {
                 MapIconObj.SetActive( true );
                 cursorObj.SetActive( true );
 
-                //MobControllerObj.IsEnable = false;
-                //MobControllerObj.enabled = false;
+                MobControllerObj.IsEnable = false;
+                MobControllerObj.enabled = false;
 
                 gameObject.transform.parent = passengerParent.transform;
 

@@ -97,7 +97,7 @@ public class Result : MonoBehaviour
             
         }
 
-        if( isDemo && ( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.Space ) ) )
+        if( isDemo && ( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.Space ) || Input.GetButtonDown( "Fire1" ) ) )
         {
             IsBlast = true;
         }

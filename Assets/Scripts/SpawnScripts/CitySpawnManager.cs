@@ -288,22 +288,22 @@ public class CitySpawnManager : MonoBehaviour {
             //車のとき
             case PlayerVehicle.Type.CAR:
                 //ペア生成
-                for (int nCnt = 0; nCnt < pearNum; nCnt++)
-                {
-                    while (true)
-                    {
-                        pos = Random.Range(0, SpawnNum);
-
-                        if (posList.IndexOf(pos) == -1)
-                        {
-                            posList.Add(pos);
-                            break;
-                        }
-                    }
-
-                    // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
-                }
+                //for (int nCnt = 0; nCnt < pearNum; nCnt++)
+                //{
+                //    while (true)
+                //    {
+                //        pos = Random.Range(0, SpawnNum);
+                //
+                //        if (posList.IndexOf(pos) == -1)
+                //        {
+                //            posList.Add(pos);
+                //            break;
+                //        }
+                //    }
+                //
+                //    // 人生成
+                //    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST);
+                //}
                 //小グループ生成
                 for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
                 {
@@ -326,39 +326,39 @@ public class CitySpawnManager : MonoBehaviour {
             //バスのとき
             case PlayerVehicle.Type.BUS:
                 //ペア生成
-                for (int nCnt = 0; nCnt < pearNum; nCnt++)
-                {
-                    while (true)
-                    {
-                        pos = Random.Range(0, SpawnNum);
-
-                        if (posList.IndexOf(pos) == -1)
-                        {
-                            posList.Add(pos);
-                            break;
-                        }
-                    }
-
-                    // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST );
-                }
-                //小グループ生成
-                for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
-                {
-                    while (true)
-                    {
-                        pos = Random.Range(0, SpawnNum);
-
-                        if (posList.IndexOf(pos) == -1)
-                        {
-                            posList.Add(pos);
-                            break;
-                        }
-                    }
-
-                    // 人生成
-                    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST, ( int )Human.ModelType.Family_Child );
-                }
+                //for (int nCnt = 0; nCnt < pearNum; nCnt++)
+                //{
+                //    while (true)
+                //    {
+                //        pos = Random.Range(0, SpawnNum);
+                //
+                //        if (posList.IndexOf(pos) == -1)
+                //        {
+                //            posList.Add(pos);
+                //            break;
+                //        }
+                //    }
+                //
+                //    // 人生成
+                //    HumanCreate(pos, PassengerController.GROUPTYPE.Lovers, SpawnPoint.PASSENGER_ORDER.FIRST );
+                //}
+                ////小グループ生成
+                //for (int nCnt = 0; nCnt < smallGroupNum; nCnt++)
+                //{
+                //    while (true)
+                //    {
+                //        pos = Random.Range(0, SpawnNum);
+                //
+                //        if (posList.IndexOf(pos) == -1)
+                //        {
+                //            posList.Add(pos);
+                //            break;
+                //        }
+                //    }
+                //
+                //    // 人生成
+                //    HumanCreate(pos, PassengerController.GROUPTYPE.Family, SpawnPoint.PASSENGER_ORDER.FIRST, ( int )Human.ModelType.Family_Child );
+                //}
                 //大グループ生成
                 for (int nCnt = 0; nCnt < BigGroubNum; nCnt++)
                 {
