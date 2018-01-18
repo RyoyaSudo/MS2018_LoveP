@@ -65,7 +65,7 @@ public class Title : MonoBehaviour {
     void Update()
     {
         //_____フェード関連_____________
-        if( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.O ) || Input.GetButton( "Fire1" ) )
+        if( inputObj.GetButton( "Fire1" ) || Input.GetKeyDown( KeyCode.O ) || Input.GetButton( "Fire1" ) || Input.GetKey( KeyCode.Space ) )
         {
             if( transFlag == false)
             {

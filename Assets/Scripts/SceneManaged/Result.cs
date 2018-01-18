@@ -80,7 +80,7 @@ public class Result : MonoBehaviour
     void Update()
     {
         //_____フェード関連_____________
-        if( (inputObj.GetButton("Fire1") || Input.GetKeyDown(KeyCode.O)) && isEnableSceneTransition == true && isDemo == false )
+        if( (inputObj.GetButton("Fire1") || Input.GetKeyDown(KeyCode.O ) || Input.GetKey( KeyCode.Space ) ) && isEnableSceneTransition == true && isDemo == false )
         {
             if(fadeFlag == false)
             {
